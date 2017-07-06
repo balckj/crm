@@ -1,0 +1,18 @@
+<binding value-style="attribute" direction="input">
+    <mapping name="error-resource" class="com.yidatec.exception.ErrorResource" >
+    	 <structure field="errorMapping"  type="java.util.HashMap" unmarshaller="com.yidatec.exception.ErrorInfoHashMapper"/>
+    </mapping>
+    
+    <mapping name="error-info" class="com.yidatec.exception.ErrorInfo">
+    	<value name="id" field="id" usage="required" />
+    	<value name="name" field="name" usage="optional" />
+    	<structure field="msgMapping"  type="java.util.HashMap" unmarshaller="com.yidatec.exception.ErrorMsgHashMapper"/>
+    	
+    </mapping>
+    
+    <mapping name="msg" class="com.yidatec.exception.ErrorMsg">
+    	<value name="lang" field="lang" usage="required" />
+    	<value style="text" field="message" usage="required" />
+    </mapping>
+
+</binding>

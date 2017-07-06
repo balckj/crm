@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Every Error has error id and error name,
+	Error name is easy for user know the meaning of error,
+	Error id prevent user to make mistake.
+	We use id as a link with Exception class  -->
+<error-resource>
+  <error-info id="0" name="err">
+    <msg lang="en_US">%0%</msg>
+    <msg lang="zh_CN">%0%</msg>
+  </error-info>
+  <error-info id="1000000" name="err">
+    <msg lang="en_US">SYSTEM ERROR.</msg>
+    <msg lang="zh_CN">系统错误。</msg>
+  </error-info>
+  <error-info id="1000001" name="err">
+    <msg lang="en_US">错误的手机号。</msg>
+    <msg lang="zh_CN">错误的手机号。</msg>
+  </error-info>
+  
+  <error-info id="1000002" name="err">
+    <msg lang="en_US">密码错误。</msg>
+    <msg lang="zh_CN">密码错误。</msg>
+  </error-info>
+  
+  <error-info id="1000003" name="err">
+    <msg lang="en_US">Invalidate validate code.</msg>
+    <msg lang="zh_CN">校验码错误。</msg>
+  </error-info>
+  
+  <error-info id="1000004" name="err">
+    <msg lang="en_US">Reach max login times, account is locked</msg>
+    <msg lang="zh_CN">达到最大登录次数，账号已锁定。</msg>
+  </error-info>
+  
+  <error-info id="1000005" name="err">
+    <msg lang="en_US">Account is locked, please contact admin</msg>
+    <msg lang="zh_CN">账号已被锁定，请联系系统管理员。</msg>
+  </error-info>
+  
+   <error-info id="1000006" name="err">
+    <msg lang="en_US">Account is disabled, please contact admin</msg>
+    <msg lang="zh_CN">账号已被禁用，请联系系统管理员。</msg>
+  </error-info>
+  
+  <error-info id="1000007" name="err">
+    <msg lang="en_US">Access denied.</msg>
+    <msg lang="zh_CN">没有权限进行该操作。</msg>
+  </error-info>
+
+  <error-info id="1000008" name="err">
+      <msg lang="en_US">Session Expired, Please contact System administrator.</msg>
+      <msg lang="zh_CN">会话过期，请重新登录。</msg>
+  </error-info>
+  <error-info id="1000010" name="err">
+      <msg lang="en_US">Error, Please contact System administrator.</msg>
+      <msg lang="zh_CN">获取密码时发生错误，请联系系统管理员。</msg>
+  </error-info>
+
+  <error-info id="1000011" name="err">
+      <msg lang="en_US">建立会话发生错误，请重试登录。</msg>
+      <msg lang="zh_CN">建立会话发生错误，请重试登录。</msg>
+  </error-info>
+
+ <!-- 业务异常以500开始 共7位-->
+
+  <error-info id="5000022" name="err">
+    <msg lang="en_US">生成文件出错。</msg>
+    <msg lang="zh_CN">生成文件出错。</msg>
+  </error-info>
+  <error-info id="5000023" name="err">
+    <msg lang="en_US">下载文件出错。</msg>
+    <msg lang="zh_CN">下载文件出错。</msg>
+  </error-info>
+
+
+</error-resource>

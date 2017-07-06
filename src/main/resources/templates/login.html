@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>鼎世CRM</title>
+    <link th:href="@{99/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{99/font-awesome/css/font-awesome.css}" rel="stylesheet"/>
+    <link th:href="@{99/css/animate.css}" rel="stylesheet"/>
+    <link th:href="@{99/css/style.css}" rel="stylesheet"/>
+    <link th:href="@{99/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
+</head>
+<script type="text/javascript">
+    var saveBtnda;
+    function login(btn) {
+
+        $("#form").validate({
+            messages: {
+                username: {
+                    required: "请输入手机号码",
+                },
+                password: {
+                    required: "请输入密码",
+                }
+            },
+            submitHandler:function(form){
+
+                saveBtnda = Ladda.create( btn );
+                var p = {
+                    username:$("#username").val(),
+                    password:$("#password").val()
+                };
+//                var a = JSON.stringify(p);
+                $.ajax({
+                    url: 'login',
+                    async: false,
+                    type: 'POST',
+                    data: p,
+//                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    timeout: 300000,
+                    beforeSend: function () {
+                        saveBtnda.start();
+                    },
+                    error: function (result) {
+                        saveBtnda.stop();
+                        alert("通信错误！");
+                    },
+                    success: function (data) {
+
+                        if (data.res == 0) {
+                            saveBtnda.stop();
+                            $("#msg").html(data.txt);
+                        } else {
+                            saveBtnda.stop();
+                            window.location.href="/index";
+                        }
+                    }
+                });
+            }
+        })
+
+    }
+
+</script>
+<body class="gray-bg">
+
+<div class="middle-box text-center loginscreen animated fadeInDown mycenter" style="padding-top: 120px;">
+    <div>
+        <div>
+
+            <h1 class="logo-name" style="font-size:100px">CRM</h1>
+
+        </div>
+        <h3>鼎世CRM</h3>
+
+        <form id="form" class="m-t" role="form" action="index" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" id="username" name="username" placeholder="手机号码" required="true"/>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" name="password" placeholder="密码" required="true"/>
+            </div>
+            <!--<button type="submit"  class="btn btn-primary block full-width m-b" onclick="login()">登&nbsp;&nbsp;录</button>-->
+            <button class="btn ladda-button btn-w-m btn-primary block full-width m-b" data-style="zoom-in" onclick="login(this)">
+                <span class="ladda-label">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</span>
+            </button>
+            <label id="msg" class="col-sm-4 control-label full-width" style="text-align: center;color: #FE2631" ></label>
+            <!--<a href="#"><small>Forgot password?</small></a>-->
+            <!--<p class="text-muted text-center"><small>Do not have an account?</small></p>-->
+            <!--<a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a>-->
+        </form>
+    </div>
+</div>
+<p class="m-t" style="width: 100%;height: 20px;position: fixed;bottom: 20px; text-align:center;"> <small>沪ICP备XXXXX号-X</small> </p>
+
+<!-- Mainly scripts -->
+<script th:src="@{99/js/jquery-3.1.1.min.js}"></script>
+<script th:src="@{99/js/bootstrap.min.js}"></script>
+<script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
+<script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
+<script th:src="@{99/js/plugins/validate/jquery.validate.min.js}"></script>
+
+</body>
+
+</html>

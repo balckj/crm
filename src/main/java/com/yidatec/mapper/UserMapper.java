@@ -25,7 +25,7 @@ public interface UserMapper {
     @Results({
             @Result(id=true,column="id",property="id"),
             @Result(property = "roleList", column = "id",
-            many = @Many(select = "com.qsw.mapper.RoleMapper.findByUserId"))})
+            many = @Many(select = "com.yidatec.mapper.RoleMapper.findByUserId"))})
     User findById(String id);
 
     @Select("SELECT * FROM T_USER WHERE id=#{id}")
@@ -36,14 +36,14 @@ public interface UserMapper {
     @Results({
             @Result(id=true,column="id",property="id"),
             @Result(property = "roleList", column = "id",
-            many = @Many(select = "com.qsw.mapper.RoleMapper.findByUserId"))})
+            many = @Many(select = "com.yidatec.mapper.RoleMapper.findByUserId"))})
     User findByMobilePhone(String mobilePhone);
 
     @Select("SELECT * FROM T_USER WHERE openId=#{openId}")
     @Results({
             @Result(id=true,column="id",property="id"),
             @Result(property = "roleList", column = "id",
-            many = @Many(select = "com.qsw.mapper.RoleMapper.findByUserId"))})
+            many = @Many(select = "com.yidatec.mapper.RoleMapper.findByUserId"))})
     User findByOpenId(String openId);
 
     @Insert("INSERT INTO T_USER (id,code,`name`,mobilePhone,openId,avatar,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{code},#{name}," +

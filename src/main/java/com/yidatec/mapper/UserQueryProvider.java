@@ -10,7 +10,7 @@ public class UserQueryProvider {
     public String selectUser(final UserVO user)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT GROUP_CONCAT(DISTINCT(UR.roleId)) `roleIds`, id,`name`,mobilePhone,avatar,email,openId,password,gender,birthday," +
+        sb.append("SELECT GROUP_CONCAT(DISTINCT(UR.roleId)) `roleIds`, id,`name`,mobilePhone,avatar,email,openId,password,gender," +
                 "state,createTime,creatorId,modifyTime,modifierId FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId  WHERE 1=1");
         if(user.getRoleList() != null && user.getRoleList().size() > 0){
             for(int i=0;i<user.getRoleList().size();i++) {
@@ -46,7 +46,7 @@ public class UserQueryProvider {
     public String countUser(final UserVO user)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT count(DISTINCT(U.id)) FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId LEFT JOIN WHERE 1=1");
+        sb.append("SELECT count(DISTINCT(U.id)) FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId WHERE 1=1");
         if(user.getRoleList() != null && user.getRoleList().size() > 0){
             for(int i=0;i<user.getRoleList().size();i++) {
                 if(i == 0)

@@ -132,14 +132,7 @@
 
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="birthdayForm"><label class="col-sm-2 control-label">出生日期</label>
-                                <div class="col-sm-4">
-                                    <!--<div class="col-sm-4 input-group date">-->
-                                    <!--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
-                                    <input id="birthday" name="birthday" type="text" class="form-control"
-                                           readonly="readonly"  th:value="${user}? ${user.birthday}"/>
-                                </div>
-                            </div>
+
 
 
                             <div class="hr-line-dashed"/>
@@ -275,7 +268,7 @@
                 gender: $("input[name='gender']:checked").val(),
                 email: $("#email").val().trim(),
 
-                birthday: $("#birthday").val().trim(),
+
 
             };
             var a = JSON.stringify(p);

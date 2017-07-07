@@ -44,7 +44,7 @@ public class AccessTokenService {
     }
 
     public synchronized void execute() {
-        for (int i = 0; i < 2; i++) {
+        /*for (int i = 0; i < 2; i++) {
             try {
                 String json = HttpClientHelper
                         .getTrustHttps(URL_TOKEN + "&appid=" + getWechatAppId() + "&secret="
@@ -72,7 +72,7 @@ public class AccessTokenService {
                 repeatInterval = 0;
                 logger.error(ex.getMessage(),ex);
             }
-        }
+        }*/
 
     }
 

@@ -2,9 +2,6 @@ package com.yidatec.vo;
 
 import com.yidatec.model.User;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author QuShengWen
  */
@@ -13,8 +10,8 @@ public class UserVO extends User {
     private Integer length;
     private Integer start;
 
-
-
+    private String roleIds;
+    private String roleNames;
 
     public Integer getDraw() {
         return draw;
@@ -40,5 +37,19 @@ public class UserVO extends User {
         this.start = start;
     }
 
+    public String getRoleIds() {
+        return roleIds;
+    }
 
+    public void setRoleIds(String roleIds) {
+        this.roleIds = roleIds;
+    }
+
+    public String getRoleNames() {
+        return roleNames;
+    }
+
+    public void setRoleNames(String roleNames) {
+        this.roleNames = roleNames;
+    }
 }

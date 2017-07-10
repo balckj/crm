@@ -20,7 +20,7 @@ import java.util.Map;
  * Created by Administrator on 2017/7/10.
  */
 @Controller
-public class salesContrlloer extends BaseController{
+public class SalesController extends BaseController{
     @RequestMapping("/salesIndex")
     public String salesIndex(){
         return "salesList";

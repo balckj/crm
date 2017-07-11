@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by neo on 2017/7/11.
  */
 @Controller
-public class AvailableSuppliersController extends BaseController{
+public class AvailableSuppliersListController extends BaseController{
     @RequestMapping("/availableSuppliersIndex")
     public String availableSuppliersIndex(){
         return "AvailableSuppliersList";

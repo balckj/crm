@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div  th:fragment="projectManager">
+    <!--<link th:href="@{inspinia_admin/css/plugins/cropper/cropper.min.css}" rel="stylesheet"/>-->
+    <!--<link th:href="@{inspinia_admin/css/plugins/select2/select2.min.css}" rel="stylesheet"/>-->
+    <!--<link th:href="@{inspinia_admin/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet"/>-->
+    <link th:href="@{inspinia_admin/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
+    <script th:src="@{jquery.koala.js}" type="text/javascript"></script>
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>项目经理</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="index.html">首页</a>
+                </li>
+                <li>
+                    <a>系统设置</a>
+                </li>
+                <li class="active">
+                    <strong>项目经理</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form method="POST" class="form-horizontal">
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">推荐人<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="recommender">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="mobilePhoneForm">
+                                <label class="col-sm-2 control-label">项目经理中文名<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="pmCName" name="pmCName" type="text"
+                                                             class="form-control" maxlength="30" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="passwordForm">
+                                <label class="col-sm-2 control-label">项目经理英文名</label>
+                                <div class="col-sm-4"><input id="pmEName" name="pmEName" type="text"
+                                                             class="form-control" maxlength="30" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">项目经理电话<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="pmPhone" name="pmPhone" type="text"
+                                                             class="form-control" maxlength="30" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">项目经理微信</label>
+                                <div class="col-sm-4"><input id="pmWX" name="pmWX" type="text"
+                                                             class="form-control" maxlength="30" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">项目经理QQ邮箱<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="pmPQQMail" name="pmPQQMail" type="text"
+                                                             class="form-control" maxlength="50" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">项目经理ID<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="pmId" name="pmId" type="text"
+                                                             class="form-control" maxlength="30" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">英文水平<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="englishLevel">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">国家<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="country">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">省<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="province">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">城市<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="city">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">区域<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="region">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">住址<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="address" name="address" type="text"
+                                                             class="form-control" maxlength="200" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">出生日期</label>
+                                <div class="col-sm-4"><input id="birthday" name="birthday" type="text"
+                                                             class="form-control" maxlength="200" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">最近上家公司<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="lastCompany" name="lastCompany" type="text"
+                                                             class="form-control" maxlength="200" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">从业年限<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="yearsOfWorking " name="yearsOfWorking" type="text"
+                                                             class="form-control" maxlength="10" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"><label class="col-sm-2 control-label">擅长行业<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <div class="checkbox checkbox-inline checkbox-info">
+                                        <input type="checkbox" name="state" id="s1" value="1" />
+                                        <label for="s1">
+                                            可用
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline checkbox-info">
+                                        <input type="checkbox" name="state" id="s2" value="2" />
+                                        <label for="s2">
+                                            锁定
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline checkbox-info">
+                                        <input type="checkbox" name="state" id="s3" value="3" />
+                                        <label for="s3">
+                                            禁用
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">擅长面积<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="goodArea">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">案例个数</label>
+                                <label class="col-sm-4 control-label" style="text-align: left">10</label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">状态<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="state">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"/>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button id="saveBtn" class="btn ladda-button btn-w-m btn-primary" data-style="zoom-in" type="button" onclick="saveUser(this);">
+                                        <span class="ladda-label">保&nbsp;&nbsp;存</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Image cropper -->
+    <!--<script th:src="@{inspinia_admin/js/plugins/cropper/cropper.min.js}"></script>-->
+    <!-- Data picker -->
+    <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+    <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
+    <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
+
+    <!-- Select2 -->
+    <!--<script th:src="@{inspinia_admin/js/plugins/select2/select2.full.min.js}"></script>-->
+
+    <!-- Chosen -->
+    <!--<script th:src="@{inspinia_admin/js/plugins/chosen/chosen.jquery.js}"></script>-->
+    <script th:src="@{me.js}" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        /*<![CDATA[*/
+        $('#birthday').datepicker({
+            startView: 1,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: "yyyy-mm-dd",
+            language: 'cn',
+        });
+        /*]]>*/
+    </script>
+</div>
+</html>

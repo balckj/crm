@@ -112,7 +112,7 @@
             usertable = $('#usertable').DataTable({
                 "sScrollX": true,
                 "ajax": {
-                    "url": "findUser",
+                    "url": "findActivity",
                     "dataType": 'json',
                     "type": "POST",
                     contentType: 'application/json; charset=utf-8',
@@ -268,9 +268,9 @@
         var saveBtnda;
         $(document).ready(function () {
             // 提示栏初始化
-//            usertableLoad();
+            usertableLoad();
 
-            var v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"userEdit\");'>新&nbsp;&nbsp;建</button>"
+            var v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"activityEdit\");'>新&nbsp;&nbsp;建</button>"
             $("#usertable_wrapper div").children().eq(0).append(v);
 
         });

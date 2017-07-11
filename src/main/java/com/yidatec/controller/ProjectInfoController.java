@@ -15,31 +15,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by Administrator on 2017/7/10.
  */
 @Controller
-public class ProjectManagerController extends BaseController{
+public class ProjectInfoController extends BaseController{
 
-
-    @RequestMapping("/projectManagerList")
-    public String projectManagerList(ModelMap model){
-        return "projectManagerList";
-    }
-    
-    @RequestMapping("/projectManagerEdit")
-    public String projectManagerEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
-        return "projectManagerEdit";
+    @RequestMapping("/projectInfoEdit")
+    public String projectInfoEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
+        return "projectInfoEdit";
     }
 
+    @RequestMapping("/projectInfoList")
+    public String projectInfoList(ModelMap model){
+        return "projectInfoList";
+    }
 
-
-    @RequestMapping("/saveProjectManager")
+    @RequestMapping("/saveProjectInfo")
     @ResponseBody
-    public Object saveProjectManager(@Validated @RequestBody User userParam,
-                                  BindingResult result)throws Exception{
+    public Object saveProjectInfo(@Validated @RequestBody User userParam,
+                           BindingResult result)throws Exception{
         return getSuccessJson(null);
     }
 
-    @RequestMapping(value = "/findProjectManager")
+    @RequestMapping(value = "/findProjectInfo")
     @ResponseBody
-    public Object findProjectManager(@RequestBody UserVO user)throws Exception{
+    public Object findProjectInfo(@RequestBody UserVO user)throws Exception{
         return null;
     }
 }

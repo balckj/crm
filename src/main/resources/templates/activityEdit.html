@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div  th:fragment="activityEdit">
+    <!--<link th:href="@{inspinia_admin/css/plugins/cropper/cropper.min.css}" rel="stylesheet"/>-->
+    <!--<link th:href="@{inspinia_admin/css/plugins/select2/select2.min.css}" rel="stylesheet"/>-->
+    <!--<link th:href="@{inspinia_admin/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet"/>-->
+    <link th:href="@{inspinia_admin/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
+    <script th:src="@{jquery.koala.js}" type="text/javascript"></script>
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2 th:text="${title}"></h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="index.html">首页</a>
+                </li>
+                <li>
+                    <a>供应商管理</a>
+                </li>
+                <li class="active">
+                    <strong>工厂管理</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form method="POST" class="form-horizontal">
+                            <input type="hidden" name="id" id="id" th:value="${user}?${user.id}"/>
+                            <!--<div class="form-group" id="nickForm"><label class="col-sm-2 control-label">昵称</label>
+                                <div class="col-sm-4"><input id="nick" name="nick" type="text" class="form-control"
+                                                             maxlength="20" th:value="${user}? ${user.nick}"/></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>-->
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="companyNameForm"><label class="col-sm-2 control-label">工厂企业名称<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="companyName" name="companyName" type="text"
+                                                             class="form-control" maxlength="200" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="activityNameForm"><label class="col-sm-2 control-label">活动名称<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="activityName" name="activityName" type="text"
+                                                             class="form-control" maxlength="200" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">开始日期<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="startDate" name="startDate" type="text"
+                                                             class="form-control" maxlength="200" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">结束日期<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="endDate" name="endDate" type="text"
+                                                             class="form-control" maxlength="200" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">国家<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="country">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">省<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="province">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">城市<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="city">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">区域<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="region">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">地址</label>
+                                <div class="col-sm-4"><input id="address" name="address" type="text"
+                                                             class="form-control" maxlength="15" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">状态<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="status">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"/>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button id="saveBtn" class="btn ladda-button btn-w-m btn-primary" data-style="zoom-in" type="button" onclick="saveUser(this);">
+                                        <span class="ladda-label">保&nbsp;&nbsp;存</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Image cropper -->
+    <!--<script th:src="@{inspinia_admin/js/plugins/cropper/cropper.min.js}"></script>-->
+    <!-- Data picker -->
+    <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+    <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
+    <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
+
+    <!-- Select2 -->
+    <!--<script th:src="@{inspinia_admin/js/plugins/select2/select2.full.min.js}"></script>-->
+
+    <!-- Chosen -->
+    <!--<script th:src="@{inspinia_admin/js/plugins/chosen/chosen.jquery.js}"></script>-->
+    <script th:src="@{me.js}" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        /*<![CDATA[*/
+        $("#setting").addClass("active");
+        $("#userEdit").addClass("active");
+
+        $('#startDate').datepicker({
+            startView: 1,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: "yyyy-mm-dd",
+            language: 'cn',
+        });
+
+        $('#endDate').datepicker({
+            startView: 1,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: "yyyy-mm-dd",
+            language: 'cn',
+        });
+
+
+        validate('name', 'name', 'validateUserName');
+        validate2('mobilePhone', 'mobile', {isEdit: false}, 'validateMobile');
+        validate('password', 'password', 'validatePassword');
+        //        validate('totalLessons', 'integer', 'validateInteger');
+        validate('email', 'email', 'validateEmail');
+
+
+        /*var $image = $(".image-crop > img")
+         $($image).cropper({
+         aspectRatio: 16 / 16,
+         preview: ".img-preview",
+         done: function (data) {
+
+         }
+         });
+
+         var $inputImage = $("#inputImage");
+         if (window.FileReader) {
+         $inputImage.change(function () {
+         var fileReader = new FileReader(),
+         files = this.files,
+         file;
+
+         if (!files.length) {
+         return;
+         }
+
+         file = files[0];
+
+         if (/^image\/\w+$/.test(file.type)) {
+         fileReader.readAsDataURL(file);
+         fileReader.onload = function () {
+         $inputImage.val("");
+         $image.cropper("reset", true).cropper("replace", this.result);
+         };
+         } else {
+         showMessage("请选择一个用于头像的图像");
+         }
+         });
+         } else {
+         $inputImage.addClass("hide");
+         }
+
+         $('.chosen-select').chosen({width: "100%"});
+
+         $("#download").click(function () {
+         window.open($image.cropper("getDataURL"));
+         });
+
+         $("#zoomIn").click(function () {
+         $image.cropper("zoom", 0.1);
+         });
+
+         $("#zoomOut").click(function () {
+         $image.cropper("zoom", -0.1);
+         });
+
+         $("#rotateLeft").click(function () {
+         $image.cropper("rotate", 45);
+         });
+
+         $("#rotateRight").click(function () {
+         $image.cropper("rotate", -45);
+         });
+
+         $("#setDrag").click(function () {
+         $image.cropper("setDragMode", "crop");
+         });*/
+
+        var saveBtnda;
+        function saveUser(btn) {
+            saveBtnda = Ladda.create( btn );
+            var roles = [];
+            $('input[name="role"]:checked').each(function () {
+                roles.push({id: $(this).val().trim()});
+            });
+            var p = {
+                id: $("#id").val().trim(),
+//                nick: $("#nick").val().trim(),
+                name: $("#name").val().trim(),
+                mobilePhone: $("#mobilePhone").val().trim(),
+                password: $("#password").val(),
+                roleList: roles,
+//                totalLessons: $("#totalLessons").val().trim(),
+
+                state: $("input[name='state']:checked").val(),
+                gender: $("input[name='gender']:checked").val(),
+                email: $("#email").val().trim(),
+
+
+
+            };
+            var a = JSON.stringify(p);
+            $.ajax({
+                url: 'saveUser',
+                async: true,
+                type: 'POST',
+                data: a,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                timeout: 300000,
+                beforeSend: function () {
+                    saveBtnda.start();
+                },
+                error: function (result) {
+                    alert("通信错误！");
+                },
+                success: function (data) {
+                    if (data.res == undefined) {
+                        saveBtnda.stop();
+                        for (var p in data) {
+                            var tmp = $("#" + data[p].field).parent().next();
+
+                            if (tmp.text() == '') {
+                                $("#" + data[p].field + "Form").addClass("has-error")
+                                var tmp = $("#" + data[p].field).parent().next();
+                                tmp.html(data[p].defaultMessage);
+                            }
+                        }
+                    }else{
+
+                        loadPage("userList",function(){
+                            saveBtnda.stop();
+                        });
+                    }
+                }
+            });
+        }
+        /*]]>*/
+    </script>
+</div>
+</html>

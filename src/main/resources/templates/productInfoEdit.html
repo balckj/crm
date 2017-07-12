@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<div  th:fragment="availableSuppliersEdit">
+<div  th:fragment="productInfoEdit">
     <!--<link th:href="@{inspinia_admin/css/plugins/cropper/cropper.min.css}" rel="stylesheet"/>-->
     <!--<link th:href="@{inspinia_admin/css/plugins/select2/select2.min.css}" rel="stylesheet"/>-->
     <!--<link th:href="@{inspinia_admin/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet"/>-->
@@ -10,7 +10,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>可用供应商列表</h2>
+            <h2>产品信息</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="index.html">首页</a>
@@ -19,7 +19,7 @@
                     <a>系统设置</a>
                 </li>
                 <li class="active">
-                    <strong>可用供应商列表</strong>
+                    <strong>产品信息维护</strong>
                 </li>
             </ol>
         </div>
@@ -34,29 +34,84 @@
                         <form method="POST" class="form-horizontal">
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group"><label class="col-sm-2 control-label">供应商名称<span
+                            <div class="form-group" ><label class="col-sm-2 control-label">产品分类<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="suppliersName" name="suppliersName" type="text" class="form-control"
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="classification">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="nameForm"><label class="col-sm-2 control-label">产品名称<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="name" name="name" type="text" class="form-control"
+                                                             maxlength="200" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">细节描述<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="describe" name="describe" type="text" class="form-control"
+                                                             maxlength="200" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">单位<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="company">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">方式<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="mode">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">低价<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="lowPrice" name="lowPrice" type="text" class="form-control"
                                                              maxlength="20" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group"><label class="col-sm-2 control-label">供应商级别<span
+                            <div class="form-group" ><label class="col-sm-2 control-label">中价<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="suppliersLevel" name="suppliersLevel" type="text" class="form-control"
+                                <div class="col-sm-4"><input id="inPrice" name="inPrice" type="text" class="form-control"
                                                              maxlength="20" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            <div class="form-group"><label class="col-sm-2 control-label">中单数量<span
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">高价<span
                                     style="color:#ed5565;">*</span></label>
-                                <label class="col-sm-4 control-label" style="text-align: left">10</label>
+                                <div class="col-sm-4"><input id="highPrice" name="highPrice" type="text" class="form-control"
+                                                             maxlength="200" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-
-
-                            <div class="hr-line-dashed"/>
+                            <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button id="saveBtn" class="btn ladda-button btn-w-m btn-primary" data-style="zoom-in" type="button" onclick="saveAvailableSuppliers(this);">
+                                    <button id="saveBtn" class="btn ladda-button btn-w-m btn-primary" data-style="zoom-in" type="button" onclick="saveProductInfo(this);">
                                         <span class="ladda-label">保&nbsp;&nbsp;存</span>
                                     </button>
                                 </div>
@@ -85,7 +140,7 @@
     <script type="text/javascript">
         /*<![CDATA[*/
         $("#setting").addClass("active");
-        $("#availableSuppliersEdit").addClass("active");
+        $("#productInfoEdit").addClass("active");
 
         $('#birthday').datepicker({
             startView: 1,
@@ -97,15 +152,15 @@
             language: 'cn',
         });
 
-        validate('name', 'name', 'validateavailableSuppliersName');
+        validate('name', 'name', 'validateproductInfoName');
         validate2('mobilePhone', 'mobile', {isEdit: false}, 'validateMobile');
         validate('password', 'password', 'validatePassword');
-//        validate('totalLessons', 'integer', 'validateInteger');
+        //        validate('totalLessons', 'integer', 'validateInteger');
         validate('email', 'email', 'validateEmail');
 
 
         var saveBtnda;
-        function saveAvailableSuppliers(btn) {
+        function saveProductInfo(btn) {
             saveBtnda = Ladda.create( btn );
             var roles = [];
             $('input[name="role"]:checked').each(function () {
@@ -129,7 +184,7 @@
             };
             var a = JSON.stringify(p);
             $.ajax({
-                url: 'saveAvailableSuppliers',
+                url: 'saveProductInfo',
                 async: true,
                 type: 'POST',
                 data: a,
@@ -156,7 +211,7 @@
                         }
                     }else{
 
-                        loadPage("availableSuppliersList",function(){
+                        loadPage("productInfoList",function(){
                             saveBtnda.stop();
                         });
                     }

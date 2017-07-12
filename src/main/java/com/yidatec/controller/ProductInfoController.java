@@ -15,28 +15,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by Administrator on 2017/7/10.
  */
 @Controller
-public class ProjectInfoController extends BaseController{
+public class ProductInfoController extends BaseController{
 
-    @RequestMapping("/projectInfoEdit")
-    public String projectInfoEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
-        return "projectInfoEdit";
+    @RequestMapping("/productInfoEdit")
+    public String productInfoEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
+        return "productInfoEdit";
     }
 
-    @RequestMapping("/projectInfoList")
-    public String projectInfoList(ModelMap model){
-        return "projectInfoList";
+    @RequestMapping("/productInfoList")
+    public String productInfoList(ModelMap model){
+        return "productInfoList";
     }
 
-    @RequestMapping("/saveProjectInfo")
+    @RequestMapping("/saveProductInfo")
     @ResponseBody
-    public Object saveProjectInfo(@Validated @RequestBody User userParam,
+    public Object saveproductInfo(@Validated @RequestBody User userParam,
                            BindingResult result)throws Exception{
         return getSuccessJson(null);
     }
 
-    @RequestMapping(value = "/findProjectInfo")
+    @RequestMapping(value = "/findProductInfo")
     @ResponseBody
-    public Object findProjectInfo(@RequestBody UserVO user)throws Exception{
+    public Object findproductInfo(@RequestBody UserVO user)throws Exception{
         return null;
     }
 }

@@ -22,7 +22,7 @@ public class ProjectManagerController extends BaseController{
     public String projectManagerList(ModelMap model){
         return "projectManagerList";
     }
-    
+
     @RequestMapping("/projectManagerEdit")
     public String projectManagerEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
         return "projectManagerEdit";

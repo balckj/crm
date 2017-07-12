@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<div th:fragment="userList">
+<div th:fragment="customerList">
     <link th:href="@{99/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
     <style type="text/css">
-        #usertable_length  select {
+        #customertable_length  select {
             padding-top: 3px;
         }
     </style>
@@ -70,7 +70,7 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content table-responsive">
-                        <table id="usertable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <table id="customertable" class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                             <tr>
                                 <th>操作</th>
@@ -106,9 +106,9 @@
     <script type="text/javascript">
         /*<![CDATA[*/
 
-        var usertable;
-        function usertableLoad() {
-            usertable = $('#usertable').DataTable({
+        var customertable;
+        function customertableLoad() {
+            customertable = $('#customertable').DataTable({
                 "sScrollX": true,
                 "ajax": {
                     "url": "findCustomer",
@@ -258,7 +258,7 @@
         }
 
         function query(){
-            usertable.ajax.reload( null, true ); // user paging is not reset on reload
+            customertable.ajax.reload( null, true ); // user paging is not reset on reload
         }
 
 
@@ -267,10 +267,10 @@
         var saveBtnda;
         $(document).ready(function () {
             // 提示栏初始化
-            usertableLoad();
+            customertableLoad();
 
             var v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"customerEdit\");'>新&nbsp;&nbsp;建</button>"
-            $("#usertable_wrapper div").children().eq(0).append(v);
+            $("#customertable_wrapper div").children().eq(0).append(v);
 
         });
 

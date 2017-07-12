@@ -1,8 +1,10 @@
 package com.yidatec.controller;
 
+import com.yidatec.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by Administrator on 2017/7/11.
@@ -20,13 +22,18 @@ public class CustomerController extends BaseController{
         return "activities";
     }
 
-    @RequestMapping("/factoryList")
-    public String factoryList(ModelMap model){
-        return "factoryList";
+
+    @RequestMapping("/customerEdit")
+    public String customerEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
+        model.put("title",(id == null || id.isEmpty())?"新建客户":"编辑客户");
+
+        return "customerEdit";
     }
 
-    @RequestMapping("/designerList")
-    public String designerList(ModelMap model){
-        return "designerList";
+    @RequestMapping("/activityEdit")
+    public String activityEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
+        model.put("title",(id == null || id.isEmpty())?"新建活动":"编辑活动");
+
+        return "activityEdit";
     }
 }

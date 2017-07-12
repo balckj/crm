@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div  th:fragment="projectEdit">
+    <!--<link th:href="@{inspinia_admin/css/plugins/cropper/cropper.min.css}" rel="stylesheet"/>-->
+    <!--<link th:href="@{inspinia_admin/css/plugins/select2/select2.min.css}" rel="stylesheet"/>-->
+    <!--<link th:href="@{inspinia_admin/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet"/>-->
+    <link th:href="@{inspinia_admin/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
+    <script th:src="@{jquery.koala.js}" type="text/javascript"></script>
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>项目</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="index.html">首页</a>
+                </li>
+                <li>
+                    <a>系统设置</a>
+                </li>
+                <li class="active">
+                    <strong>项目</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form method="POST" class="form-horizontal">
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="nameForm"><label class="col-sm-2 control-label">项目名称<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="name" name="name" type="text" class="form-control"
+                                                             maxlength="200" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"><label class="col-sm-2 control-label">客户<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="customer">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"><label class="col-sm-2 control-label">市场活动<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="marketActivities">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="passwordForm"><label class="col-sm-2 control-label">项目编号</label>
+                                <label class="col-sm-4 control-label" style="text-align: left">001</label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="nameForm"><label class="col-sm-2 control-label">预算<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="budget" name="budget" type="text" class="form-control"
+                                                             maxlength="20" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">展位号<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="boothNumber" name="boothNumber" type="text" class="form-control"
+                                                             maxlength="30" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">面积<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="area" name="area" type="text" class="form-control"
+                                                             maxlength="30" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">搭建时间<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="buildTime" name="buildTime" type="text" class="form-control"
+                                                             maxlength="30" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">撤展时间<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="noShowTime" name="noShowTime" type="text" class="form-control"
+                                                             maxlength="30" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">项目成本<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="projectCost" name="projectCost" type="text" class="form-control"
+                                                             maxlength="30" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">重要程度<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="importance" name="importance" type="text" class="form-control"
+                                                             maxlength="30" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">项目潜力<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="projectPotential" name="projectPotential" type="text" class="form-control"
+                                                             maxlength="10" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">设计师<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="designer" name="designer" type="text" class="form-control"
+                                                             maxlength="10" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">设计进度</label>
+                                <div class="col-sm-4">
+                                    <div class="checkbox checkbox-inline checkbox-info" >
+                                        <input type="checkbox" name="role" id="r1" />
+                                        <label for="r1" ></label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline checkbox-info" >
+                                        <input type="checkbox" name="role" id="r2" />
+                                        <label for="r1" ></label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline checkbox-info" >
+                                        <input type="checkbox" name="role" id="r3" />
+                                        <label for="r1" ></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">项目经理<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="projectManager" name="projectManager" type="text" class="form-control"
+                                                             maxlength="10" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">项目进度</label>
+                                <div class="col-sm-4">
+                                    <div class="checkbox checkbox-inline checkbox-info" >
+                                        <input type="checkbox" name="role" id="r1" />
+                                        <label for="r1" ></label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline checkbox-info" >
+                                        <input type="checkbox" name="role" id="r2" />
+                                        <label for="r1" ></label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline checkbox-info" >
+                                        <input type="checkbox" name="role" id="r3" />
+                                        <label for="r1" ></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"><label class="col-sm-2 control-label">工长<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="marketActivities">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">工厂进度</label>
+                                <div class="col-sm-4">
+                                    <div class="checkbox checkbox-inline checkbox-info" >
+                                        <input type="checkbox" name="role" id="r1" />
+                                        <label for="r1" ></label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline checkbox-info" >
+                                        <input type="checkbox" name="role" id="r2" />
+                                        <label for="r1" ></label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline checkbox-info" >
+                                        <input type="checkbox" name="role" id="r3" />
+                                        <label for="r1" ></label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">项目评分<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="projectScoring" name="projectScoring" type="text" class="form-control"
+                                                             maxlength="10" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">设计评分<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="designScore" name="designScore" type="text" class="form-control"
+                                                             maxlength="10" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">项目经理评分<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="projectManagerScore" name="projectManagerScore" type="text" class="form-control"
+                                                             maxlength="10" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"><label class="col-sm-2 control-label">开发销售<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="developmentSales">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"><label class="col-sm-2 control-label">跟进销售<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="followUpSales">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">项目图片<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="projectPicture" name="projectPicture" type="text" class="form-control"
+                                                             maxlength="10" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" ><label class="col-sm-2 control-label">状态<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="state" name="state" type="text" class="form-control"
+                                                             maxlength="10" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+
+
+                            <div class="hr-line-dashed"/>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button id="saveBtn" class="btn ladda-button btn-w-m btn-primary" data-style="zoom-in" type="button" onclick="saveProject(this);">
+                                        <span class="ladda-label">保&nbsp;&nbsp;存</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Image cropper -->
+    <!--<script th:src="@{inspinia_admin/js/plugins/cropper/cropper.min.js}"></script>-->
+    <!-- Data picker -->
+    <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+    <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
+    <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
+
+    <!-- Select2 -->
+    <!--<script th:src="@{inspinia_admin/js/plugins/select2/select2.full.min.js}"></script>-->
+
+    <!-- Chosen -->
+    <!--<script th:src="@{inspinia_admin/js/plugins/chosen/chosen.jquery.js}"></script>-->
+    <script th:src="@{me.js}" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        /*<![CDATA[*/
+        $("#setting").addClass("active");
+        $("#projectEdit").addClass("active");
+
+        $('#birthday').datepicker({
+            startView: 1,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: "yyyy-mm-dd",
+            language: 'cn',
+        });
+
+        validate('name', 'name', 'validateprojectName');
+        validate2('mobilePhone', 'mobile', {isEdit: false}, 'validateMobile');
+        validate('password', 'password', 'validatePassword');
+//        validate('totalLessons', 'integer', 'validateInteger');
+        validate('email', 'email', 'validateEmail');
+
+
+        var saveBtnda;
+        function saveProject(btn) {
+            saveBtnda = Ladda.create( btn );
+            var roles = [];
+            $('input[name="role"]:checked').each(function () {
+                roles.push({id: $(this).val().trim()});
+            });
+            var p = {
+                id: $("#id").val().trim(),
+//                nick: $("#nick").val().trim(),
+                name: $("#name").val().trim(),
+                mobilePhone: $("#mobilePhone").val().trim(),
+                password: $("#password").val(),
+                roleList: roles,
+//                totalLessons: $("#totalLessons").val().trim(),
+
+                state: $("input[name='state']:checked").val(),
+                gender: $("input[name='gender']:checked").val(),
+                email: $("#email").val().trim(),
+
+
+
+            };
+            var a = JSON.stringify(p);
+            $.ajax({
+                url: 'saveProject',
+                async: true,
+                type: 'POST',
+                data: a,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                timeout: 300000,
+                beforeSend: function () {
+                    saveBtnda.start();
+                },
+                error: function (result) {
+                    alert("通信错误！");
+                },
+                success: function (data) {
+                    if (data.res == undefined) {
+                        saveBtnda.stop();
+                        for (var p in data) {
+                            var tmp = $("#" + data[p].field).parent().next();
+
+                            if (tmp.text() == '') {
+                                $("#" + data[p].field + "Form").addClass("has-error")
+                                var tmp = $("#" + data[p].field).parent().next();
+                                tmp.html(data[p].defaultMessage);
+                            }
+                        }
+                    }else{
+
+                        loadPage("projectList",function(){
+                            saveBtnda.stop();
+                        });
+                    }
+                }
+            });
+        }
+        /*]]>*/
+    </script>
+</div>
+</html>

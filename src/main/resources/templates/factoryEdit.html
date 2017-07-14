@@ -32,13 +32,13 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
-                            <input type="hidden" name="id" id="id" th:value="${user}?${user.id}"/>
+                            <!--<input type="hidden" name="id" id="id" th:value="${user}?${user.id}"/>-->
                             <!--<div class="form-group" id="nickForm"><label class="col-sm-2 control-label">昵称</label>
                                 <div class="col-sm-4"><input id="nick" name="nick" type="text" class="form-control"
                                                              maxlength="20" th:value="${user}? ${user.nick}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>-->
-                            <div class="form-group" id="industry"><label class="col-sm-2 control-label">推荐人<span
+                            <div class="form-group" id="industryForm"><label class="col-sm-2 control-label">推荐人<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="industry">
@@ -66,42 +66,46 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="industry"><label class="col-sm-2 control-label">所属行业<span
+                            <div class="form-group" id="userNameForm"><label class="col-sm-2 control-label">联系人<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4">
-                                    <select class="form-control m-b" name="industry">
-                                        <option value="" selected="selected">未选择</option>
-                                        <option>工业品-工业机械</option>
-                                        <option>光电技术</option>
-                                        <option>电子电力</option>
-                                        <option>运输物流</option>
-                                    </select>
-                                </div>
+                                <div class="col-sm-4"><input id="userName" name="userName" type="text" class="form-control"
+                                                             maxlength="20"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="nature"><label class="col-sm-2 control-label">企业性质<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4">
-                                    <select class="form-control m-b" name="nature">
-                                        <option value="" selected="selected">未选择</option>
-                                        <option>政府</option>
-                                        <option>民营</option>
-                                        <option>外资</option>
-                                        <option>私营</option>
-                                    </select>
-                                </div>
+                            <div class="form-group" id="userpositionForm"><label class="col-sm-2 control-label">联系人职位</label>
+                                <div class="col-sm-4"><input id="userPosition" name="userPosition" type="text" class="form-control"
+                                                             maxlength="20"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-
-                            <!--<div class="hr-line-dashed"></div>
-                            <div class="form-group" id="totalLessonsForm"><label
-                                    class="col-sm-2 control-label">总购买课时</label>
-                                <div class="col-sm-4"><input id="totalLessons" name="totalLessons" type="text"
-                                                             class="form-control" maxlength="5"/></div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="userphoneForm"><label class="col-sm-2 control-label">联系人电话<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="userPhone" name="userPhone" type="text" class="form-control"
+                                                             maxlength="20"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>-->
-
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="useremailForm"><label class="col-sm-2 control-label">联系人QQ邮箱<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="useremail" name="useremail" type="text" class="form-control"
+                                                             maxlength="50" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="factoryIdForm"><label class="col-sm-2 control-label">工厂ID<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="factoryId" name="factoryId" type="text" class="form-control"
+                                                             maxlength="50" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="firstTimeForm"><label class="col-sm-2 control-label">首单时间<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="firstTime" name="firstTime" type="text" class="form-control"
+                                                             maxlength="50" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">国家<span
@@ -158,13 +162,69 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group ">
                                 <label class="col-sm-2 control-label">地址</label>
                                 <div class="col-sm-4"><input id="address" name="address" type="text"
                                                              class="form-control" maxlength="15" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="addressForm">
+                                <label class="col-sm-2 control-label">厂房面积</label>
+                                <div class="col-sm-4"><input id="factoryArea" name="factoryArea" type="text"
+                                                             class="form-control" maxlength="15" /></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="factoryImgForm">
+                                <label class="col-sm-2 control-label">厂房照片</label>
+                                <div class="col-sm-4 dropzone" id="myDropzone">
+                                    <div class="am-text-success dz-message">
+                                    将文件拖拽到此处或点此打开文件管理器选择文件
+                                    </div>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="industry"><label class="col-sm-2 control-label">所属行业<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="industry">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>工业品-工业机械</option>
+                                        <option>光电技术</option>
+                                        <option>电子电力</option>
+                                        <option>运输物流</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="nature"><label class="col-sm-2 control-label">企业性质<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="nature">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>政府</option>
+                                        <option>民营</option>
+                                        <option>外资</option>
+                                        <option>私营</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <!--<div class="hr-line-dashed"></div>
+                            <div class="form-group" id="totalLessonsForm"><label
+                                    class="col-sm-2 control-label">总购买课时</label>
+                                <div class="col-sm-4"><input id="totalLessons" name="totalLessons" type="text"
+                                                             class="form-control" maxlength="5"/></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>-->
+
+                            <div class="hr-line-dashed"></div>
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">平台等级<span
                                         style="color:#ed5565;">*</span></label>
@@ -176,33 +236,6 @@
                                         <option>C</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="userNameForm"><label class="col-sm-2 control-label">联系人<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="userName" name="userName" type="text" class="form-control"
-                                                             maxlength="20"/></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="userpositionForm"><label class="col-sm-2 control-label">联系人职位</label>
-                                <div class="col-sm-4"><input id="userPosition" name="userPosition" type="text" class="form-control"
-                                                             maxlength="20"/></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="userphoneForm"><label class="col-sm-2 control-label">联系人电话<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="userPhone" name="userPhone" type="text" class="form-control"
-                                                             maxlength="20"/></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="useremailForm"><label class="col-sm-2 control-label">联系人QQ邮箱<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="useremail" name="useremail" type="text" class="form-control"
-                                                             maxlength="50" /></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
@@ -239,6 +272,7 @@
     <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
+    <script th:src="@{99/js/plugins/dropzone/dropzone.js}"></script>
 
     <!-- Select2 -->
     <!--<script th:src="@{inspinia_admin/js/plugins/select2/select2.full.min.js}"></script>-->
@@ -249,6 +283,53 @@
 
     <script type="text/javascript">
         /*<![CDATA[*/
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("#myDropzone", {
+            url: "/file/upload",
+            addRemoveLinks: true,
+            method: 'post',
+            filesizeBase: 1024,
+            sending: function(file, xhr, formData) {
+                formData.append("filesize", file.size);
+            },
+            success: function (file, response, e) {
+                var res = JSON.parse(response);
+                if (res.error) {
+                    $(file.previewTemplate).children('.dz-error-mark').css('opacity', '1')
+                }
+            }
+        });
+
+//        $("#myDropzone").dropzone({
+//            url: "index.php", //必须填写
+//            method:"post",  //也可用put
+//            paramName:"Filedata", //默认为file
+//            maxFiles:10,//一次性上传的文件数量上限
+//            maxFilesize: 20, //MB
+//            acceptedFiles: ".jpg,.gif,.png", //上传的类型
+//            previewsContainer:"#adds", //显示的容器
+//            parallelUploads: 3,
+//            dictMaxFilesExceeded: "您最多只能上传10个文件！",
+//            dictResponseError: '文件上传失败!',
+//            dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.jpg,*.gif,*.png。",
+//            dictFallbackMessage:"浏览器不受支持",
+//            dictFileTooBig:"文件过大上传文件最大支持.",
+//            previewTemplate: document.querySelector('#preview-template').innerHTML,//设置显示模板
+//            init:function(){
+//                this.on("addedfile", function(file) {
+//                    //上传文件时触发的事件
+//                });
+//                this.on("queuecomplete",function(file) {
+//                    //上传完成后触发的方法
+//                });
+//                this.on("removedfile",function(file){
+//                    //删除文件时触发的方法
+//                });
+//            }
+//
+//        });
+
+
         $("#setting").addClass("active");
         $("#userEdit").addClass("active");
 

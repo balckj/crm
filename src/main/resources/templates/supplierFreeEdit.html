@@ -2,9 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <div  th:fragment="supplierFreeEdit">
-    <link th:href="@{inspinia_admin/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
+    <link th:href="@{99/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
     <script th:src="@{jquery.koala.js}" type="text/javascript"></script>
-
+    <!--<link th:href="@{99/css/bootstrap.min.css}" rel="stylesheet"/>-->
+    <!--<link th:href="@{99/font-awesome/css/font-awesome.css}" rel="stylesheet"/>-->
+    <link th:href="@{99/css/plugins/iCheck/custom.css}" rel="stylesheet"/>
+    <!-- fullcalendar -->
+    <link th:href="@{99/css/plugins/fullcalendar/fullcalendar.min.css}" rel="stylesheet"/>
+    <link th:href="@{99/css/plugins/fullcalendar/fullcalendar.print.min.css}" rel='stylesheet' media='print'/>
+    <!-- Sweet Alert -->
+    <link th:href="@{99/css/plugins/sweetalert/sweetalert.css}" rel="stylesheet"/>
+    <link th:href="@{99/css/animate.css}" rel="stylesheet"/>
+    <link th:href="@{99/css/style.css}" rel="stylesheet"/>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
             <h2>供应商空闲时间维护</h2>
@@ -24,149 +33,282 @@
 
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 
-        <div class="row">
-            <div class="col-lg-12">
+        <div class="row animated fadeInDown">
+            <div class="col-lg-4">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-content">
-                        <form method="POST" class="form-horizontal">
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" ><label class="col-sm-2 control-label">项目名称<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="prpjectName" name="prpjectName" type="text" class="form-control"
-                                                             maxlength="20" /></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" ><label class="col-sm-2 control-label">供应商名称<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="suppilerName" name="suppilerName" type="text" class="form-control"
-                                                             maxlength="20" /></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" ><label class="col-sm-2 control-label">年月<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="year" name="year" type="text" class="form-control"
-                                                             maxlength="20" readonly="readonly"/></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
 
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" >
-                                <label class="col-sm-2 control-label">空闲时间</label>
-                                <div class="col-sm-4">
-                                    <div class="checkbox checkbox-inline checkbox-info">
-                                        <input type="checkbox" name="role" id="r1"/>
-                                        <label for="r1" ></label>
+                    <div class="ibox-content">
+                        <!--<div class="col-lg-6 h-100 p-lg">-->
+                            <!--<p>A basic sweetalert message</p>-->
+                            <!--<button class="btn btn-primary btn-sm demo1">Run example</button>-->
+                        <!--</div>-->
+                        <form method="POST" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">供应商名称<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-6">
+                                    <select class="form-control m-b" name="supplierName">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div id='external-events'>
+                                    <div class="col-sm-4">
+                                        <div class='external-event navy-bg'>已预约</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <div class="col-sm-4 col-sm-offset-2">
-                                    <button id="saveBtn" class="btn ladda-button btn-w-m btn-primary" data-style="zoom-in" type="button" onclick="savesupplierFree(this);">
-                                        <span class="ladda-label">保&nbsp;&nbsp;存</span>
-                                    </button>
-                                </div>
-                            </div>
                         </form>
+                    </div>
+                </div>
 
+            </div>
+            <div class="col-lg-8">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div id="calendar"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Image cropper -->
-    <!--<script th:src="@{inspinia_admin/js/plugins/cropper/cropper.min.js}"></script>-->
+
+    <!-- Mainly scripts -->
+    <script th:src="@{99/js/plugins/fullcalendar/moment.min.js}"></script>
+    <!-- jQuery UI  -->
+    <script th:src="@{99/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
+    <!-- iCheck -->
+    <script th:src="@{99/js/plugins/iCheck/icheck.min.js}"></script>
+    <!-- Full Calendar -->
+    <script th:src="@{99/js/plugins/fullcalendar/fullcalendar.min.js}"></script>
+    <script th:src="@{99/js/plugins/fullcalendar/zh-cn.js}"></script>
     <!-- Data picker -->
     <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
-
-    <!-- Select2 -->
-    <!--<script th:src="@{inspinia_admin/js/plugins/select2/select2.full.min.js}"></script>-->
-
-    <!-- Chosen -->
-    <!--<script th:src="@{inspinia_admin/js/plugins/chosen/chosen.jquery.js}"></script>-->
+    <!-- Sweet alert -->
+    <script th:src="@{99/js/plugins/sweetalert/sweetalert.min.js}"></script>
     <script th:src="@{me.js}" type="text/javascript"></script>
-
+    <!--<script th:src="@{supplierFreeEdit/supplierFreeEdit.js}" type="text/javascript"></script>-->
     <script type="text/javascript">
         /*<![CDATA[*/
-        $('#year').datepicker({
-            startView: 1,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'cn',
-        });
+        /**
+         * Created by Administrator on 2017/7/14.
+         */
+        $(document).ready(function() {
 
-        validate('name', 'name', 'validatesupplierFreeName');
-        validate2('mobilePhone', 'mobile', {isEdit: false}, 'validateMobile');
-        validate('password', 'password', 'validatePassword');
-//        validate('totalLessons', 'integer', 'validateInteger');
-        validate('email', 'email', 'validateEmail');
-
-        var saveBtnda;
-        function savesupplierFree(btn) {
-            saveBtnda = Ladda.create( btn );
-            var roles = [];
-            $('input[name="role"]:checked').each(function () {
-                roles.push({id: $(this).val().trim()});
-            });
-            var p = {
-                id: $("#id").val().trim(),
-//                nick: $("#nick").val().trim(),
-                name: $("#name").val().trim(),
-                mobilePhone: $("#mobilePhone").val().trim(),
-                password: $("#password").val(),
-                roleList: roles,
-//                totalLessons: $("#totalLessons").val().trim(),
-
-                state: $("input[name='state']:checked").val(),
-                gender: $("input[name='gender']:checked").val(),
-                email: $("#email").val().trim(),
-
-
-
+            function generateUUID() {
+                var d = new Date().getTime();
+                var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    var r = (d + Math.random()*16)%16 | 0;
+                    d = Math.floor(d/16);
+                    return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+                });
+                return uuid;
             };
-            var a = JSON.stringify(p);
-            $.ajax({
-                url: 'saveSupplierFree',
-                async: true,
-                type: 'POST',
-                data: a,
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                timeout: 300000,
-                beforeSend: function () {
-                    saveBtnda.start();
-                },
-                error: function (result) {
-                    alert("通信错误！");
-                },
-                success: function (data) {
-                    if (data.res == undefined) {
-                        saveBtnda.stop();
-                        for (var p in data) {
-                            var tmp = $("#" + data[p].field).parent().next();
+            function save(id,type,start,end,title,allDay,originalId){
+                $.ajax({
+                    url: 'saveCanlendarEvent',
+                    async: true,
+                    type: 'POST',
+                    data: {
+                        id:id,
+                        userId:$("#userId").val(),
+                        type:type,
+                        start:start,
+                        end:end,
+                        title:title,
+                        allDay:allDay
+                    },
+                    //contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    timeout: 300000,
+                    beforeSend: function () {
 
-                            if (tmp.text() == '') {
-                                $("#" + data[p].field + "Form").addClass("has-error")
-                                var tmp = $("#" + data[p].field).parent().next();
-                                tmp.html(data[p].defaultMessage);
-                            }
+                    },
+                    error: function (result) {
+                        swal("操作失败", "通信错误!", "error");
+                        $('#calendar').fullCalendar('removeEvents',originalId);
+                    },
+                    success: function (data) {
+                        if(data.res == 0){
+                            $('#calendar').fullCalendar('removeEvents',originalId);
+                            swal("操作失败", data.txt, "error");
                         }
-                    }else{
-
-                        loadPage("supplierFreeList",function(){
-                            saveBtnda.stop();
-                        });
                     }
+                });
+            }
+            function del(id,type,userId,title,originalId){
+                $.ajax({
+                    url: type<=6?'delCanlendarEvent':'delLession',
+                    async: true,
+                    type: 'POST',
+                    data: {
+                        id:id,
+                        memberId:userId
+                    },
+                    //contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    timeout: 300000,
+                    beforeSend: function () {
+
+                    },
+                    error: function (result) {
+                        swal("操作失败", "通信错误!", "error");
+                    },
+                    success: function (data) {
+                        var v;
+                        if(data.res == 1){
+                            v = "这个"+title+"已被删除！"
+                            $('#calendar').fullCalendar('removeEvents',originalId);
+                            //$('#calendar').fullCalendar('refetchEvents'); //重新获取所有事件数据
+                            swal("操作成功", v, "success");
+                        }else{
+                            v = data.txt
+                            swal("操作失败", v, "error");
+                        }
+
+                    }
+                });
+            }
+            /* initialize the external events
+             -----------------------------------------------------------------*/
+            $('#external-events div.external-event').each(function() {
+
+                // store data so the calendar knows to render an event upon drop
+                $(this).data('event', {
+                    title: $.trim($(this).text()), // use the element's text as the event title
+                    type: $(this).attr("id"),
+                    stick: true, // maintain when user navigates (see docs on the renderEvent method)
+                    durationEditable:true,
+                    editable:true
+                });
+
+                // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 1111999,
+                    revert: true,      // will cause the event to go back to its
+                    revertDuration: 0  //  original position after the drag
+                });
+
+            });
+
+
+            /* initialize the calendar
+             -----------------------------------------------------------------*/
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month'
+                },
+                editable: true,
+                droppable: true, // this allows things to be dropped onto the calendar
+//                eventSources: [
+//                    {
+//                        url: 'findRestPlan',
+//                        type: 'POST',
+//                        data: {
+//                            userId: $("#userId").val(),
+//                        }
+//                    }
+//                ],
+                dayClick: function(calEvent) {
+                    console.log(calEvent)
+                },
+                drop: function() {
+                    // is the "remove after drop" checkbox checked?
+                    if ($('#drop-remove').is(':checked')) {
+                        // if so, remove the element from the "Draggable Events" list
+//                        $(this).remove();
+                    }
+                },
+                eventClick: function(calEvent, jsEvent, view) {
+                    console.log(calEvent.id);
+                    if(!calEvent.editable)return;
+                    swal({
+                        title: "删除",
+                        text: "删除这个"+calEvent.title+"吗？",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "确定",
+                        cancelButtonText: "取消",
+                        closeOnConfirm: false
+                    }, function () {
+                        $('#calendar').fullCalendar('removeEvents',calEvent._id);
+//                        del(calEvent.id,calEvent.type,calEvent.userId,calEvent.title,calEvent._id);
+                        swal("操作成功", "ok", "success");
+                    });
+                },  eventDrop: function( event, delta, revertFunc, jsEvent, ui, view ) {
+
+                    if (event.id == undefined || event.id == null) {
+                        event.id = generateUUID();
+                    }
+                    if (event.userId == undefined || event.userId == null) {
+//                        event.userId = $("#userId").val();
+                    }
+                    console.log("eventDrop",event.id)
+
+//                    //$('#calendar').fullCalendar('updateEvent', event);
+                    $('#calendar').fullCalendar('removeEvents',event.allDay);
+//                    save(event.id,event.type,start,end,event.title,event.allDay);
+                },
+                eventResize: function( event, delta, revertFunc, jsEvent, ui, view ){
+                    if (event.id == undefined || event.id == null) {
+                        event.id = generateUUID();
+                    }
+                    console.log("eventResize",event.id)
+                    console.log("eventResize allDay",event.allDay)
+                    $('#calendar').fullCalendar('removeEvents',event.allDay);
+//                    save(event.id,event.type,start,end,event.title,event.allDay);
+                },
+
+                eventReceive:function(event) {
+//                    if(inputvalue != undefined){
+//                        event.title = inputvalue
+//                    }
+
+                    if (event.id == undefined || event.id == null) {
+                        event.id = generateUUID();
+                    }
+
+                    if (event.userId == undefined || event.userId == null) {
+                        event.userId = $("#userId").val();
+                    }console.log("eventReceive", event );
+                    console.log("eventReceive", event.id );
+//                    $('#calendar').fullCalendar('updateEvent', event);
+//                    $('#calendar').fullCalendar('removeEvents',event._id);
+//                    save(event.id,event.type,start,end,event.title,event.allDay,event._id);
+                },
+                eventAllow:function(dropLocation, draggedEvent) {
+                    return !isOverlapping(dropLocation,draggedEvent)
                 }
             });
+
+        });
+        function isOverlapping(dropLocation,event) {
+            var arrCalEvents = $('#calendar').fullCalendar('clientEvents');
+            for (var i in arrCalEvents) {
+                if (arrCalEvents[i].id != event.id) {
+                    if(arrCalEvents[i].allDay == true &&  arrCalEvents[i].start.format("YYYY-MM-DD") == dropLocation.start.format("YYYY-MM-DD") ){
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
+
         /*]]>*/
     </script>
 </div>

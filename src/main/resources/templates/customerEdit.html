@@ -32,7 +32,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
-                            <input type="hidden" name="id" id="id" th:value="${user}?${user.id}"/>
+                            <!--<input type="hidden" name="id" id="id" th:value="${user}?${user.id}"/>-->
                             <!--<div class="form-group" id="nickForm"><label class="col-sm-2 control-label">昵称</label>
                                 <div class="col-sm-4"><input id="nick" name="nick" type="text" class="form-control"
                                                              maxlength="20" th:value="${user}? ${user.nick}"/></div>
@@ -178,7 +178,7 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="userphoneForm"><label class="col-sm-2 control-label">联系人电话<span
+                            <div class="form-group" id="userPhoneForm"><label class="col-sm-2 control-label">联系人电话<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="userPhone" name="userPhone" type="text" class="form-control"
                                                              maxlength="20"/></div>
@@ -250,10 +250,10 @@
         });
 
         validate('name', 'name', 'validateUserName');
-        validate2('mobilePhone', 'mobile', {isEdit: false}, 'validateMobile');
+        validate2('userPhone', 'mobile', {isEdit: false}, 'validateMobile');
         validate('password', 'password', 'validatePassword');
         //        validate('totalLessons', 'integer', 'validateInteger');
-        validate('email', 'email', 'validateEmail');
+        validate('useremail', 'email', 'validateEmail');
 
 
         /*var $image = $(".image-crop > img")

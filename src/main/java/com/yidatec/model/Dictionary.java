@@ -15,15 +15,21 @@ public class Dictionary extends BaseModel {
 	@NotBlank(message = "必须输入主键", groups = { })
 	@Length(min = 3, max = 40, message = "姓名必须由3到40个字符组成", groups = { })
 	private String code;
-	@NotBlank(message = "必须输入序号且为数字", groups = { })
-	@Pattern(regexp="^[0-9]}$",message="序号格式不正确", groups = { })
-	private int sort;
+
+	@NotBlank(message = "必须输入序号", groups = { })
+	@Pattern(regexp="^[0-9]*[0-9][0-9]*$",message="序号格式不正确", groups = { })
+	private String sort;
+
 	@NotBlank(message = "必须输入项目值", groups = { })
-	@Length(min = 3, max = 40, message = "项目值必须由3到40个字符组成", groups = { })
+	@Length(min = 1, max = 10, message = "项目值必须由1到10个字符组成", groups = { })
 	private String value;
+
 	@NotBlank(message = "必须输入描述", groups = { })
-	@Length(min = 3, max = 40, message = "描述必须由3到40个字符组成", groups = { })
+	@Length(min = 1, max = 10, message = "描述必须由1到10个字符组成", groups = { })
 	private String description;
+
+	// 1:可用0:不可用
+	private Integer state;
 
 	public String getCode() {
 		return code;
@@ -33,11 +39,11 @@ public class Dictionary extends BaseModel {
 		this.code = code;
 	}
 
-	public int getSort() {
+	public String getSort() {
 		return sort;
 	}
 
-	public void setSort(int sort) {
+	public void setSort(String sort) {
 		this.sort = sort;
 	}
 
@@ -55,5 +61,13 @@ public class Dictionary extends BaseModel {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
 	}
 }

@@ -47,6 +47,7 @@ public class DictionaryController extends BaseController {
 	@RequestMapping("/dictionaryEdit")
 	public String dictionaryEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
 		model.put("title",(id == null || id.isEmpty())?"新建字典":"编辑字典");
+		model.put("dictionary",dictionaryService.selectDictionary(id));
 		return "dictionaryEdit";
 	}
 
@@ -65,6 +66,7 @@ public class DictionaryController extends BaseController {
 			dictionary1.setCode(dictionary.getCode());
 			dictionary1.setSort(dictionary.getSort());
 			dictionary1.setValue(dictionary.getValue());
+			dictionary1.setState(dictionary.getState());
 			dictionary1.setDescription(dictionary.getDescription());
 			dictionary1.setCreatorId(getWebUser().getId());
 			dictionary1.setCreateTime(LocalDateTime.now());
@@ -72,9 +74,11 @@ public class DictionaryController extends BaseController {
 			dictionary1.setModifyTime(getWebUser().getCreateTime());
 			dictionaryService.createDictionary(dictionary1);
 		} else {
+			dictionary1.setId(dictionary.getId());
 			dictionary1.setCode(dictionary.getCode());
 			dictionary1.setSort(dictionary.getSort());
 			dictionary1.setValue(dictionary.getValue());
+			dictionary1.setState(dictionary.getState());
 			dictionary1.setDescription(dictionary.getDescription());
 			dictionary1.setModifierId(getWebUser().getId());
 			dictionary1.setModifyTime(LocalDateTime.now());

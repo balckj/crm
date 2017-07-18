@@ -38,6 +38,16 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
+                        <label for="state" class="control-label">状态</label>
+                        <select name="state" id="state" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
+                            <option value="" selected="selected">不限</option>
+                            <option value="1">可用</option>
+                            <option value="0">禁用</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
                         <button class="btn btn-primary btn-sm" type="button" style="width: 100%;margin-top: 23px;" onclick="query();">查&nbsp;&nbsp;询</button>
                     </div>
                 </div>
@@ -56,6 +66,7 @@
                                 <th>主键</th>
                                 <th>序号</th>
                                 <th>项目值</th>
+                                <th>状态</th>
                                 <th>项目描述</th>
                                 <th>创建时间</th>
                                 <th>修改时间</th>
@@ -87,6 +98,7 @@
                         p.length = d.length;
                         p.start = d.start;
                         p.code = $('#code').val().trim();
+                        p.state = $('#state').val().trim();
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -106,6 +118,7 @@
                     {"data": "code", "width": "100px"},
                     {"data": "sort", "width": "100px"},
                     {"data": "value", "width": "100px"},
+                    {"data": "state", "width": "100px"},
                     {"data": "description", "width": "100px"},
                     {"data": "createTime", "width": "140px" },
                     {"data": "modifyTime", "width": "140px" }

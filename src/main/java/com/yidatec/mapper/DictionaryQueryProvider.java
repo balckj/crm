@@ -12,12 +12,15 @@ public class DictionaryQueryProvider {
     public String selectDictionary(final DictionaryVO dictionaryVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * from T_DICTIONARY  as D WHERE 1=1");
+        sb.append("SELECT * FROM T_DICTIONARY  as D WHERE 1=1");
 
         if(!StringUtils.isEmpty(dictionaryVO.getCode())){
             sb.append(" AND D.code = #{code}");
         }
-        sb.append(" GROUP BY D.sort");
+        if(!StringUtils.isEmpty(dictionaryVO.getState())){
+            sb.append(" AND D.state = #{state}");
+        }
+        sb.append(" ORDER BY D.sort");
         sb.append(" LIMIT #{start},#{length}");
         return sb.toString();
     }
@@ -28,6 +31,9 @@ public class DictionaryQueryProvider {
 
         if(!StringUtils.isEmpty(dictionaryVO.getCode())){
             sb.append(" AND D.code = #{code}");
+        }
+        if(!StringUtils.isEmpty(dictionaryVO.getState())){
+            sb.append(" AND D.state = #{state}");
         }
         return sb.toString();
     }

@@ -32,31 +32,50 @@
                         <form method="POST" class="form-horizontal">
                             <input type="hidden" name="id" id="id" th:value="${dictionary}?${dictionary.id}"/>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group"><label class="col-sm-2 control-label">主键<span
+                            <div class="form-group" id="codeForm"><label class="col-sm-2 control-label">主键<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="code" name="code" type="text" class="form-control"
                                                              maxlength="20" th:value="${dictionary}?${dictionary.code}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" ><label class="col-sm-2 control-label">序号<span
+                            <div class="form-group" id="sortForm"><label class="col-sm-2 control-label">序号<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="sort" name="sort" type="text"
-                                                             class="form-control" maxlength="15" th:value="${dictionary}?${dictionary.sort}"/></div>
+                                                             class="form-control" maxlength="2" th:value="${dictionary}?${dictionary.sort}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" ><label class="col-sm-2 control-label">项目值<span
+                            <div class="form-group" id="valueForm"><label class="col-sm-2 control-label">项目值<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="value" name="value" type="text"
                                                              class="form-control" maxlength="12" th:value="${dictionary}?${dictionary.value}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" ><label class="col-sm-2 control-label">项目描述<span
+                            <div class="form-group"><label class="col-sm-2 control-label">状态</label>
+                                <div class="col-sm-4">
+                                    <div class="radio radio-inline radio-info">
+                                        <input type="radio" name="state" id="s1" value="1" th:checked="${dictionary}?${dictionary.state eq 1}:'true'"/>
+                                        <label for="s1">
+                                            可用
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-inline radio-info">
+                                        <input type="radio" name="state" id="s3" value="0" th:checked="${dictionary}?${dictionary.state eq 0}"/>
+                                        <label for="s3">
+                                            禁用
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="descriptionForm"><label class="col-sm-2 control-label">项目描述<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="description" name="value" type="text"
-                                                             class="form-control" maxlength="12" th:value="${dictionary}?${dictionary.description}"/></div>
+                                                             class="form-control" maxlength="10" th:value="${dictionary}?${dictionary.description}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -93,22 +112,24 @@
         /*<![CDATA[*/
         $("#dictionaryEdit").addClass("active");
 
-        validate('code', 'code', 'validateDictionaryName');
-        validate2('sort', 'sort', {isEdit: false}, 'validateSort');
+        validate('code', 'code', 'validateCode');
+        validate('sort', 'sort', 'validateSort');
         validate('value', 'value', 'validateValue');
         validate('description', 'description', 'validateDescription');
-
 
         var saveBtnda;
         function saveDictionary(btn) {
             saveBtnda = Ladda.create(btn);
             var p = {
+                id: $("#id").val().trim(),
                 code: $("#code").val().trim(),
-                sort: $("#sort").val().trim(),
+                sort: parseInt($("#sort").val().trim()),
                 value: $("#value").val().trim(),
-                description: $("value").val().trim()
+                state: $("input[name='state']:checked").val(),
+                description: $("#description").val().trim()
             }
             var a = JSON.stringify(p);
+            console.log(p)
             $.ajax({
                 url: 'saveDictionary',
                 async: true,

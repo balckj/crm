@@ -129,5 +129,39 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
+    @RequestMapping(value = "/validateCode")
+    public String validateCode(@RequestParam(value="code") String code){
+        if(code == null || code.trim().isEmpty()){
+            return getErrorJson("必须输入主键");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateSort")
+    public String validateSort(@RequestParam(value="sort") String sort){
+        if(sort == null || sort.trim().isEmpty()){
+            return getErrorJson("必须输入序号");
+        }
+        sort = sort.trim();
+        boolean res = sort.matches( "^[0-9]*[0-9][0-9]*$");
+        if(!res)
+            return getErrorJson("序号必须是数字");
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateValue")
+    public String validateValue(@RequestParam(value="value") String value){
+        if(value == null || value.trim().isEmpty()){
+            return getErrorJson("必须输入项目值");
+        }
+        return getSuccessJson(null);
+    }
+    @RequestMapping(value = "/validateDescription")
+    public String validateDescription(@RequestParam(value="description") String description){
+        if(description == null || description.trim().isEmpty()){
+            return getErrorJson("必须输入描述");
+        }
+        return getSuccessJson(null);
+    }
 
 }

@@ -23,6 +23,10 @@ public class DictionaryService {
 	@Autowired
 	DictionaryMapper dictionaryMapper;
 
+	public Dictionary selectDictionary(String id){
+		return  dictionaryMapper.selectDictionary(id);
+	}
+
 	/**
 	 * 查询字典数据
 	 *

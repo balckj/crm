@@ -27,6 +27,14 @@ function validate2(id,key,param,url){
     });
 }
 
+function validateSelect(id,key,url){
+    $("#"+id).change(function(event){
+        var param = {};
+        param[key] = $("#"+id).val();
+        v(id,param,url);
+    });
+}
+
 function v(id,param,url){
     $.ajax({
         url : url,

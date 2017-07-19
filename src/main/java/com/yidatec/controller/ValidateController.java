@@ -163,5 +163,11 @@ public class ValidateController extends BaseController{
         }
         return getSuccessJson(null);
     }
-
+    @RequestMapping(value = "/validateChannel")
+    public String validateChannel(@RequestParam(value="channel") String channel){
+        if(channel == null || channel.trim().isEmpty()){
+            return getErrorJson("必须选择区域");
+        }
+        return getSuccessJson(null);
+    }
 }

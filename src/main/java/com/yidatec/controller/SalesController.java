@@ -1,53 +1,96 @@
 package com.yidatec.controller;
 
-import com.yidatec.model.Role;
-import com.yidatec.model.User;
-import com.yidatec.vo.UserVO;
+import com.yidatec.model.Sale;
+import com.yidatec.service.SaleService;
+import com.yidatec.vo.SaleVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
- * Created by Administrator on 2017/7/10.
+ * Created by jrw on 2017/7/10.
  */
 @Controller
 public class SalesController extends BaseController{
-    @RequestMapping("/salesIndex")
-    public String salesIndex(){
-        return "salesList";
+    @Autowired
+    SaleService saleService;
+
+    /**
+     * 转到字典主页
+     * @return
+     */
+    @RequestMapping(value = "saleList")
+    public String saleList(ModelMap model) {
+        return "saleList";
     }
 
-    @RequestMapping("/salesEdit")
-    public String salesEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
-        return "salesEdit";
+    @RequestMapping("/saleEdit")
+    public String saleEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
+        model.put("title",(id == null || id.isEmpty())?"新建销售":"编辑销售");
+        model.put("sale",saleService.selectSale(id));
+        return "saleEdit";
     }
 
-    @RequestMapping("/salesList")
-    public String salesList(ModelMap model){
-        return "salesList";
-    }
-
-    @RequestMapping("/saveSales")
+    @RequestMapping("/saveSale")
     @ResponseBody
-    public Object saveSales(@Validated @RequestBody User userParam,
-                           BindingResult result)throws Exception{
+    public Object saveSale(@Validated @RequestBody Sale sale,
+                                 BindingResult result)throws Exception{
+        List<FieldError> errors = result.getFieldErrors();
+        if(errors  != null && errors.size() > 0){
+            return errors;
+        }
+        Sale sale1 = new Sale();
+        if(sale.getId() == null || sale.getId().trim().length() <= 0)//新建
+        {
+            sale1.setId(UUID.randomUUID().toString().toLowerCase());
+            sale1.setName(sale.getName());
+            sale1.setChannel(sale.getChannel());
+            sale1.setEmail(sale.getEmail());
+            sale1.setMobilePhone(sale.getMobilePhone());
+            sale1.setState(sale.getState());
+            sale1.setCreatorId(getWebUser().getId());
+            sale1.setCreateTime(LocalDateTime.now());
+            sale1.setModifierId(getWebUser().getId());
+            sale1.setModifyTime(LocalDateTime.now());
+            saleService.createSale(sale1);
+        } else {
+            sale1.setId(sale.getId());
+            sale1.setName(sale.getName());
+            sale1.setChannel(sale.getChannel());
+            sale1.setEmail(sale.getEmail());
+            sale1.setMobilePhone(sale.getMobilePhone());
+            sale1.setState(sale.getState());
+            sale1.setModifierId(getWebUser().getId());
+            sale1.setModifyTime(LocalDateTime.now());
+            saleService.updateSale(sale1);
+        }
         return getSuccessJson(null);
     }
 
-    @RequestMapping(value = "/findSales")
+
+    @RequestMapping(value = "/findSale")
     @ResponseBody
-    public Object findSales(@RequestBody UserVO user)throws Exception{
-        return null;
+    public Object findsale(@RequestBody SaleVO saleVO)throws Exception{
+        List<Sale> saleEntityList = saleService.selectSaleListByName(saleVO);
+        int count = saleService.countSaleListByName(saleVO);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("draw", saleVO.getDraw());
+        map.put("recordsTotal", count);
+        map.put("recordsFiltered", count);
+        map.put("data", saleEntityList);
+        return map;
     }
-
-
 }

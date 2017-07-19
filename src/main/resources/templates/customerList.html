@@ -117,29 +117,10 @@
                     contentType: 'application/json; charset=utf-8',
 
                     "data": function (d) {
-                        var roles =[];
-//                    $('input[name="role"]:checked').each(function(){
-                        if($('#role').val() != '')
-                            roles.push({id:$('#role').val()});
-//                    });
                         var p = {};
                         p.draw = d.draw;
                         p.length = d.length;
                         p.start = d.start;
-
-//                    p.nick = $('#nick').val();
-                        p.name = $('#name').val();
-                        p.mobilePhone = $('#mobilePhone').val();
-//                    p.totalLessons = $('#totalLessons').val();
-//                    p.height = $('#height').val();
-//                    p.weight = $('#weight').val();
-//                    p.target = $('#target').val();
-//                    p.experience = $('#experience').val();
-
-                        p.state = $('#state').val();
-
-                        p.gender = $('#gender').val();
-                        p.roleList = roles;
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -149,19 +130,27 @@
                     {
                         "data": "id", "width": "80px",
                         "render": function (data, type, row) {
-                            var u = "userEdit?id="+row.id;
+                            var u = "customerEdit?id="+row.id;
                             u =  '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
-
                             return u;
 
                         },
                     },
 
-                    {"data": "name", "width": "100px"},
-                    {"data": "roleNames", "width": "100px"},
-                    {"data": "mobilePhone", "width": "100px"},
-                    {"data": "password", "width": "100px"},
-                    {"data": "openId", "width": "100px"},
+                    {"data": "companyName", "width": "100px"},
+                    {"data": "companyId", "width": "50px"},
+                    {"data": "industry", "width": "100px"},
+                    {"data": "nature", "width": "100px"},
+                    {"data": "country", "width": "50px"},
+                    {"data": "province", "width": "50px"},
+                    {"data": "city", "width": "50px"},
+                    {"data": "region", "width": "100px"},
+                    {"data": "address", "width": "100px"},
+                    {"data": "level", "width": "100px"},
+                    {"data": "userName", "width": "100px"},
+                    {"data": "userPosition", "width": "100px"},
+                    {"data": "userPhone", "width": "100px"},
+                    {"data": "userEmail", "width": "140px"},
                     {
                         "data": "state", "width": "40px",
                         "render": function (data, type, full, meta) {
@@ -177,31 +166,16 @@
                                 return '';
                             }
                         }
-                    },
-                    {
-                        "data": "gender", "width": "40px",
-                        "render": function (data, type, full, meta) {
-                            if (data == 1) {
-                                return '男';
-                            }
-                            else if (data == 2) {
-                                return '女';
-                            }
-                            else {
-                                return '';
-                            }
-                        }
-                    },
-
-                    {"data": "email", "width": "140px"},
-
-
-                    {
-                        "data": "createTime", "width": "140px"
-                    },
-                    {
-                        "data": "modifyTime", "width": "140px"
                     }
+
+
+
+//                    {
+//                        "data": "createTime", "width": "140px"
+//                    },
+//                    {
+//                        "data": "modifyTime", "width": "140px"
+//                    }
                 ]
                 , language: {
                     lengthMenu: '每页显示 <select class="form-control input-sm">'

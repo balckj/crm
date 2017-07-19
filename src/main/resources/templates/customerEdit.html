@@ -33,7 +33,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
-                            <!--<input type="hidden" name="id" id="id" th:value="${user}?${user.id}"/>-->
+                            <input type="hidden" name="id" id="id" th:value="${customer}?${customer.id}"/>
                             <!--<div class="form-group" id="nickForm"><label class="col-sm-2 control-label">昵称</label>
                                 <div class="col-sm-4"><input id="nick" name="nick" type="text" class="form-control"
                                                              maxlength="20" th:value="${user}? ${user.nick}"/></div>
@@ -43,22 +43,22 @@
                             <div class="form-group" id="companyNameForm"><label class="col-sm-2 control-label">企业名称<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="companyName" name="companyName" type="text" class="form-control"
-                                                             maxlength="20"/></div>
+                                                             maxlength="20" th:value="${customer}?${customer.companyName}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="mobilePhoneForm"><label class="col-sm-2 control-label">企业ID<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="companyId" name="companyId" type="text"
-                                                             class="form-control" maxlength="15" /></div>
+                                                             class="form-control" maxlength="15"  th:value="${customer}?${customer.companyId}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="industry"><label class="col-sm-2 control-label">所属行业<span
+                            <div class="form-group" id="industryForm"><label class="col-sm-2 control-label">所属行业<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="industry">
-                                        <option value="" selected="selected">未选择</option>
+                                    <select class="form-control m-b" name="industry" id="industry">
+                                        <option value="">未选择</option>
                                         <option>工业品-工业机械</option>
                                         <option>光电技术</option>
                                         <option>电子电力</option>
@@ -68,12 +68,12 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="nature"><label class="col-sm-2 control-label">企业性质<span
+                            <div class="form-group" id="natureForm"><label class="col-sm-2 control-label">企业性质<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="nature">
+                                    <select class="form-control m-b" name="nature" id="nature">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>政府</option>
+                                        <option >政府</option>
                                         <option>民营</option>
                                         <option>外资</option>
                                         <option>私营</option>
@@ -91,7 +91,7 @@
                             </div>-->
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="countryForm">
                                 <label class="col-sm-2 control-label">国家<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="provinceForm">
                                 <label class="col-sm-2 control-label">省<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
@@ -119,7 +119,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="cityForm">
                                 <label class="col-sm-2 control-label">城市<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
@@ -133,11 +133,11 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="regionForm">
                                 <label class="col-sm-2 control-label">区域<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="region">
+                                    <select class="form-control m-b" name="region" id="region">
                                         <option value="" selected="selected">未选择</option>
                                         <option>option 1</option>
                                         <option>option 2</option>
@@ -146,18 +146,18 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="addressForm">
                                 <label class="col-sm-2 control-label">地址</label>
                                 <div class="col-sm-4"><input id="address" name="address" type="text"
-                                                             class="form-control" maxlength="15" /></div>
+                                                             class="form-control" maxlength="15" th:value="${customer}?${customer.address}" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="levelForm">
                                 <label class="col-sm-2 control-label">平台等级<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="level">
+                                    <select class="form-control m-b" name="level" id="level">
                                         <option value="" selected="selected">未选择</option>
                                         <option>A</option>
                                         <option>B</option>
@@ -169,47 +169,56 @@
                             <div class="form-group" id="userNameForm"><label class="col-sm-2 control-label">联系人<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="userName" name="userName" type="text" class="form-control"
-                                                             maxlength="20"/></div>
+                                                             maxlength="20" th:value="${customer}?${customer.userName}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="userpositionForm"><label class="col-sm-2 control-label">联系人职位</label>
                                 <div class="col-sm-4"><input id="userPosition" name="userPosition" type="text" class="form-control"
-                                                             maxlength="20"/></div>
+                                                             maxlength="20" th:value="${customer}?${customer.userPosition}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="userPhoneForm"><label class="col-sm-2 control-label">联系人电话<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="userPhone" name="userPhone" type="text" class="form-control"
-                                                             maxlength="20"/></div>
+                                                             maxlength="20" th:value="${customer}?${customer.userPhone}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="useremailForm"><label class="col-sm-2 control-label">联系人QQ邮箱<span
+                            <div class="form-group" id="userEmailForm"><label class="col-sm-2 control-label">联系人QQ邮箱<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="useremail" name="useremail" type="text" class="form-control"
-                                                             maxlength="50" /></div>
+                                <div class="col-sm-4"><input id="userEmail" name="userEmail" type="text" class="form-control"
+                                                             maxlength="50" th:value="${customer}?${customer.userEmail}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">状态<span
-                                        style="color:#ed5565;">*</span></label>
+                            <div class="form-group"><label class="col-sm-2 control-label">用户状态</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="status">
-                                        <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                    </select>
+                                    <div class="radio radio-inline radio-info">
+                                        <input type="radio" name="state" id="s1" value="1" th:checked="${customer}?${customer.state eq 1}:'true'"/>
+                                        <label for="s1">
+                                            可用
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-inline radio-info">
+                                        <input type="radio" name="state" id="s2" value="2" th:checked="${customer}?${customer.state eq 2}"/>
+                                        <label for="s2">
+                                            锁定
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-inline radio-info">
+                                        <input type="radio" name="state" id="s3" value="3" th:checked="${customer}?${customer.state eq 3}"/>
+                                        <label for="s3">
+                                            禁用
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"/>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button id="saveBtn" class="btn ladda-button btn-w-m btn-primary" data-style="zoom-in" type="button" onclick="saveUser(this);">
+                                    <button id="saveBtn" class="btn ladda-button btn-w-m btn-primary" data-style="zoom-in" type="button" onclick="saveCustomer(this);">
                                         <span class="ladda-label">保&nbsp;&nbsp;存</span>
                                     </button>
                                 </div>
@@ -278,7 +287,6 @@
                 province = '<option value="0" b="0">------</option>';
             }
             $("#province").html(province).chosen().change(function(){
-                debugger;
                 var b = $("#province").find("option[value='"+$("#province").val()+"']").attr("b");
                 var _city = areaObj[a][b];
                 var city = '';
@@ -298,9 +306,9 @@
             $(".dept_select").trigger("chosen:updated");
         });
         $("#country").change();
-        $("button").click(function(){
-            alert($("#country").val()+$("#province").val()+$("#city").val());
-        });
+//        $("button").click(function(){
+//            alert($("#country").val()+$("#province").val()+$("#city").val());
+//        });
 
 
         $("#setting").addClass("active");
@@ -316,11 +324,11 @@
             language: 'cn',
         });
 
-        validate('name', 'name', 'validateUserName');
-        validate2('userPhone', 'mobile', {isEdit: false}, 'validateMobile');
-        validate('password', 'password', 'validatePassword');
+//        validate('name', 'name', 'validateUserName');
+//        validate2('userPhone', 'mobile', {isEdit: false}, 'validateMobile');
+//        validate('password', 'password', 'validatePassword');
         //        validate('totalLessons', 'integer', 'validateInteger');
-        validate('useremail', 'email', 'validateEmail');
+//        validate('useremail', 'email', 'validateEmail');
 
 
         /*var $image = $(".image-crop > img")
@@ -386,7 +394,7 @@
          });*/
 
         var saveBtnda;
-        function saveUser(btn) {
+        function saveCustomer(btn) {
             saveBtnda = Ladda.create( btn );
             var roles = [];
             $('input[name="role"]:checked').each(function () {
@@ -394,23 +402,26 @@
             });
             var p = {
                 id: $("#id").val().trim(),
-//                nick: $("#nick").val().trim(),
-                name: $("#name").val().trim(),
-                mobilePhone: $("#mobilePhone").val().trim(),
-                password: $("#password").val(),
-                roleList: roles,
-//                totalLessons: $("#totalLessons").val().trim(),
-
-                state: $("input[name='state']:checked").val(),
-                gender: $("input[name='gender']:checked").val(),
-                email: $("#email").val().trim(),
-
-
-
+                companyName: $("#companyName").val().trim(),
+                companyId: $("#companyId").val().trim(),
+                industry: $("#industry").val(),
+                nature: $("#nature").val().trim(),
+                country:$("#country").val(),
+                province:$("#province").val(),
+                city:$("#city").val(),
+                region:$("#region").val().trim(),
+                address:$("#address").val().trim(),
+                level:$("#level").val(),
+                username:$("#userName").val().trim(),
+                userposition:$("#userPosition").val().trim(),
+                userphone:$("#userPhone").val().trim(),
+                useremail:$("#userEmail").val().trim(),
+                state: $("input[name='state']:checked").val()
+//                state: $("input[name='state']:checked").val(),
             };
             var a = JSON.stringify(p);
             $.ajax({
-                url: 'saveUser',
+                url: 'saveCustomer',
                 async: true,
                 type: 'POST',
                 data: a,
@@ -437,7 +448,7 @@
                         }
                     }else{
 
-                        loadPage("userList",function(){
+                        loadPage("customerList",function(){
                             saveBtnda.stop();
                         });
                     }

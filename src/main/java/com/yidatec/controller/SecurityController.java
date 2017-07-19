@@ -245,9 +245,9 @@ public class SecurityController extends BaseController {
             return errors;
         }
 
-//        User user = getWebUser();
-        User user = new User();
-        user.setId("creatorId");
+        User user = getWebUser();
+//        User user = new User();
+//        user.setId("creatorId");
 
         if(roleParam.getId() == null || roleParam.getId().trim().length() <= 0)//新建
         {

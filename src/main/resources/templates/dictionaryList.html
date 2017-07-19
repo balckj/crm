@@ -118,7 +118,19 @@
                     {"data": "code", "width": "100px"},
                     {"data": "sort", "width": "100px"},
                     {"data": "value", "width": "100px"},
-                    {"data": "state", "width": "100px"},
+                    {
+                        "data": "state", "width": "40px",
+                        "render": function (data, type, full, meta) {
+                            if (data == 1) {
+                                return '可用';
+                            }
+                            else if (data == 0) {
+                                return '不可用';
+                            }else {
+                                return '';
+                            }
+                        }
+                    }
                     {"data": "description", "width": "100px"},
                     {"data": "createTime", "width": "140px" },
                     {"data": "modifyTime", "width": "140px" }

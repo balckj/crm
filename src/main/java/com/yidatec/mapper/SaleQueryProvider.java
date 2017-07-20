@@ -14,7 +14,7 @@ public class SaleQueryProvider {
         sb.append("SELECT * FROM T_SALE  as D WHERE 1=1");
 
         if(!StringUtils.isEmpty(SaleVO.getName())){
-            sb.append(" AND D.name = #{name}");
+            sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
         }
 
         sb.append(" LIMIT #{start},#{length}");
@@ -26,7 +26,7 @@ public class SaleQueryProvider {
         sb.append("SELECT count(*) from T_SALE  as D WHERE 1=1");
 
         if(!StringUtils.isEmpty(SaleVO.getName())){
-            sb.append(" AND D.name = #{name}");
+            sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
         }
         return sb.toString();
     }

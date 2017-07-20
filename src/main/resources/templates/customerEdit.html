@@ -34,6 +34,13 @@
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
                             <input type="hidden" name="id" id="id" th:value="${customer}?${customer.id}"/>
+                            <input type="hidden" name="selectIndustryValue" id="selectIndustryValue" th:value="${customer}?${customer.industry}"/>
+                            <input type="hidden" name="selectNatureValue" id="selectNatureValue" th:value="${customer}?${customer.nature}"/>
+                            <input type="hidden" name="selectLevelValue" id="selectLevelValue" th:value="${customer}?${customer.level}"/>
+                            <input type="hidden" name="selectCountryValue" id="selectCountryValue" th:value="${customer}?${customer.country}"/>
+                            <input type="hidden" name="selectProvinceValue" id="selectProvinceValue" th:value="${customer}?${customer.province}"/>
+                            <input type="hidden" name="selectCityValue" id="selectCityValue" th:value="${customer}?${customer.city}"/>
+                            <input type="hidden" name="selectRegionValue" id="selectRegionValue" th:value="${customer}?${customer.region}"/>
                             <!--<div class="form-group" id="nickForm"><label class="col-sm-2 control-label">昵称</label>
                                 <div class="col-sm-4"><input id="nick" name="nick" type="text" class="form-control"
                                                              maxlength="20" th:value="${user}? ${user.nick}"/></div>
@@ -95,12 +102,8 @@
                                 <label class="col-sm-2 control-label">国家<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b dept_select" name="country" id="country">
-                                        <!--<option value="" selected="selected">未选择</option>-->
-                                        <!--<option>option 1</option>-->
-                                        <!--<option>option 2</option>-->
-                                        <!--<option>option 3</option>-->
-                                        <!--<option>option 4</option>-->
+                                    <select class="form-control m-b location" name="country" id="country">
+
                                     </select>
                                 </div>
                             </div>
@@ -109,12 +112,8 @@
                                 <label class="col-sm-2 control-label">省<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b dept_select" name="province" id="province">
-                                        <!--<option value="" selected="selected">未选择</option>-->
-                                        <!--<option>option 1</option>-->
-                                        <!--<option>option 2</option>-->
-                                        <!--<option>option 3</option>-->
-                                        <!--<option>option 4</option>-->
+                                    <select class="form-control m-b location" name="province" id="province" disabled="disabled">
+
                                     </select>
                                 </div>
                             </div>
@@ -123,12 +122,8 @@
                                 <label class="col-sm-2 control-label">城市<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b dept_select" name="city" id="city">
-                                        <!--<option value="" selected="selected">未选择</option>-->
-                                        <!--<option>option 1</option>-->
-                                        <!--<option>option 2</option>-->
-                                        <!--<option>option 3</option>-->
-                                        <!--<option>option 4</option>-->
+                                    <select class="form-control m-b location" name="city" id="city" disabled="disabled">
+
                                     </select>
                                 </div>
                             </div>
@@ -137,12 +132,8 @@
                                 <label class="col-sm-2 control-label">区域<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="region" id="region">
-                                        <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
+                                    <select class="form-control m-b" name="region" id="region" disabled="disabled">
+
                                     </select>
                                 </div>
                             </div>
@@ -238,6 +229,7 @@
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
     <script th:src="@{99/js/plugins/area/chosen.jquery.min.js}"></script>
     <script th:src="@{99/js/plugins/area/area_chs.js}"></script>
+    <script th:src="@{99/js/plugins/area/area.js}"></script>
 
     <!-- Select2 -->
     <!--<script th:src="@{inspinia_admin/js/plugins/select2/select2.full.min.js}"></script>-->
@@ -260,56 +252,150 @@
                 a++;
             }
         }
+        _init_area();
         /*]]>*/
     </script>
     <script th:src="@{99/js/plugins/area/location_chs.js}"></script>
+
     <script type="text/javascript">
         /*<![CDATA[*/
 
-        var country = '';
+        var country = '<option value="" selected="selected">未选择</option>';
         for (var a=0;a<=_areaList.length-1;a++) {
             var objContry = _areaList[a];
             country += '<option value="'+objContry+'" a="'+(a+1)+'">'+objContry+'</option>';
         }
+        $("#country").html(country);
 
-        $("#country").html(country).chosen().change(function(){
-            var a = $("#country").find("option[value='"+$("#country").val()+"']").attr("a");
-            var _province = areaObj[a];
-            console.log(_province)
-            var province = '';
-            for (var b in _province) {
-                var objProvince = _province[b];
-                if (objProvince.n) {
-                    province += '<option value="'+objProvince.n+'" b="'+b+'">'+objProvince.n+'</option>';
-                }
-            }
-            if (!province) {
-                province = '<option value="0" b="0">------</option>';
-            }
-            $("#province").html(province).chosen().change(function(){
-                var b = $("#province").find("option[value='"+$("#province").val()+"']").attr("b");
-                var _city = areaObj[a][b];
-                var city = '';
-                for (var c in _city) {
-                    var objCity = _city[c];
-                    if (objCity.n) {
-                        city += '<option value="'+objCity.n+'">'+objCity.n+'</option>';
-                    }
-                }
-                if (!city) {
-                    var city = '<option value="0">------</option>';
-                }
-                $("#city").html(city).chosen().change();
-                $(".dept_select").trigger("chosen:updated");
-            });
-            $("#province").change();
-            $(".dept_select").trigger("chosen:updated");
-        });
+//        $("#country").html(country).chosen().change(function(){
+//            var a = $("#country").find("option[value='"+$("#country").val()+"']").attr("a");
+//            var _province = areaObj[a];
+//            console.log(_province)
+//            var province = '';
+//            for (var b in _province) {
+//                var objProvince = _province[b];
+//                if (objProvince.n) {
+//                    province += '<option value="'+objProvince.n+'" b="'+b+'">'+objProvince.n+'</option>';
+//                }
+//            }
+//            if (!province) {
+//                province = '<option value="0" b="0">------</option>';
+//            }
+//            $("#province").html(province).chosen().change(function(){
+//                var b = $("#province").find("option[value='"+$("#province").val()+"']").attr("b");
+//                var _city = areaObj[a][b];
+//                var city = '';
+//                for (var c in _city) {
+//                    var objCity = _city[c];
+//                    if (objCity.n) {
+//                        city += '<option value="'+objCity.n+'">'+objCity.n+'</option>';
+//                    }
+//                }
+//                if (!city) {
+//                    var city = '<option value="0">------</option>';
+//                }
+//                $("#city").html(city).chosen().change();
+//                $(".location").trigger("chosen:updated");
+//            });
+//            $("#province").change();
+//            $(".location").trigger("chosen:updated");
+//        });
         $("#country").change();
 //        $("button").click(function(){
 //            alert($("#country").val()+$("#province").val()+$("#city").val());
 //        });
+        $(function () {
+            $("#country").change(function(){
+                if($(this).val()=="中国"){
+                    $("#province").attr("disabled",false);
+                    $("#city").attr("disabled",false);
+                    $("#region").attr("disabled",false);
+                }else{
+                    $("#province ").get(0).selectedIndex=0;
+                    $("#province").attr("disabled",true);
+                    $("#city").attr("disabled",true);
+                    $("#city ").get(0).selectedIndex=0;
+                    $("#region").attr("disabled",true);
+                    $("#region ").get(0).selectedIndex=0;
+                }
+            });
 
+            $("#country option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectCountryValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            if ($("#country").val()=="中国"){
+                $("#province").attr("disabled",false);
+                $("#city").attr("disabled",false);
+                $("#region").attr("disabled",false);
+            }else{
+                $("#province ").get(0).selectedIndex=0;
+                $("#province").attr("disabled",true);
+                $("#city").attr("disabled",true);
+                $("#city ").get(0).selectedIndex=0;
+                $("#region").attr("disabled",true);
+                $("#region ").get(0).selectedIndex=0;
+            }
+
+            $("#province option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectProvinceValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+            $('#province').trigger("change");
+            $("#city option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectCityValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+            $('#city').trigger("change");
+            $("#region option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectRegionValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            $("#industry option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectIndustryValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            $("#nature option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectNatureValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            $("#level option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectLevelValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+        })
 
         $("#setting").addClass("active");
         $("#userEdit").addClass("active");

@@ -13,15 +13,15 @@ public class CustomerQueryProvider {
         sb.append("SELECT * FROM T_CUSTOMER  as D WHERE 1=1");
 
         if(!StringUtils.isEmpty(customerVO.getCompanyName())){
-            sb.append(" AND D.name = #{companyName}");
+            sb.append(" AND D.companyName LIKE CONCAT('%',#{companyName},'%')");
         }
         if(!StringUtils.isEmpty(customerVO.getCompanyId())){
             sb.append(" AND D.companyId = #{companyId}");
         }
-        if(!StringUtils.isEmpty(customerVO.getCompanyId())){
-            sb.append(" AND D.property = #{nature}");
+        if(!StringUtils.isEmpty(customerVO.getNature())){
+            sb.append(" AND D.nature = #{nature}");
         }
-        if(!StringUtils.isEmpty(customerVO.getCompanyId())){
+        if(!StringUtils.isEmpty(customerVO.getAddress())){
             sb.append(" AND D.address = #{address}");
         }
         sb.append(" LIMIT #{start},#{length}");
@@ -33,15 +33,15 @@ public class CustomerQueryProvider {
         sb.append("SELECT count(*) from T_CUSTOMER  as D WHERE 1=1");
 
         if(!StringUtils.isEmpty(customerVO.getCompanyName())){
-            sb.append(" AND D.name = #{companyName}");
+            sb.append(" AND D.companyName LIKE CONCAT('%',#{companyName},'%')");
         }
         if(!StringUtils.isEmpty(customerVO.getCompanyId())){
             sb.append(" AND D.companyId = #{companyId}");
         }
-        if(!StringUtils.isEmpty(customerVO.getCompanyId())){
-            sb.append(" AND D.property = #{nature}");
+        if(!StringUtils.isEmpty(customerVO.getNature())){
+            sb.append(" AND D.nature = #{nature}");
         }
-        if(!StringUtils.isEmpty(customerVO.getCompanyId())){
+        if(!StringUtils.isEmpty(customerVO.getAddress())){
             sb.append(" AND D.address = #{address}");
         }
         return sb.toString();

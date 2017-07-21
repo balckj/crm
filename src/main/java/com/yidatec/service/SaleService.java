@@ -21,10 +21,10 @@ import java.util.List;
 public class SaleService {
 
 	@Autowired
-	SaleMapper SaleMapper;
+	SaleMapper saleMapper;
 
 	public Sale selectSale(String id){
-		return  SaleMapper.selectSale(id);
+		return  saleMapper.selectSale(id);
 	}
 
 	/**
@@ -33,7 +33,7 @@ public class SaleService {
 	 * @return
 	 */
 	public List<Sale> selectSaleListByName(SaleVO SaleVO) {
-		return SaleMapper.selectSaleListByName(SaleVO);
+		return saleMapper.selectSaleListByName(SaleVO);
 	}
 
 	/**
@@ -42,27 +42,27 @@ public class SaleService {
 	 * @return
 	 */
 	public int countSaleListByName(SaleVO SaleVO) {
-		return SaleMapper.countSaleListByName(SaleVO);
+		return saleMapper.countSaleListByName(SaleVO);
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
 	public void deleteSale(String id) {
-		SaleMapper.delete(id);
+		saleMapper.delete(id);
 	}
 
 	/**
-	 * 查询销售
+	 * 创建销售
 	 *
 	 * @param Sale
 	 * @return
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
 	public void createSale(Sale Sale) {
-		SaleMapper.create(Sale);
+		saleMapper.create(Sale);
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
 	public void updateSale(Sale Sale) {
-		SaleMapper.update(Sale);
+		saleMapper.update(Sale);
 	}
 }

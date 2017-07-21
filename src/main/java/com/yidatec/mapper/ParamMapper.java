@@ -17,8 +17,8 @@ import java.util.List;
 public interface ParamMapper {
 
 
-    @Select("")
-    public List<Role> findRoles(String fixedId);
+//    @Select("SELECT * FROM T_ROLE AS R LEFT JOIN T_PARAMS   WHERE id=#{id}")
+//    public List<Role> findRoles(String fixedId);
 
     public List<User> findUsers(String fixedId);
 

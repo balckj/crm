@@ -15,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/7/20.
@@ -30,6 +32,8 @@ public class ParamService {
     @Autowired
     RoleMapper roleMapper;
 
+    public static Map<String,List<Role>> findRolesCache = new HashMap<String,List<Role>>();
+
 //    public static final String IDLE_VENDER_ROLE = "SFSDF";
     public List<Role> findRoles(String fixedId){
         List<Role> rolesList = new ArrayList<Role>();
@@ -39,6 +43,8 @@ public class ParamService {
             for(String s : roleid){
                 rolesList.add(roleMapper.findById(s));
             }
+        }else{
+            rolesList.add(roleMapper.findById(paramRole.getValue()));
         }
         return rolesList;
     }

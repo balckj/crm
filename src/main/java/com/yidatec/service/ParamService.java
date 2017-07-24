@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,21 +33,63 @@ public class ParamService {
     @Autowired
     RoleMapper roleMapper;
 
-    public static Map<String,List<Role>> findRolesCache = new HashMap<String,List<Role>>();
-
-//    public static final String IDLE_VENDER_ROLE = "SFSDF";
-    public List<Role> findRoles(String fixedId){
-        List<Role> rolesList = new ArrayList<Role>();
-        Param paramRole = paramMapper.findParamById(fixedId);
-        if(paramRole != null && StringUtils.isEmpty(paramRole.getValue()) && paramRole.getValue().indexOf(",") > 0){
-            String[] roleid = paramRole.getValue().split(",");
-            for(String s : roleid){
-                rolesList.add(roleMapper.findById(s));
+    public Map<String,List<Role>> FIND_ROLES_CACHE = new HashMap<String,List<Role>>(200);
+    public Map<String,List<UserVO>> FIND_USERS_CACHE = new HashMap<String,List<UserVO>>(200);
+    public Map<String,Role> ALL_ROLE_CACHE = null;
+    public Map<String,User> ALL_USER_CACHE = null;
+    @PostConstruct
+    public void postRoleInist(){
+        if(ALL_ROLE_CACHE == null){
+            ALL_ROLE_CACHE = new HashMap<String,Role>();
+            List<Role> roles = roleMapper.findAll();
+            for (Role r :roles){
+                ALL_ROLE_CACHE.put(r.getId(),r);
             }
-        }else{
-            rolesList.add(roleMapper.findById(paramRole.getValue()));
         }
-        return rolesList;
+        findAllParam();
+    }
+
+    private void findAllParam(){
+        List<Param> paramsList = paramMapper.findAllParam();
+        for (Param p : paramsList){
+            if( !StringUtils.isEmpty(p.getValue())){
+                String[] roleid = p.getValue().split(",");
+                List<Role> roles = new ArrayList<Role>();
+                for(String s : roleid){
+                    Role role = ALL_ROLE_CACHE.get(s);
+                    if (role != null) {
+                        roles.add(role);
+                    }
+                }
+                FIND_ROLES_CACHE.put(p.getId(),roles);
+            }
+        }
+    }
+
+//    @PostConstruct
+//    public void postUserInist(){
+////        if(ALL_USER_CACHE == null){
+////            ALL_USER_CACHE = new HashMap<String,User>();
+////            List<User> users = userMapper.findAll();
+////            for (User u :users){
+////                ALL_USER_CACHE.put(u.getId(),u);
+////            }
+////        }
+//        String fixedId = "1";
+//        String fixedId2 = "2";
+//        List<Role> roleLis = FIND_ROLES_CACHE.get(fixedId);
+//        List<Role> roleLis = FIND_ROLES_CACHE.get(fixedId2);
+//
+//    }
+//
+//    private void findUserParam(String fixedId){
+//        List<Role> roleLis = FIND_ROLES_CACHE.get(fixedId);
+//
+////        FIND_USERS_CACHE.put()
+//    }
+
+    public List<Role> findRoles(String fixedId){
+        return FIND_ROLES_CACHE.get(fixedId);
     }
 
     public List<UserVO> findUsers(String fixedId){
@@ -71,5 +114,6 @@ public class ParamService {
     public void create(Param param){
         paramMapper.delete(param.getId());
         paramMapper.create(param);
+        postRoleInist();
     }
 }

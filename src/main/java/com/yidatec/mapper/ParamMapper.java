@@ -25,6 +25,9 @@ public interface ParamMapper {
     @Select("SELECT * FROM T_PARAMS WHERE id=#{id}")
     Param findParamById(String id);
 
+    @Select("SELECT * FROM T_PARAMS")
+    List<Param> findAllParam();
+
     @Insert("INSERT INTO T_PARAMS (id,`title`,value" +
             ") VALUES (#{id},#{title}," +
             "#{value})")

@@ -42,6 +42,9 @@ public class SecurityService {
     @Autowired
     ConfProperties confProperties;
 
+    @Autowired
+    ParamService paramService;
+
 //    @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
 //    public void registryUser(User user){
 //        int a = userMapper.generateSequence(user.getCode());
@@ -174,6 +177,7 @@ public class SecurityService {
                 rolePermissionMapper.insertRolePermission(rp);
             }
         }
+        paramService.postRoleInist();
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
@@ -188,7 +192,7 @@ public class SecurityService {
                 rolePermissionMapper.insertRolePermission(rp);
             }
         }
-
+        paramService.postRoleInist();
     }
 
 }

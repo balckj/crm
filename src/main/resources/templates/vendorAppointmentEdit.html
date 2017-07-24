@@ -64,8 +64,7 @@
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-6">
                                     <select class="form-control m-b" id="vendorType" name="vendorType">
-                                        <option value="1" selected="selected">供应商类型 1</option>
-                                        <option value="2">供应商类型 2</option>
+                                        <option th:value="${role.id}" th:text="${role.name}" th:each="role:${roleList}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -76,8 +75,8 @@
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-6">
                                     <select class="form-control m-b" id="vendorId" name="vendorId">
-                                        <option value="1" selected="selected">供应商名称 1</option>
-                                        <option value="2">供应商名称 2</option>
+                                        <!--<option value="1" selected="selected">供应商名称 1</option>-->
+                                        <!--<option value="2">供应商名称 2</option>-->
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -128,7 +127,39 @@
          * Created by jrw on 2017/7/14.
          */
         $(document).ready(function() {
+            initVendor();
+            $('#vendorType').change(function () {
+                $("#vendorId").empty();
+                initVendor();
+            });
+            function initVendor() {
+                $.ajax({
+                    url: 'getUserByRoleId',
+                    async: true,
+                    type: 'POST',
+                    data: {
+                        roleId:$("#vendorType").val()// 供应商Id
+                    },
+//                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    timeout: 300000,
+                    beforeSend: function () {
 
+                    },
+                    error: function (result) {
+                        swal("操作失败", "通信错误!", "error");
+                        $('#calendar').fullCalendar('removeEvents',originalId);
+                    },
+                    success: function (data) {
+                        if(data.user){
+                            debugger
+                            for(var i = 0; i < data.user.length; i++){
+                                $("#vendorId").append("<option value='"+data.user[i].id+"'>"+data.user[i].name+"</option>");
+                            }
+                        }
+                    }
+                });
+            }
             function generateUUID() {
                 var d = new Date().getTime();
                 var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {

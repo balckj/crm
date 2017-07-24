@@ -1,7 +1,9 @@
 package com.yidatec.controller;
 
 import com.yidatec.model.VendorAppointment;
+import com.yidatec.service.ParamService;
 import com.yidatec.service.VendorAppointmentService;
+import com.yidatec.util.Constants;
 import com.yidatec.vo.VendorAppointmentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,12 +26,21 @@ public class VendorAppointmentController extends BaseController{
 
     @Autowired
     VendorAppointmentService vendorAppointmentService;
-
+    @Autowired
+    ParamService paramService;
     @RequestMapping("/vendorAppointmentList")
     public String vendorAppointmentList(ModelMap model){
+        model.put("roleList",paramService.findRoles(Constants.VENDORAPPOINTMENT_PARAM_ID));
         return "vendorAppointmentEdit";
     }
 
+    @RequestMapping("/getUserByRoleId")
+    @ResponseBody
+    public Object getUserByRoleId(String roleId){
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        map.put("user",paramService.findUsersByRole(roleId));
+        return map;
+    }
 
     @RequestMapping("/saveVendorAppointment")
     @ResponseBody

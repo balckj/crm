@@ -33,6 +33,7 @@
                     <!--<li><a href="index.html"><i class="fa fa-user-o"></i>门店管理</a></li>-->
                     <li id="roleList" sec:authorize-url="/roleList"><a href="javascript:loadPage('roleList')"><i class="fa fa-user-o"></i>角色管理</a></li>
                     <li id="userList" sec:authorize-url="/userList"><a href="javascript:loadPage('userList')"><i class="fa fa-user-secret"></i>用户管理</a></li>
+                    <li id="paramList" sec:authorize-url="/paramList"><a href="javascript:loadPage('paramList')"><i class="fa fa-user-secret"></i>角色配置</a></li>
                 </ul>
             </li>
 
@@ -52,7 +53,7 @@
                     <li id="exhibitionList" sec:authorize-url="/exhibitionList"><a href="javascript:loadPage('exhibitionList')"><i class="fa fa-user-secret"></i>展馆维护</a></li>
                     <li id="audienceList" sec:authorize-url="/audienceList"><a href="javascript:loadPage('audienceList')"><i class="fa fa-user-secret"></i>观众维护</a></li>
                     <li id="dictionaryList" sec:authorize-url="/dictionaryList"><a href="javascript:loadPage('dictionaryList')"><i class="fa fa-user-secret"></i>字典管理</a></li>
-                    <li id="paramList" sec:authorize-url="/paramList"><a href="javascript:loadPage('paramList')"><i class="fa fa-user-secret"></i>角色配置</a></li>
+
                 </ul>
             </li>
             <li sec:authorize-url="/systemSetting">

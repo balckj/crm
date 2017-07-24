@@ -50,6 +50,42 @@ public class User extends BaseModel implements UserDetails {
 
     private Integer state;
 
+    private String nameEN;
+
+    @NotBlank(message = "必须输入推荐人", groups = {UserValidatePM.class,UserValidateDesigner.class })
+    private String referrer;
+
+    private String wechat;
+
+    @NotBlank(message = "必须输入英文能力", groups = {UserValidatePM.class,UserValidateDesigner.class })
+    private String englishAbility;
+
+    @NotBlank(message = "必须输入擅长行业", groups = {UserValidatePM.class,UserValidateDesigner.class })
+    private String goodAtIndustry;
+
+    @NotBlank(message = "必须输入擅长面积", groups = {UserValidatePM.class,UserValidateDesigner.class })
+    private String goodAtArea;
+
+    @NotBlank(message = "必须输入设计风格", groups = {UserValidateDesigner.class })
+    private String designStyle;
+
+    @NotBlank(message = "必须输入从业年限", groups = {UserValidatePM.class,UserValidateDesigner.class })
+    private String experience;
+
+    @NotBlank(message = "必须输入最近上家公司", groups = {UserValidatePM.class,UserValidateDesigner.class })
+    private String previous;
+
+    @NotBlank(message = "必须输入平台级别", groups = {UserValidateDesigner.class })
+    private String platformLevel;
+
+    private String platformCreditLevel;
+
+    @NotBlank(message = "必须输入销售渠道", groups = {UserValidateSale.class })
+    private String channel;
+
+    @NotBlank(message = "必须输入兴趣爱好", groups = {UserValidateSpectator.class })
+    private String hobbies;
+
 
 //    @JsonIgnore
     private List<Role> roleList;
@@ -197,5 +233,107 @@ public class User extends BaseModel implements UserDetails {
         return getState() == 1;
     }
 
+    public String getNameEN() {
+        return nameEN;
+    }
 
+    public void setNameEN(String nameEN) {
+        this.nameEN = nameEN;
+    }
+
+    public String getReferrer() {
+        return referrer;
+    }
+
+    public void setReferrer(String referrer) {
+        this.referrer = referrer;
+    }
+
+    public String getWechat() {
+        return wechat;
+    }
+
+    public void setWechat(String wechat) {
+        this.wechat = wechat;
+    }
+
+    public String getEnglishAbility() {
+        return englishAbility;
+    }
+
+    public void setEnglishAbility(String englishAbility) {
+        this.englishAbility = englishAbility;
+    }
+
+    public String getGoodAtIndustry() {
+        return goodAtIndustry;
+    }
+
+    public void setGoodAtIndustry(String goodAtIndustry) {
+        this.goodAtIndustry = goodAtIndustry;
+    }
+
+    public String getGoodAtArea() {
+        return goodAtArea;
+    }
+
+    public void setGoodAtArea(String goodAtArea) {
+        this.goodAtArea = goodAtArea;
+    }
+
+    public String getDesignStyle() {
+        return designStyle;
+    }
+
+    public void setDesignStyle(String designStyle) {
+        this.designStyle = designStyle;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public String getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(String previous) {
+        this.previous = previous;
+    }
+
+    public String getPlatformLevel() {
+        return platformLevel;
+    }
+
+    public void setPlatformLevel(String platformLevel) {
+        this.platformLevel = platformLevel;
+    }
+
+    public String getPlatformCreditLevel() {
+        return platformCreditLevel;
+    }
+
+    public void setPlatformCreditLevel(String platformCreditLevel) {
+        this.platformCreditLevel = platformCreditLevel;
+    }
+
+    public String getChannel() {
+        return channel;
+    }
+
+    public void setChannel(String channel) {
+        this.channel = channel;
+    }
+
+    public String getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(String hobbies) {
+        this.hobbies = hobbies;
+    }
 }

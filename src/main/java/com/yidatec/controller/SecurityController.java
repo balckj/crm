@@ -109,7 +109,7 @@ public class SecurityController extends BaseController {
 
     @RequestMapping("/saveUser")
     @ResponseBody
-    public Object saveUser(@Validated @RequestBody User userParam,
+    public Object saveUser(@Validated(UserValidate.class) @RequestBody User userParam,
                              BindingResult result)throws Exception{
         List<FieldError> errors = result.getFieldErrors();
         if(errors  != null && errors.size() > 0){

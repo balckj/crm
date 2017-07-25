@@ -2,7 +2,9 @@ package com.yidatec.mapper;
 
 
 import com.yidatec.model.Sale;
+import com.yidatec.model.User;
 import com.yidatec.vo.SaleVO;
+import com.yidatec.vo.UserVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -18,35 +20,35 @@ public interface SaleMapper {
 	 * @return
 	 */
 	@Select("SELECT * FROM T_USER WHERE id = #{id}")
-	Sale selectSale(String id);
+	User selectSale(String id);
 
 	/**
 	 * 供应商列表
-	 * @param SaleVO
+	 * @param userVO
 	 * @return
 	 */
 	@SelectProvider(type=com.yidatec.mapper.SaleQueryProvider.class,method = "selectSale")
-	List<Sale> selectSaleListByName(SaleVO SaleVO);
+	List<User> selectSaleListByName(UserVO userVO);
 	/**
 	 * 供应商列表
-	 * @param SaleVO
+	 * @param userVO
 	 * @return
 	 */
 	@SelectProvider(type=com.yidatec.mapper.SaleQueryProvider.class,method = "countSale")
-	int countSaleListByName(SaleVO SaleVO);
+	int countSaleListByName(UserVO userVO);
 
 
 	@Insert("INSERT INTO T_USER (id,`name`,channel,mobilePhone,email,state,creatorId,createTime," +
 			"modifierId,modifyTime) VALUES (#{id},#{name}," +
 			"#{channel},#{mobilePhone},#{email},#{state}," +
 			"#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
-	int create(Sale Sale);
+	int create(User user);
 
 	@Update("UPDATE T_USER SET `name`=#{name},channel=#{channel},mobilePhone=#{mobilePhone},email=#{email}," +
 			"state=#{state}," +
 			"modifierId=#{modifierId}," +
 			"modifyTime=#{modifyTime} WHERE id=#{id}")
-	int update(Sale Sale);
+	int update(User user);
 
 	@Delete("DELETE FROM T_USER WHERE id=#{id}")
 	int delete(String id);

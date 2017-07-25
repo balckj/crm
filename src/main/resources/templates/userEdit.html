@@ -298,6 +298,9 @@
                                 tmp.html(data[p].defaultMessage);
                             }
                         }
+                    }else if(data.res == 0){
+                        saveBtnda.stop();
+                        swal("操作失败", data.txt, "error");
                     }else{
 
                         loadPage("userList",function(){

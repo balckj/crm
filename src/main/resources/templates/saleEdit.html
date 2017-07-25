@@ -63,6 +63,13 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="passwordForm"><label class="col-sm-2 control-label">密码<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="password" name="password" type="text"
+                                                             class="form-control" maxlength="12" th:value="${sale}?${sale.password}"/></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
                             <div class="form-group" id="emailForm"><label class="col-sm-2 control-label">销售QQ邮箱<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="email" name="email" type="text"
@@ -167,6 +174,7 @@
         validate('name', 'name', 'validateUserName');
         validateSelect('channel', 'channel', 'validateChannel');
         validate2('mobilePhone', 'mobile', {isEdit: false}, 'validateMobile');
+        validate('password', 'password', 'validatePassword');
         validate('email', 'email', 'validateEmail');
 
         var saveBtnda;

@@ -308,6 +308,10 @@
                     save(event.id,event.type,start,"",event.title,event.allDay,event._id);
                 },
                 eventAllow:function(dropLocation, draggedEvent) {
+                    var vendor = $("#vendorId").val();
+                    var vendorType = $("#vendorType").val();
+
+                    if(!vendor || !vendorType) return;
                     return !isOverlapping(dropLocation,draggedEvent)
                 }
             });

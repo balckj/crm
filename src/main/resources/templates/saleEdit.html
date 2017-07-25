@@ -161,12 +161,12 @@
                 }
             });
         })
-
+        var id = $("#id").val();
         $("#saleEdit").addClass("active");
 
         validate('name', 'name', 'validateUserName');
         validateSelect('channel', 'channel', 'validateChannel');
-        validate2('mobilePhone', 'mobile', {isEdit: false}, 'validateMobile');
+        validate2('mobilePhone', 'mobile', {isEdit: (id=="" || id == undefined)  ? false:true}, 'validateMobile');
         validate('email', 'email', 'validateEmail');
 
         var saveBtnda;
@@ -207,6 +207,9 @@
                                 tmp.html(data[p].defaultMessage);
                             }
                         }
+                    }else if(data.res == 0){
+                        saveBtnda.stop();
+                        swal("操作失败", data.txt, "error");
                     }else{
                         loadPage("saleList",function(){
                             saveBtnda.stop();

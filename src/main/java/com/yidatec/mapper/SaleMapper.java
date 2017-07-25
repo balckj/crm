@@ -17,7 +17,7 @@ public interface SaleMapper {
 	 * 查找一个供应商
 	 * @return
 	 */
-	@Select("SELECT * FROM T_SALE WHERE id = #{id}")
+	@Select("SELECT * FROM T_USER WHERE id = #{id}")
 	Sale selectSale(String id);
 
 	/**
@@ -36,19 +36,19 @@ public interface SaleMapper {
 	int countSaleListByName(SaleVO SaleVO);
 
 
-	@Insert("INSERT INTO T_SALE (id,`name`,channel,mobilePhone,email,state,creatorId,createTime," +
+	@Insert("INSERT INTO T_USER (id,`name`,channel,mobilePhone,email,state,creatorId,createTime," +
 			"modifierId,modifyTime) VALUES (#{id},#{name}," +
 			"#{channel},#{mobilePhone},#{email},#{state}," +
 			"#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
 	int create(Sale Sale);
 
-	@Update("UPDATE T_SALE SET `name`=#{name},channel=#{channel},mobilePhone=#{mobilePhone},email=#{email}," +
+	@Update("UPDATE T_USER SET `name`=#{name},channel=#{channel},mobilePhone=#{mobilePhone},email=#{email}," +
 			"state=#{state}," +
 			"modifierId=#{modifierId}," +
 			"modifyTime=#{modifyTime} WHERE id=#{id}")
 	int update(Sale Sale);
 
-	@Delete("DELETE FROM T_SALE WHERE id=#{id}")
+	@Delete("DELETE FROM T_USER WHERE id=#{id}")
 	int delete(String id);
 
 }

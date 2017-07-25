@@ -11,7 +11,7 @@ public class SaleQueryProvider {
     public String selectSale(final SaleVO SaleVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM T_SALE  as D WHERE 1=1");
+        sb.append("SELECT * FROM T_USER  as D WHERE 1=1");
 
         if(!StringUtils.isEmpty(SaleVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
@@ -23,7 +23,7 @@ public class SaleQueryProvider {
     public String countSale(final SaleVO SaleVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT count(*) from T_SALE  as D WHERE 1=1");
+        sb.append("SELECT count(*) from T_USER  as D WHERE 1=1");
 
         if(!StringUtils.isEmpty(SaleVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");

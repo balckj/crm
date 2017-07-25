@@ -34,10 +34,10 @@ public class CustomerController extends BaseController{
         return "customerList";
     }
 
-    @RequestMapping("/activities")
-    public String activities(ModelMap model){
-        return "activities";
-    }
+//    @RequestMapping("/activities")
+//    public String activities(ModelMap model){
+//        return "activities";
+//    }
 
 
     @RequestMapping("/customerEdit")
@@ -47,12 +47,12 @@ public class CustomerController extends BaseController{
         return "customerEdit";
     }
 
-    @RequestMapping("/activityEdit")
-    public String activityEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
-        model.put("title",(id == null || id.isEmpty())?"新建活动":"编辑活动");
-
-        return "activityEdit";
-    }
+//    @RequestMapping("/activityEdit")
+//    public String activityEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
+//        model.put("title",(id == null || id.isEmpty())?"新建活动":"编辑活动");
+//
+//        return "activityEdit";
+//    }
 
     @RequestMapping(value = "/findCustomer")
     @ResponseBody

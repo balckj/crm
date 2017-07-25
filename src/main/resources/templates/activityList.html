@@ -2,25 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<div th:fragment="userList">
+<div th:fragment="activityList">
     <link th:href="@{99/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
     <style type="text/css">
-        #usertable_length  select {
+        #activitytable_length  select {
             padding-top: 3px;
         }
     </style>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>活动列表</h2>
+            <h2>市场活动</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="index.html">首页</a>
                 </li>
                 <li>
-                    <a>数据处理</a>
+                    <a>主数据处理</a>
                 </li>
                 <li class="active">
-                    <strong>活动管理</strong>
+                    <strong>市场活动</strong>
                 </li>
             </ol>
         </div>
@@ -29,23 +29,16 @@
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
         <div class="ibox-content m-b-sm border-bottom">
             <div class="row">
-
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="activityType" class="control-label">类型</label>
-                        <input type="text" placeholder="包含您的输入值的类型" id="activityType" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="name" class="control-label">活动名称</label>
+                        <input type="text" placeholder="包含您的输入值的活动名称" id="name" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="activityName" class="control-label">活动名称</label>
-                        <input type="text" placeholder="包含您的输入值的活动名称" id="activityName" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label for="activityAddress" class="control-label">活动地址</label>
-                        <input type="text" placeholder="包含您的输入值的活动地址" id="activityAddress" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="address" class="control-label">活动地址</label>
+                        <input type="text" placeholder="包含您的输入值的活动地址" id="address" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -76,11 +69,10 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content table-responsive">
-                        <table id="usertable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <table id="activitytable" class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                             <tr>
                                 <th>操作</th>
-                                <th>类型</th>
                                 <th>活动名称</th>
                                 <th>开始日期</th>
                                 <th>结束日期</th>
@@ -89,6 +81,8 @@
                                 <th>城市</th>
                                 <th>区域</th>
                                 <th>地址</th>
+                                <th>展馆</th>
+                                <th>主办方</th>
                                 <th>状态</th>
                             </tr>
                             </thead>
@@ -100,16 +94,16 @@
     </div>
 
 
-
-
+    <link th:href="@{99/css/plugins/datapicker/bootstrap-datetimepicker.min.css}" rel="stylesheet"/>
+    <script th:src="@{99/js/plugins/datapicker/bootstrap-datetimepicker.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
     <script type="text/javascript">
         /*<![CDATA[*/
 
-        var usertable;
-        function usertableLoad() {
-            usertable = $('#usertable').DataTable({
+        var activitytable;
+        function activitytableLoad() {
+            activitytable = $('#activitytable').DataTable({
                 "sScrollX": true,
                 "ajax": {
                     "url": "findActivity",
@@ -118,29 +112,15 @@
                     contentType: 'application/json; charset=utf-8',
 
                     "data": function (d) {
-                        var roles =[];
-//                    $('input[name="role"]:checked').each(function(){
-                        if($('#role').val() != '')
-                            roles.push({id:$('#role').val()});
-//                    });
                         var p = {};
                         p.draw = d.draw;
                         p.length = d.length;
                         p.start = d.start;
 
-//                    p.nick = $('#nick').val();
                         p.name = $('#name').val();
-                        p.mobilePhone = $('#mobilePhone').val();
-//                    p.totalLessons = $('#totalLessons').val();
-//                    p.height = $('#height').val();
-//                    p.weight = $('#weight').val();
-//                    p.target = $('#target').val();
-//                    p.experience = $('#experience').val();
-
-                        p.state = $('#state').val();
-
-                        p.gender = $('#gender').val();
-                        p.roleList = roles;
+                        p.address = $('#address').val();
+                        p.startDate = $('#startDate').val();
+                        p.endDate = $('#endDate').val();
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -150,19 +130,23 @@
                     {
                         "data": "id", "width": "80px",
                         "render": function (data, type, row) {
-                            var u = "userEdit?id="+row.id;
+                            var u = "activityEdit?id="+row.id;
                             u =  '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
 
                             return u;
 
                         },
                     },
-
                     {"data": "name", "width": "100px"},
-                    {"data": "roleNames", "width": "100px"},
-                    {"data": "mobilePhone", "width": "100px"},
-                    {"data": "password", "width": "100px"},
-                    {"data": "openId", "width": "100px"},
+                    {"data": "startDate", "width": "100px"},
+                    {"data": "endDate", "width": "100px"},
+                    {"data": "country", "width": "100px"},
+                    {"data": "province", "width": "100px"},
+                    {"data": "city", "width": "100px"},
+                    {"data": "region", "width": "100px"},
+                    {"data": "address", "width": "100px"},
+                    {"data": "exhibitioHall", "width": "100px"},
+                    {"data": "sponsor", "width": "100px"},
                     {
                         "data": "state", "width": "40px",
                         "render": function (data, type, full, meta) {
@@ -178,30 +162,6 @@
                                 return '';
                             }
                         }
-                    },
-                    {
-                        "data": "gender", "width": "40px",
-                        "render": function (data, type, full, meta) {
-                            if (data == 1) {
-                                return '男';
-                            }
-                            else if (data == 2) {
-                                return '女';
-                            }
-                            else {
-                                return '';
-                            }
-                        }
-                    },
-
-                    {"data": "email", "width": "140px"},
-
-
-                    {
-                        "data": "createTime", "width": "140px"
-                    },
-                    {
-                        "data": "modifyTime", "width": "140px"
                     }
                 ]
                 , language: {
@@ -209,7 +169,7 @@
                     + '<option value="20">20</option>'
                     + '<option value="40">40</option>'
                     + '<option value="100">100</option>'
-                    + '</select> 个用户'
+                    + '</select> 个活动'
                     ,
                     processing: "载入中 ...",//处理页面数据的时候的显示
                     paginate: {//分页的样式文本内容。
@@ -219,10 +179,10 @@
                         last: "最后一页"
                     },
                     "sSearch": "搜索",
-                    zeroRecords: "没有用户",//table tbody内容为空时，tbody的内容。
+                    zeroRecords: "没有活动",//table tbody内容为空时，tbody的内容。
                     //下面三者构成了总体的左下角的内容。
-                    info: "当前显示第_START_到第_END_个用户 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
-                    infoEmpty: "0个用户",//筛选为空时左下角的显示。
+                    info: "当前显示第_START_到第_END_个活动 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    infoEmpty: "0个活动",//筛选为空时左下角的显示。
                     infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
                 }
                 , "lengthChange": true
@@ -239,6 +199,28 @@
 //            ,"dom": 'lBfrtip',
             });
         }
+
+        $('#startDate').datetimepicker({
+            startView: 2,
+            todayBtn: "linked",
+            todayHighlight:true,
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: 'yyyy-mm-dd hh:ii',
+            language: 'cn',
+        });
+
+        $('#endDate').datetimepicker({
+            startView: 2,
+            todayBtn: "linked",
+            todayHighlight:true,
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: 'yyyy-mm-dd hh:ii',
+            language: 'cn',
+        });
 
         // 时间格式化
         function timeStamp2String(time,hasHour) {
@@ -259,7 +241,7 @@
         }
 
         function query(){
-            usertable.ajax.reload( null, true ); // user paging is not reset on reload
+            activitytable.ajax.reload( null, true ); // user paging is not reset on reload
         }
 
 
@@ -268,10 +250,10 @@
         var saveBtnda;
         $(document).ready(function () {
             // 提示栏初始化
-            usertableLoad();
+            activitytableLoad();
 
             var v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"activityEdit\");'>新&nbsp;&nbsp;建</button>"
-            $("#usertable_wrapper div").children().eq(0).append(v);
+            $("#activitytable_wrapper div").children().eq(0).append(v);
 
         });
 

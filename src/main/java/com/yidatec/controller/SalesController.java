@@ -49,7 +49,7 @@ public class SalesController extends BaseController{
 
     @RequestMapping("/saveSale")
     @ResponseBody
-    public Object saveSale(@Validated({UserValidateSale.class }) @RequestBody User sale,
+    public Object saveSale(@Validated({UserValidateSale.class}) @RequestBody User sale,
                                  BindingResult result)throws Exception{
         List<FieldError> errors = result.getFieldErrors();
         if(errors  != null && errors.size() > 0){

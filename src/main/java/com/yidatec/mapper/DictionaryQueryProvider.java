@@ -20,7 +20,7 @@ public class DictionaryQueryProvider {
         if(!StringUtils.isEmpty(dictionaryVO.getState())){
             sb.append(" AND D.state = #{state}");
         }
-        sb.append(" ORDER BY D.sort");
+        sb.append(" ORDER BY D.code,D.sort");
         sb.append(" LIMIT #{start},#{length}");
         return sb.toString();
     }

@@ -1,8 +1,11 @@
 package com.yidatec.controller;
 
-import com.yidatec.model.Sale;
+import com.yidatec.model.*;
+import com.yidatec.service.ParamService;
 import com.yidatec.service.SaleService;
+import com.yidatec.util.Constants;
 import com.yidatec.vo.SaleVO;
+import com.yidatec.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -46,13 +49,13 @@ public class SalesController extends BaseController{
 
     @RequestMapping("/saveSale")
     @ResponseBody
-    public Object saveSale(@Validated @RequestBody Sale sale,
+    public Object saveSale(@Validated({UserValidateSale.class}) @RequestBody User sale,
                                  BindingResult result)throws Exception{
         List<FieldError> errors = result.getFieldErrors();
         if(errors  != null && errors.size() > 0){
             return errors;
         }
-        Sale sale1 = new Sale();
+        User sale1 = new User();
         if(sale.getId() == null || sale.getId().trim().length() <= 0)//新建
         {
             sale1.setId(UUID.randomUUID().toString().toLowerCase());
@@ -60,6 +63,7 @@ public class SalesController extends BaseController{
             sale1.setChannel(sale.getChannel());
             sale1.setEmail(sale.getEmail());
             sale1.setMobilePhone(sale.getMobilePhone());
+            sale1.setPassword(sale.getPassword());
             sale1.setState(sale.getState());
             sale1.setCreatorId(getWebUser().getId());
             sale1.setCreateTime(LocalDateTime.now());
@@ -72,6 +76,7 @@ public class SalesController extends BaseController{
             sale1.setChannel(sale.getChannel());
             sale1.setEmail(sale.getEmail());
             sale1.setMobilePhone(sale.getMobilePhone());
+            sale1.setPassword(sale.getPassword());
             sale1.setState(sale.getState());
             sale1.setModifierId(getWebUser().getId());
             sale1.setModifyTime(LocalDateTime.now());
@@ -83,11 +88,11 @@ public class SalesController extends BaseController{
 
     @RequestMapping(value = "/findSale")
     @ResponseBody
-    public Object findsale(@RequestBody SaleVO saleVO)throws Exception{
-        List<Sale> saleEntityList = saleService.selectSaleListByName(saleVO);
-        int count = saleService.countSaleListByName(saleVO);
+    public Object findsale(@RequestBody UserVO userVO)throws Exception{
+        List<User> saleEntityList = saleService.selectSaleListByName(userVO);
+        int count = saleService.countSaleListByName(userVO);
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("draw", saleVO.getDraw());
+        map.put("draw", userVO.getDraw());
         map.put("recordsTotal", count);
         map.put("recordsFiltered", count);
         map.put("data", saleEntityList);

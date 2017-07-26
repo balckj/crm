@@ -1,10 +1,9 @@
 package com.yidatec.mapper;
 
 import com.yidatec.model.Role;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.yidatec.model.User;
+import com.yidatec.vo.UserVO;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -16,6 +15,11 @@ public interface RoleMapper {
 
     @Select("SELECT * FROM T_ROLE ORDER BY modifyTime DESC;")
     List<Role> findAll();
+
+    @SelectProvider(type=com.yidatec.mapper.RoleQueryProvider.class,method = "selectRoleCommon")
+    List<User> selectRoleCommon(UserVO userVO);
+    @SelectProvider(type=com.yidatec.mapper.RoleQueryProvider.class,method = "countRoleCommon")
+    int countRoleCommon(UserVO userVO);
 
     @Select("SELECT * FROM T_ROLE WHERE state = 1 ORDER BY modifyTime DESC;")
     List<Role> findEnable();

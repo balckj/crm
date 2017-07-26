@@ -11,4 +11,16 @@ public interface Constants {
      * 供应商空闲时间参数
      */
     public static final String  VENDORAPPOINTMENT_PARAM_ID = "22b328ca-f6a5-42cf-86c1-c8ef719a85b6";
+    /**
+     * 设计师
+     */
+    public static final String DESIGNER_PARAM_ID = "5c5cde48-bd14-4006-9381-58c9972c3752";
+    /**
+     * 项目经理
+     */
+    public static final String PM_PARAM_ID = "5551aea7-f6e6-4914-a042-d8bdcef8f342";
+    /**
+     * 销售
+     */
+    public static final String SALE_PARAM_ID = "f1441df7-a1e3-40ec-98c5-028697cb80f3";
 }

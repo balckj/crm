@@ -1,9 +1,9 @@
 package com.yidatec.controller;
 
-import com.yidatec.model.Sale;
-import com.yidatec.model.User;
-import com.yidatec.model.UserValidateSale;
+import com.yidatec.model.*;
+import com.yidatec.service.ParamService;
 import com.yidatec.service.SaleService;
+import com.yidatec.util.Constants;
 import com.yidatec.vo.SaleVO;
 import com.yidatec.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +63,7 @@ public class SalesController extends BaseController{
             sale1.setChannel(sale.getChannel());
             sale1.setEmail(sale.getEmail());
             sale1.setMobilePhone(sale.getMobilePhone());
+            sale1.setPassword(sale.getPassword());
             sale1.setState(sale.getState());
             sale1.setCreatorId(getWebUser().getId());
             sale1.setCreateTime(LocalDateTime.now());
@@ -75,6 +76,7 @@ public class SalesController extends BaseController{
             sale1.setChannel(sale.getChannel());
             sale1.setEmail(sale.getEmail());
             sale1.setMobilePhone(sale.getMobilePhone());
+            sale1.setPassword(sale.getPassword());
             sale1.setState(sale.getState());
             sale1.setModifierId(getWebUser().getId());
             sale1.setModifyTime(LocalDateTime.now());

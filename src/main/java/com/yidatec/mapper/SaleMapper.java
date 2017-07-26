@@ -16,21 +16,21 @@ import java.util.List;
 public interface SaleMapper {
 
 	/**
-	 * 查找一个供应商
+	 * 查找一个销售
 	 * @return
 	 */
 	@Select("SELECT * FROM T_USER WHERE id = #{id}")
 	User selectSale(String id);
 
 	/**
-	 * 供应商列表
+	 * 销售列表
 	 * @param userVO
 	 * @return
 	 */
 	@SelectProvider(type=com.yidatec.mapper.SaleQueryProvider.class,method = "selectSale")
 	List<User> selectSaleListByName(UserVO userVO);
 	/**
-	 * 供应商列表
+	 * 销售列表
 	 * @param userVO
 	 * @return
 	 */
@@ -38,13 +38,13 @@ public interface SaleMapper {
 	int countSaleListByName(UserVO userVO);
 
 
-	@Insert("INSERT INTO T_USER (id,`name`,channel,mobilePhone,email,state,creatorId,createTime," +
+	@Insert("INSERT INTO T_USER (id,`name`,channel,mobilePhone,password,email,state,creatorId,createTime," +
 			"modifierId,modifyTime) VALUES (#{id},#{name}," +
-			"#{channel},#{mobilePhone},#{email},#{state}," +
+			"#{channel},#{mobilePhone},#{password},#{email},#{state}," +
 			"#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
 	int create(User user);
 
-	@Update("UPDATE T_USER SET `name`=#{name},channel=#{channel},mobilePhone=#{mobilePhone},email=#{email}," +
+	@Update("UPDATE T_USER SET `name`=#{name},channel=#{channel},mobilePhone=#{mobilePhone},password=#{password},email=#{email}," +
 			"state=#{state}," +
 			"modifierId=#{modifierId}," +
 			"modifyTime=#{modifyTime} WHERE id=#{id}")

@@ -13,6 +13,8 @@ public class UserVO extends User {
     private String roleIds;
     private String roleNames;
 
+    private String paraRoleIDS;
+
     public Integer getDraw() {
         return draw;
     }
@@ -51,5 +53,13 @@ public class UserVO extends User {
 
     public void setRoleNames(String roleNames) {
         this.roleNames = roleNames;
+    }
+
+    public String getParaRoleIDS() {
+        return paraRoleIDS;
+    }
+
+    public void setParaRoleIDS(String paraRoleIDS) {
+        this.paraRoleIDS = paraRoleIDS;
     }
 }

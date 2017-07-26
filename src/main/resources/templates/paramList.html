@@ -17,7 +17,7 @@
                     <a href="index.html">首页</a>
                 </li>
                 <li>
-                    <a>主数据管理</a>
+                    <a>系统设置</a>
                 </li>
                 <li class="active">
                     <strong>角色配置</strong>
@@ -40,7 +40,18 @@
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-5">
                                     <select class="form-control m-b dept_select" multiple="multiple" id="vendorAppointment" style="width:350px;" tabindex="4">
-                                        <!--<option title="空闲时间供应商" value="" selected="selected" id="22b328ca-f6a5-42cf-86c1-c8ef719a85b6">未选择</option>-->
+                                        <option th:value="${role.id}" th:text="${role.name}" th:each="role:${roleList}" ></option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"  id="designerForm">
+                                <label class="col-sm-2 control-label">设计师<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-5">
+                                    <select class="form-control m-b dept_select" multiple="multiple" id="designer" style="width:350px;" tabindex="4">
                                         <option th:value="${role.id}" th:text="${role.name}" th:each="role:${roleList}" ></option>
                                     </select>
                                 </div>
@@ -48,6 +59,29 @@
                             </div>
 
 
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"  id="PMForm">
+                                <label class="col-sm-2 control-label">项目经理<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-5">
+                                    <select class="form-control m-b dept_select" multiple="multiple" id="pm" style="width:350px;" tabindex="4">
+                                        <option th:value="${role.id}" th:text="${role.name}" th:each="role:${roleList}" ></option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"  id="saleForm">
+                                <label class="col-sm-2 control-label">销售<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-5">
+                                    <select class="form-control m-b dept_select" multiple="multiple" id="sale" style="width:350px;" tabindex="4">
+                                        <option th:value="${role.id}" th:text="${role.name}" th:each="role:${roleList}" ></option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
 
                             <div class="hr-line-dashed"/>
                             <div class="form-group">
@@ -78,6 +112,9 @@
 
         $(function () {
             $("#vendorAppointment").select2();
+            $("#designer").select2();
+            $("#pm").select2();
+            $("#sale").select2();
             initAllKindsOfSelect();
         })
         
@@ -107,6 +144,45 @@
                             $("#vendorAppointment").val(vendor).trigger('change')
                         }
                     }
+                    if(data.designer){
+                        var vendor = data.designer.value;
+                        if(vendor && vendor.indexOf(",") > 0){
+                            var valueList = vendor.split(",");
+                            var setkey = [];
+                            for(var i= 0;i< valueList.length; i++){
+                                setkey.push(valueList[i]);
+                            }
+                            $("#designer").val(setkey).trigger('change')
+                        }else{
+                            $("#designer").val(vendor).trigger('change')
+                        }
+                    }
+                    if(data.pm){
+                        var vendor = data.pm.value;
+                        if(vendor && vendor.indexOf(",") > 0){
+                            var valueList = vendor.split(",");
+                            var setkey = [];
+                            for(var i= 0;i< valueList.length; i++){
+                                setkey.push(valueList[i]);
+                            }
+                            $("#pm").val(setkey).trigger('change')
+                        }else{
+                            $("#pm").val(vendor).trigger('change')
+                        }
+                    }
+                    if(data.sale){
+                        var vendor = data.sale.value;
+                        if(vendor && vendor.indexOf(",") > 0){
+                            var valueList = vendor.split(",");
+                            var setkey = [];
+                            for(var i= 0;i< valueList.length; i++){
+                                setkey.push(valueList[i]);
+                            }
+                            $("#sale").val(setkey).trigger('change')
+                        }else{
+                            $("#sale").val(vendor).trigger('change')
+                        }
+                    }
                 }
             });
         }
@@ -116,6 +192,9 @@
             saveBtnda = Ladda.create(btn);
             var params = [];
             params.push({id: "22b328ca-f6a5-42cf-86c1-c8ef719a85b6" ,title:"空闲时间供应商",value:$("#vendorAppointment").val() ?$("#vendorAppointment").val().toString():null});
+            params.push({id: "5c5cde48-bd14-4006-9381-58c9972c3752" ,title:"设计师",value:$("#designer").val() ?$("#designer").val().toString():null});
+            params.push({id: "5551aea7-f6e6-4914-a042-d8bdcef8f342" ,title:"项目经理",value:$("#pm").val() ?$("#pm").val().toString():null});
+            params.push({id: "f1441df7-a1e3-40ec-98c5-028697cb80f3" ,title:"销售",value:$("#sale").val() ?$("#sale").val().toString():null});
             var p = {
                 paramList:params
             }

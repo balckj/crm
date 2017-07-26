@@ -39,7 +39,14 @@ public class ParamController extends BaseController{
     @ResponseBody
     public Object paramSelectInit(ModelMap model){
         Map<String, Object> map = new HashMap<String, Object>();
+        // 供应商空闲时间
         map.put("vendorAppoiment",paramService.findParam(Constants.VENDORAPPOINTMENT_PARAM_ID));
+        // 设计师
+        map.put("designer",paramService.findParam(Constants.DESIGNER_PARAM_ID));
+        // 项目经理
+        map.put("pm",paramService.findParam(Constants.PM_PARAM_ID));
+        // 销售
+        map.put("sale",paramService.findParam(Constants.SALE_PARAM_ID));
         return map;
     }
 

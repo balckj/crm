@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class RoleQueryProvider {
 
-    public String selectRoleCommon(final UserVO userVO)
+    public String selectUserByRoleCommon(final UserVO userVO)
     {
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT * FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId WHERE 1=1");
@@ -40,7 +40,7 @@ public class RoleQueryProvider {
         sb.append(" LIMIT #{start},#{length}");
         return sb.toString();
     }
-    public String countRoleCommon(final UserVO userVO)
+    public String countUserByRoleCommon(final UserVO userVO)
     {
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT count(*) FROM ( ");
@@ -65,6 +65,29 @@ public class RoleQueryProvider {
         sb.append(" and U.state = 1 GROUP BY U.id ORDER BY modifyTime DESC");
         sb.append(" LIMIT #{start},#{length}");
         sb.append(" ) as A");
+        return sb.toString();
+    }
+
+    public String selectSaleListALL(final UserVO userVO)
+    {
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId WHERE 1=1");
+        sb.append(" AND UR.roleId in (");
+        String[] roleids = userVO.getParaRoleIDS().split(",");
+
+        if (roleids != null){
+            for (int i = 0 ; i< roleids.length ; i ++){
+                String s = roleids[i];
+                if(i != roleids.length -1){
+                    sb.append("'" + s + "'" + ",");
+                }else{
+                    sb.append("'" + s + "'");
+                }
+            }
+        }
+        sb.append(")");
+
+        sb.append(" and U.state = 1 GROUP BY U.id ORDER BY modifyTime DESC");
         return sb.toString();
     }
 }

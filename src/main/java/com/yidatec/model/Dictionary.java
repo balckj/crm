@@ -3,6 +3,8 @@ package com.yidatec.model;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
 /**
@@ -16,12 +18,12 @@ public class Dictionary extends BaseModel {
 	@Length(min = 3, max = 40, message = "姓名必须由3到40个字符组成", groups = { })
 	private String code;
 
-	@NotBlank(message = "必须输入序号", groups = { })
-	@Pattern(regexp="^[0-9]*[0-9][0-9]*$",message="序号格式不正确", groups = { })
-	private String sort;
+	@NotBlank(message = "必须输入大于等于0的整数", groups = { })
+	@Min(value=0,message = "必须输入大于等于0的整数", groups = {})
+	private Integer sort;
 
 	@NotBlank(message = "必须输入项目值", groups = { })
-	@Length(min = 1, max = 10, message = "项目值必须由1到10个字符组成", groups = { })
+	@Length(min = 1, max = 50, message = "项目值必须由1到50个字符组成", groups = { })
 	private String value;
 
 	@NotBlank(message = "必须输入描述", groups = { })
@@ -39,11 +41,11 @@ public class Dictionary extends BaseModel {
 		this.code = code;
 	}
 
-	public String getSort() {
+	public Integer getSort() {
 		return sort;
 	}
 
-	public void setSort(String sort) {
+	public void setSort(Integer sort) {
 		this.sort = sort;
 	}
 

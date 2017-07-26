@@ -51,7 +51,7 @@ public class SaleService {
 	public List<User> selectSaleListByName(UserVO userVO) {
 		Param param = paramService.findParam(Constants.SALE_PARAM_ID);
 		userVO.setParaRoleIDS(param.getValue());
-		return  roleMapper.selectRoleCommon(userVO);
+		return  roleMapper.selectUserByRoleCommon(userVO);
 	}
 
 	/**
@@ -62,12 +62,24 @@ public class SaleService {
 	public int countSaleListByName(UserVO userVO) {
 		Param param = paramService.findParam(Constants.SALE_PARAM_ID);
 		userVO.setParaRoleIDS(param.getValue());
-		return roleMapper.countRoleCommon(userVO);
+		return roleMapper.countUserByRoleCommon(userVO);
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
 	public void deleteSale(String id) {
 		saleMapper.delete(id);
+	}
+
+
+	/**
+	 * 查询所有销售
+	 *
+	 * @return
+	 */
+	public List<User> selectSaleListALL(UserVO userVO) {
+		Param param = paramService.findParam(Constants.SALE_PARAM_ID);
+		userVO.setParaRoleIDS(param.getValue());
+		return  roleMapper.selectSaleListALL(userVO);
 	}
 
 	/**

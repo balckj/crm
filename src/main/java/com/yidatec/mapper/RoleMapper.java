@@ -16,10 +16,13 @@ public interface RoleMapper {
     @Select("SELECT * FROM T_ROLE ORDER BY modifyTime DESC;")
     List<Role> findAll();
 
-    @SelectProvider(type=com.yidatec.mapper.RoleQueryProvider.class,method = "selectRoleCommon")
-    List<User> selectRoleCommon(UserVO userVO);
-    @SelectProvider(type=com.yidatec.mapper.RoleQueryProvider.class,method = "countRoleCommon")
-    int countRoleCommon(UserVO userVO);
+    @SelectProvider(type=com.yidatec.mapper.RoleQueryProvider.class,method = "selectUserByRoleCommon")
+    List<User> selectUserByRoleCommon(UserVO userVO);
+    @SelectProvider(type=com.yidatec.mapper.RoleQueryProvider.class,method = "countUserByRoleCommon")
+    int countUserByRoleCommon(UserVO userVO);
+
+    @SelectProvider(type=com.yidatec.mapper.RoleQueryProvider.class,method = "selectSaleListALL")
+    List<User> selectSaleListALL(UserVO userVO);
 
     @Select("SELECT * FROM T_ROLE WHERE state = 1 ORDER BY modifyTime DESC;")
     List<Role> findEnable();

@@ -161,32 +161,56 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <ul id="holder">
-                                    <li id="userForm0" style="list-style:none;float:left" >
+                            <div class="form-group" >
+                                <ul id="holder" th:if="${not #lists.isEmpty(customer.userList)}" >
+                                    <li  style="list-style:none;float:left" class="user"   th:each="customer,terStat : ${customer.userList}" th:attr="id='userForm'+${terStat.index}">
                                         <label class="col-sm-1 control-label">联系人<span style="color:#ed5565;">*</span></label>
-                                        <div class="col-sm-1"><input id="userName" name="userName" type="text" class="form-control"
-                                                                     maxlength="20" th:value="${customer}?${customer.userName}"/></div>
+                                        <div class="col-sm-1">
+                                            <input id="userName" name="userName" type="text" class="form-control"
+                                                                     maxlength="20" th:value="${customer.name}"/>
+                                        </div>
                                         <label class=" control-label" style="text-align: left"></label>
                                         <label class="col-sm-1 control-label">联系人职位</label>
                                         <div class="col-sm-1"><input id="userPosition" name="userPosition" type="text" class="form-control"
-                                                                     maxlength="20" th:value="${customer}?${customer.userPosition}"/></div>
+                                                                     maxlength="20" th:value="${customer}?${customer.position}"/></div>
                                         <label class=" control-label" style="text-align: left"></label>
                                         <label class="col-sm-1 control-label">联系人电话<span style="color:#ed5565;">*</span></label>
                                         <div class="col-sm-1"><input id="userPhone" name="userPhone" type="text" class="form-control"
-                                                                     maxlength="20" th:value="${customer}?${customer.userPhone}"/></div>
+                                                                     maxlength="20" th:value="${customer}?${customer.mobilePhone}"/></div>
                                         <label class=" control-label" style="text-align: left"></label>
                                         <label class="col-sm-1 control-label">联系人QQ邮箱<span style="color:#ed5565;">*</span></label>
                                         <div class="col-sm-1"><input id="userEmail" name="userEmail" type="text" class="form-control"
-                                                                     maxlength="50" th:value="${customer}?${customer.userEmail}"/></div>
+                                                                     maxlength="50" th:value="${customer}?${customer.email}"/></div>
                                         <label class=" control-label" style="text-align: left"></label>
-                                        <div class="col-sm-1"><button onclick="addLi()" type="button" id="addordel0" class="btn ladda-button btn-w-m btn-primary">[增加]</button></div>
+                                        <div class="col-sm-1" th:if="${terStat.first}"><button onclick="addLi()" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button btn-w-m btn-primary">[增加]</button></div>
+                                        <div class="col-sm-1" th:unless="${terStat.first}"><button onclick="delBtnData(this)" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button btn-w-m btn-primary">[删除]</button></div>
                                     </li>
-
-
                                 </ul>
-
+                                <ul id="holder" th:if="${#lists.isEmpty(customer.userList)}" >
+                                    <li  style="list-style:none;float:left" class="user" id="userForm0">
+                                        <label class="col-sm-1 control-label">联系人<span style="color:#ed5565;">*</span></label>
+                                        <div class="col-sm-1">
+                                            <input  name="userName" type="text" class="form-control"
+                                                   maxlength="20" />
+                                        </div>
+                                        <label class=" control-label" style="text-align: left"></label>
+                                        <label class="col-sm-1 control-label">联系人职位</label>
+                                        <div class="col-sm-1"><input  name="userPosition" type="text" class="form-control"
+                                                                     maxlength="20" /></div>
+                                        <label class=" control-label" style="text-align: left"></label>
+                                        <label class="col-sm-1 control-label">联系人电话<span style="color:#ed5565;">*</span></label>
+                                        <div class="col-sm-1"><input  name="userPhone" type="text" class="form-control"
+                                                                     maxlength="20" /></div>
+                                        <label class=" control-label" style="text-align: left"></label>
+                                        <label class="col-sm-1 control-label">联系人QQ邮箱<span style="color:#ed5565;">*</span></label>
+                                        <div class="col-sm-1"><input  name="userEmail" type="text" class="form-control"
+                                                                     maxlength="50" /></div>
+                                        <label class=" control-label" style="text-align: left"></label>
+                                        <div class="col-sm-1"><button onclick="addLi()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">[增加]</button></div>
+                                    </li>
+                                </ul>
                             </div>
+
                             <!--<div class="hr-line-dashed"></div>-->
                             <!--<div class="form-group" id="userpositionForm"><label class="col-sm-2 control-label">联系人职位</label>-->
                                 <!--<div class="col-sm-4"><input id="userPosition" name="userPosition" type="text" class="form-control"-->
@@ -286,27 +310,30 @@
         /*<![CDATA[*/
         //创建li标签，包含显示姓名，邮箱，电话号码及删除按钮
         function addLi() {
+            debugger;
+            console.info();
             var node=document.createElement("LI");
             var total = holder.getElementsByTagName("li").length;
            node.style.float="left";
            node.style.listStyle="none";
            node.id="userForm"+total;
+           node.className="user"
 //            var textnode=document.create("dsfsda");
 //            node.appendChild(textnode);
             node.innerHTML = " <label class='col-sm-1 control-label'>联系人<span style='color:#ed5565;'>*</span></label>"
-            +"<div class='col-sm-1'><input id='userName' name='userName' type='text' class='form-control'"
+            +"<div class='col-sm-1'><input  name='userName' type='text' class='form-control'"
             +"maxlength='20' th:value='${customer}?${customer.userName}'/></div>"
             +"<label class=' control-label' style='text-align: left'></label>"
             +"<label class='col-sm-1 control-label'>联系人职位</label>"
-                +"   <div class='col-sm-1'><input id='userPosition' name='userPosition' type='text' class='form-control'"
+                +"   <div class='col-sm-1'><input  name='userPosition' type='text' class='form-control'"
             +"maxlength='20' th:value='${customer}?${customer.userPosition}'/></div>"
              +"   <label class=' control-label' style='text-align: left'></label>"
               +"  <label class='col-sm-1 control-label'>联系人电话<span style='color:#ed5565;'>*</span></label>"
-              +"  <div class='col-sm-1'><input id='userPhone' name='userPhone' type='text' class='form-control'"
+              +"  <div class='col-sm-1'><input  name='userPhone' type='text' class='form-control'"
             +"maxlength='20' th:value='${customer}?${customer.userPhone}'/></div>"
              +"   <label class=' control-label' style='text-align: left'></label>"
              +"  <label class='col-sm-1 control-label'>联系人QQ邮箱<span style='color:#ed5565;'>*</span></label>"
-             +"   <div class='col-sm-1'><input id='userEmail' name='userEmail' type='text' class='form-control'"
+             +"   <div class='col-sm-1'><input  name='userEmail' type='text' class='form-control'"
             +"maxlength='50' th:value='${customer}?${customer.userEmail}'/></div>"
              +"   <label class=' control-label' style='text-align: left'></label>"
               +"  <div class='col-sm-1'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>[删除]</button></div>";
@@ -341,28 +368,18 @@
             li.appendChild(span_1);
         }
         //添加删除按钮及设置删除按钮的样式及添加点击事件
-        function addDelBtn(li){
-            var btn=document.createElement("button");
-
-            btn.setAttribute("type","button");
-            btn.setAttribute("class","delBtn");
-            btn.setAttribute("onclick","delBtnData(this)");
-            btn.innerHTML="删除";
-            span_1.appendChild(btn);
-            li.appendChild(span_1);
-        }
+//        function addDelBtn(li){
+//            var btn=document.createElement("button");
+//
+//            btn.setAttribute("type","button");
+//            btn.setAttribute("class","delBtn");
+//            btn.setAttribute("onclick","delBtnData(this)");
+//            btn.innerHTML="删除";
+//            span_1.appendChild(btn);
+//            li.appendChild(span_1);
+//        }
         //为删除按钮添加删除节点功能
         function delBtnData(obj){
-
-//            console.info(obj);
-//            debugger;
-//            var ul=document.getElementById("holder");
-//            var oLi=obj.parentNode.parentNode;
-//            console.info(oLi);
-            //obj.parentNode指删除按钮的span层
-            //obj.parentNode.parentNode为li层
-//            ul.removeChild(oLi);
-//            $("obj").remove();
             console.info($(obj));
             console.info($(obj).parent());
             console.info($(obj).parent().parent());
@@ -375,44 +392,10 @@
             country += '<option value="'+objContry+'" a="'+(a+1)+'">'+objContry+'</option>';
         }
         $("#country").html(country);
-
-//        $("#country").html(country).chosen().change(function(){
-//            var a = $("#country").find("option[value='"+$("#country").val()+"']").attr("a");
-//            var _province = areaObj[a];
-//            console.log(_province)
-//            var province = '';
-//            for (var b in _province) {
-//                var objProvince = _province[b];
-//                if (objProvince.n) {
-//                    province += '<option value="'+objProvince.n+'" b="'+b+'">'+objProvince.n+'</option>';
-//                }
-//            }
-//            if (!province) {
-//                province = '<option value="0" b="0">------</option>';
-//            }
-//            $("#province").html(province).chosen().change(function(){
-//                var b = $("#province").find("option[value='"+$("#province").val()+"']").attr("b");
-//                var _city = areaObj[a][b];
-//                var city = '';
-//                for (var c in _city) {
-//                    var objCity = _city[c];
-//                    if (objCity.n) {
-//                        city += '<option value="'+objCity.n+'">'+objCity.n+'</option>';
-//                    }
-//                }
-//                if (!city) {
-//                    var city = '<option value="0">------</option>';
-//                }
-//                $("#city").html(city).chosen().change();
-//                $(".location").trigger("chosen:updated");
-//            });
-//            $("#province").change();
-//            $(".location").trigger("chosen:updated");
-//        });
         $("#country").change();
 
         $(function () {
-            $("#country").change(function(){
+                $("#country").change(function(){
                 if($(this).val()=="中国"){
                     $("#province").attr("disabled",false);
                     $("#city").attr("disabled",false);
@@ -476,10 +459,10 @@
                 }
             });
 
-            $("#industry option").each(function(){
-                if($(this).val() == ""){
-                    $(this).attr("selected",false);
-                }
+                $("#industry option").each(function(){
+                    if($(this).val() == ""){
+                        $(this).attr("selected",false);
+                    }
                 if($(this).val() == $("#selectIndustryValue").val()){
                     $(this).attr("selected",true);
                 }
@@ -527,10 +510,25 @@
         var saveBtnda;
         function saveCustomer(btn) {
             saveBtnda = Ladda.create( btn );
+            var userList = new Array();
 //            var roles = [];
 //            $('input[name="role"]:checked').each(function () {
 //                roles.push({id: $(this).val().trim()});
 //            });
+            $('.user').each(function(index){
+                debugger;
+                // user
+                userName = $(this).find("input[name='userName']").val();
+                userPosition = $(this).find("input[name='userPosition']").val();
+                userPhone = $(this).find("input[name='userPhone']").val();
+                userEmail = $(this).find("input[name='userEmail']").val();
+                userList.push({
+                    "name":userName,
+                    "position":userPosition,
+                    "mobilePhone":userPhone,
+                    "email":userEmail
+                })
+            })
             var p = {
                 id: $("#id").val().trim(),
                 companyName: $("#companyName").val().trim(),
@@ -543,10 +541,11 @@
                 region:$("#region").val().trim(),
                 address:$("#address").val().trim(),
                 level:$("#level").val(),
-                username:$("#userName").val().trim(),
-                userposition:$("#userPosition").val().trim(),
-                userphone:$("#userPhone").val().trim(),
-                useremail:$("#userEmail").val().trim(),
+                userList:userList,
+//                username:$("#userName").val().trim(),
+//                userposition:$("#userPosition").val().trim(),
+//                userphone:$("#userPhone").val().trim(),
+//                useremail:$("#userEmail").val().trim(),
                 state: $("input[name='state']:checked").val()
 //                state: $("input[name='state']:checked").val(),
             };

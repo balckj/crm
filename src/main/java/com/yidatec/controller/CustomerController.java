@@ -1,5 +1,6 @@
 package com.yidatec.controller;
 
+import com.yidatec.model.Contact;
 import com.yidatec.model.Customer;
 import com.yidatec.service.CustomerService;
 import com.yidatec.vo.CustomerVO;
@@ -70,13 +71,14 @@ public class CustomerController extends BaseController{
 
     @RequestMapping("/saveCustomer")
     @ResponseBody
-    public Object saveCustomer(@Validated @RequestBody Customer customer,
+    public Object saveCustomer(@Validated @RequestBody CustomerVO customer,
                                  BindingResult result)throws Exception{
         List<FieldError> errors = result.getFieldErrors();
         if(errors  != null && errors.size() > 0){
             return errors;
         }
-        Customer customer1 = new Customer();
+        CustomerVO customer1 = new CustomerVO();
+        Contact contact = new Contact();
         if(customer.getId() == null || customer.getId().trim().length() <= 0)//新建
         {
             customer1.setId(UUID.randomUUID().toString().toLowerCase());
@@ -90,16 +92,14 @@ public class CustomerController extends BaseController{
             customer1.setRegion(customer.getRegion());
             customer1.setAddress(customer.getAddress());
             customer1.setLevel(customer.getLevel());
-            customer1.setUserName(customer.getUserName());
-            customer1.setUserPosition(customer.getUserPosition());
-            customer1.setUserPhone(customer.getUserPhone());
-            customer1.setUserEmail(customer.getUserEmail());
+            customer1.setUserList(customer.getUserList());
             customer1.setState(customer.getState());
             customer1.setCreatorId(getWebUser().getId());
             customer1.setCreateTime(LocalDateTime.now());
             customer1.setModifierId(getWebUser().getCreatorId());
             customer1.setModifyTime(LocalDateTime.now());
-            customerService.createCustomer(customer1);
+            customerService.createCustomer(customer1,getWebUser());
+
         } else {//编辑
             customer1.setId(customer.getId());
             customer1.setCompanyName(customer.getCompanyName());
@@ -112,14 +112,11 @@ public class CustomerController extends BaseController{
             customer1.setRegion(customer.getRegion());
             customer1.setAddress(customer.getAddress());
             customer1.setLevel(customer.getLevel());
-            customer1.setUserName(customer.getUserName());
-            customer1.setUserPosition(customer.getUserPosition());
-            customer1.setUserPhone(customer.getUserPhone());
-            customer1.setUserEmail(customer.getUserEmail());
+            customer1.setUserList(customer.getUserList());
             customer1.setState(customer.getState());
             customer1.setModifierId(getWebUser().getId());
             customer1.setModifyTime(LocalDateTime.now());
-            customerService.updateCustomer(customer1);
+            customerService.updateCustomer(customer1,getWebUser());
         }
         return getSuccessJson(null);
     }

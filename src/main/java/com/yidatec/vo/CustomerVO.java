@@ -1,6 +1,9 @@
 package com.yidatec.vo;
 
+import com.yidatec.model.Contact;
 import com.yidatec.model.Customer;
+
+import java.util.List;
 
 /**
  * @author xf
@@ -9,6 +12,16 @@ public class CustomerVO extends Customer{
     private Integer draw;
     private Integer length;
     private Integer start;
+
+    private List<Contact> userList;
+
+    public List<Contact> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<Contact> userList) {
+        this.userList = userList;
+    }
 
     public Integer getDraw() {
         return draw;

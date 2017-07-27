@@ -35,7 +35,6 @@ function validateSelect(id,key,url){
     });
 }
 function validateMultipleSelect(id,key,url){
-    debugger
     $("#"+id).change(function(event){
         var param = {};
         var value = $("#"+id).val().toString();

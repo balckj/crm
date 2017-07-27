@@ -2,9 +2,11 @@ package com.yidatec.model;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 /**
@@ -18,7 +20,7 @@ public class Dictionary extends BaseModel {
 	@Length(min = 3, max = 40, message = "姓名必须由3到40个字符组成", groups = { })
 	private String code;
 
-	@NotBlank(message = "必须输入大于等于0的整数", groups = { })
+	@NotNull(message = "必须输入大于等于0的整数", groups = {})
 	@Min(value=0,message = "必须输入大于等于0的整数", groups = {})
 	private Integer sort;
 

@@ -33,4 +33,9 @@ public interface Constants {
      * 英文水平
      */
     public static final String ENGLISH_ABILITY ="ENGLISH_ABILITY";
+
+    /**
+     * 擅长面积
+     */
+    public static final String GOOD_AT_AREA = "goodAtArea";
 }

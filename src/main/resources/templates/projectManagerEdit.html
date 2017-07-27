@@ -95,7 +95,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="englishAbility" id="englishAbility">
                                         <option value="" selected="selected">未选择</option>
-                                        <option th:value="${englishAbility.id}" th:text="englishAbility.value" th:each="englishAbilityList:${englishAbility}"></option>
+                                        <option th:value="${englishAbility.id}" th:text="${englishAbility.value}" th:each="englishAbility:${englishAbilityList}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -143,7 +143,7 @@
                             <div class="form-group" id="addressForm">
                                 <label class="col-sm-2 control-label">地址</label>
                                 <div class="col-sm-4"><input id="address" name="address" type="text"
-                                                             class="form-control" maxlength="15" th:value="${customer}?${customer.address}" /></div>
+                                                             class="form-control" maxlength="15" th:value="${pm}?${pm.address}" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
@@ -178,7 +178,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="goodAtIndustry" id="goodAtIndustry">
                                         <option value="" selected="selected">未选择</option>
-                                        <option th:value="${sale.id}" th:text="${sale.name}" th:each="sale:${saleList}"></option>
+                                        <option th:value="${goodAtIndustry.id}" th:text="${goodAtIndustry.value}" th:each="goodAtIndustry:${goodAtIndustryList}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -193,6 +193,7 @@
                                         <option th:value="${goodAtArea.id}" th:text="goodAtArea.value" th:each="goodAtArea:${goodAtAreaList}"></option>
                                     </select>
                                 </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
                             <div class="hr-line-dashed"></div>

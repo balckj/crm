@@ -39,6 +39,8 @@ public class ProjectManagerController extends BaseController{
     public String projectManagerEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
         model.put("saleList",saleService.selectSaleListALL(new UserVO()));// 推荐人
         model.put("englishAbilityList",dictionaryService.selectDictionaryListByCodeCommon(Constants.ENGLISH_ABILITY));// 英文水平
+        model.put("goodAtIndustryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 擅长行业
+        model.put("goodAtAreaList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_AREA)); // 擅长面积
         return "projectManagerEdit";
     }
 

@@ -21,7 +21,7 @@ public interface DictionaryMapper {
 	 * 载入字典可列表
 	 * @return
 	 */
-	@Select("SELECT * FROM T_DICTIONARY WHERE code = #{code} and state = 1")
+	@Select("SELECT * FROM T_DICTIONARY WHERE code = #{code} and state = 1  ORDER BY code,sort")
 	List<Dictionary> selectDictionaryListByCodeCommon(String code);
 
 	/**

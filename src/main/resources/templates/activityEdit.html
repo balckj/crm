@@ -97,10 +97,6 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="province" id="province" disabled="disabled">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -112,10 +108,6 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="city" id="city" disabled="disabled">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -127,10 +119,6 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="region" id="region" disabled="disabled">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -257,7 +245,6 @@
 
         $(function () {
             $("#country").change(function(){
-                debugger;
                 if($(this).val()=="中国"){
                     $("#province").attr("disabled",false);
                     $("#city").attr("disabled",false);
@@ -397,7 +384,6 @@
                 exhibitioHall:$("#exhibitioHall").val(),
                 sponsor:$("#sponsor").val()
             };
-            debugger;
             var a = JSON.stringify(p);
             $.ajax({
                 url: 'saveActivity',

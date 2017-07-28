@@ -47,10 +47,11 @@
                         <label for="nature" class="control-label">企业性质</label>
                         <select name="nature" id="nature" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
                             <option value="" selected="selected">不限</option>
-                            <option value="政府">政府</option>
-                            <option value="民营">民营</option>
-                            <option value="外资">外资</option>
-                            <option value="私营">私营</option>
+                            <option th:value="${natures.value}" th:text="${natures.value}" th:each="natures : ${nature}"></option>
+                            <!--<option value="政府">政府</option>-->
+                            <!--<option value="民营">民营</option>-->
+                            <!--<option value="外资">外资</option>-->
+                            <!--<option value="私营">私营</option>-->
                         </select>
                     </div>
                 </div>
@@ -261,24 +262,15 @@
         }
 
 
-
         var a = 0;
         var saveBtnda;
         $(document).ready(function () {
             // 提示栏初始化
             customertableLoad();
-
             var v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"customerEdit\");'>新&nbsp;&nbsp;建</button>"
             $("#customertable_wrapper div").children().eq(0).append(v);
 
         });
-
-
-
-
-
-
-
 
         /*]]>*/
     </script>

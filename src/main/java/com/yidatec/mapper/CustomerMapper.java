@@ -2,6 +2,7 @@ package com.yidatec.mapper;
 
 import com.yidatec.model.Contact;
 import com.yidatec.model.Customer;
+import com.yidatec.model.Dictionary;
 import com.yidatec.vo.CustomerVO;
 import org.apache.ibatis.annotations.*;
 
@@ -50,4 +51,10 @@ public interface CustomerMapper {
 
     @Delete("DELETE FROM T_CUSTOMER_CONTACT  WHERE customerId =#{customerId}")
     int deleteRelation(String customerId);
+
+    @Select("SELECT * FROM T_DICTIONARY WHERE code = #{id}")
+    List<Dictionary> getCompanyNature(String id);
+
+    @Select("SELECT * FROM T_CONTACT WHERE id in( SELECT contactId FROM T_CUSTOMER_CONTACT WHERE customerId=#{customerId})")
+    List<Contact> getContact(String id);
 }

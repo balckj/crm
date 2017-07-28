@@ -5,6 +5,7 @@ import com.yidatec.mapper.UserMapper;
 import com.yidatec.model.Role;
 import com.yidatec.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -170,4 +171,77 @@ public class ValidateController extends BaseController{
         }
         return getSuccessJson(null);
     }
+
+    @RequestMapping(value = "/validateCompanyName")
+    public String validateCompanyName(@RequestParam(value="companyName") String companyName){
+        if(companyName == null || companyName.trim().isEmpty()){
+            return getErrorJson("必须输入企业名称");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateIndustry")
+    public String validateIndustry(@RequestParam(value="industry") String industry){
+        if(industry == null || industry.trim().isEmpty()){
+            return getErrorJson("必须选择所属行业");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateNature")
+    public String validateNature(@RequestParam(value="nature") String nature){
+        if(nature == null || nature.trim().isEmpty()){
+            return getErrorJson("必须选择企业性质");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateCountry")
+    public String validateCountry(@RequestParam(value="country") String country){
+        if(country == null || country.trim().isEmpty()){
+            return getErrorJson("必须选择国家");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateProvince")
+    public String validateProvince(@RequestParam(value="province") String province){
+        if(province == null || province.trim().isEmpty()){
+            return getErrorJson("必须选择省份");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateCity")
+    public String validateCity(@RequestParam(value="city") String city){
+        if(city == null || city.trim().isEmpty()){
+            return getErrorJson("必须选择城市");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateRegion")
+    public String validateRegion(@RequestParam(value="region") String region){
+        if(region == null || region.trim().isEmpty()){
+            return getErrorJson("必须选择区域");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateAddress")
+    public String validateAddress(@RequestParam(value="address") String address){
+        if(address == null || address.trim().isEmpty()){
+            return getErrorJson("必须输入地址");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateLevel")
+    public String validateLevel(@RequestParam(value="level") String level){
+        if(level == null || level.trim().isEmpty()){
+            return getErrorJson("必须选择平台等级");
+        }
+        return getSuccessJson(null);
+    }
+
 }

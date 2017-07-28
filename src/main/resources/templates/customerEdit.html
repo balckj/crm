@@ -54,7 +54,7 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="companyIdForm"><label class="col-sm-2 control-label">企业ID<span
+                            <div style="display: none;" class="form-group" id="companyIdForm"><label class="col-sm-2 control-label">企业ID<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="companyId" name="companyId" type="text"
                                                              class="form-control" maxlength="15"  th:value="${customer}?${customer.companyId}"/></div>
@@ -102,7 +102,7 @@
                                 <label class="col-sm-2 control-label">国家<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b location" name="country" id="country">
+                                    <select class="form-control m-b" name="country" id="country">
 
                                     </select>
                                 </div>
@@ -113,7 +113,7 @@
                                 <label class="col-sm-2 control-label">省<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b location" name="province" id="province" disabled="disabled">
+                                    <select class="form-control m-b " name="province" id="province" disabled="disabled">
 
                                     </select>
                                 </div>
@@ -124,7 +124,7 @@
                                 <label class="col-sm-2 control-label">城市<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b location" name="city" id="city" disabled="disabled">
+                                    <select class="form-control m-b" name="city" id="city" disabled="disabled">
 
                                     </select>
                                 </div>
@@ -144,7 +144,7 @@
                             <div class="form-group" id="addressForm">
                                 <label class="col-sm-2 control-label">地址</label>
                                 <div class="col-sm-4"><input id="address" name="address" type="text"
-                                                             class="form-control" maxlength="15" th:value="${customer}?${customer.address}" /></div>
+                                                             class="form-control" maxlength="200" th:value="${customer}?${customer.address}" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -159,6 +159,7 @@
                                         <option>C</option>
                                     </select>
                                 </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" >
@@ -166,7 +167,7 @@
                                     <li  style="list-style:none;float:left" class="user"   th:each="customer,terStat : ${customer.userList}" th:attr="id='userForm'+${terStat.index}">
                                         <label class="col-sm-1 control-label">联系人<span style="color:#ed5565;">*</span></label>
                                         <div class="col-sm-1">
-                                            <input id="userName" name="userName" type="text" class="form-control"
+                                            <input id="userName" name="userName" type="text" class="typeahead_3 form-control"
                                                                      maxlength="20" th:value="${customer.name}"/>
                                         </div>
                                         <label class=" control-label" style="text-align: left"></label>
@@ -190,7 +191,7 @@
                                     <li  style="list-style:none;float:left" class="user" id="userForm0">
                                         <label class="col-sm-1 control-label">联系人<span style="color:#ed5565;">*</span></label>
                                         <div class="col-sm-1">
-                                            <input  name="userName" type="text" class="form-control"
+                                            <input  name="userName" type="text" class="typeahead_3 form-control"
                                                    maxlength="20" />
                                         </div>
                                         <label class=" control-label" style="text-align: left"></label>
@@ -236,6 +237,7 @@
                             <div class="form-group"><label class="col-sm-2 control-label">用户状态</label>
                                 <div class="col-sm-4">
                                     <div class="radio radio-inline radio-info">
+                                        <!--<input type="radio" name="state" id="s1" value="1" th:checked="${customer}?${customer.state eq 1}"/>-->
                                         <input type="radio" name="state" id="s1" value="1" th:checked="${customer}?${customer.state eq 1}:'true'"/>
                                         <label for="s1">
                                             可用
@@ -279,6 +281,7 @@
     <script th:src="@{99/js/plugins/area/chosen.jquery.min.js}"></script>
     <script th:src="@{99/js/plugins/area/area_chs.js}"></script>
     <script th:src="@{99/js/plugins/area/area.js}"></script>
+    <script th:src="@{99/js/plugins/typehead/bootstrap3-typeahead.min.js}"></script>
 
     <!-- Select2 -->
     <!--<script th:src="@{inspinia_admin/js/plugins/select2/select2.full.min.js}"></script>-->
@@ -310,8 +313,6 @@
         /*<![CDATA[*/
         //创建li标签，包含显示姓名，邮箱，电话号码及删除按钮
         function addLi() {
-            debugger;
-            console.info();
             var node=document.createElement("LI");
             var total = holder.getElementsByTagName("li").length;
            node.style.float="left";
@@ -485,6 +486,9 @@
                     $(this).attr("selected",true);
                 }
             });
+
+
+
         });
         
         $("#setting").addClass("active");
@@ -501,10 +505,16 @@
         });
 
         validate('companyName', 'companyName', 'validateCompanyName');
-        validate2('userPhone', 'mobile', {isEdit: false}, 'validateMobile');
-        validate('companyId', 'companyId', 'validateCompanyId');
-        //        validate('totalLessons', 'integer', 'validateInteger');
-        validate('userEmail', 'email', 'validateEmail');
+        validateSelect('industry', 'industry', 'validateIndustry');
+        validateSelect('nature', 'nature', 'validateNature');
+        validateSelect('country', 'country', 'validateCountry');
+        validateSelect('province', 'province', 'validateProvince');
+        validateSelect('city', 'city', 'validateCity');
+        validateSelect('region', 'region', 'validateRegion');
+//        validate2('userPhone', 'mobile', {isEdit: false}, 'validateMobile');
+        validate('address', 'address', 'validateAddress');
+        validateSelect('level', 'level', 'validateLevel');
+//        validate('userEmail', 'email', 'validateEmail');
 
 
         var saveBtnda;
@@ -516,7 +526,6 @@
 //                roles.push({id: $(this).val().trim()});
 //            });
             $('.user').each(function(index){
-                debugger;
                 // user
                 userName = $(this).find("input[name='userName']").val();
                 userPosition = $(this).find("input[name='userPosition']").val();
@@ -547,7 +556,6 @@
 //                userphone:$("#userPhone").val().trim(),
 //                useremail:$("#userEmail").val().trim(),
                 state: $("input[name='state']:checked").val()
-//                state: $("input[name='state']:checked").val(),
             };
             var a = JSON.stringify(p);
             $.ajax({

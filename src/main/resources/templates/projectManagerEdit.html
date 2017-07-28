@@ -30,6 +30,17 @@
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
                             <input type="hidden" name="id" id="id" th:value="${pm}?${pm.id}"/>
+                            <input type="hidden" name="selectReferrerValue" id="selectReferrerValue" th:value="${pm}?${pm.referrer}"/>
+                            <input type="hidden" name="selectEnglishAbilityValue" id="selectEnglishAbilityValue" th:value="${pm}?${pm.englishAbility}"/>
+                            <input type="hidden" name="selectGoodAtAreaValue" id="selectGoodAtAreaValue" th:value="${pm}?${pm.goodAtArea}"/>
+
+                            <input type="hidden" name="selectGoodAtIndustryValue" id="selectGoodAtIndustryValue" th:value="${pm}?${pm.goodAtIndustry}"/>
+
+                            <input type="hidden" name="selectCountryValue" id="selectCountryValue" th:value="${pm}?${pm.country}"/>
+                            <input type="hidden" name="selectProvinceValue" id="selectProvinceValue" th:value="${pm}?${pm.province}"/>
+                            <input type="hidden" name="selectCityValue" id="selectCityValue" th:value="${pm}?${pm.city}"/>
+                            <input type="hidden" name="selectRegionValue" id="selectRegionValue" th:value="${pm}?${pm.region}"/>
+
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="referrerForm">
                                 <label class="col-sm-2 control-label">推荐人<span
@@ -284,7 +295,7 @@
             country += '<option value="'+objContry+'" a="'+(a+1)+'">'+objContry+'</option>';
         }
         $("#country").html(country);
-//        $("#country").change();
+        $("#country").change();
         $(function () {
             $("#country").change(function(){
                 if($(this).val()=="中国"){
@@ -350,7 +361,46 @@
                 }
             });
 
+            $("#referrer option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectReferrerValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            $("#englishAbility option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectEnglishAbilityValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            $("#goodAtArea option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectGoodAtAreaValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
             $("#goodAtIndustry").select2({ maximumInputLength: 3 });
+
+            var selectGoodAtIndustryValue = $("#selectGoodAtIndustryValue").val();
+            if(selectGoodAtIndustryValue && selectGoodAtIndustryValue.indexOf(",") > 0){
+                var list = selectGoodAtIndustryValue.split(",");
+                var setkey = [];
+                for(var i= 0;i< list.length; i++){
+                    setkey.push(list[i]);
+                }
+                $("#goodAtIndustry").val(setkey).trigger('change')
+            }else{
+                $("#goodAtIndustry").val(selectGoodAtIndustryValue).trigger('change')
+            }
         })
         /*]]>*/
     </script>

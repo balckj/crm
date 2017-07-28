@@ -208,6 +208,10 @@ public class ValidateController extends BaseController{
         if(experience == null || experience.trim().isEmpty()){
             return getErrorJson("必须输入从业年限");
         }
+        experience = experience.trim();
+        boolean res = experience.matches( "^[0-9]*[0-9][0-9]*$");
+        if(!res)
+            return getErrorJson("必须输入大于等于0的整数");
         return getSuccessJson(null);
     }
 

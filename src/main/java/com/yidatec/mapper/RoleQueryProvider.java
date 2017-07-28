@@ -36,6 +36,10 @@ public class RoleQueryProvider {
         if(!StringUtils.isEmpty(userVO.getName())){
             sb.append(" AND U.name LIKE CONCAT('%',#{name},'%')");
         }
+        if(!StringUtils.isEmpty(userVO.getMobilePhone())){
+            sb.append(" AND U.mobilePhone = #{mobilePhone}");
+        }
+
         sb.append(" and U.state = 1 GROUP BY U.id ORDER BY modifyTime DESC");
         sb.append(" LIMIT #{start},#{length}");
         return sb.toString();
@@ -61,6 +65,9 @@ public class RoleQueryProvider {
         sb.append(")");
         if(!StringUtils.isEmpty(userVO.getName())){
             sb.append(" AND U.name LIKE CONCAT('%',#{name},'%')");
+        }
+        if(!StringUtils.isEmpty(userVO.getMobilePhone())){
+            sb.append(" AND U.mobilePhone = #{mobilePhone}");
         }
         sb.append(" and U.state = 1 GROUP BY U.id ORDER BY modifyTime DESC");
         sb.append(" LIMIT #{start},#{length}");

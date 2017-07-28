@@ -25,6 +25,12 @@ public interface Constants {
     public static final String SALE_PARAM_ID = "f1441df7-a1e3-40ec-98c5-028697cb80f3";
 
     /**
+     * 企业性质
+     */
+    public static final String NATURE_CODE = "nature";
+
+
+    /**
      * 所属行业
      */
     public static final  String GOOD_AT_INDUSTRY_CODE ="goodAtIndustry";

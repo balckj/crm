@@ -3,6 +3,7 @@ package com.yidatec.controller;
 import com.yidatec.model.Contact;
 import com.yidatec.model.Customer;
 import com.yidatec.service.CustomerService;
+import com.yidatec.util.Constants;
 import com.yidatec.vo.CustomerVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,7 @@ public class CustomerController extends BaseController{
 
     @RequestMapping("/customerList")
     public String customerList(ModelMap model){
+        model.put("nature",customerService.getCompanyNature(Constants.NATURE_CODE));
         return "customerList";
     }
 
@@ -118,6 +120,13 @@ public class CustomerController extends BaseController{
             customer1.setModifyTime(LocalDateTime.now());
             customerService.updateCustomer(customer1,getWebUser());
         }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping("/getContact")
+    @ResponseBody
+    public Object getContact(@Validated @RequestBody String id){
+        customerService.getContact(id);
         return getSuccessJson(null);
     }
 

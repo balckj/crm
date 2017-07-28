@@ -14,20 +14,26 @@ public class Customer extends BaseModel{
     @Length(min = 3, max = 200, message = "企业名称必须由3到200个字符组成", groups = { })
     private String companyName;
 
-    @NotBlank(message = "必须输入企业ID", groups = { })
-    @Length(min = 2, max = 20, message = "企业ID必须由3到20个字符组成", groups = { })
+//    @NotBlank(message = "必须输入企业ID", groups = { })
+//    @Length(min = 2, max = 20, message = "企业ID必须由3到20个字符组成", groups = { })
     private String companyId;
 
-
+    @NotBlank(message = "必须选择所属行业", groups = { })
     private String industry;
+    @NotBlank(message = "必须选择企业性质", groups = { })
     private String nature;
+    @NotBlank(message = "必须选择所在国家", groups = { })
     private String country;
+    @NotBlank(message = "必须选择所在省份", groups = { })
     private String province;
+    @NotBlank(message = "必须选择所在城市", groups = { })
     private String city;
+    @NotBlank(message = "必须选择所在区域", groups = { })
     private String region;
 
-    @Length(min = 3, max = 200, message = "地址必须由3到200个字符组成", groups = { })
+    @Length(max = 200, message = "地址必须由3到200个字符组成", groups = { })
     private String address;
+    @NotBlank(message = "必须选择平台等级", groups = { })
     private String level;
 
 //    @NotBlank(message = "必须输入联系人", groups = { })

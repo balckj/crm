@@ -27,7 +27,7 @@ function change(v){
 				for(i=0;i<ar.length;i++){
 					options[length]=new Option(ar[i],ar[i]);
 				}//end for
-				if(v){ options[0].selected = true; }
+				if(v){ options[0].selected = true;}
 			}
 		}//end if v
 		if(++v<s.length){change(v);}

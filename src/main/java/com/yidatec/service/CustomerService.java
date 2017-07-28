@@ -1,7 +1,9 @@
 package com.yidatec.service;
 
 import com.yidatec.mapper.CustomerMapper;
+import com.yidatec.model.Contact;
 import com.yidatec.model.Customer;
+import com.yidatec.model.Dictionary;
 import com.yidatec.model.User;
 import com.yidatec.vo.CustomerVO;
 import org.springframework.beans.BeanUtils;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -77,10 +80,11 @@ public class CustomerService {
         }
     }
 
-//    @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
-//    public void updateUser(CustomerVO customer) {
-//        customerMapper.updateUser(customer);
-//    }
+    public List<Dictionary> getCompanyNature(String id) {
+       return customerMapper.getCompanyNature(id);
+    }
 
-
+    public List<Contact> getContact(String id){
+        return customerMapper.getContact(id);
+    }
 }

@@ -54,12 +54,7 @@ public class ParamController extends BaseController{
     @RequestMapping(value = "/saveParam")
     @ResponseBody
     public Object saveParam(@RequestBody Param param){
-        if(param.getParamList() !=null && param.getParamList().size() > 0){
-            for (int i = 0; i < param.getParamList().size(); i++){
-                Param param1 = param.getParamList().get(i);
-                paramService.create(param1);
-            }
-        }
+        paramService.create(param);
         return getSuccessJson(null);
     }
 }

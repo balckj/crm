@@ -112,8 +112,25 @@ public class ParamService {
 
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
     public void create(Param param){
-        paramMapper.delete(param.getId());
-        paramMapper.create(param);
+        paramMapper.clear();
+        if(param.getParamList() !=null && param.getParamList().size() > 0){
+            for (int i = 0; i < param.getParamList().size(); i++){
+                Param param1 = param.getParamList().get(i);
+                paramMapper.create(param1);
+            }
+        }
+        refresh();
+    }
+
+    public void refresh(){
+        if(ALL_ROLE_CACHE != null){
+            ALL_ROLE_CACHE.clear();
+            ALL_ROLE_CACHE = null;
+        }
+        if(FIND_ROLES_CACHE != null){
+            FIND_ROLES_CACHE.clear();
+            FIND_ROLES_CACHE = null;
+        }
         postRoleInist();
     }
 }

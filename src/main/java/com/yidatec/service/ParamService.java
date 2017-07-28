@@ -33,7 +33,7 @@ public class ParamService {
     @Autowired
     RoleMapper roleMapper;
 
-    public Map<String,List<Role>> FIND_ROLES_CACHE = new HashMap<String,List<Role>>(200);
+    public Map<String,List<Role>> FIND_ROLES_CACHE = null;
     public Map<String,List<UserVO>> FIND_USERS_CACHE = new HashMap<String,List<UserVO>>(200);
     public Map<String,Role> ALL_ROLE_CACHE = null;
     public Map<String,User> ALL_USER_CACHE = null;
@@ -51,6 +51,9 @@ public class ParamService {
 
     private void findAllParam(){
         List<Param> paramsList = paramMapper.findAllParam();
+        if(FIND_ROLES_CACHE == null){
+            FIND_ROLES_CACHE = new HashMap<>();
+        }
         for (Param p : paramsList){
             if( !StringUtils.isEmpty(p.getValue())){
                 String[] roleid = p.getValue().split(",");

@@ -177,7 +177,7 @@ public class SecurityService {
                 rolePermissionMapper.insertRolePermission(rp);
             }
         }
-        paramService.postRoleInist();
+        paramService.refresh();
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
@@ -192,7 +192,7 @@ public class SecurityService {
                 rolePermissionMapper.insertRolePermission(rp);
             }
         }
-        paramService.postRoleInist();
+        paramService.refresh();
     }
 
 }

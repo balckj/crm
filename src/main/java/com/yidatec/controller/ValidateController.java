@@ -260,14 +260,6 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
-    @RequestMapping(value = "/validateCountry")
-    public String validateCountry(@RequestParam(value="country") String country){
-        if(country == null || country.trim().isEmpty()){
-            return getErrorJson("必须输入国家");
-        }
-        return getSuccessJson(null);
-    }
-
     @RequestMapping(value = "/validatePrevious")
     public String validatePrevious(@RequestParam(value="previous") String previous){
         if(previous == null || previous.trim().isEmpty()){

@@ -162,6 +162,83 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">联系人<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-9" id="contactList">
+                                    <div class="row" th:if="${#lists.isEmpty(customer.userList)}">
+                                        <div class="col-sm-2" style="margin-left: 15px;">
+                                            <div class="form-group" id="name0Form">
+                                                <label for="name0" class="control-label">姓名<span
+                                                        style="color:#ed5565;">*</span></label>
+                                                <input type="text" name="name0" id="name0" class="form-control input-sm" maxlength="20"/>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2" style="margin-left: 15px;">
+                                            <div class="form-group" id="mobilePhone0Form">
+                                                <label for="mobilePhone0" class="control-label">电话<span
+                                                        style="color:#ed5565;">*</span></label>
+                                                <input type="text" name="mobilePhone0" id="mobilePhone0" class="form-control input-sm" maxlength="20"/>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2" style="margin-left: 15px;">
+                                            <div class="form-group" id="position0Form">
+                                                <label for="position0" class="control-label">职位</label>
+                                                <input type="text" name="position0" id="position0" class="form-control input-sm" maxlength="20"/>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2" style="margin-left: 15px;">
+                                            <div class="form-group" id="email0Form">
+                                                <label for="email0" class="control-label">QQ邮箱<span
+                                                        style="color:#ed5565;">*</span></label>
+                                                <input type="text" name="email0" id="email0" class="form-control input-sm" maxlength="50"/>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" th:unless="${#lists.isEmpty(customer.userList)}" th:each="contact,terStat : ${customer.userList}">
+                                        <div class="col-sm-2" style="margin-left: 15px;">
+                                            <div class="form-group"  th:attr="id='name'+${terStat.index}+'Form'">
+                                                <label for="name0" class="control-label" th:if="${terStat.index == 0}">姓名<span
+                                                        style="color:#ed5565;">*</span></label>
+                                                <input type="text" th:attr="id='name'+${terStat.index}, name='name'+${terStat.index}" class="form-control input-sm" maxlength="20" th:value="${contact.name}"/>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2" style="margin-left: 15px;">
+                                            <div class="form-group" th:attr="id='mobilePhone'+${terStat.index}+'Form'">
+                                                <label for="name0" class="control-label" th:if="${terStat.index == 0}">电话<span
+                                                        style="color:#ed5565;">*</span></label>
+                                                <input type="text" th:attr="id='mobilePhone'+${terStat.index}, name='mobilePhone'+${terStat.index}" class="form-control input-sm" maxlength="20" th:value="${contact.mobilePhone}"/>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2" style="margin-left: 15px;">
+                                            <div class="form-group" th:attr="id='position'+${terStat.index}+'Form'">
+                                                <label for="name0" class="control-label" th:if="${terStat.index == 0}">职位</label>
+                                                <input type="text" th:attr="id='position'+${terStat.index}, name='position'+${terStat.index}" class="form-control input-sm" maxlength="20" th:value="${contact.position}"/>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2" style="margin-left: 15px;">
+                                            <div class="form-group" th:attr="id='email'+${terStat.index}+'Form'">
+                                                <label for="name0" class="control-label" th:if="${terStat.index == 0}">QQ邮箱<span
+                                                        style="color:#ed5565;">*</span></label>
+                                                <input type="text" th:attr="id='email'+${terStat.index}, name='email'+${terStat.index}" class="form-control input-sm" maxlength="50" th:value="${contact.email}"/>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="hr-line-dashed"></div>
+
                             <div class="form-group" >
                                 <ul id="holder" th:if="${not #lists.isEmpty(customer.userList)}" >
                                     <li  style="list-style:none;float:left" class="user"   th:each="customer,terStat : ${customer.userList}" th:attr="id='userForm'+${terStat.index}">
@@ -210,7 +287,7 @@
                                         <div class="col-sm-1"><button onclick="addLi()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">[增加]</button></div>
                                     </li>
                                 </ul>
-                            </div>
+                            </div>-->
 
                             <!--<div class="hr-line-dashed"></div>-->
                             <!--<div class="form-group" id="userpositionForm"><label class="col-sm-2 control-label">联系人职位</label>-->

@@ -34,7 +34,20 @@ function validateSelect(id,key,url){
         v(id,param,url);
     });
 }
+function validateMultipleSelect(id,key,url){
+    $("#"+id).change(function(event){
+        var param = {};
+        var value = $("#"+id).val().toString();
+        if(value == "" || value == null){
+            param[key] = null;
+            v(id,param,url);
+        }else{
+            param[key] = value;
+            v(id,param,url);
+        }
 
+    });
+}
 function v(id,param,url){
     $.ajax({
         url : url,

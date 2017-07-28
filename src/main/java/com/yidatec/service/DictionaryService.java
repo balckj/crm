@@ -27,6 +27,10 @@ public class DictionaryService {
 		return  dictionaryMapper.selectDictionary(id);
 	}
 
+	public List<Dictionary> selectDictionaryListByCodeCommon(String code){
+		return  dictionaryMapper.selectDictionaryListByCodeCommon(code);
+	}
+
 	/**
 	 * 查询字典数据
 	 *

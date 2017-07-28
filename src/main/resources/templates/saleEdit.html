@@ -203,6 +203,7 @@
                 },
                 error: function (result) {
                     alert("通信错误！");
+                    saveBtnda.stop();
                 },
                 success: function (data) {
                     if (data.res == undefined) {

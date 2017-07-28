@@ -18,6 +18,13 @@ public interface DictionaryMapper {
 	Dictionary selectDictionary(String id);
 
 	/**
+	 * 载入字典可列表
+	 * @return
+	 */
+	@Select("SELECT * FROM T_DICTIONARY WHERE code = #{code} and state = 1  ORDER BY code,sort")
+	List<Dictionary> selectDictionaryListByCodeCommon(String code);
+
+	/**
 	 * 根据code入字典数据
 	 * @param dictionaryVO
 	 * @return

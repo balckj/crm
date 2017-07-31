@@ -31,7 +31,7 @@ public class PMQueryProvider {
         sb.append(")");
 
         if(!StringUtils.isEmpty(userVO.getName())){
-            sb.append(" AND U.name LIKE CONCAT('%',#{name},'%')");
+            sb.append(" AND DD.referrer LIKE CONCAT('%',#{name},'%')");
         }
         if(!StringUtils.isEmpty(userVO.getMobilePhone())){
             sb.append(" AND U.mobilePhone = #{mobilePhone}");
@@ -44,9 +44,11 @@ public class PMQueryProvider {
     public String countUserByRolePM(final UserVO userVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT count(*) FROM ( ");
-        sb.append("SELECT count(*)  FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId LEFT JOIN T_USER re ON U.id = re.referrer WHERE 1=1");
-        sb.append(" AND UR.roleId in (");
+        sb.append("SELECT count(*) FROM ( " +
+                "SELECT count(*) FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId LEFT JOIN (SELECT A.id,B.name as referrer FROM T_USER AS  A INNER JOIN T_USER as B ON A.referrer = B.id) as DD ON DD.id = U.id ");
+
+        sb.append(" WHERE 1=1  AND UR.roleId in (");
+
         String[] roleids = userVO.getParaRoleIDS().split(",");
 
         if (roleids != null){
@@ -60,23 +62,25 @@ public class PMQueryProvider {
             }
         }
         sb.append(")");
+
         if(!StringUtils.isEmpty(userVO.getName())){
-            sb.append(" AND U.name LIKE CONCAT('%',#{name},'%')");
+            sb.append(" AND DD.referrer LIKE CONCAT('%',#{name},'%')");
         }
         if(!StringUtils.isEmpty(userVO.getMobilePhone())){
             sb.append(" AND U.mobilePhone = #{mobilePhone}");
         }
+
         sb.append(" and U.state = 1 GROUP BY U.id ORDER BY U.modifyTime DESC");
         sb.append(" LIMIT #{start},#{length}");
-        sb.append(" ) as A");
+        sb.append(") as A");
         return sb.toString();
     }
 
     public String selectSaleListALL(final UserVO userVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId WHERE 1=1");
-        sb.append(" AND UR.roleId in (");
+        sb.append("SELECT count(*) FROM (SELECT count(*) FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId");
+        sb.append(" LEFT JOIN (SELECT A.id,B.name as referrer FROM T_USER AS  A INNER JOIN T_USER as B ON A.referrer = B.id) as DD ON DD.id = U.id WHERE 1=1 ");
         String[] roleids = userVO.getParaRoleIDS().split(",");
 
         if (roleids != null){
@@ -89,9 +93,8 @@ public class PMQueryProvider {
                 }
             }
         }
-        sb.append(")");
-
         sb.append(" and U.state = 1 GROUP BY U.id ORDER BY modifyTime DESC");
+        sb.append(") as A");
         return sb.toString();
     }
 }

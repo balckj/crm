@@ -20,6 +20,12 @@ public interface PMMapper {
 	@Select("SELECT * FROM T_USER WHERE id = #{id}")
 	User selectPM(String id);
 
+
+	@SelectProvider(type=com.yidatec.mapper.PMQueryProvider.class,method = "selectUserByRolePM")
+	List<User> selectUserByRolePM(UserVO userVO);
+	@SelectProvider(type=com.yidatec.mapper.PMQueryProvider.class,method = "countUserByRolePM")
+	int countUserByRolePM(UserVO userVO);
+
 	@Insert("INSERT INTO T_USER (id,`referrer`,`name`,`nameEN`,mobilePhone,password,wechat,email,englishAbility,country,province,city,address,region,birthday,previous,experience,goodAtIndustry,goodAtArea,state," +
 			"creatorId,createTime,modifierId,modifyTime) VALUES (" +
 			"#{id},#{referrer},#{name},#{nameEN},#{mobilePhone},#{password},#{wechat},#{email},#{englishAbility},#{country},#{province},#{city},#{address},#{region},#{birthday},#{previous},#{experience},#{goodAtIndustry},#{goodAtArea},#{state}," +

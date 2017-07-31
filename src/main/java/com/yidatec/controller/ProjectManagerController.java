@@ -92,11 +92,6 @@ public class ProjectManagerController extends BaseController{
         List<User> pmEntityList = pmService.selectPMListByNameOrPhone(userVO);
         if (pmEntityList != null){
             for(User u : pmEntityList){
-                User user = userMapper.findByIdIngnoreRole(u.getReferrer());
-                if (user != null){
-                    u.setReferrer(user.getName());// 推荐人
-                }
-
                 Dictionary dictionaryEn = dictionaryService.selectDictionary(u.getEnglishAbility());
                 if(dictionaryEn != null){
                     u.setEnglishAbility(dictionaryEn.getValue());// 英文水平

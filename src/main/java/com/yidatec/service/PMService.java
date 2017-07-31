@@ -53,7 +53,7 @@ public class PMService {
 	public List<User> selectPMListByNameOrPhone(UserVO userVO) {
 		Param param = paramService.findParam(Constants.PM_PARAM_ID);
 		userVO.setParaRoleIDS(param.getValue());
-		return  roleMapper.selectUserByRoleCommon(userVO);
+		return  pMMapper.selectUserByRolePM(userVO);
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class PMService {
 	public int countPMListByNameOrPhone(UserVO userVO) {
 		Param param = paramService.findParam(Constants.PM_PARAM_ID);
 		userVO.setParaRoleIDS(param.getValue());
-		return roleMapper.countUserByRoleCommon(userVO);
+		return pMMapper.countUserByRolePM(userVO);
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)

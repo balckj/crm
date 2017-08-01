@@ -244,4 +244,11 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
+    @RequestMapping(value = "/validateUsername")
+    public String validateUsername(@RequestParam(value="name") String name){
+        if(name == null || name.trim().isEmpty()){
+            return getErrorJson("必须输入联系人姓名");
+        }
+        return getSuccessJson(null);
+    }
 }

@@ -32,7 +32,7 @@ public class FactoryService {
         factory.getContact().setModifierId(user.getCreatorId());
         factory.getContact().setModifyTime(LocalDateTime.now());
         factoryMapper.createContact(factory.getContact());
-        factoryMapper.createRelation(factory.getId(),factory.createContact().getId());
+        factoryMapper.createRelation(factory.getId(),factory.getContact().getId());
 
 //        for (int i=0;i<factory.getPhoto().size();i++){
 //            factory.getPhoto().get(i).setId(UUID.randomUUID().toString().toLowerCase());

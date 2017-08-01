@@ -54,13 +54,13 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="companyIdForm"><label class="col-sm-2 control-label">企业ID<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="companyId" name="companyId" type="text"
-                                                             class="form-control" maxlength="15"  th:value="${customer}?${customer.companyId}"/></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
-                            <div class="hr-line-dashed"></div>
+                            <!--<div class="form-group" id="companyIdForm"><label class="col-sm-2 control-label">企业ID<span-->
+                            <!--style="color:#ed5565;">*</span></label>-->
+                            <!--<div class="col-sm-4"><input id="companyId" name="companyId" type="text"-->
+                            <!--class="form-control" maxlength="15"  th:value="${customer}?${customer.companyId}"/></div>-->
+                            <!--<label class="col-sm-4 control-label" style="text-align: left"></label>-->
+                            <!--</div>-->
+                            <!--<div class="hr-line-dashed"></div>-->
                             <div class="form-group" id="industryForm"><label class="col-sm-2 control-label">所属行业<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
@@ -159,43 +159,52 @@
                                         <option>C</option>
                                     </select>
                                 </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">联系人<span
                                         style="color:#ed5565;">*</span></label>
-                                <ul class="col-sm-9" id="contactList">
+                                <ul class="col-sm-10" id="contactList">
                                     <li style="list-style:none;" class="row user" th:if="${#lists.isEmpty(customer.userList)}">
                                         <div class="col-sm-2" style="margin-left: 15px;">
-                                            <div class="form-group" id="name0Form">
-                                                <label for="name0" class="control-label">姓名<span
-                                                        style="color:#ed5565;">*</span></label>
-                                                <input type="text" name="name" id="name0" class="form-control input-sm" maxlength="20"/>
+                                            <div class='form-group' id="name0Form">
+                                                <div>
+                                                    <label for="name0" class="control-label">姓名<span
+                                                            style="color:#ed5565;">*</span></label>
+                                                    <input type="text" name="name" id="name0" class="form-control input-sm" maxlength="20"/>
+                                                </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
                                         <div class="col-sm-2" style="margin-left: 15px;">
-                                            <div class="form-group" id="mobilePhone0Form">
-                                                <label for="mobilePhone0" class="control-label">电话<span
-                                                        style="color:#ed5565;">*</span></label>
-                                                <input type="text" name="mobilePhone" id="mobilePhone0" class="form-control input-sm" maxlength="20"/>
+                                            <div class='form-group' id="mobilePhone0Form">
+                                                <div>
+                                                    <label for="mobilePhone0" class="control-label">电话<span
+                                                            style="color:#ed5565;">*</span></label>
+                                                    <input type="text" name="mobilePhone" id="mobilePhone0" class="form-control input-sm" maxlength="20"/>
+                                                </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-2" style="margin-left: 15px;">
-                                            <div class="form-group" id="position0Form">
-                                                <label for="position0" class="control-label">职位</label>
-                                                <input type="text" name="position" id="position0" class="form-control input-sm" maxlength="20"/>
+                                            <div class='form-group' id="position0Form">
+                                                <div>
+                                                    <label for="position0" class="control-label">职位</label>
+                                                    <input type="text" name="position" id="position0" class="form-control input-sm" maxlength="20"/>
+                                                </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
                                         <div class="col-sm-2" style="margin-left: 15px;">
-                                            <div class="form-group" id="email0Form">
-                                                <label for="email0" class="control-label">QQ邮箱<span
-                                                        style="color:#ed5565;">*</span></label>
-                                                <input type="text" name="email" id="email0" class="form-control input-sm" maxlength="50"/>
+                                            <div class='form-group' id="email0Form">
+                                                <div>
+                                                    <label for="email0" class="control-label">QQ邮箱<span
+                                                            style="color:#ed5565;">*</span></label>
+                                                    <input type="text" name="email" id="email0" class="form-control input-sm" maxlength="50"/>
+                                                </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
@@ -205,7 +214,7 @@
                                     </li>
                                     <li style="list-style:none;" class="row user" th:unless="${#lists.isEmpty(customer.userList)}" th:each="contact,terStat : ${customer.userList}">
                                         <div class="col-sm-2" style="margin-left: 15px;">
-                                            <div class="form-group"  th:attr="id='name'+${terStat.index}+'Form'">
+                                            <div class='form-group'  th:attr="id='name'+${terStat.index}+'Form'">
                                                 <label for="name0" class="control-label" th:if="${terStat.index == 0}">姓名<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <input type="text" th:attr="id='name'+${terStat.index}, name='name'" class="form-control input-sm" maxlength="20" th:value="${contact.name}"/>
@@ -213,7 +222,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-2" style="margin-left: 15px;">
-                                            <div class="form-group" th:attr="id='mobilePhone'+${terStat.index}+'Form'">
+                                            <div class='form-group' th:attr="id='mobilePhone'+${terStat.index}+'Form'">
                                                 <label for="name0" class="control-label" th:if="${terStat.index == 0}">电话<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <input type="text" th:attr="id='mobilePhone'+${terStat.index}, name='mobilePhone'" class="form-control input-sm" maxlength="20" th:value="${contact.mobilePhone}"/>
@@ -222,14 +231,14 @@
                                         </div>
 
                                         <div class="col-sm-2" style="margin-left: 15px;">
-                                            <div class="form-group" th:attr="id='position'+${terStat.index}+'Form'">
+                                            <div class='form-group' th:attr="id='position'+${terStat.index}+'Form'">
                                                 <label for="name0" class="control-label" th:if="${terStat.index == 0}">职位</label>
                                                 <input type="text" th:attr="id='position'+${terStat.index}, name='position'" class="form-control input-sm" maxlength="20" th:value="${contact.position}"/>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
                                         <div class="col-sm-2" style="margin-left: 15px;">
-                                            <div class="form-group" th:attr="id='email'+${terStat.index}+'Form'">
+                                            <div class='form-group' th:attr="id='email'+${terStat.index}+'Form'">
                                                 <label for="name0" class="control-label" th:if="${terStat.index == 0}">QQ邮箱<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <input type="text" th:attr="id='email'+${terStat.index}, name='email'" class="form-control input-sm" maxlength="50" th:value="${contact.email}"/>
@@ -396,6 +405,7 @@
         /*<![CDATA[*/
         //创建li标签，包含显示姓名，邮箱，电话号码及删除按钮
         function addLi() {
+
             console.info();
             var node=document.createElement("LI");
             var total = contactList.getElementsByTagName("li").length;
@@ -407,30 +417,43 @@
 //            node.appendChild(textnode);
             node.innerHTML =  "<div class='col-sm-2' style='margin-left: 15px;'>"
                 +" <div class='form-group' id='name"+total+ "Form'>"
+                +" <div>"
                 +" <input type='text' name='name' id='name"+total+ "' class='form-control input-sm' maxlength='20'/>"
+                +" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
                 +" <div class='col-sm-2' style='margin-left: 15px;'>"
                 +" <div class='form-group' id='mobilePhone"+total+ "Form'>"
+                +" <div>"
                 +" <input type='text' name='mobilePhone' id='mobilePhone"+total+ "' class='form-control input-sm' maxlength='20'/>"
+                +" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
                 +" <div class='col-sm-2' style='margin-left: 15px;'>"
                 +" <div class='form-group' id='position"+total+ "Form'>"
+                +" <div>"
                 +" <input type='text' name='position' id='position"+total+ "' class='form-control input-sm' maxlength='20'/>"
+                +" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
                 +" <div class='col-sm-2' style='margin-left: 15px;'>"
                 +" <div class='form-group' id='email"+total+ "Form'>"
+                +" <div>"
                 +" <input type='text' name='email' id='email"+total+ "' class='form-control input-sm' maxlength='50'/>"
+                +" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
                 +" <div class='col-sm-1'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>[删除]</button></div>";
             document.getElementById("contactList").appendChild(node);
+
+            validate("name"+total,"name","validateUsername");
+            validate2('mobilePhone'+total, 'mobilePhone', {isEdit: false}, 'validateMobile');
+            validate('email'+total, 'email', 'validateEmail');
+
 //            $("#holer").prepend(node)
 //            $("#addordel"+(total-1)).text("[删除]");
 //            $("#addordel"+(total-1)).click(function(){
@@ -593,11 +616,20 @@
             language: 'cn',
         });
 
+
         validate('companyName', 'companyName', 'validateCompanyName');
-        validate2('userPhone', 'mobile', {isEdit: false}, 'validateMobile');
-        validate('companyId', 'companyId', 'validateCompanyId');
-        //        validate('totalLessons', 'integer', 'validateInteger');
-        validate('userEmail', 'email', 'validateEmail');
+        validateSelect('industry', 'industry', 'validateIndustry');
+        validateSelect('nature', 'nature', 'validateNature');
+        validateSelect('country', 'country', 'validateCountry');
+        validateSelect('province', 'province', 'validateProvince');
+        validateSelect('city', 'city', 'validateCity');
+        validateSelect('region', 'region', 'validateRegion');
+        validateSelect('level', 'level', 'validateLevel');
+        validate('address', 'address', 'validateAddress');
+
+        validate("name0","name","validateUsername");
+        validate2('mobilePhone', 'mobilePhone', {isEdit: false}, 'validateMobile');
+        validate('email', 'email', 'validateEmail');
 
 
         var saveBtnda;
@@ -609,8 +641,6 @@
 //                roles.push({id: $(this).val().trim()});
 //            });
             $('.user').each(function(index){
-                debugger;
-                // user
                 userName = $(this).find("input[name='name']").val();
                 userPosition = $(this).find("input[name='position']").val();
                 userPhone = $(this).find("input[name='mobilePhone']").val();
@@ -625,7 +655,7 @@
             var p = {
                 id: $("#id").val().trim(),
                 companyName: $("#companyName").val().trim(),
-                companyId: $("#companyId").val().trim(),
+//                companyId: $("#companyId").val().trim(),
                 industry: $("#industry").val(),
                 nature: $("#nature").val().trim(),
                 country:$("#country").val(),
@@ -642,6 +672,7 @@
                 state: $("input[name='state']:checked").val()
 //                state: $("input[name='state']:checked").val(),
             };
+            debugger;
             var a = JSON.stringify(p);
             $.ajax({
                 url: 'saveCustomer',
@@ -661,6 +692,10 @@
                     if (data.res == undefined) {
                         saveBtnda.stop();
                         for (var p in data) {
+                            var tempField = data[p].field;
+                            if(tempField.startsWith("userList[")){
+                                data[p].field= tempField.split(".")[1]+tempField.substring(tempField.indexOf("[")+1,tempField.indexOf("]"));
+                            }
                             var tmp = $("#" + data[p].field).parent().next();
 
                             if (tmp.text() == '') {

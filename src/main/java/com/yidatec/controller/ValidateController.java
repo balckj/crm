@@ -5,6 +5,7 @@ import com.yidatec.mapper.UserMapper;
 import com.yidatec.model.Role;
 import com.yidatec.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -368,6 +369,13 @@ public class ValidateController extends BaseController{
         if(!res2)
         if(!res2)
             return getErrorJson("高价整数位不能超过18位,小数位必须是两位");
+        return getSuccessJson(null);
+    }
+    @RequestMapping(value = "/validateUsername")
+    public String validateUsername(@RequestParam(value="name") String name){
+        if(name == null || name.trim().isEmpty()){
+            return getErrorJson("必须输入联系人姓名");
+        }
         return getSuccessJson(null);
     }
 }

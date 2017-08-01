@@ -26,13 +26,14 @@ public class FactoryService {
     public void createFactory(FactoryVO factory, User user ){
 
         factoryMapper.create(factory);
+        factory.getContact().setId(UUID.randomUUID().toString().toLowerCase());
         factory.getContact().setCreatorId(user.getId());
         factory.getContact().setCreateTime(LocalDateTime.now());
         factory.getContact().setModifierId(user.getCreatorId());
         factory.getContact().setModifyTime(LocalDateTime.now());
         factoryMapper.createContact(factory.getContact());
+        factoryMapper.createRelation(factory.getId(),factory.getContact().getId());
 
-//        factoryMapper.createRelation(factory.getId(),factory.getPhoto().get(i).getId());
 //        for (int i=0;i<factory.getPhoto().size();i++){
 //            factory.getPhoto().get(i).setId(UUID.randomUUID().toString().toLowerCase());
 //            factory.getPhoto().get(i).setCreatorId(user.getId());

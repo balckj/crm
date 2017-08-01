@@ -55,6 +55,6 @@ public interface CustomerMapper {
     @Select("SELECT * FROM T_DICTIONARY WHERE code = #{id}")
     List<Dictionary> getCompanyNature(String id);
 
-    @Select("SELECT * FROM T_CONTACT WHERE id in( SELECT contactId FROM T_CUSTOMER_CONTACT WHERE customerId=#{customerId})")
+    @Select("SELECT * FROM T_CONTACT WHERE id in( SELECT contactId FROM T_CUSTOMER_CONTACT WHERE customerId=#{customerId} ORDER BY modifyTime DESC)")
     List<Contact> getContact(String id);
 }

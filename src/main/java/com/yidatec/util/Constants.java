@@ -44,4 +44,19 @@ public interface Constants {
      * 擅长面积
      */
     public static final String GOOD_AT_AREA = "goodAtArea";
+
+    /**
+     * 产品分类
+     */
+    public static final String PRODUCT_CATEGORY = "productCategory";
+
+    /**
+     * 单位
+     */
+    public static final String COMPANY = "company";
+
+    /**
+     * 方式
+     */
+    public static final String MODE = "mode";
 }

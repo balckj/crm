@@ -296,4 +296,78 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
+    @RequestMapping(value = "/validateCategory")
+    public String validateCategory(@RequestParam(value="category") String category){
+        if(category == null || category.trim().isEmpty()){
+            return getErrorJson("必须输入产品分类");
+        }
+        return getSuccessJson(null);
+    }
+    @RequestMapping(value = "/validatePDName")
+    public String validatePDName(@RequestParam(value="name") String name){
+        if(name == null || name.trim().isEmpty()){
+            return getErrorJson("必须输入产名称");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateDesc")
+    public String validateDesc(@RequestParam(value="desc") String desc){
+        if(desc == null || desc.trim().isEmpty()){
+            return getErrorJson("必须输入细节描述");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateUnit")
+    public String validateUnit(@RequestParam(value="unit") String unit){
+        if(unit == null || unit.trim().isEmpty()){
+            return getErrorJson("必须输入单位");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateWay")
+    public String validateWay(@RequestParam(value="way") String way){
+        if(way == null || way.trim().isEmpty()){
+            return getErrorJson("必须输入方式");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateLow")
+    public String validateLow(@RequestParam(value="low") String low){
+        if(low == null || low.trim().isEmpty()){
+            return getErrorJson("必须输入低价");
+        }
+
+        boolean res2 = low.matches("^[0-9]+(.[0-9]{2})?$");
+        if(!res2)
+            return getErrorJson("低价整数位不能超过18位,小数位必须是两位");
+
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateMiddle")
+    public String validateMiddle(@RequestParam(value="middle") String middle){
+        if(middle == null || middle.trim().isEmpty()){
+            return getErrorJson("必须输入中价");
+        }
+        boolean res2 = middle.matches("^[0-9]+(.[0-9]{2})?$");
+        if(!res2)
+            return getErrorJson("中价整数位不能超过18位,小数位必须是两位");
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateHigh")
+    public String validateHigh(@RequestParam(value="high") String high){
+        if(high == null || high.trim().isEmpty()){
+            return getErrorJson("必须输入高价");
+        }
+        boolean res2 = high.matches("^[0-9]+(.[0-9]{2})?$");
+        if(!res2)
+        if(!res2)
+            return getErrorJson("高价整数位不能超过18位,小数位必须是两位");
+        return getSuccessJson(null);
+    }
 }

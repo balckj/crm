@@ -5,7 +5,7 @@
     <!--<link th:href="@{inspinia_admin/css/plugins/cropper/cropper.min.css}" rel="stylesheet"/>-->
     <!--<link th:href="@{inspinia_admin/css/plugins/select2/select2.min.css}" rel="stylesheet"/>-->
     <!--<link th:href="@{inspinia_admin/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet"/>-->
-    <link th:href="@{inspinia_admin/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
+    <link th:href="@{99/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
     <script th:src="@{jquery.koala.js}" type="text/javascript"></script>
 
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -16,7 +16,7 @@
                     <a href="index.html">首页</a>
                 </li>
                 <li>
-                    <a>系统设置</a>
+                    <a>主数据管理</a>
                 </li>
                 <li class="active">
                     <strong>产品信息维护</strong>
@@ -31,83 +31,105 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form method="POST" class="form-horizontal">
-
+                        <form method="POST" id="myform" class="form-horizontal">
+                            <input type="hidden" name="id" id="id" th:value="${pd}?${pd.id}"/>
+                            <input type="hidden" name="hiddenCategory" id="hiddenCategory" th:value="${pd}?${pd.category}"/>
+                            <input type="hidden" name="hiddenUnit" id="hiddenUnit" th:value="${pd}?${pd.unit}"/>
+                            <input type="hidden" name="hiddenWay" id="hiddenWay" th:value="${pd}?${pd.way}"/>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" ><label class="col-sm-2 control-label">产品分类<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="categoryForm">
+                                <label class="col-sm-2 control-label">产品分类<span
+                                        style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="classification">
+                                    <select class="form-control m-b" name="category" id="category">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
+                                        <option th:value="${category.id}" th:text="${category.value}" th:each="category:${categoryList}"></option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="nameForm"><label class="col-sm-2 control-label">产品名称<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="name" name="name" type="text" class="form-control"
-                                                             maxlength="200" /></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" ><label class="col-sm-2 control-label">细节描述<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="describe" name="describe" type="text" class="form-control"
-                                                             maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" ><label class="col-sm-2 control-label">单位<span
+                            <div class="form-group" id="nameForm">
+                                <label class="col-sm-2 control-label">产品名称<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="company">
-                                        <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                    </select>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                                             maxlength="200" th:value="${pd}?${pd.name}"/>
                                 </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" ><label class="col-sm-2 control-label">方式<span
+                            <div class="form-group" id="descForm">
+                                <label class="col-sm-2 control-label">细节描述<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <input id="desc" name="desc" type="text" class="form-control"
+                                           maxlength="200" th:value="${pd}?${pd.desc}"/>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="unitForm">
+                                <label class="col-sm-2 control-label">单位<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="mode">
+                                    <select class="form-control m-b" name="unit" id="unit">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
+                                        <option th:value="${unit.id}" th:text="${unit.value}" th:each="unit:${unitList}"></option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" ><label class="col-sm-2 control-label">低价<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="lowPrice" name="lowPrice" type="text" class="form-control"
-                                                             maxlength="20" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" ><label class="col-sm-2 control-label">中价<span
+                            <div class="form-group" id="wayForm">
+                                <label class="col-sm-2 control-label">方式<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="inPrice" name="inPrice" type="text" class="form-control"
-                                                             maxlength="20" /></div>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="way" id="way">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option th:value="${way.id}" th:text="${way.value}" th:each="way:${wayList}"></option>
+                                    </select>
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" ><label class="col-sm-2 control-label">高价<span
+                            <div class="form-group" id="lowForm">
+                                <label class="col-sm-2 control-label">低价<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="highPrice" name="highPrice" type="text" class="form-control"
-                                                             maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="low" name="low" type="number" class="form-control" autocomplete="off"
+                                                             maxlength="18"  th:value="${pd}?${pd.low}" oninput="if(value.length>18)value=value.slice(0,18)"/>
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="middleForm">
+                                <label class="col-sm-2 control-label">中价<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <input id="middle" name="middle" type="number" class="form-control" autocomplete="off"
+                                                             maxlength="18" th:value="${pd}?${pd.middle}" oninput="if(value.length>18)value=value.slice(0,18)"/>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="highForm">
+                                <label class="col-sm-2 control-label">高价<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <input id="high" name="high" type="number" class="form-control" autocomplete="off"
+                                                             maxlength="18"  th:value="${pd}?${pd.high}" oninput="if(value.length>18)value=value.slice(0,18)"/>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
@@ -123,64 +145,68 @@
             </div>
         </div>
     </div>
-    <!-- Image cropper -->
-    <!--<script th:src="@{inspinia_admin/js/plugins/cropper/cropper.min.js}"></script>-->
-    <!-- Data picker -->
     <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
 
-    <!-- Select2 -->
-    <!--<script th:src="@{inspinia_admin/js/plugins/select2/select2.full.min.js}"></script>-->
 
-    <!-- Chosen -->
-    <!--<script th:src="@{inspinia_admin/js/plugins/chosen/chosen.jquery.js}"></script>-->
     <script th:src="@{me.js}" type="text/javascript"></script>
 
     <script type="text/javascript">
         /*<![CDATA[*/
-        $("#setting").addClass("active");
         $("#productInfoEdit").addClass("active");
 
-        $('#birthday').datepicker({
-            startView: 1,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'cn',
+
+        $("#category option").each(function(){
+            if($(this).val() == ""){
+                $(this).attr("selected",false);
+            }
+            if($(this).val() == $("#hiddenCategory").val()){
+                $(this).attr("selected",true);
+            }
         });
 
-        validate('name', 'name', 'validateproductInfoName');
-        validate2('mobilePhone', 'mobile', {isEdit: false}, 'validateMobile');
-        validate('password', 'password', 'validatePassword');
-        //        validate('totalLessons', 'integer', 'validateInteger');
-        validate('email', 'email', 'validateEmail');
+        $("#unit option").each(function(){
+            if($(this).val() == ""){
+                $(this).attr("selected",false);
+            }
+            if($(this).val() == $("#hiddenUnit").val()){
+                $(this).attr("selected",true);
+            }
+        });
 
+        $("#way option").each(function(){
+            if($(this).val() == ""){
+                $(this).attr("selected",false);
+            }
+            if($(this).val() == $("#hiddenWay").val()){
+                $(this).attr("selected",true);
+            }
+        });
+
+        validateSelect('category', 'category', 'validateCategory');
+        validate('name', 'name', 'validatePDName');
+        validate('desc', 'desc', 'validateDesc');
+        validateSelect('unit', 'unit', 'validateUnit');
+        validateSelect('way', 'way', 'validateWay');
+        validate('low', 'low', 'validateLow');
+        validate('middle', 'middle', 'validateMiddle');
+        validate('high', 'high', 'validateHigh');
 
         var saveBtnda;
         function saveProductInfo(btn) {
             saveBtnda = Ladda.create( btn );
-            var roles = [];
-            $('input[name="role"]:checked').each(function () {
-                roles.push({id: $(this).val().trim()});
-            });
+
             var p = {
                 id: $("#id").val().trim(),
-//                nick: $("#nick").val().trim(),
                 name: $("#name").val().trim(),
-                mobilePhone: $("#mobilePhone").val().trim(),
-                password: $("#password").val(),
-                roleList: roles,
-//                totalLessons: $("#totalLessons").val().trim(),
-
-                state: $("input[name='state']:checked").val(),
-                gender: $("input[name='gender']:checked").val(),
-                email: $("#email").val().trim(),
-
-
-
+                category: $("#category").val().trim(),
+                desc: $("#desc").val().trim(),
+                unit: $("#unit").val().trim(),
+                way: $("#way").val().trim(),
+                low: $("#low").val().trim(),
+                middle: $("#middle").val().trim(),
+                high: $("#high").val().trim()
             };
             var a = JSON.stringify(p);
             $.ajax({
@@ -196,6 +222,7 @@
                 },
                 error: function (result) {
                     alert("通信错误！");
+                    saveBtnda.stop();
                 },
                 success: function (data) {
                     if (data.res == undefined) {

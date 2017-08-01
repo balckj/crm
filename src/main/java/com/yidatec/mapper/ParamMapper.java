@@ -33,6 +33,6 @@ public interface ParamMapper {
             "#{value})")
     int create(Param param);
 
-    @Delete("DELETE FROM T_PARAMS WHERE id=#{id}")
-    int delete(String id);
+    @Delete("DELETE FROM T_PARAMS")
+    int clear();
 }

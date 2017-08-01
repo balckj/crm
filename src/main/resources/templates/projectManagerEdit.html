@@ -2,12 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <div  th:fragment="projectManager">
-    <!--<link th:href="@{inspinia_admin/css/plugins/cropper/cropper.min.css}" rel="stylesheet"/>-->
-    <!--<link th:href="@{inspinia_admin/css/plugins/select2/select2.min.css}" rel="stylesheet"/>-->
-    <!--<link th:href="@{inspinia_admin/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet"/>-->
     <link th:href="@{99/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
     <script th:src="@{jquery.koala.js}" type="text/javascript"></script>
-
+    <link th:href="@{99/css/plugins/select2/select2.min.css}" rel="stylesheet"/>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
             <h2 th:text="${title}"></h2>
@@ -16,7 +13,7 @@
                     <a href="index.html">首页</a>
                 </li>
                 <li>
-                    <a>系统设置</a>
+                    <a>主数据管理</a>
                 </li>
                 <li class="active">
                     <strong>项目经理</strong>
@@ -33,6 +30,17 @@
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
                             <input type="hidden" name="id" id="id" th:value="${pm}?${pm.id}"/>
+                            <input type="hidden" name="selectReferrerValue" id="selectReferrerValue" th:value="${pm}?${pm.referrer}"/>
+                            <input type="hidden" name="selectEnglishAbilityValue" id="selectEnglishAbilityValue" th:value="${pm}?${pm.englishAbility}"/>
+                            <input type="hidden" name="selectGoodAtAreaValue" id="selectGoodAtAreaValue" th:value="${pm}?${pm.goodAtArea}"/>
+
+                            <input type="hidden" name="selectGoodAtIndustryValue" id="selectGoodAtIndustryValue" th:value="${pm}?${pm.goodAtIndustry}"/>
+
+                            <input type="hidden" name="selectCountryValue" id="selectCountryValue" th:value="${pm}?${pm.country}"/>
+                            <input type="hidden" name="selectProvinceValue" id="selectProvinceValue" th:value="${pm}?${pm.province}"/>
+                            <input type="hidden" name="selectCityValue" id="selectCityValue" th:value="${pm}?${pm.city}"/>
+                            <input type="hidden" name="selectRegionValue" id="selectRegionValue" th:value="${pm}?${pm.region}"/>
+
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="referrerForm">
                                 <label class="col-sm-2 control-label">推荐人<span
@@ -46,18 +54,18 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="nameENForm">
+                            <div class="form-group" id="nameForm">
                                 <label class="col-sm-2 control-label">项目经理中文名<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="nameEN" name="nameEN" type="text"
-                                                             class="form-control" maxlength="30" /></div>
+                                <div class="col-sm-4"><input id="name" name="name" type="text"
+                                                             class="form-control" maxlength="30" th:value="${pm}?${pm.name}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="passwordForm">
+                            <div class="form-group" id="nameENForm">
                                 <label class="col-sm-2 control-label">项目经理英文名</label>
-                                <div class="col-sm-4"><input id="pmEName" name="pmEName" type="text"
-                                                             class="form-control" maxlength="30" /></div>
+                                <div class="col-sm-4"><input id="nameEN" name="nameEN" type="text"
+                                                             class="form-control" maxlength="30" th:value="${pm}?${pm.nameEN}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
@@ -66,7 +74,15 @@
                                 <label class="col-sm-2 control-label">项目经理电话<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="mobilePhone" name="mobilePhone" type="text"
-                                                             class="form-control" maxlength="11" /></div>
+                                                             class="form-control" maxlength="11" th:value="${pm}?${pm.mobilePhone}"/></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="passwordForm"><label class="col-sm-2 control-label">密码<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4"><input id="password" name="password" type="text"
+                                                             class="form-control" maxlength="12" th:value="${pm}?${pm.password}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
@@ -74,7 +90,7 @@
                             <div class="form-group" id="wechatForm">
                                 <label class="col-sm-2 control-label">项目经理微信</label>
                                 <div class="col-sm-4"><input id="wechat" name="wechat" type="text"
-                                                             class="form-control" maxlength="30" /></div>
+                                                             class="form-control" maxlength="30" th:value="${pm}?${pm.wechat}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
@@ -83,7 +99,7 @@
                                 <label class="col-sm-2 control-label">项目经理QQ邮箱<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="email" name="email" type="text"
-                                                             class="form-control" maxlength="50" /></div>
+                                                             class="form-control" maxlength="50" th:value="${pm}?${pm.email}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
@@ -98,6 +114,7 @@
                                         <option th:value="${englishAbility.id}" th:text="${englishAbility.value}" th:each="englishAbility:${englishAbilityList}"></option>
                                     </select>
                                 </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="countryForm">
@@ -151,7 +168,7 @@
                             <div class="form-group" id="birthdayForm">
                                 <label class="col-sm-2 control-label">出生日期</label>
                                 <div class="col-sm-4"><input id="birthday" name="birthday" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                                             class="form-control" maxlength="200" th:value="${pm}?${pm.birthday}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
@@ -160,15 +177,15 @@
                                 <label class="col-sm-2 control-label">最近上家公司<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="previous" name="previous" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                                             class="form-control" maxlength="200" th:value="${pm}?${pm.previous}" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="experienceForm">
                                 <label class="col-sm-2 control-label">从业年限<span
                                         style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="experience " name="experience" type="text"
-                                                             class="form-control" maxlength="10" /></div>
+                                <div class="col-sm-4"><input id="experience" name="experience" type="number"
+                                                             class="form-control" maxlength="2" th:value="${pm}?${pm.experience}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -176,8 +193,7 @@
                                 <label class="col-sm-2 control-label">擅长行业<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="goodAtIndustry" id="goodAtIndustry">
-                                        <option value="" selected="selected">未选择</option>
+                                    <select class="form-control m-b" name="goodAtIndustry" id="goodAtIndustry" multiple="multiple">
                                         <option th:value="${goodAtIndustry.id}" th:text="${goodAtIndustry.value}" th:each="goodAtIndustry:${goodAtIndustryList}"></option>
                                     </select>
                                 </div>
@@ -190,7 +206,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="goodAtArea" id="goodAtArea">
                                         <option value="" selected="selected">未选择</option>
-                                        <option th:value="${goodAtArea.id}" th:text="goodAtArea.value" th:each="goodAtArea:${goodAtAreaList}"></option>
+                                        <option th:value="${goodAtArea.id}" th:text="${goodAtArea.value}" th:each="goodAtArea:${goodAtAreaList}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -222,7 +238,7 @@
                             <div class="hr-line-dashed"/>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button id="saveBtn" class="btn ladda-button btn-w-m btn-primary" data-style="zoom-in" type="button" onclick="saveUser(this);">
+                                    <button id="saveBtn" class="btn ladda-button btn-w-m btn-primary" data-style="zoom-in" type="button" onclick="savePM(this);">
                                         <span class="ladda-label">保&nbsp;&nbsp;存</span>
                                     </button>
                                 </div>
@@ -243,6 +259,9 @@
     <script th:src="@{99/js/plugins/area/chosen.jquery.min.js}"></script>
     <script th:src="@{99/js/plugins/area/area_chs.js}"></script>
     <script th:src="@{99/js/plugins/area/area.js}"></script>
+
+    <!-- Select2 -->
+    <script th:src="@{99/js/plugins/select2/select2.full.min.js}"></script>
 
     <script th:src="@{me.js}" type="text/javascript"></script>
 
@@ -276,7 +295,7 @@
             country += '<option value="'+objContry+'" a="'+(a+1)+'">'+objContry+'</option>';
         }
         $("#country").html(country);
-//        $("#country").change();
+        $("#country").change();
         $(function () {
             $("#country").change(function(){
                 if($(this).val()=="中国"){
@@ -341,21 +360,137 @@
                     $(this).attr("selected",true);
                 }
             });
+
+            $("#referrer option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectReferrerValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            $("#englishAbility option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectEnglishAbilityValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            $("#goodAtArea option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectGoodAtAreaValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            $("#goodAtIndustry").select2({ maximumInputLength: 3 });
+
+            var selectGoodAtIndustryValue = $("#selectGoodAtIndustryValue").val();
+            if(selectGoodAtIndustryValue && selectGoodAtIndustryValue.indexOf(",") > 0){
+                var list = selectGoodAtIndustryValue.split(",");
+                var setkey = [];
+                for(var i= 0;i< list.length; i++){
+                    setkey.push(list[i]);
+                }
+                $("#goodAtIndustry").val(setkey).trigger('change')
+            }else{
+                $("#goodAtIndustry").val(selectGoodAtIndustryValue).trigger('change')
+            }
         })
         /*]]>*/
     </script>
 
     <script type="text/javascript">
         /*<![CDATA[*/
-        $('#birthday').datepicker({
-            startView: 1,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'cn',
-        });
+
+        $("#projectManager").addClass("active");
+
+        validateSelect('referrer', 'referrer', 'validateReferrer');
+        validate('name', 'name', 'validateUserName');
+        validate2('mobilePhone', 'mobile', {isEdit: false}, 'validateMobile');
+        validate('password', 'password', 'validatePassword');
+        validate('email', 'email', 'validateEmail');
+
+        validateSelect('englishAbility', 'englishAbility', 'validateEnglishAbility');
+        validateSelect('country', 'country', 'validateCountry');
+
+        validate('previous', 'previous', 'validatePrevious');
+        validate('experience', 'experience', 'validateExperience');
+
+        validateMultipleSelect('goodAtIndustry', 'goodAtIndustry', 'validateGoodAtIndustry');
+        validateSelect('goodAtArea', 'goodAtArea', 'validateGoodAtArea');
+
+        var saveBtnda;
+        function savePM(btn) {
+            saveBtnda = Ladda.create(btn);
+            var p = {
+                id: $("#id").val().trim(),
+                referrer: $("#referrer").val().trim(),
+                name: $("#name").val().trim(),
+                nameEN: $("#nameEN").val().trim(),
+                mobilePhone: $("#mobilePhone").val().trim(),
+                password: $("#password").val(),
+                wechat: $("#wechat").val().trim(),
+                email: $("#email").val().trim(),
+                englishAbility: $("#englishAbility").val().trim(),
+
+                country: $("#country").val().trim(),
+                province: $("#province").val().trim(),
+                city: $("#city").val().trim(),
+                region: $("#region").val().trim(),
+                address: $("#address").val().trim(),
+                birthday: $("#birthday").val().trim(),
+                previous: $("#previous").val().trim(),
+                experience: $("#experience").val().trim(),
+                goodAtIndustry: $("#goodAtIndustry").val().toString().trim(),
+                goodAtArea: $("#goodAtArea").val().trim(),
+
+                state: $("input[name='state']:checked").val()
+            }
+            var a = JSON.stringify(p);
+            $.ajax({
+                url: 'saveProjectManager',
+                async: true,
+                type: 'POST',
+                data: a,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                timeout: 300000,
+                beforeSend: function () {
+                    saveBtnda.start();
+                },
+                error: function (result) {
+                    alert("通信错误！");
+                    saveBtnda.stop();
+                },
+                success: function (data) {
+                    if (data.res == undefined) {
+                        saveBtnda.stop();
+                        for (var p in data) {
+                            var tmp = $("#" + data[p].field).parent().next();
+
+                            if (tmp.text() == '') {
+                                $("#" + data[p].field + "Form").addClass("has-error")
+                                var tmp = $("#" + data[p].field).parent().next();
+                                tmp.html(data[p].defaultMessage);
+                            }
+                        }
+                    }else if(data.res == 0){
+                        saveBtnda.stop();
+                        swal("操作失败", data.txt, "error");
+                    }else{
+                        loadPage("projectManagerList",function(){
+                            saveBtnda.stop();
+                        });
+                    }
+                }
+            });
+        }
         /*]]>*/
     </script>
 </div>

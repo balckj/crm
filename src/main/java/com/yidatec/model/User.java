@@ -70,8 +70,9 @@ public class User extends BaseModel implements UserDetails {
     @NotBlank(message = "必须输入设计风格", groups = {UserValidateDesigner.class })
     private String designStyle;
 
-    @NotBlank(message = "必须输入从业年限", groups = {UserValidatePM.class,UserValidateDesigner.class })
-    private String experience;
+    @NotNull(message = "必须输入从业年限", groups = {UserValidatePM.class,UserValidateDesigner.class })
+    @Min(value=0,message = "必须输入大于等于0的整数", groups = {})
+    private Integer experience;
 
     @NotBlank(message = "必须输入最近上家公司", groups = {UserValidatePM.class,UserValidateDesigner.class })
     private String previous;
@@ -296,11 +297,11 @@ public class User extends BaseModel implements UserDetails {
         this.designStyle = designStyle;
     }
 
-    public String getExperience() {
+    public Integer getExperience() {
         return experience;
     }
 
-    public void setExperience(String experience) {
+    public void setExperience(Integer experience) {
         this.experience = experience;
     }
 

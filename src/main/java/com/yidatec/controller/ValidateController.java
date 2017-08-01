@@ -244,6 +244,59 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
+
+    @RequestMapping(value = "/validateReferrer")
+    public String validateReferrer(@RequestParam(value="referrer") String referrer){
+        if(referrer == null || referrer.trim().isEmpty()){
+            return getErrorJson("必须输入推荐人");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateEnglishAbility")
+    public String validateEnglishAbility(@RequestParam(value="englishAbility") String englishAbility){
+        if(englishAbility == null || englishAbility.trim().isEmpty()){
+            return getErrorJson("必须输入英文能力");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatePrevious")
+    public String validatePrevious(@RequestParam(value="previous") String previous){
+        if(previous == null || previous.trim().isEmpty()){
+            return getErrorJson("必须输入最近上家公司");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateExperience")
+    public String validateExperience(@RequestParam(value="experience") String experience){
+        if(experience == null || experience.trim().isEmpty()){
+            return getErrorJson("必须输入从业年限");
+        }
+        experience = experience.trim();
+        boolean res = experience.matches( "^[0-9]*[0-9][0-9]*$");
+        if(!res)
+            return getErrorJson("必须输入大于等于0的整数");
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateGoodAtIndustry")
+    public String validateGoodAtIndustry(@RequestParam(value="goodAtIndustry") String goodAtIndustry){
+        if(goodAtIndustry == null || goodAtIndustry.trim().isEmpty()){
+            return getErrorJson("必须输入擅长行业");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateGoodAtArea")
+    public String validateGoodAtArea(@RequestParam(value="goodAtArea") String goodAtArea){
+        if(goodAtArea == null || goodAtArea.trim().isEmpty()){
+            return getErrorJson("必须输入擅长面积");
+        }
+        return getSuccessJson(null);
+    }
+
     @RequestMapping(value = "/validateUsername")
     public String validateUsername(@RequestParam(value="name") String name){
         if(name == null || name.trim().isEmpty()){

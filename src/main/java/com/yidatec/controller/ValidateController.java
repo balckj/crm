@@ -378,4 +378,20 @@ public class ValidateController extends BaseController{
         }
         return getSuccessJson(null);
     }
+
+    @RequestMapping(value = "/validateExhibitionName")
+    public String validateExhibitionName(@RequestParam(value="name") String name){
+        if(name == null || name.trim().isEmpty()){
+            return getErrorJson("必须输入展馆名称");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateStartTime")
+    public String validateStartTime(@RequestParam(value="startTime") String startTime){
+        if(startTime == null || startTime.trim().isEmpty()){
+            return getErrorJson("必须输入开展时间");
+        }
+        return getSuccessJson(null);
+    }
 }

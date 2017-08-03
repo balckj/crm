@@ -32,7 +32,7 @@ public class CustomerService {
         Customer customer = customerMapper.selectCustomer(id);
         if(customer!=null){
             BeanUtils.copyProperties(customer, customerVO);
-            customerVO.setUserList(customerMapper.selectContact(id));
+            customerVO.setContactList(customerMapper.selectContact(id));
         }
         return customerVO;
     }
@@ -50,33 +50,33 @@ public class CustomerService {
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
-    public void createCustomer(CustomerVO customer1, User user ){
+    public void createCustomer(Customer customer){
 
-        customerMapper.create(customer1);
-        for (int i=0;i<customer1.getUserList().size();i++){
-            customer1.getUserList().get(i).setId(UUID.randomUUID().toString().toLowerCase());
-            customer1.getUserList().get(i).setCreatorId(user.getId());
-            customer1.getUserList().get(i).setCreateTime(LocalDateTime.now());
-            customer1.getUserList().get(i).setModifierId(user.getCreatorId());
-            customer1.getUserList().get(i).setModifyTime(LocalDateTime.now());
-            customerMapper.createContact(customer1.getUserList().get(i));
-            customerMapper.createRelation(customer1.getId(),customer1.getUserList().get(i).getId());
+        customerMapper.create(customer);
+        for (int i=0;i<customer.getContactList().size();i++){
+            customer.getContactList().get(i).setId(UUID.randomUUID().toString().toLowerCase());
+            customer.getContactList().get(i).setCreatorId(customer.getCreatorId());
+            customer.getContactList().get(i).setCreateTime(customer.getCreateTime());
+            customer.getContactList().get(i).setModifierId(customer.getModifierId());
+            customer.getContactList().get(i).setModifyTime(customer.getModifyTime());
+            customerMapper.createContact(customer.getContactList().get(i));
+            customerMapper.createRelation(customer.getId(),customer.getContactList().get(i).getId());
         }
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
-    public void updateCustomer(CustomerVO customer,User user ) {
+    public void updateCustomer(Customer customer) {
         customerMapper.deleteContact(customer.getId());
         customerMapper.deleteRelation(customer.getId());
         customerMapper.update(customer);
-        for (int i=0;i<customer.getUserList().size();i++){
-            customer.getUserList().get(i).setId(UUID.randomUUID().toString().toLowerCase());
-            customer.getUserList().get(i).setCreatorId(user.getId());
-            customer.getUserList().get(i).setCreateTime(LocalDateTime.now());
-            customer.getUserList().get(i).setModifierId(user.getCreatorId());
-            customer.getUserList().get(i).setModifyTime(LocalDateTime.now());
-            customerMapper.createContact(customer.getUserList().get(i));
-            customerMapper.createRelation(customer.getId(),customer.getUserList().get(i).getId());
+        for (int i=0;i<customer.getContactList().size();i++){
+            customer.getContactList().get(i).setId(UUID.randomUUID().toString().toLowerCase());
+            customer.getContactList().get(i).setCreatorId(customer.getModifierId());
+            customer.getContactList().get(i).setCreateTime(customer.getModifyTime());
+            customer.getContactList().get(i).setModifierId(customer.getModifierId());
+            customer.getContactList().get(i).setModifyTime(customer.getModifyTime());
+            customerMapper.createContact(customer.getContactList().get(i));
+            customerMapper.createRelation(customer.getId(),customer.getContactList().get(i).getId());
         }
     }
 

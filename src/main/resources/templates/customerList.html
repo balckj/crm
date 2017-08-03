@@ -36,12 +36,12 @@
                         <input type="text" placeholder="包含您的输入值的企业名称" id="companyName" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label for="companyId" class="control-label">企业ID</label>
-                        <input type="text" placeholder="包含您的输入值的企业ID" id="companyId" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
-                    </div>
-                </div>
+                <!--<div class="col-sm-2">-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="companyId" class="control-label">企业ID</label>-->
+                        <!--<input type="text" placeholder="包含您的输入值的企业ID" id="companyId" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="nature" class="control-label">企业性质</label>
@@ -82,7 +82,7 @@
                             <tr>
                                 <th>操作</th>
                                 <th>企业名称</th>
-                                <th>企业ID</th>
+                                <!--<th>企业ID</th>-->
                                 <th>所属行业</th>
                                 <th>企业性质</th>
                                 <th>所在国家</th>
@@ -129,8 +129,8 @@
                         p.length = d.length;
                         p.start = d.start;
                         p.nature = $("#nature").val();
-                        p.companyName = $("#companyName").val();
-                        p.companyId = $("#companyId").val();
+                        p.name = $("#companyName").val();
+//                        p.companyId = $("#companyId").val();
                         p.address = $("#address").val();
                         var a = JSON.stringify(p);
                         return a;
@@ -148,8 +148,8 @@
                         },
                     },
 
-                    {"data": "companyName", "width": "100px"},
-                    {"data": "companyId", "width": "50px"},
+                    {"data": "name", "width": "100px"},
+//                    {"data": "companyId", "width": "50px"},
                     {"data": "industry", "width": "100px"},
                     {"data": "nature", "width": "80px"},
                     {"data": "country", "width": "50px"},

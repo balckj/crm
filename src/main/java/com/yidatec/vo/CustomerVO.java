@@ -13,15 +13,7 @@ public class CustomerVO extends Customer{
     private Integer length;
     private Integer start;
 
-    private List<Contact> userList;
 
-    public List<Contact> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<Contact> userList) {
-        this.userList = userList;
-    }
 
     public Integer getDraw() {
         return draw;

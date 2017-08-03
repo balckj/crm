@@ -4,19 +4,17 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/7/11.
  */
 public class Customer extends BaseModel{
     @NotBlank(message = "必须输入企业名称", groups = { })
-    @Length(min = 3, max = 200, message = "企业名称必须由3到200个字符组成", groups = { })
-    private String companyName;
-
-//    @NotBlank(message = "必须输入企业ID", groups = { })
-//    @Length(min = 2, max = 20, message = "企业ID必须由3到20个字符组成", groups = { })
-    private String companyId;
+    @Length(min = 1, max = 200, message = "企业名称必须由1到200个字符组成", groups = { })
+    private String name;
 
     @NotBlank(message = "必须选择所属行业", groups = { })
     private String industry;
@@ -36,36 +34,17 @@ public class Customer extends BaseModel{
     @NotBlank(message = "必须选择平台等级", groups = { })
     private String level;
 
-//    @NotBlank(message = "必须输入联系人", groups = { })
-    @Length(min =1, max = 30, message = "联系人必须由3到30个字符组成", groups = { })
-    private String userName;
-
-    @Length(min = 3, max = 30, message = "联系人职位必须由3到30个字符组成", groups = { })
-    private String userPosition;
-
-//    @NotBlank(message = "必须输入联系人电话", groups = { })
-    @Pattern(regexp="^1[3|4|5|7|8][0-9]\\d{4,8}$",message="手机号码格式不正确", groups = { })
-    private String userPhone;
-
-//    @NotBlank(message = "必须输入联系人QQ邮箱", groups = { })
-    @Email(message="邮箱格式不正确", groups = { })
-    private String userEmail;
     private Integer state;
 
-    public String getCompanyName() {
-        return companyName;
+    @Valid
+    private List<Contact> contactList;
+
+    public String getName() {
+        return name;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getIndustry() {
@@ -132,43 +111,19 @@ public class Customer extends BaseModel{
         this.level = level;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserPosition() {
-        return userPosition;
-    }
-
-    public void setUserPosition(String userPosition) {
-        this.userPosition = userPosition;
-    }
-
-    public String getUserPhone() {
-        return userPhone;
-    }
-
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
     public Integer getState() {
         return state;
     }
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public List<Contact> getContactList() {
+        return contactList;
+    }
+
+    public void setContactList(List<Contact> contactList) {
+        this.contactList = contactList;
     }
 }

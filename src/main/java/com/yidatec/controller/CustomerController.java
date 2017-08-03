@@ -73,7 +73,7 @@ public class CustomerController extends BaseController{
 
     @RequestMapping("/saveCustomer")
     @ResponseBody
-    public Object saveCustomer(@Validated @RequestBody CustomerVO customer,
+    public Object saveCustomer(@Validated @RequestBody Customer customer,
                                  BindingResult result)throws Exception{
         List<FieldError> errors = result.getFieldErrors();
         if(errors  != null && errors.size() > 0){
@@ -83,42 +83,17 @@ public class CustomerController extends BaseController{
         Contact contact = new Contact();
         if(customer.getId() == null || customer.getId().trim().length() <= 0)//新建
         {
-            customer1.setId(UUID.randomUUID().toString().toLowerCase());
-            customer1.setCompanyName(customer.getCompanyName());
-            customer1.setCompanyId(customer.getCompanyId());
-            customer1.setIndustry(customer.getIndustry());
-            customer1.setNature(customer.getNature());
-            customer1.setCountry(customer.getCountry());
-            customer1.setProvince(customer.getProvince());
-            customer1.setCity(customer.getCity());
-            customer1.setRegion(customer.getRegion());
-            customer1.setAddress(customer.getAddress());
-            customer1.setLevel(customer.getLevel());
-            customer1.setUserList(customer.getUserList());
-            customer1.setState(customer.getState());
-            customer1.setCreatorId(getWebUser().getId());
-            customer1.setCreateTime(LocalDateTime.now());
-            customer1.setModifierId(getWebUser().getCreatorId());
-            customer1.setModifyTime(LocalDateTime.now());
-            customerService.createCustomer(customer1,getWebUser());
+            customer.setId(UUID.randomUUID().toString());
+            customer.setCreatorId(getWebUser().getId());
+            customer.setCreateTime(LocalDateTime.now());
+            customer.setModifierId(getWebUser().getCreatorId());
+            customer.setModifyTime(customer.getCreateTime());
+            customerService.createCustomer(customer);
 
         } else {//编辑
-            customer1.setId(customer.getId());
-            customer1.setCompanyName(customer.getCompanyName());
-            customer1.setCompanyId(customer.getCompanyId());
-            customer1.setIndustry(customer.getIndustry());
-            customer1.setNature(customer.getNature());
-            customer1.setCountry(customer.getCountry());
-            customer1.setProvince(customer.getProvince());
-            customer1.setCity(customer.getCity());
-            customer1.setRegion(customer.getRegion());
-            customer1.setAddress(customer.getAddress());
-            customer1.setLevel(customer.getLevel());
-            customer1.setUserList(customer.getUserList());
-            customer1.setState(customer.getState());
             customer1.setModifierId(getWebUser().getId());
             customer1.setModifyTime(LocalDateTime.now());
-            customerService.updateCustomer(customer1,getWebUser());
+            customerService.updateCustomer(customer);
         }
         return getSuccessJson(null);
     }

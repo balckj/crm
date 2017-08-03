@@ -173,7 +173,7 @@ public class ValidateController extends BaseController{
     }
 
     @RequestMapping(value = "/validateCompanyName")
-    public String validateCompanyName(@RequestParam(value="companyName") String companyName){
+    public String validateCompanyName(@RequestParam(value="name") String companyName){
         if(companyName == null || companyName.trim().isEmpty()){
             return getErrorJson("必须输入企业名称");
         }

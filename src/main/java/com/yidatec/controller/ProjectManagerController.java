@@ -76,7 +76,7 @@ public class ProjectManagerController extends BaseController{
             pm.setCreatorId(getWebUser().getId());
             pm.setCreateTime(LocalDateTime.now());
             pm.setModifierId(getWebUser().getId());
-            pm.setModifyTime(LocalDateTime.now());
+            pm.setModifyTime(pm.getCreateTime());
             pmService.createSale(pm);
         } else {
             pm.setModifierId(getWebUser().getId());

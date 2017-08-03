@@ -68,7 +68,7 @@ public class SalesController extends BaseController{
             sale1.setCreatorId(getWebUser().getId());
             sale1.setCreateTime(LocalDateTime.now());
             sale1.setModifierId(getWebUser().getId());
-            sale1.setModifyTime(LocalDateTime.now());
+            sale1.setModifyTime(sale1.getCreateTime());
             saleService.createSale(sale1);
         } else {
             sale1.setId(sale.getId());

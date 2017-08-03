@@ -58,7 +58,7 @@ public class ExhibitionController extends BaseController{
             exhibition.setCreatorId(getWebUser().getId());
             exhibition.setCreateTime(LocalDateTime.now());
             exhibition.setModifierId(getWebUser().getId());
-            exhibition.setModifyTime(LocalDateTime.now());
+            exhibition.setModifyTime(exhibition.getCreateTime());
             exhibitionService.createExhibition(exhibition);
         } else {
             exhibition.setModifierId(getWebUser().getId());

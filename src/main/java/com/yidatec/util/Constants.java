@@ -64,4 +64,9 @@ public interface Constants {
      * 方式
      */
     public static final String MODE = "mode";
+
+    /**
+     * 兴趣爱好
+     */
+    public static final String HOBBY = "hobby";
 }

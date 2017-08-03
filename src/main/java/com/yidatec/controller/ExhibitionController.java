@@ -41,12 +41,6 @@ public class ExhibitionController extends BaseController{
     @RequestMapping("/exhibitionEdit")
     public String exhibitionEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建展馆":"编辑展馆");
-        ExhibitionVO exhibitionVO = exhibitionService.selectExhibition(id);
-        if (exhibitionVO != null){
-            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//            String startTimeStr = df.format(exhibitionVO.getStartTime());
-            exhibitionVO.setStartTime(exhibitionVO.getStartTime());
-        }
         model.put("ex",exhibitionService.selectExhibition(id));
         return "exhibitionEdit";
     }

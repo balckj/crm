@@ -79,8 +79,6 @@ public class CustomerController extends BaseController{
         if(errors  != null && errors.size() > 0){
             return errors;
         }
-        CustomerVO customer1 = new CustomerVO();
-        Contact contact = new Contact();
         if(customer.getId() == null || customer.getId().trim().length() <= 0)//新建
         {
             customer.setId(UUID.randomUUID().toString());
@@ -91,8 +89,8 @@ public class CustomerController extends BaseController{
             customerService.createCustomer(customer);
 
         } else {//编辑
-            customer1.setModifierId(getWebUser().getId());
-            customer1.setModifyTime(LocalDateTime.now());
+            customer.setModifierId(getWebUser().getId());
+            customer.setModifyTime(LocalDateTime.now());
             customerService.updateCustomer(customer);
         }
         return getSuccessJson(null);

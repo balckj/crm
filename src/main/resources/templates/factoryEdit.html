@@ -45,12 +45,13 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
-                            <!--<input type="hidden" name="id" id="id" th:value="${user}?${user.id}"/>-->
-                            <!--<div class="form-group" id="nickForm"><label class="col-sm-2 control-label">昵称</label>
-                                <div class="col-sm-4"><input id="nick" name="nick" type="text" class="form-control"
-                                                             maxlength="20" th:value="${user}? ${user.nick}"/></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>-->
+                            <input type="hidden" name="id" id="id" th:value="${factory}?${factory.id}"/>
+                            <!--<input type="hidden" name="selectIndustryValue" id="selectIndustryValue" th:value="${factory}?${factory.industry}"/>-->
+                            <input type="hidden" name="selectLevelValue" id="selectLevelValue" th:value="${factory}?${factory.platformLevel}"/>
+                            <input type="hidden" name="selectCountryValue" id="selectCountryValue" th:value="${factory}?${factory.country}"/>
+                            <input type="hidden" name="selectProvinceValue" id="selectProvinceValue" th:value="${factory}?${factory.province}"/>
+                            <input type="hidden" name="selectCityValue" id="selectCityValue" th:value="${factory}?${factory.city}"/>
+                            <input type="hidden" name="selectRegionValue" id="selectRegionValue" th:value="${factory}?${factory.region}"/>
                             <div class="form-group" id="referrerForm"><label class="col-sm-2 control-label">推荐人<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
@@ -68,14 +69,14 @@
                             <div class="form-group" id="factoryNameForm"><label class="col-sm-2 control-label">工厂企业名称<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="factoryName" name="factoryName" type="text" class="form-control"
-                                                             maxlength="20"/></div>
+                                                             maxlength="20" th:value="${factory}?${factory.factoryName}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="directorForm"><label class="col-sm-2 control-label">工厂厂长名称<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="director" name="director" type="text"
-                                                             class="form-control" maxlength="15" /></div>
+                                                             class="form-control" maxlength="15" th:value="${factory}?${factory.director}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -106,26 +107,46 @@
                                 <!--<label class="col-sm-4 control-label" style="text-align: left"></label>-->
                             <!--</div>-->
                             <!--<div class="hr-line-dashed"></div>-->
-                            <div class="form-group" id="user" class="user" id="userForm0">
-                                <label class="col-sm-1 control-label">联系人<span style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-1">
-                                    <input  name="userName" type="text" class="typeahead_3 form-control"
-                                            maxlength="20" />
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">联系人<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-9 row user" id="contactList">
+                                        <div class="col-sm-2" style="margin-left: 15px;">
+                                            <div class="form-group" id="name0Form">
+                                                <label for="name0" class="control-label">姓名<span
+                                                        style="color:#ed5565;">*</span></label>
+                                                <input type="text" name="userName" id="name0" class="form-control input-sm" maxlength="20"/>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2" style="margin-left: 15px;">
+                                            <div class="form-group" id="mobilePhone0Form">
+                                                <label for="mobilePhone0" class="control-label">电话<span
+                                                        style="color:#ed5565;">*</span></label>
+                                                <input type="text" name="userPhone" id="mobilePhone0" class="form-control input-sm" maxlength="20"/>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2" style="margin-left: 15px;">
+                                            <div class="form-group" id="position0Form">
+                                                <label for="position0" class="control-label">职位</label>
+                                                <input type="text" name="userPosition" id="position0" class="form-control input-sm" maxlength="20"/>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2" style="margin-left: 15px;">
+                                            <div class="form-group" id="email0Form">
+                                                <label for="email0" class="control-label">QQ邮箱<span
+                                                        style="color:#ed5565;">*</span></label>
+                                                <input type="text" name="userEmail" id="email0" class="form-control input-sm" maxlength="50"/>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <!--<div class="col-sm-1" style="margin-top: 20px">-->
+                                            <!--<button onclick="addLi()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">[增加]</button>-->
+                                        <!--</div>-->
                                 </div>
-                                <label class=" control-label" style="text-align: left"></label>
-                                <label class="col-sm-1 control-label">联系人职位</label>
-                                <div class="col-sm-1"><input  name="userPosition" type="text" class="form-control"
-                                                              maxlength="20" /></div>
-                                <label class=" control-label" style="text-align: left"></label>
-                                <label class="col-sm-1 control-label">联系人电话<span style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-1"><input  name="userPhone" type="text" class="form-control"
-                                                              maxlength="20" /></div>
-                                <label class=" control-label" style="text-align: left"></label>
-                                <label class="col-sm-1 control-label">联系人QQ邮箱<span style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-1"><input  name="userEmail" type="text" class="form-control"
-                                                              maxlength="50" /></div>
-                                <label class=" control-label" style="text-align: left"></label>
-                                <div class="col-sm-1"><button onclick="addLi()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">[增加]</button></div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="factoryIdForm"><label class="col-sm-2 control-label">工厂ID<span
@@ -138,7 +159,7 @@
                             <div class="form-group" id="firstOrderTimeForm"><label class="col-sm-2 control-label">首单时间<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="firstOrderTime" name="firstOrderTime" type="text" class="form-control"
-                                                             maxlength="50" /></div>
+                                                             maxlength="50" th:value="${factory}?${factory.firstOrderTime}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed" id="countryForm"></div>
@@ -202,7 +223,7 @@
                                 <label class="col-sm-2 control-label">地址<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="address" name="address" type="text"
-                                                             class="form-control" maxlength="15" /></div>
+                                                             class="form-control" maxlength="15" th:value="${factory}?${factory.address}" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -210,7 +231,7 @@
                                 <label class="col-sm-2 control-label">厂房面积<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="factoryArea" name="factoryArea" type="text"
-                                                             class="form-control" maxlength="15" /></div>
+                                                             class="form-control" maxlength="15" th:value="${factory}?${factory.factoryArea}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -218,7 +239,7 @@
                                 <label class="col-sm-2 control-label">厂房照片<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4 dropzone" id="photo">
-                                    <div class="am-text-success dz-message">
+                                    <div class="am-text-success dz-message row">
                                     将文件拖拽到此处或点此打开文件管理器选择文件
                                     </div>
                                 </div>
@@ -227,7 +248,7 @@
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="registeredCapitalForm"><label class="col-sm-2 control-label">注册资金</label>
                                     <div class="col-sm-4"><input id="registeredCapital" name="registeredCapital" type="text"
-                                                                 class="form-control" maxlength="15" /></div>
+                                                                 class="form-control" maxlength="15" th:value="${factory}?${factory.registeredCapital}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -247,7 +268,7 @@
                             <div class="form-group" id="fixedEmployeeCountForm"><label
                                     class="col-sm-2 control-label">固定工人数量</label>
                                 <div class="col-sm-4"><input id="fixedEmployeeCount" name="fixedEmployeeCount" type="text"
-                                                             class="form-control" maxlength="10"/></div>
+                                                             class="form-control" maxlength="10" th:value="${factory}?${factory.fixedEmployeeCount}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -257,11 +278,7 @@
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
                                     <select class="form-control m-b select2_demo_2" name="goodAtIndustry" id="goodAtIndustry"  multiple="multiple">
-                                        <option value="Mayotte">Mayotte</option>
-                                        <option value="Mexico">Mexico</option>
-                                        <option value="Montenegro">Montenegro</option>
-                                        <option value="Montserrat">Montserrat</option>
-                                        <option value="Morocco">Morocco</option>
+                                        <option th:value="${goodAtIndustry.id}" th:text="${goodAtIndustry.value}" th:each="goodAtIndustry:${goodAtIndustryList}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -271,13 +288,7 @@
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
                                     <select class="form-control m-b select2_demo_2" name="goodAtMaterial" id="goodAtMaterial"  multiple="multiple">
-                                        <option>木质</option>
-                                        <option>烤漆</option>
-                                        <option>涂料</option>
-                                        <option>型材</option>
-                                        <option>软膜</option>
-                                        <option>钢架</option>
-                                        <option>道具</option>
+                                        <option th:value="${goodAtMaterial.id}" th:text="${goodAtMaterial.value}" th:each="goodAtMaterial:${goodAtMaterialList}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -287,9 +298,8 @@
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="goodAtArea" id="goodAtArea">
-                                        <option>100</option>
-                                        <option>100-300</option>
-                                        <option>300以上</option>
+                                        <option value="" selected="selected">未选择</option>
+                                        <option th:value="${goodAtArea.id}" th:text="${goodAtArea.value}" th:each="goodAtArea:${goodAtAreaList}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -336,34 +346,33 @@
                             <div class="form-group" id="valueAddedTaxAccountForm"><label
                                     class="col-sm-2 control-label">增票账号</label>
                                 <div class="col-sm-4"><input id="valueAddedTaxAccount" name="valueAddedTaxAccount" type="text"
-                                                             class="form-control" maxlength="100"/></div>
+                                                             class="form-control" maxlength="100" th:value="${factory}?${factory.valueAddedTaxAccount}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="taxNumberForm"><label
                                     class="col-sm-2 control-label">税号</label>
                                 <div class="col-sm-4"><input id="taxNumber" name="taxNumber" type="text"
-                                                             class="form-control" maxlength="100"/></div>
+                                                             class="form-control" maxlength="100" th:value="${factory}?${factory.taxNumber}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group"><label class="col-sm-2 control-label">状态</label>
                                 <div class="col-sm-4">
                                     <div class="radio radio-inline radio-info">
-                                        <!--<input type="radio" name="state" id="s1" value="1" th:checked="${customer}?${customer.state eq 1}"/>-->
-                                        <input type="radio" name="state" id="s1" value="1" th:checked="${customer}?${customer.state eq 1}:'true'"/>
+                                        <input type="radio" name="state" id="s1" value="1" th:checked="${factory}?${factory.state eq 1}:'true'"/>
                                         <label for="s1">
                                             可用
                                         </label>
                                     </div>
                                     <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s2" value="2" th:checked="${customer}?${customer.state eq 2}"/>
+                                        <input type="radio" name="state" id="s2" value="2" th:checked="${factory}?${factory.state eq 2}"/>
                                         <label for="s2">
                                             锁定
                                         </label>
                                     </div>
                                     <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s3" value="3" th:checked="${customer}?${customer.state eq 3}"/>
+                                        <input type="radio" name="state" id="s3" value="3" th:checked="${factory}?${factory.state eq 3}"/>
                                         <label for="s3">
                                             禁用
                                         </label>
@@ -494,49 +503,126 @@
             });
         });
 
+        var photoList = [];
+        var photo=[];
         Dropzone.autoDiscover = false;
         $("#photo").dropzone({
-            url: "/file/upload",
-//            paramName: "file",
+            url: "fileupload",
+            paramName: "files",
             addRemoveLinks: true,
-            uploadMultiple:true,
+            uploadMultiple:false,
             dictRemoveLinks: "x",
             dictCancelUpload: "x",
             maxFiles: 10,
             maxFilesize: 5,
+//            autoProcessQueue:false,
             acceptedFiles: ".jpg,.gif,.png", //上传的类型
             init:function(){
                 this.on("addedfile", function(file) {
                     //上传文件时触发的事件
                 });
+                this.on("success",function(file,response) {
+                    debugger;
+                    //单个上传完成后触发的方法
+                    var param = {};
+                    param[file.name] = response.url;
+                    photoList.push(param);
+                    photo.push(response.url);
+                });
                 this.on("queuecomplete",function(file) {
                     //上传完成后触发的方法
+//                    $("#saveBtn").removeAttr("disabled");
                 });
                 this.on("removedfile",function(file){
+                    var serverName = "";
                     //删除文件时触发的方法
+                    for(var i=0;i<photoList.length;i++){
+                        if(photoList[i][file.name]){
+                            serverName = photoList[i][file.name];
+                            photoList.splice(i,1);
+                            photo.splice(i,1);
+                            break;
+                        }
+                    }
+                    if(serverName == ""){
+                        return;
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: 'filedelete',
+                        data: {name: serverName},
+                        dataType: 'html',
+                        success: function(data){
+                            var rep = JSON.parse(data);
+//                            if(rep.code == 200)
+//                            {
+//                                $("#photoCounter").text( "(" + photo_counter + ")");
+//                            }
+
+                        }
+                    });
                 });
             }
         });
 
+        var casePhotoList = [];
         $("#casePhoto").dropzone({
-            url: "/file/upload",
-//            paramName: "file",
+            url: "fileupload",
+            paramName: "files",
             addRemoveLinks: true,
-            uploadMultiple:true,
+            uploadMultiple:false,
             dictRemoveLinks: "x",
             dictCancelUpload: "x",
             maxFiles: 10,
             maxFilesize: 5,
+//            autoProcessQueue:false,
             acceptedFiles: ".jpg,.gif,.png", //上传的类型
             init:function(){
+//                var submitButton = document.querySelector("#saveBtn")
+//                submitButton.addEventListener("click", function () {
+//                    myDropzone.processQueue();
+//                });
                 this.on("addedfile", function(file) {
                     //上传文件时触发的事件
+//                    $("#saveBtn").removeAttr("disabled");
+                });
+                this.on("success",function(file,response) {
+                    //单个上传完成后触发的方法
+                    var param = {};
+                    param[file.name] = response.url;
+                    casePhotoList.push(param);
                 });
                 this.on("queuecomplete",function(file) {
                     //上传完成后触发的方法
+                    $("#saveBtn").removeAttr("disabled");
                 });
                 this.on("removedfile",function(file){
+                    var serverName = "";
                     //删除文件时触发的方法
+                    for(var i=0;i<casePhotoList.length;i++){
+                        if(casePhotoList[i][file.name]){
+                            serverName = casePhotoList[i][file.name];
+                            casePhotoList.splice(i,1);
+                            break;
+                        }
+                    }
+                    if(serverName == ""){
+                        return;
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: 'filedelete',
+                        data: {name: serverName},
+                        dataType: 'html',
+                        success: function(data){
+                            var rep = JSON.parse(data);
+                            if(rep.code == 200)
+                            {
+                                $("#caseCount").val(casePhotoList.length);
+                            }
+
+                        }
+                    });
                 });
             }
         });
@@ -571,8 +657,8 @@
         //        });
 
 
-        $("#setting").addClass("active");
-        $("#userEdit").addClass("active");
+//        $("#setting").addClass("active");
+//        $("#userEdit").addClass("active");
 
         $('#firstOrderTime').datepicker({
             startView: 1,
@@ -591,68 +677,6 @@
         validate('email', 'email', 'validateEmail');
 
 
-        /*var $image = $(".image-crop > img")
-         $($image).cropper({
-         aspectRatio: 16 / 16,
-         preview: ".img-preview",
-         done: function (data) {
-
-         }
-         });
-
-         var $inputImage = $("#inputImage");
-         if (window.FileReader) {
-         $inputImage.change(function () {
-         var fileReader = new FileReader(),
-         files = this.files,
-         file;
-
-         if (!files.length) {
-         return;
-         }
-
-         file = files[0];
-
-         if (/^image\/\w+$/.test(file.type)) {
-         fileReader.readAsDataURL(file);
-         fileReader.onload = function () {
-         $inputImage.val("");
-         $image.cropper("reset", true).cropper("replace", this.result);
-         };
-         } else {
-         showMessage("请选择一个用于头像的图像");
-         }
-         });
-         } else {
-         $inputImage.addClass("hide");
-         }
-
-         $('.chosen-select').chosen({width: "100%"});
-
-         $("#download").click(function () {
-         window.open($image.cropper("getDataURL"));
-         });
-
-         $("#zoomIn").click(function () {
-         $image.cropper("zoom", 0.1);
-         });
-
-         $("#zoomOut").click(function () {
-         $image.cropper("zoom", -0.1);
-         });
-
-         $("#rotateLeft").click(function () {
-         $image.cropper("rotate", 45);
-         });
-
-         $("#rotateRight").click(function () {
-         $image.cropper("rotate", -45);
-         });
-
-         $("#setDrag").click(function () {
-         $image.cropper("setDragMode", "crop");
-         });*/
-
         var saveBtnda;
         function saveUser(btn) {
             saveBtnda = Ladda.create( btn );
@@ -660,14 +684,14 @@
 //            $('input[name="role"]:checked').each(function () {
 //                roles.push({id: $(this).val().trim()});
 //            });
-            var contact;
+            var userList = new Array();
             $('.user').each(function(index){
                 // user
                 userName = $(this).find("input[name='userName']").val();
                 userPosition = $(this).find("input[name='userPosition']").val();
                 userPhone = $(this).find("input[name='userPhone']").val();
                 userEmail = $(this).find("input[name='userEmail']").val();
-                contact.push({
+                userList.push({
                     "name":userName,
                     "position":userPosition,
                     "mobilePhone":userPhone,
@@ -675,24 +699,25 @@
                 })
             })
             var p = {
-                id: $("#id").val().trim(),
+//                id: $("#id").val(),
                 referrer: $("#referrer").val().trim(),
                 factoryName: $("#factoryName").val().trim(),
                 director: $("#director").val().trim(),
                 firstOrderTime: $("#firstOrderTime").val(),
-                contact:contact,
+                userList:userList,
                 country: $("#country").val(),
                 province: $("#province").val(),
                 city: $("#city").val(),
                 region: $("#region").val(),
                 address: $("#address").val(),
                 factoryArea: $("#factoryArea").val(),
+                photo:photo.toString(),
                 registeredCapital: $("#registeredCapital").val(),
                 taxpayerType: $("#taxpayerType").val(),
                 fixedEmployeeCount: $("#fixedEmployeeCount").val(),
-                goodAtIndustry: $("#goodAtIndustry").val(),
-                goodAtMaterial: $("#goodAtMaterial").val(),
-                goodAtArea: $("#goodAtArea").val(),
+                goodAtIndustry: $("#goodAtIndustry").val().toString().trim(),
+                goodAtMaterial: $("#goodAtMaterial").val().toString().trim(),
+                goodAtArea: $("#goodAtArea").val().trim(),
                 platformLevel: $("#platformLevel").val(),
                 valueAddedTaxAccount: $("#valueAddedTaxAccount").val(),
                 taxNumber: $("#taxNumber").val(),
@@ -701,6 +726,8 @@
 //                gender: $("input[name='gender']:checked").val(),
 //                email: $("#email").val().trim(),
             };
+            console.info(p);
+            debugger;
             var a = JSON.stringify(p);
             $.ajax({
                 url: 'saveFactory',
@@ -715,6 +742,7 @@
                 },
                 error: function (result) {
                     alert("通信错误！");
+                    saveBtnda.stop();
                 },
                 success: function (data) {
                     if (data.res == undefined) {

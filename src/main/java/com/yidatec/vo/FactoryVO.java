@@ -10,8 +10,6 @@ public class FactoryVO extends FactoryEntity{
     private Integer length;
     private Integer start;
 
-    private String caseName;
-    private String casePhoto;
 
     public Integer getDraw() {
         return draw;
@@ -37,19 +35,5 @@ public class FactoryVO extends FactoryEntity{
         this.start = start;
     }
 
-    public String getCaseName() {
-        return caseName;
-    }
 
-    public void setCaseName(String caseName) {
-        this.caseName = caseName;
-    }
-
-    public String getCasePhoto() {
-        return casePhoto;
-    }
-
-    public void setCasePhoto(String casePhoto) {
-        this.casePhoto = casePhoto;
-    }
 }

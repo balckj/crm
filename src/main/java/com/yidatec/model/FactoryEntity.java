@@ -10,7 +10,8 @@ public class FactoryEntity extends BaseModel{
     private String referrer;//推荐人
     private String factoryName;//企业名称
     private String director;//厂长
-    private Contact contact;//联系人
+//    private Contact contacts;//联系人
+    private List<Contact> userList;//联系人
     private LocalDate firstOrderTime;//首单时间
     private String country;
     private String province;
@@ -18,7 +19,7 @@ public class FactoryEntity extends BaseModel{
     private String region;
     private String address;
     private Float factoryArea;//厂房面积
-    private List photo;
+    private String photo;
     private Float registeredCapital;//注册资金
     private String taxpayerType;//纳税人身份
     private Integer fixedEmployeeCount;//固定工人数量
@@ -30,12 +31,31 @@ public class FactoryEntity extends BaseModel{
     private String taxNumber;//税号
     private Integer state;
 
-    public Contact getContact() {
-        return contact;
+    private String caseName;
+    private String casePhoto;
+
+    public String getCaseName() {
+        return caseName;
     }
 
-    public void setContact(Contact contact) {
-        this.contact = contact;
+    public void setCaseName(String caseName) {
+        this.caseName = caseName;
+    }
+
+    public String getCasePhoto() {
+        return casePhoto;
+    }
+
+    public void setCasePhoto(String casePhoto) {
+        this.casePhoto = casePhoto;
+    }
+
+    public List<Contact> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<Contact> userList) {
+        this.userList = userList;
     }
 
     public String getReferrer() {
@@ -114,11 +134,11 @@ public class FactoryEntity extends BaseModel{
         this.factoryArea = factoryArea;
     }
 
-    public List getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(List photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 

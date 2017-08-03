@@ -13,8 +13,8 @@ import java.util.List;
 @Mapper
 public interface FactoryMapper {
 
-    @Insert("INSERT INTO T_FACTORY (id,referrer,factoryName,director,firstOrderTime,country,province,city,region,address,factoryArea,registeredCapital,taxpayerType,fixedEmployeeCount,goodAtIndustry,goodAtMaterial,goodAtArea,platformLevel,valueAddedTaxAccount,taxNumber,state,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{referrer},#{factoryName}," +
-            "#{director},#{firstOrderTime},#{country},#{province},#{city},#{region},#{address},#{factoryArea},#{registeredCapital},#{taxpayerType},#{fixedEmployeeCount},#{goodAtIndustry},#{goodAtMaterial},#{goodAtArea},#{platformLevel},#{valueAddedTaxAccount},#{taxNumber},#{state},#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
+    @Insert("INSERT INTO T_FACTORY (id,referrer,factoryName,director,firstOrderTime,country,province,city,region,address,factoryArea,photo,registeredCapital,taxpayerType,fixedEmployeeCount,goodAtIndustry,goodAtMaterial,goodAtArea,platformLevel,valueAddedTaxAccount,taxNumber,state,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{referrer},#{factoryName}," +
+            "#{director},#{firstOrderTime},#{country},#{province},#{city},#{region},#{address},#{factoryArea},#{photo},#{registeredCapital},#{taxpayerType},#{fixedEmployeeCount},#{goodAtIndustry},#{goodAtMaterial},#{goodAtArea},#{platformLevel},#{valueAddedTaxAccount},#{taxNumber},#{state},#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
     int create(FactoryEntity factory);
 
     @Update("UPDATE T_CUSTOMER SET `companyName`=#{companyName},companyId=#{companyId},industry=#{industry},nature=#{nature}," +
@@ -35,4 +35,7 @@ public interface FactoryMapper {
 
     @SelectProvider(type=com.yidatec.mapper.FactoryQueryProvider.class,method = "countFactory")
     int countFactoryList(FactoryVO factory);
+
+    @Select("SELECT * FROM T_FACTORY WHERE id = #{id}")
+    FactoryEntity selectFactory(String id);
 }

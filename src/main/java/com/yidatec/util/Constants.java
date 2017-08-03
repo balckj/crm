@@ -46,6 +46,11 @@ public interface Constants {
     public static final String GOOD_AT_AREA = "goodAtArea";
 
     /**
+     * 擅长材料
+     */
+    public static final String GOOD_AT_MATERIAL = "goodAtMaterial";
+
+    /**
      * 产品分类
      */
     public static final String PRODUCT_CATEGORY = "productCategory";

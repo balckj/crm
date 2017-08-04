@@ -65,7 +65,7 @@ public class ProductInfoController extends BaseController{
             product.setCreatorId(getWebUser().getId());
             product.setCreateTime(LocalDateTime.now());
             product.setModifierId(getWebUser().getId());
-            product.setModifyTime(LocalDateTime.now());
+            product.setModifyTime(product.getCreateTime());
             productService.createProduct(product);
         } else {
             product.setModifierId(getWebUser().getId());

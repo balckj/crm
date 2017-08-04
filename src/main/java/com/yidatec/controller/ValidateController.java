@@ -394,4 +394,12 @@ public class ValidateController extends BaseController{
         }
         return getSuccessJson(null);
     }
+
+    @RequestMapping(value = "/validateHobby")
+    public String validateHobby(@RequestParam(value="hobby") String hobby){
+        if(hobby == null || hobby.trim().isEmpty()){
+            return getErrorJson("必须输入兴趣爱好");
+        }
+        return getSuccessJson(null);
+    }
 }

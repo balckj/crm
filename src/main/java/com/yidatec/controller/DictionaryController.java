@@ -71,7 +71,7 @@ public class DictionaryController extends BaseController {
 			dictionary1.setCreatorId(getWebUser().getId());
 			dictionary1.setCreateTime(LocalDateTime.now());
 			dictionary1.setModifierId(getWebUser().getCreatorId());
-			dictionary1.setModifyTime(LocalDateTime.now());
+			dictionary1.setModifyTime(dictionary1.getCreateTime());
 			dictionaryService.createDictionary(dictionary1);
 		} else {
 			dictionary1.setId(dictionary.getId());

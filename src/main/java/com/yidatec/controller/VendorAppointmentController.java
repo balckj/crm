@@ -53,7 +53,7 @@ public class VendorAppointmentController extends BaseController{
         vendorAppointment.setCreatorId(getWebUser().getId());
         vendorAppointment.setCreateTime(LocalDateTime.now());
         vendorAppointment.setModifierId(getWebUser().getId());
-        vendorAppointment.setModifyTime(LocalDateTime.now());
+        vendorAppointment.setModifyTime(vendorAppointment.getCreateTime());
         vendorAppointmentService.createVendorAppointment(vendorAppointment);
         return getSuccessJson(null);
     }

@@ -66,6 +66,11 @@ public interface Constants {
     public static final String MODE = "mode";
 
     /**
+     * 兴趣爱好
+     */
+    public static final String HOBBY = "hobby";
+
+    /**
      * 平台等级
      */
     public static final String PLATFORM_LEVEL = "level";

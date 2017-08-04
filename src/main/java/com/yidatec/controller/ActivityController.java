@@ -1,8 +1,12 @@
 package com.yidatec.controller;
 
 import com.yidatec.model.Activity;
+import com.yidatec.model.Customer;
 import com.yidatec.service.ActivityService;
+import com.yidatec.service.CustomerService;
+import com.yidatec.service.ExhibitionService;
 import com.yidatec.vo.ActivityVO;
+import com.yidatec.vo.ExhibitionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,6 +32,12 @@ public class ActivityController extends BaseController{
     @Autowired
     ActivityService activityService;
 
+    @Autowired
+    ExhibitionService exhibitionService;
+
+    @Autowired
+    CustomerService customerService;
+
     @RequestMapping("/activityList")
     public String activities(ModelMap model){
         return "activityList";
@@ -37,6 +47,8 @@ public class ActivityController extends BaseController{
     public String activityEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建活动":"编辑活动");
         model.put("activity",activityService.selectActivity(id));
+        model.put("exhibitioHallList",exhibitionService.selectExhibitionAll());// 展馆列表
+        model.put("customerList",customerService.selectCustomerAll());// 主办方列表
         return "activityEdit";
     }
 
@@ -93,6 +105,18 @@ public class ActivityController extends BaseController{
     @ResponseBody
     public Object findActivity(@RequestBody ActivityVO activityVO)throws Exception{
         List<Activity> ActivityEntityList = activityService.selectActivityList(activityVO);
+        if (ActivityEntityList!=null){
+            for(Activity activity:ActivityEntityList){
+                ExhibitionVO exhibition = exhibitionService.selectExhibition(activity.getExhibitioHall());
+                if(exhibition != null){
+                    activity.setExhibitioHall(exhibition.getName());
+                }
+                Customer customer = customerService.selectCustomer(activity.getSponsor());
+                if(customer != null){
+                    activity.setSponsor(customer.getName());
+                }
+            }
+        }
         int count = activityService.countActivityList(activityVO);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("draw", activityVO.getDraw());

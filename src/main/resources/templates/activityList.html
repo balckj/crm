@@ -141,9 +141,33 @@
                     {"data": "startDate", "width": "100px"},
                     {"data": "endDate", "width": "100px"},
                     {"data": "country", "width": "100px"},
-                    {"data": "province", "width": "100px"},
-                    {"data": "city", "width": "100px"},
-                    {"data": "region", "width": "100px"},
+                    {"data": "province", "width": "50px",
+                        "render": function (data, type, full, meta) {
+                            if (data == '未选择') {
+                                return '---';
+                            }else {
+                                return data;
+                            }
+                        }
+                    },
+                    {"data": "city", "width": "50px",
+                        "render": function (data, type, full, meta) {
+                            if (data == '未选择') {
+                                return '---';
+                            }else {
+                                return data;
+                            }
+                        }
+                    },
+                    {"data": "region", "width": "100px",
+                        "render": function (data, type, full, meta) {
+                            if (data == '未选择') {
+                                return '---';
+                            }else {
+                                return data;
+                            }
+                        }
+                    },
                     {"data": "address", "width": "100px"},
                     {"data": "exhibitioHall", "width": "100px"},
                     {"data": "sponsor", "width": "100px"},

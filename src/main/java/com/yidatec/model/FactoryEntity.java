@@ -31,23 +31,14 @@ public class FactoryEntity extends BaseModel{
     private String taxNumber;//税号
     private Integer state;
 
-    private String caseName;
-    private String casePhoto;
+    private List<Case> caseList;//案例列表
 
-    public String getCaseName() {
-        return caseName;
+    public List<Case> getCaseList() {
+        return caseList;
     }
 
-    public void setCaseName(String caseName) {
-        this.caseName = caseName;
-    }
-
-    public String getCasePhoto() {
-        return casePhoto;
-    }
-
-    public void setCasePhoto(String casePhoto) {
-        this.casePhoto = casePhoto;
+    public void setCaseList(List<Case> caseList) {
+        this.caseList = caseList;
     }
 
     public List<Contact> getUserList() {

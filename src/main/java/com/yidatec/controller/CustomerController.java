@@ -1,8 +1,9 @@
 package com.yidatec.controller;
 
-import com.yidatec.model.Contact;
 import com.yidatec.model.Customer;
+import com.yidatec.model.Dictionary;
 import com.yidatec.service.CustomerService;
+import com.yidatec.service.DictionaryService;
 import com.yidatec.util.Constants;
 import com.yidatec.vo.CustomerVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,37 +32,44 @@ public class CustomerController extends BaseController{
     @Autowired
     CustomerService customerService;
 
+    @Autowired
+    DictionaryService dictionaryService;
+
     @RequestMapping("/customerList")
     public String customerList(ModelMap model){
-        model.put("nature",customerService.getCompanyNature(Constants.NATURE_CODE));
+        model.put("nature",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));
         return "customerList";
     }
-
-//    @RequestMapping("/activities")
-//    public String activities(ModelMap model){
-//        return "activities";
-//    }
 
 
     @RequestMapping("/customerEdit")
     public String customerEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建客户":"编辑客户");
         model.put("customer",customerService.selectCustomer(id));
+        model.put("industryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 所属行业
+        model.put("natureList",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));// 企业性质
+        model.put("levelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL));// 平台等级
         return "customerEdit";
     }
-
-//    @RequestMapping("/activityEdit")
-//    public String activityEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
-//        model.put("title",(id == null || id.isEmpty())?"新建活动":"编辑活动");
-//
-//        return "activityEdit";
-//    }
 
     @RequestMapping(value = "/findCustomer")
     @ResponseBody
     public Object findCustomer(@RequestBody CustomerVO customerVO)throws Exception{
         List<Customer> CustomerEntityList = customerService.selectCustomerList(customerVO);
-        int count = customerService.countDictionaryList(customerVO);
+        if (CustomerEntityList!=null){
+            for (Customer customer:CustomerEntityList){
+                Dictionary dictionaryIndustry = dictionaryService.selectDictionary(customer.getIndustry());
+                if(dictionaryIndustry != null){
+                    customer.setIndustry(dictionaryIndustry.getValue());// 所属行业
+                }
+
+                Dictionary dictionaryNature = dictionaryService.selectDictionary(customer.getNature());
+                if(dictionaryNature != null){
+                    customer.setNature(dictionaryNature.getValue());// 企业性质
+                }
+            }
+        }
+        int count = customerService.countCustomerList(customerVO);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("draw", customerVO.getDraw());
         map.put("recordsTotal", count);
@@ -80,7 +88,7 @@ public class CustomerController extends BaseController{
             return errors;
         }
         CustomerVO customer1 = new CustomerVO();
-        Contact contact = new Contact();
+//        Contact contact = new Contact();
         if(customer.getId() == null || customer.getId().trim().length() <= 0)//新建
         {
             customer.setId(UUID.randomUUID().toString());
@@ -91,8 +99,8 @@ public class CustomerController extends BaseController{
             customerService.createCustomer(customer);
 
         } else {//编辑
-            customer1.setModifierId(getWebUser().getId());
-            customer1.setModifyTime(LocalDateTime.now());
+            customer.setModifierId(getWebUser().getId());
+            customer.setModifyTime(LocalDateTime.now());
             customerService.updateCustomer(customer);
         }
         return getSuccessJson(null);

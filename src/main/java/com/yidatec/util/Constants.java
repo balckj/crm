@@ -64,4 +64,9 @@ public interface Constants {
      * 方式
      */
     public static final String MODE = "mode";
+
+    /**
+     * 平台等级
+     */
+    public static final String PLATFORM_LEVEL = "level";
 }

@@ -5,8 +5,8 @@ package com.yidatec.model;
  */
 public class Case extends BaseModel {
 
-    private String caseName;
-    private String casePhoto;
+    private String name;
+    private String photo;
     private Integer type;
 
     public Integer getType() {
@@ -17,19 +17,19 @@ public class Case extends BaseModel {
         this.type = type;
     }
 
-    public String getCaseName() {
-        return caseName;
+    public String getName() {
+        return name;
     }
 
-    public void setCaseName(String caseName) {
-        this.caseName = caseName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCasePhoto() {
-        return casePhoto;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setCasePhoto(String casePhoto) {
-        this.casePhoto = casePhoto;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

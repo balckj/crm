@@ -1,11 +1,7 @@
 package com.yidatec.service;
 
-import com.yidatec.mapper.DesignerMapper;
-import com.yidatec.mapper.RoleMapper;
-import com.yidatec.mapper.UserRoleMapper;
-import com.yidatec.model.Param;
-import com.yidatec.model.User;
-import com.yidatec.model.UserRole;
+import com.yidatec.mapper.*;
+import com.yidatec.model.*;
 import com.yidatec.util.Constants;
 import com.yidatec.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +11,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 设计师
@@ -40,6 +38,12 @@ public class DesignerService {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	CaseMapper caseMapper;
+
+	@Autowired
+	UserCaseMapper userCaseMapper;
 
 	public User selectDesigner(String id){
 		return  designerMapper.selectDesigner(id);
@@ -83,11 +87,27 @@ public class DesignerService {
 	public void createDesigner(User user) {
 		insertUserRole(user);
 		designerMapper.create(user);
+		if (user.getCaseList() != null){
+			for (int i = 0; i < user.getCaseList().size(); i ++){
+				Case aCase = user.getCaseList().get(i);
+				String caseId = UUID.randomUUID().toString().toLowerCase();
+				aCase.setId(caseId);
+				aCase.setType(2);
+				caseMapper.createCase(aCase);
+
+				UserCase userCase = new UserCase();
+				userCase.setDesignerId(user.getId());
+				userCase.setCaseId(caseId);
+				userCaseMapper.createUserCase(userCase);
+			}
+		}
+
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
 	public void updateDesigner(User user) {
 		designerMapper.update(user);
+//		caseMapper.deleteCase();
 	}
 
 	private void insertUserRole(User user){

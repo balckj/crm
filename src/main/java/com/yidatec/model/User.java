@@ -102,6 +102,8 @@ public class User extends BaseModel implements UserDetails {
     private String city;
     private String region;
 
+    private List<Case> caseList;//案例列表
+
     public String getName() {
         return name;
     }
@@ -383,5 +385,13 @@ public class User extends BaseModel implements UserDetails {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public List<Case> getCaseList() {
+        return caseList;
+    }
+
+    public void setCaseList(List<Case> caseList) {
+        this.caseList = caseList;
     }
 }

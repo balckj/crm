@@ -60,7 +60,7 @@ public class DesignerController extends BaseController{
         model.put("goodAtIndustryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 擅长行业
         model.put("goodAtAreaList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_AREA)); // 擅长面积
         model.put("designStyleList",dictionaryService.selectDictionaryListByCodeCommon(Constants.DESIGN_STYLE)); // 设计风格
-        model.put("platformLevelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORMLEVEL)); // 设计风格
+        model.put("platformLevelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL)); // 平台等级
         return "designerEdit";
     }
 

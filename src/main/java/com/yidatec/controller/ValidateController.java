@@ -402,4 +402,20 @@ public class ValidateController extends BaseController{
         }
         return getSuccessJson(null);
     }
+
+    @RequestMapping(value = "/validateDesignStyle")
+    public String validateDesignStyle(@RequestParam(value="designStyle") String designStyle){
+        if(designStyle == null || designStyle.trim().isEmpty()){
+            return getErrorJson("必须输入设计风格");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatePlatformLevel")
+    public String validatePlatformLevel(@RequestParam(value="platformLevel") String platformLevel){
+        if(platformLevel == null || platformLevel.trim().isEmpty()){
+            return getErrorJson("必须输入平台级别");
+        }
+        return getSuccessJson(null);
+    }
 }

@@ -71,6 +71,11 @@ public interface Constants {
     public static final String HOBBY = "hobby";
 
     /**
+     * 设计风格
+     */
+    public static final String DESIGN_STYLE = "designStyle";
+
+    /**
      * 平台等级
      */
     public static final String PLATFORM_LEVEL = "level";

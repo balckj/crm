@@ -34,8 +34,9 @@ public class FileUtills {
      */
     public static String filedelete(String filename)
             throws Exception {
-        String result="";
-        File targetFile = new File(filename);
+        String result = "";
+        String path = ConfigProperties.getFileUrl("path")+filename;
+        File targetFile = new File(path);
         if (targetFile.exists()) {
             targetFile.delete();
             result="success";

@@ -52,4 +52,5 @@ public interface FactoryMapper {
     @Select("SELECT * FROM T_CONTACT A INNER JOIN T_FACTORY_CONTACT B ON A.id= B.contactId and B.factoryId = #{id}")
     List<Contact> selectContact(String id);
 
+
 }

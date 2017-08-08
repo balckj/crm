@@ -84,7 +84,8 @@ public class FactoryService {
         FactoryEntity factory = factoryMapper.selectFactory(id);
         if (factory!=null){
             BeanUtils.copyProperties(factory, factoryVO);
-            factoryVO.setUserList(factoryMapper.selectContact(id));
+            factoryVO.setUserList(factoryMapper.getContact(id));
+            factoryVO.setCaseList(caseMapper.getCase(id));
         }
         return factoryVO;
     }

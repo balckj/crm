@@ -20,7 +20,6 @@
 
     <link th:href="@{99/css/animate.css}" rel="stylesheet"/>
     <link th:href="@{99/css/style.css}" rel="stylesheet"/>
-
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
             <h2 th:text="${title}"></h2>
@@ -46,21 +45,25 @@
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
                             <input type="hidden" name="id" id="id" th:value="${factory}?${factory.id}"/>
-                            <!--<input type="hidden" name="selectIndustryValue" id="selectIndustryValue" th:value="${factory}?${factory.industry}"/>-->
+                            <input type="hidden" name="selectReferrerValue" id="selectReferrerValue" th:value="${factory}?${factory.referrer}"/>
+                            <input type="hidden" name="selectGoodAtAreaValue" id="selectGoodAtAreaValue" th:value="${factory}?${factory.goodAtArea}"/>
+                            <input type="hidden" name="selectGoodAtMaterialValue" id="selectGoodAtMaterialValue" th:value="${factory}?${factory.goodAtMaterial}"/>
+                            <input type="hidden" name="selectGoodAtIndustryValue" id="selectGoodAtIndustryValue" th:value="${factory}?${factory.goodAtIndustry}"/>
                             <input type="hidden" name="selectLevelValue" id="selectLevelValue" th:value="${factory}?${factory.platformLevel}"/>
                             <input type="hidden" name="selectCountryValue" id="selectCountryValue" th:value="${factory}?${factory.country}"/>
                             <input type="hidden" name="selectProvinceValue" id="selectProvinceValue" th:value="${factory}?${factory.province}"/>
                             <input type="hidden" name="selectCityValue" id="selectCityValue" th:value="${factory}?${factory.city}"/>
                             <input type="hidden" name="selectRegionValue" id="selectRegionValue" th:value="${factory}?${factory.region}"/>
+                            <input type="hidden" name="selectplatformLevelValue" id="selectplatformLevelValue" th:value="${factory}?${factory.platformLevel}"/>
+                            <input type="hidden" name="selecttaxpayerTypeValue" id="selecttaxpayerTypeValue" th:value="${factory}?${factory.taxpayerType}"/>
+                            <input type="text" name="selectphotoValue" id="selectphotoValue" th:value="${factory}?${factory.photo}"/>
+
                             <div class="form-group" id="referrerForm"><label class="col-sm-2 control-label">推荐人<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="referrer" id="referrer">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
+                                        <option th:value="${sale.id}" th:text="${sale.name}" th:each="sale:${saleList}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -80,82 +83,114 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <!--<div class="form-group" id="userNameForm"><label class="col-sm-2 control-label">联系人<span-->
-                                    <!--style="color:#ed5565;">*</span></label>-->
-                                <!--<div class="col-sm-4"><input id="userName" name="userName" type="text" class="form-control"-->
-                                                             <!--maxlength="20"/></div>-->
-                                <!--<label class="col-sm-4 control-label" style="text-align: left"></label>-->
-                            <!--</div>-->
-                            <!--<div class="hr-line-dashed"></div>-->
-                            <!--<div class="form-group" id="userpositionForm"><label class="col-sm-2 control-label">联系人职位</label>-->
-                                <!--<div class="col-sm-4"><input id="userPosition" name="userPosition" type="text" class="form-control"-->
-                                                             <!--maxlength="20"/></div>-->
-                                <!--<label class="col-sm-4 control-label" style="text-align: left"></label>-->
-                            <!--</div>-->
-                            <!--<div class="hr-line-dashed"></div>-->
-                            <!--<div class="form-group" id="userphoneForm"><label class="col-sm-2 control-label">联系人电话<span-->
-                                    <!--style="color:#ed5565;">*</span></label>-->
-                                <!--<div class="col-sm-4"><input id="userPhone" name="userPhone" type="text" class="form-control"-->
-                                                             <!--maxlength="20"/></div>-->
-                                <!--<label class="col-sm-4 control-label" style="text-align: left"></label>-->
-                            <!--</div>-->
-                            <!--<div class="hr-line-dashed"></div>-->
-                            <!--<div class="form-group" id="useremailForm"><label class="col-sm-2 control-label">联系人QQ邮箱<span-->
-                                    <!--style="color:#ed5565;">*</span></label>-->
-                                <!--<div class="col-sm-4"><input id="useremail" name="useremail" type="text" class="form-control"-->
-                                                             <!--maxlength="50" /></div>-->
-                                <!--<label class="col-sm-4 control-label" style="text-align: left"></label>-->
-                            <!--</div>-->
-                            <!--<div class="hr-line-dashed"></div>-->
-                            <div class="form-group">
+                            <div class="form-group user">
                                 <label class="col-sm-2 control-label">联系人<span
                                         style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-9 row user" id="contactList">
-                                        <div class="col-sm-2" style="margin-left: 15px;">
-                                            <div class="form-group" id="name0Form">
-                                                <label for="name0" class="control-label">姓名<span
+                                <div class="col-sm-10" id="contactList">
+                                    <div class="row" th:if="${#lists.isEmpty(factory.userList)}">
+
+                                        <div class="col-sm-2">
+                                            <div id="name0Form">
+                                                <label class="control-label">姓名<span
                                                         style="color:#ed5565;">*</span></label>
-                                                <input type="text" name="userName" id="name0" class="form-control input-sm" maxlength="20"/>
+                                                <div>
+                                                    <input type="text" name="name" id="name0" class="form-control input-sm" maxlength="20"/>
+                                                </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2" style="margin-left: 15px;">
-                                            <div class="form-group" id="mobilePhone0Form">
-                                                <label for="mobilePhone0" class="control-label">电话<span
+                                        <div class="col-sm-2">
+                                            <div id="mobilePhone0Form">
+                                                <label class="control-label">电话<span
                                                         style="color:#ed5565;">*</span></label>
-                                                <input type="text" name="userPhone" id="mobilePhone0" class="form-control input-sm" maxlength="20"/>
+                                                <div>
+                                                    <input type="text" name="mobilePhone" id="mobilePhone0" class="form-control input-sm" maxlength="20"/>
+                                                </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-2" style="margin-left: 15px;">
-                                            <div class="form-group" id="position0Form">
-                                                <label for="position0" class="control-label">职位</label>
-                                                <input type="text" name="userPosition" id="position0" class="form-control input-sm" maxlength="20"/>
+                                        <div class="col-sm-2">
+                                            <div id="position0Form">
+                                                <label class="control-label">职位</label>
+                                                <div>
+                                                    <input type="text" name="position" id="position0" class="form-control input-sm" maxlength="20"/>
+                                                </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2" style="margin-left: 15px;">
-                                            <div class="form-group" id="email0Form">
-                                                <label for="email0" class="control-label">QQ邮箱<span
+                                        <div class="col-sm-2">
+                                            <div id="email0Form">
+                                                <label class="control-label">QQ邮箱<span
                                                         style="color:#ed5565;">*</span></label>
-                                                <input type="text" name="userEmail" id="email0" class="form-control input-sm" maxlength="50"/>
+                                                <div>
+                                                    <input type="text" name="email" id="email0" class="form-control input-sm" maxlength="50"/>
+                                                </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <!--<div class="col-sm-1" style="margin-top: 20px">-->
-                                            <!--<button onclick="addLi()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">[增加]</button>-->
-                                        <!--</div>-->
+                                        <div class="col-sm-1" style="margin-top: 20px">
+                                            <button onclick="addLi()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
+                                        </div>
+                                    </div>
+                                    <div class="row" th:unless="${#lists.isEmpty(factory.userList)}" th:each="contact,terStat : ${factory.userList}">
+                                        <div class="col-sm-2">
+                                            <div  th:attr="id='name'+${terStat.index}+'Form'">
+                                                <label class="control-label">姓名<span
+                                                        style="color:#ed5565;">*</span></label>
+                                                <div>
+                                                    <input type="text" th:attr="id='name'+${terStat.index}, name='name'" class="form-control input-sm" maxlength="20" th:value="${contact.name}"/>
+                                                </div>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div th:attr="id='mobilePhone'+${terStat.index}+'Form'">
+                                                <label class="control-label">电话<span
+                                                        style="color:#ed5565;">*</span></label>
+                                                <div>
+                                                    <input type="text" th:attr="id='mobilePhone'+${terStat.index}, name='mobilePhone'" class="form-control input-sm" maxlength="20" th:value="${contact.mobilePhone}"/>
+                                                </div>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div th:attr="id='position'+${terStat.index}+'Form'">
+                                                <label class="control-label">职位</label>
+                                                <div>
+                                                    <input type="text" th:attr="id='position'+${terStat.index}, name='position'" class="form-control input-sm" maxlength="20" th:value="${contact.position}"/>
+                                                </div>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div th:attr="id='email'+${terStat.index}+'Form'">
+                                                <label class="control-label">QQ邮箱<span
+                                                        style="color:#ed5565;">*</span></label>
+                                                <div>
+                                                    <input type="text" th:attr="id='email'+${terStat.index}, name='email'+${terStat.index}" class="form-control input-sm" maxlength="50" th:value="${contact.email}"/>
+                                                </div>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1" th:if="${terStat.first}" style="margin-top: 20px">
+                                            <button onclick="addLi()" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
+                                        </div>
+                                        <div class="col-sm-1" th:unless="${terStat.first}">
+                                            <button onclick="delBtnData(this)" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button btn-w-m btn-primary">删&nbsp;&nbsp;除</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="factoryIdForm"><label class="col-sm-2 control-label">工厂ID<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="factoryId" name="factoryId" type="text" class="form-control"
-                                                             maxlength="50" /></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
-                            <div class="hr-line-dashed"></div>
+                            <!--<div class="form-group" id="factoryIdForm"><label class="col-sm-2 control-label">工厂ID<span-->
+                                    <!--style="color:#ed5565;">*</span></label>-->
+                                <!--<div class="col-sm-4"><input id="factoryId" name="factoryId" type="text" class="form-control"-->
+                                                             <!--maxlength="50" /></div>-->
+                                <!--<label class="col-sm-4 control-label" style="text-align: left"></label>-->
+                            <!--</div>-->
+                            <!--<div class="hr-line-dashed"></div>-->
                             <div class="form-group" id="firstOrderTimeForm"><label class="col-sm-2 control-label">首单时间<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="firstOrderTime" name="firstOrderTime" type="text" class="form-control"
@@ -169,10 +204,6 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="country" id="country">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
                                     </select>
                                 </div>
                             </div>
@@ -183,10 +214,6 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="province" id="province">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
                                     </select>
                                 </div>
                             </div>
@@ -197,10 +224,6 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="city" id="city">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
                                     </select>
                                 </div>
                             </div>
@@ -211,10 +234,6 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" region="city" id="region">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
                                     </select>
                                 </div>
                             </div>
@@ -310,9 +329,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="platformLevel" id="platformLevel">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>A</option>
-                                        <option>B</option>
-                                        <option>C</option>
+                                        <option th:value="${levelList.value}" th:text="${levelList.value}" th:each="levelList:${levelList}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -425,6 +442,62 @@
 
     <script type="text/javascript">
         /*<![CDATA[*/
+        //创建li标签，包含显示姓名，邮箱，电话号码及删除按钮
+        function addLi() {
+
+            var total = $("#contactList").children().length;
+            var row =  "<div class='row'><div class='col-sm-2'>"
+                +" <div id='name"+total+ "Form'>"
+                +" <div>"
+                +" <input type='text' name='name' id='name"+total+ "' class='form-control input-sm' maxlength='20'/>"
+                +" </div>"
+                +" <label class=' control-label' style='text-align: left'></label>"
+                +" </div>"
+                +" </div>"
+                +" <div class='col-sm-2'>"
+                +" <div id='mobilePhone"+total+ "Form'>"
+                +" <div>"
+                +" <input type='text' name='mobilePhone' id='mobilePhone"+total+ "' class='form-control input-sm' maxlength='20'/>"
+                +" </div>"
+                +" <label class=' control-label' style='text-align: left'></label>"
+                +" </div>"
+                +" </div>"
+                +" <div class='col-sm-2'>"
+                +" <div id='position"+total+ "Form'>"
+                +" <div>"
+                +" <input type='text' name='position' id='position"+total+ "' class='form-control input-sm' maxlength='20'/>"
+                +" </div>"
+                +" <label class=' control-label' style='text-align: left'></label>"
+                +" </div>"
+                +" </div>"
+                +" <div class='col-sm-2'>"
+                +" <div id='email"+total+ "Form'>"
+                +" <div>"
+                +" <input type='text' name='email' id='email"+total+ "' class='form-control input-sm' maxlength='50'/>"
+                +" </div>"
+                +" <label class=' control-label' style='text-align: left'></label>"
+                +" </div>"
+                +" </div>"
+                +" <div class='col-sm-1'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div></div>";
+            $("#contactList").append(row)
+
+            validate("name"+total,"name","validateUsername");
+            validate2('mobilePhone'+total, 'mobile', {isEdit: false}, 'validateMobile');
+            validate('email'+total, 'email', 'validateEmail');
+        }
+        //为姓名或邮箱等添加span标签，好设置样式
+        function addSpan(li,text){
+            var span_1=document.createElement("span");
+            span_1.innerHTML=text;
+            li.appendChild(span_1);
+        }
+
+        //为删除按钮添加删除节点功能
+        function delBtnData(obj){
+            $(obj).parent().parent().remove();
+        }
+
+
 
         var country = '<option value="" selected="selected">未选择</option>';
         for (var a=0;a<=_areaList.length-1;a++) {
@@ -501,10 +574,73 @@
                     $(this).attr("selected",true);
                 }
             });
+
+            $("#referrer option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectReferrerValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            $("#goodAtArea option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectGoodAtAreaValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            $("#platformLevel option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectplatformLevelValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            $("#taxpayerType option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selecttaxpayerTypeValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+//            $("#goodAtIndustry").select2({ maximumInputLength: 3 });
+
+            var selectGoodAtIndustryValue = $("#selectGoodAtIndustryValue").val();
+            if(selectGoodAtIndustryValue && selectGoodAtIndustryValue.indexOf(",") > 0){
+                var list = selectGoodAtIndustryValue.split(",");
+                var setkey = [];
+                for(var i= 0;i< list.length; i++){
+                    setkey.push(list[i]);
+                }
+                $("#goodAtIndustry").val(setkey).trigger('change')
+            }else{
+                $("#goodAtIndustry").val(selectGoodAtIndustryValue).trigger('change')
+            }
+
+            var selectGoodAtMaterialValue = $("#selectGoodAtMaterialValue").val();
+            if(selectGoodAtMaterialValue && selectGoodAtMaterialValue.indexOf(",") > 0){
+                var list = selectGoodAtMaterialValue.split(",");
+                var setkey = [];
+                for(var i= 0;i< list.length; i++){
+                    setkey.push(list[i]);
+                }
+                $("#goodAtMaterial").val(setkey).trigger('change')
+            }else{
+                $("#goodAtMaterial").val(selectGoodAtMaterialValue).trigger('change')
+            }
+
         });
 
-        var photoList = [];
         var photo=[];
+        var previewTemplate = "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-image\"><img data-dz-thumbnail /></div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  <div class=\"dz-success-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Check</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <path d=\"M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" stroke-opacity=\"0.198794158\" stroke=\"#747474\" fill-opacity=\"0.816519475\" fill=\"#FFFFFF\" sketch:type=\"MSShapeGroup\"></path>\n      </g>\n    </svg>\n  </div>\n  <div class=\"dz-error-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Error</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <g id=\"Check-+-Oval-2\" sketch:type=\"MSLayerGroup\" stroke=\"#747474\" stroke-opacity=\"0.198794158\" fill=\"#FFFFFF\" fill-opacity=\"0.816519475\">\n          <path d=\"M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" sketch:type=\"MSShapeGroup\"></path>\n        </g>\n      </g>\n    </svg>\n  </div>\n</div>";
         Dropzone.autoDiscover = false;
         $("#photo").dropzone({
             url: "fileupload",
@@ -515,42 +651,50 @@
             dictCancelUpload: "x",
             maxFiles: 10,
             maxFilesize: 5,
+            previewTemplate:previewTemplate ,
 //            autoProcessQueue:false,
             acceptedFiles: ".jpg,.gif,.png", //上传的类型
             init:function(){
+                debugger;
+                var selectPhotoValue =  $("#selectphotoValue").val();
+                if(selectPhotoValue && selectPhotoValue.indexOf(",") > 0){
+                    var list = selectPhotoValue.split(",");
+                    for(var j= 0;j< list.length; j++){
+                        photo.push(list[j]);
+                    }
+                }j
+                for(var i=0;i<photo.length;i++){
+                    var mockFile = {  };
+                    this.emit("addedfile", mockFile);
+                    this.emit("thumbnail", mockFile, "" +
+                        "c.baidu.com/imgad/pic/item/267f9e2f07082838b5168c32b299a9014c08f1f9.jpg");
+                    this.emit("complete", mockFile);
+                }
+
                 this.on("addedfile", function(file) {
                     //上传文件时触发的事件
                 });
                 this.on("success",function(file,response) {
-                    debugger;
                     //单个上传完成后触发的方法
-                    var param = {};
-                    param[file.name] = response.url;
-                    photoList.push(param);
-                    photo.push(response.url);
+                    file.serverName = response.url;
+                    photo.push(file.serverName);
                 });
                 this.on("queuecomplete",function(file) {
                     //上传完成后触发的方法
 //                    $("#saveBtn").removeAttr("disabled");
                 });
                 this.on("removedfile",function(file){
-                    var serverName = "";
                     //删除文件时触发的方法
-                    for(var i=0;i<photoList.length;i++){
-                        if(photoList[i][file.name]){
-                            serverName = photoList[i][file.name];
-                            photoList.splice(i,1);
+                    for(var i=0;i<photo.length;i++){
+                        if(photo[i]==file.serverName){
                             photo.splice(i,1);
                             break;
                         }
                     }
-                    if(serverName == ""){
-                        return;
-                    }
                     $.ajax({
                         type: 'POST',
                         url: 'filedelete',
-                        data: {name: serverName},
+                        data: {name: file.serverName},
                         dataType: 'html',
                         success: function(data){
                             var rep = JSON.parse(data);
@@ -566,6 +710,7 @@
         });
 
         var casePhotoList = [];
+        var casephoto=[];
         $("#casePhoto").dropzone({
             url: "fileupload",
             paramName: "files",
@@ -575,44 +720,48 @@
             dictCancelUpload: "x",
             maxFiles: 10,
             maxFilesize: 5,
+            previewTemplate:previewTemplate ,
 //            autoProcessQueue:false,
             acceptedFiles: ".jpg,.gif,.png", //上传的类型
             init:function(){
+                var mockFile = { name: "Filename",
+                    size: 10000
+                };
+//                this.emit("addedfile", mockFile);
+//                mockFile._viewLink.href = "rest/components/"+$scope.component.name+"/"+$scope.component.version +"/"+$scope.component.image;
+//                mockFile._viewLink.name = $scope.component.image;
+//                this.emit("thumbnail", mockFile, "rest/components/"+$scope.component.name+"/"+$scope.component.version +"/"+$scope.component.image);
+//                this.emit("complete", mockFile);
 //                var submitButton = document.querySelector("#saveBtn")
 //                submitButton.addEventListener("click", function () {
 //                    myDropzone.processQueue();
 //                });
                 this.on("addedfile", function(file) {
+                    console.info(file);
                     //上传文件时触发的事件
 //                    $("#saveBtn").removeAttr("disabled");
                 });
                 this.on("success",function(file,response) {
                     //单个上传完成后触发的方法
-                    var param = {};
-                    param[file.name] = response.url;
-                    casePhotoList.push(param);
+                    file.serverName = response.url;
+                    casephoto.push(file.serverName );
                 });
                 this.on("queuecomplete",function(file) {
                     //上传完成后触发的方法
-                    $("#saveBtn").removeAttr("disabled");
+                    $("#caseCount").val(casePhotoList.length);
                 });
                 this.on("removedfile",function(file){
-                    var serverName = "";
                     //删除文件时触发的方法
-                    for(var i=0;i<casePhotoList.length;i++){
-                        if(casePhotoList[i][file.name]){
-                            serverName = casePhotoList[i][file.name];
-                            casePhotoList.splice(i,1);
+                    for(var i=0;i<casephoto.length;i++){
+                        if(casephoto[i]==file.serverName){
+                            casephoto.splice(i,1);
                             break;
                         }
-                    }
-                    if(serverName == ""){
-                        return;
                     }
                     $.ajax({
                         type: 'POST',
                         url: 'filedelete',
-                        data: {name: serverName},
+                        data: {name: file.serverName},
                         dataType: 'html',
                         success: function(data){
                             var rep = JSON.parse(data);
@@ -676,6 +825,14 @@
         //        validate('totalLessons', 'integer', 'validateInteger');
         validate('email', 'email', 'validateEmail');
 
+        var total = $("#contactList").children().length;
+        for (var i=0;i<total;i++)
+        {
+            validate("name"+i,"name","validateUsername");
+            validate2('mobilePhone'+i, 'mobile', {isEdit: false}, 'validateMobile');
+            validate('email'+i, 'email', 'validateEmail');
+        }
+
 
         var saveBtnda;
         function saveUser(btn) {
@@ -685,12 +842,15 @@
 //                roles.push({id: $(this).val().trim()});
 //            });
             var userList = new Array();
-            $('.user').each(function(index){
+            var caseList = new Array();
+            debugger;
+            caseList.push({"caseName":$("#caseName").val(),"casePhoto":casephoto.toString()});
+            $("#contactList").children().each(function(index){
                 // user
-                userName = $(this).find("input[name='userName']").val();
-                userPosition = $(this).find("input[name='userPosition']").val();
-                userPhone = $(this).find("input[name='userPhone']").val();
-                userEmail = $(this).find("input[name='userEmail']").val();
+                userName = $(this).find("input[name='name']").val();
+                userPosition = $(this).find("input[name='position']").val();
+                userPhone = $(this).find("input[name='mobilePhone']").val();
+                userEmail = $(this).find("input[name='email']").val();
                 userList.push({
                     "name":userName,
                     "position":userPosition,
@@ -720,6 +880,7 @@
                 goodAtArea: $("#goodAtArea").val().trim(),
                 platformLevel: $("#platformLevel").val(),
                 valueAddedTaxAccount: $("#valueAddedTaxAccount").val(),
+                caseList:caseList,
                 taxNumber: $("#taxNumber").val(),
                 state: $("input[name='state']:checked").val(),
 //                roleList: roles,

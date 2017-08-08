@@ -5,8 +5,10 @@ import com.yidatec.model.Dictionary;
 import com.yidatec.model.FactoryEntity;
 import com.yidatec.service.DictionaryService;
 import com.yidatec.service.FactoryService;
+import com.yidatec.service.SaleService;
 import com.yidatec.util.Constants;
 import com.yidatec.vo.FactoryVO;
+import com.yidatec.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,6 +39,9 @@ public class FactoryController extends BaseController{
     @Autowired
     DictionaryService dictionaryService;
 
+    @Autowired
+    SaleService saleService;
+
     @RequestMapping("/factoryList")
     public String factoryList(ModelMap model){
         return "factoryList";
@@ -46,9 +51,11 @@ public class FactoryController extends BaseController{
     public String factoryEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建工厂":"编辑工厂");
         model.put("factory",factoryService.selectFactory(id));
+        model.put("saleList",saleService.selectSaleListALL(new UserVO()));// 推荐人
         model.put("goodAtIndustryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 擅长行业
         model.put("goodAtMaterialList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_MATERIAL));// 擅长材料
         model.put("goodAtAreaList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_AREA)); // 擅长面积
+        model.put("levelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL));// 平台等级
         return "factoryEdit";
     }
 
@@ -64,34 +71,12 @@ public class FactoryController extends BaseController{
         Contact contact = new Contact();
         if(factory.getId() == null || factory.getId().trim().length() <= 0)//新建
         {
-            factory1.setId(UUID.randomUUID().toString().toLowerCase());
-            factory1.setReferrer(factory.getReferrer());
-            factory1.setFactoryName(factory.getFactoryName());
-            factory1.setDirector(factory.getDirector());
-            factory1.setFirstOrderTime(factory.getFirstOrderTime());
-            factory1.setUserList(factory.getUserList());
-            factory1.setCountry(factory.getCountry());
-            factory1.setProvince(factory.getProvince());
-            factory1.setCity(factory.getCity());
-            factory1.setRegion(factory.getRegion());
-            factory1.setAddress(factory.getAddress());
-            factory1.setFactoryArea(factory.getFactoryArea());
-            factory1.setPhoto(factory.getPhoto());
-            factory1.setRegisteredCapital(factory.getRegisteredCapital());
-            factory1.setTaxpayerType(factory.getTaxpayerType());
-            factory1.setFixedEmployeeCount(factory.getFixedEmployeeCount());
-            factory1.setGoodAtIndustry(factory.getGoodAtIndustry());
-            factory1.setGoodAtMaterial(factory.getGoodAtMaterial());
-            factory1.setGoodAtArea(factory.getGoodAtArea());
-            factory1.setPlatformLevel(factory.getPlatformLevel());
-            factory1.setValueAddedTaxAccount(factory.getValueAddedTaxAccount());
-            factory1.setTaxNumber(factory.getTaxNumber());
-            factory1.setState(factory.getState());
-            factory1.setCreatorId(getWebUser().getId());
-            factory1.setCreateTime(LocalDateTime.now());
-            factory1.setModifierId(getWebUser().getCreatorId());
-            factory1.setModifyTime(LocalDateTime.now());
-            factoryService.createFactory(factory1,getWebUser());
+            factory.setId(UUID.randomUUID().toString());
+            factory.setCreatorId(getWebUser().getId());
+            factory.setCreateTime(LocalDateTime.now());
+            factory.setModifierId(factory.getCreatorId());
+            factory.setModifyTime(factory.getCreateTime());
+            factoryService.createFactory(factory);
 
         } else {//编辑
             factory1.setId(factory.getId());
@@ -138,6 +123,7 @@ public class FactoryController extends BaseController{
                 if(dictionaryArea != null){
                     factory.setGoodAtArea(dictionaryArea.getValue());// 擅长面积
                 }
+
 
                 String params = factory.getGoodAtIndustry();
                 if (!StringUtils.isEmpty(params)){

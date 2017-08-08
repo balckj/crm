@@ -82,7 +82,6 @@
                             <tr>
                                 <th>操作</th>
                                 <th>企业名称</th>
-                                <!--<th>企业ID</th>-->
                                 <th>所属行业</th>
                                 <th>企业性质</th>
                                 <th>所在国家</th>
@@ -91,10 +90,6 @@
                                 <th>所在区域</th>
                                 <th>地址</th>
                                 <th>平台等级</th>
-                                <!--<th>联系人</th>-->
-                                <!--<th>联系人职位</th>-->
-                                <!--<th>联系人电话</th>-->
-                                <!--<th>联系人QQ邮箱</th>-->
                                 <th>状态</th>
                             </tr>
                             </thead>
@@ -129,8 +124,8 @@
                         p.length = d.length;
                         p.start = d.start;
                         p.nature = $("#nature").val();
-                        p.name = $("#companyName").val();
-//                        p.companyId = $("#companyId").val();
+                        p.companyName = $("#companyName").val();
+                        p.companyId = $("#companyId").val();
                         p.address = $("#address").val();
                         var a = JSON.stringify(p);
                         return a;
@@ -182,10 +177,6 @@
                     },
                     {"data": "address", "width": "100px"},
                     {"data": "level", "width": "50px"},
-//                    {"data": "userName", "width": "100px"},
-//                    {"data": "userPosition", "width": "100px"},
-//                    {"data": "userPhone", "width": "100px"},
-//                    {"data": "userEmail", "width": "140px"},
                     {
                         "data": "state", "width": "40px",
                         "render": function (data, type, full, meta) {

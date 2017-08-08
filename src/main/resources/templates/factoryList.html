@@ -166,14 +166,38 @@
                             return u;
                         },
                     },
-                    {"data": "factoryName", "width": "100px"},
                     {"data": "referrer", "width": "100px"},
+                    {"data": "factoryName", "width": "100px"},
                     {"data": "director", "width": "100px"},
                     {"data": "firstOrderTime", "width": "100px"},
                     {"data": "country", "width": "100px"},
-                    {"data": "province", "width": "100px"},
-                    {"data": "city", "width": "100px"},
-                    {"data": "region", "width": "100px"},
+                    {"data": "province", "width": "50px",
+                        "render": function (data, type, full, meta) {
+                            if (data == '未选择') {
+                                return '---';
+                            }else {
+                                return data;
+                            }
+                        }
+                    },
+                    {"data": "city", "width": "50px",
+                        "render": function (data, type, full, meta) {
+                            if (data == '未选择') {
+                                return '---';
+                            }else {
+                                return data;
+                            }
+                        }
+                    },
+                    {"data": "region", "width": "100px",
+                        "render": function (data, type, full, meta) {
+                            if (data == '未选择') {
+                                return '---';
+                            }else {
+                                return data;
+                            }
+                        }
+                    },
                     {"data": "address", "width": "100px"},
                     {"data": "factoryArea", "width": "100px"},
                     {"data": "registeredCapital", "width": "100px"},

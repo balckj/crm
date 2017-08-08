@@ -63,10 +63,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-control" name="industry" id="industry">
                                         <option value="">未选择</option>
-                                        <option>工业品-工业机械</option>
-                                        <option>光电技术</option>
-                                        <option>电子电力</option>
-                                        <option>运输物流</option>
+                                        <option th:value="${industryList.id}" th:text="${industryList.value}" th:each="industryList:${industryList}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -77,10 +74,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-control" name="nature" id="nature">
                                         <option value="" selected="selected">未选择</option>
-                                        <option >政府</option>
-                                        <option>民营</option>
-                                        <option>外资</option>
-                                        <option>私营</option>
+                                        <option th:value="${natureList.id}" th:text="${natureList.value}" th:each="natureList:${natureList}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -152,9 +146,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-control" name="level" id="level">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>A</option>
-                                        <option>B</option>
-                                        <option>C</option>
+                                        <option th:value="${levelList.value}" th:text="${levelList.value}" th:each="levelList:${levelList}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -247,7 +239,7 @@
                                                 <label class="control-label">QQ邮箱<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <input type="text" th:attr="id='email'+${terStat.index}, name='email'+${terStat.index}" class="form-control input-sm" maxlength="50" th:value="${contact.email}"/>
+                                                    <input type="text" th:attr="id='email'+${terStat.index}, name='email'" class="form-control input-sm" maxlength="50" th:value="${contact.email}"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>

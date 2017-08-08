@@ -79,4 +79,9 @@ public interface Constants {
      * 平台等级
      */
     public static final String PLATFORMLEVEL = "level";
+
+    /**
+     * 平台等级
+     */
+    public static final String PLATFORM_LEVEL = "level";
 }

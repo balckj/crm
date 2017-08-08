@@ -23,9 +23,6 @@ public interface FactoryMapper {
             "modifyTime=#{modifyTime} WHERE id=#{id}")
     int update(FactoryEntity factory);
 
-    @Insert("INSERT INTO T_CONTACT (id,name,mobilePhone,position,email,state,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{name},#{mobilePhone},#{position}," +
-            "#{email},#{state},#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
-    int createContact(Contact contact);
 
     @Insert("INSERT INTO T_FACTORY_CONTACT (factoryId,contactId) VALUES (#{factoryId},#{contactid})")
     int createRelation(@Param(value="factoryId") String factoryId, @Param(value="contactid") String contactid);
@@ -38,4 +35,21 @@ public interface FactoryMapper {
 
     @Select("SELECT * FROM T_FACTORY WHERE id = #{id}")
     FactoryEntity selectFactory(String id);
+
+
+    @Delete("DELETE FROM T_FACTORY_CASE  WHERE customerId =#{customerId}")
+    int deleteRelation(String customerId);
+
+    @Insert("INSERT INTO T_FACTORY_CASE (factoryId,caseId) VALUES (#{factoryId},#{id})")
+    int createCaseRelation(@Param(value="factoryId") String factoryId, @Param(value="id") String id);
+
+    @Delete("DELETE FROM T_CONTACT  WHERE id in( SELECT contactId FROM T_FACTORY_CONTACT WHERE factoryId=#{factoryId})")
+    int deleteContact(String customerId);
+
+    @Select("SELECT * FROM T_CONTACT WHERE id in( SELECT contactId FROM T_FACTORY_CONTACT WHERE factoryId=#{factoryId})ORDER BY modifyTime DESC")
+    List<Contact> getContact(String id);
+
+    @Select("SELECT * FROM T_CONTACT A INNER JOIN T_FACTORY_CONTACT B ON A.id= B.contactId and B.factoryId = #{id}")
+    List<Contact> selectContact(String id);
+
 }

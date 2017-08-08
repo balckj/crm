@@ -1,5 +1,6 @@
 package com.yidatec.controller;
 
+import com.yidatec.util.ConfigProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,14 +28,16 @@ public class FileController extends BaseController{
     public Map handleFileUpload(@RequestParam("files") MultipartFile file) throws IOException {
         long  startTime=System.currentTimeMillis();
         System.out.println("fileName："+file.getOriginalFilename());
-        String path="E:/"+new Date().getTime()+file.getOriginalFilename();
+        String serverName = new Date().getTime()+file.getOriginalFilename();
+        String path=ConfigProperties.getSetting("path")+serverName;
         File newFile=new File(path);
+
         //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
         file.transferTo(newFile);
         long  endTime=System.currentTimeMillis();
         System.out.println("方法二的运行时间："+String.valueOf(endTime-startTime)+"ms");
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("url",path);
+        map.put("url",serverName);
         return map;
     }
 

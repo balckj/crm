@@ -8,7 +8,7 @@ import java.util.Properties;
 /**
  * 读取系统配置类
  */
-public class ConfigProperties {
+class ConfigProperties {
 	/**
 	 * 日志记录
 	 */
@@ -128,6 +128,15 @@ public class ConfigProperties {
 
 	public static String getPageSize(){
 		return getSetting("pageSize");
+	}
+
+
+	/**
+	 * 文件上传路径
+	 * @return
+	 */
+	public static String getFileUrl(String fileurl) {
+		return getSetting(fileurl);
 	}
 
 }

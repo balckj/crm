@@ -57,6 +57,7 @@
                             <input type="hidden" name="selectplatformLevelValue" id="selectplatformLevelValue" th:value="${factory}?${factory.platformLevel}"/>
                             <input type="hidden" name="selecttaxpayerTypeValue" id="selecttaxpayerTypeValue" th:value="${factory}?${factory.taxpayerType}"/>
                             <input type="hidden" name="selectphotoValue" id="selectphotoValue" th:value="${factory}?${factory.photo}"/>
+                            <input type="hidden" name="caseObjectListValue" id="caseObjectList" th:value="${factory}?${factory.caseList}"/>
 
                             <div class="form-group" id="referrerForm"><label class="col-sm-2 control-label">推荐人<span
                                     style="color:#ed5565;">*</span></label>
@@ -169,7 +170,7 @@
                                                 <label class="control-label">QQ邮箱<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <input type="text" th:attr="id='email'+${terStat.index}, name='email'+${terStat.index}" class="form-control input-sm" maxlength="50" th:value="${contact.email}"/>
+                                                    <input type="text" th:attr="id='email'+${terStat.index}, name='email'" class="form-control input-sm" maxlength="50" th:value="${contact.email}"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -344,7 +345,7 @@
                             <div class="hr-line-dashed"></div>
 
                             <div id="caseList"  style="background-color: #f8f7f6;border-radius: 4px;padding-top: 15px;padding-bottom: 15px;" >
-                                <div>
+                                <div  th:if="${#lists.isEmpty(factory.caseList)}">
                                     <div class="form-group " id="caseNameForm"><label
                                             class="col-sm-2 control-label">案例名称</label>
                                         <div class="col-sm-4"><input id="caseName0" name="caseName" type="text"
@@ -356,8 +357,34 @@
                                     </div>
                                     <div class="form-group " id="casePhotoForm">
                                         <label class="col-sm-2 control-label">案例照片</label>
-                                        <input id="caseHidden" name="caseHidden" type='hidden'/>
                                         <div class="col-sm-6 dropzone" id="casePhoto0" name="casePhoto">
+                                            <div class="am-text-success dz-message">
+                                                将文件拖拽到此处或点此打开文件管理器选择文件
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-4 control-label" style="text-align: left"></label>
+                                    </div>
+                                </div>
+                                <div  th:unless="${#lists.isEmpty(factory.caseList)}" th:each="case,terStat : ${factory.caseList}">
+                                    <div class="form-group " th:attr="id='caseName'+${terStat.index}+'Form'">
+                                        <label class="col-sm-2 control-label">案例名称</label>
+                                        <div class="col-sm-4"><input th:attr="id='caseName'+${terStat.index}, name='caseName'" type="text"
+                                                                     class="form-control" maxlength="10" th:value="${case.name}"/></div>
+                                        <label class="col-sm-4 control-label" style="text-align: left"></label>
+                                        <!--<div class="col-sm-1">-->
+                                            <!--<button onclick="addCase()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>-->
+                                        <!--</div>-->
+                                        <div class="col-sm-1" th:if="${terStat.first}" style="margin-top: 20px">
+                                            <button onclick="addCase()" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
+                                        </div>
+                                        <div class="col-sm-1" th:unless="${terStat.first}">
+                                            <button onclick="delCase(this)" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button btn-w-m btn-primary">删&nbsp;&nbsp;除</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group " th:attr="id='casePhotoForm'+${terStat.index}">
+                                        <input th:attr="id='hiddenPhoto'+${terStat.index}, name='hiddenPhoto'" type='hidden' th:value="${case.photo}" />
+                                        <label class="col-sm-2 control-label">案例照片</label>
+                                        <div class="col-sm-6 dropzone" th:attr="id='casePhoto'+${terStat.index}">
                                             <div class="am-text-success dz-message">
                                                 将文件拖拽到此处或点此打开文件管理器选择文件
                                             </div>
@@ -494,9 +521,11 @@
         }
 
         var casephoto=[];
+        var photo=[];
+        var previewTemplate = "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-image\"><img data-dz-thumbnail /></div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  <div class=\"dz-success-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Check</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <path d=\"M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" stroke-opacity=\"0.198794158\" stroke=\"#747474\" fill-opacity=\"0.816519475\" fill=\"#FFFFFF\" sketch:type=\"MSShapeGroup\"></path>\n      </g>\n    </svg>\n  </div>\n  <div class=\"dz-error-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Error</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <g id=\"Check-+-Oval-2\" sketch:type=\"MSLayerGroup\" stroke=\"#747474\" stroke-opacity=\"0.198794158\" fill=\"#FFFFFF\" fill-opacity=\"0.816519475\">\n          <path d=\"M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" sketch:type=\"MSShapeGroup\"></path>\n        </g>\n      </g>\n    </svg>\n  </div>\n</div>";
+        Dropzone.autoDiscover = false;
         function addCase(){
             var total = $("#caseList").children().length;
-            alert(total);
             var row =
                 " <div>"
                         +"<div id='line"+total+ "' class='hr-line-dashed'></div>"
@@ -505,7 +534,7 @@
                             +"<div class='col-sm-4'><input id='caseName"+total+ "' name='caseName' type='text' "
                             +"class='form-control' maxlength='10'/></div> "
                             +" <label class='col-sm-4 control-label' style='text-align: left'></label> "
-                            +" <div class='col-sm-1'><button onclick='delBtnData1("+total+ ")' id='casedel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div>"
+                            +" <div class='col-sm-1'><button onclick='delCase(this)' id='casedel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div>"
                         +"</div>"
                         +"<div class='form-group ' id='casePhotoForm"+total+ "'>"
                             +"<label class='col-sm-2 control-label'>案例照片</label>"
@@ -531,23 +560,8 @@
                 maxFiles: 10,
                 maxFilesize: 5,
                 previewTemplate:previewTemplate ,
-//            autoProcessQueue:false,
-                acceptedFiles: ".jpg,.gif,.png", //上传的类型
+                acceptedFiles: ".jpg,.gif,.png", //上传的类
                 init:function(){
-//                    var selectPhotoValue =  $("#selectphotoValue").val();
-//                    if(selectPhotoValue && selectPhotoValue.indexOf(",") > 0){
-//                        var list = selectPhotoValue.split(",");
-//                        for(var j= 0;j< list.length; j++){
-//                            photo.push(list[j]);
-//                        }
-//                    }
-//                    for(var i=0;i<photo.length;i++){
-//                        var mockFile = { name: photo[i]};
-//                        this.emit("addedfile", mockFile);
-//                        this.emit("thumbnail", mockFile, "" +"E:/photo/"+photo[i]);
-//                        this.emit("complete", mockFile);
-//                    }
-
                     this.on("addedfile", function(file) {
                         //上传文件时触发的事件
                     });
@@ -591,6 +605,80 @@
                 }
             });
         }
+
+
+//        $("#casePhoto0").dropzone({
+//            url: "fileupload",
+//            paramName: "files",
+//            addRemoveLinks: true,
+//            uploadMultiple:false,
+//            dictRemoveLinks: "x",
+//            dictCancelUpload: "x",
+//            maxFiles: 10,
+//            maxFilesize: 5,
+//            previewTemplate:previewTemplate ,
+////            autoProcessQueue:false,
+//            acceptedFiles: ".jpg,.gif,.png", //上传的类型
+//            init:function(){
+//                var mockFile = { name: "Filename",
+//                    size: 10000
+//                };
+////                this.emit("addedfile", mockFile);
+////                mockFile._viewLink.href = "rest/components/"+$scope.component.name+"/"+$scope.component.version +"/"+$scope.component.image;
+////                mockFile._viewLink.name = $scope.component.image;
+////                this.emit("thumbnail", mockFile, "rest/components/"+$scope.component.name+"/"+$scope.component.version +"/"+$scope.component.image);
+////                this.emit("complete", mockFile);
+////                var submitButton = document.querySelector("#saveBtn")
+////                submitButton.addEventListener("click", function () {
+////                    myDropzone.processQueue();
+////                });
+//                this.on("addedfile", function(file) {
+//                    console.info(file);
+//                    //上传文件时触发的事件
+////                    $("#saveBtn").removeAttr("disabled");
+//                });
+//                this.on("success",function(file,response) {
+//                    //单个上传完成后触发的方法
+//                    debugger;
+//                    file.serverName = response.url;
+//                    if(casephoto[0] == undefined){
+//                        var tempArray = [];
+//                        casephoto[0] = tempArray;
+//
+//                    }
+//                    casephoto[0].push(file.serverName );
+//
+//                });
+//                this.on("queuecomplete",function(file) {
+//                    //上传完成后触发的方法
+//                    $("#caseCount").val(casephoto.length);
+//                });
+//                this.on("removedfile",function(file){
+//                    debugger;
+//                    //删除文件时触发的方法
+//                    for(var i=0;i<casephoto[0].length;i++){
+//                        if(casephoto[0][i]==file.serverName){
+//                            casephoto[0].splice(i,1);
+//                            break;
+//                        }
+//                    }
+//                    $.ajax({
+//                        type: 'POST',
+//                        url: 'filedelete',
+//                        data: {name: file.serverName},
+//                        dataType: 'html',
+//                        success: function(data){
+//                            var rep = JSON.parse(data);
+//                            if(rep.code == 200)
+//                            {
+//                                $("#caseCount").val(casephoto.length);
+//                            }
+//                        }
+//                    });
+//                });
+//            }
+//        });
+
         //为姓名或邮箱等添加span标签，好设置样式
         function addSpan(li,text){
             var span_1=document.createElement("span");
@@ -603,12 +691,15 @@
             $(obj).parent().parent().remove();
         }
 
-        function delBtnData1(total){
+        function delCase(obj){
+            $(obj).parent().parent().parent().remove();
 //            $("#addordel"+total).remove();
-            $("#caseNameForm"+total).remove();
-            $("#line"+total).remove();
-            $("#casePhotoForm"+total).remove();
+//            $("#caseNameForm"+total).remove();
+//            $("#line"+total).remove();
+//            $("#casePhotoForm"+total).remove();
         }
+
+
 
 
 
@@ -750,11 +841,83 @@
                 $("#goodAtMaterial").val(selectGoodAtMaterialValue).trigger('change')
             }
 
+            var contacttotal = $("#contactList").children().length;
+            for (var i=0;i<contacttotal;i++)
+            {
+                validate("name"+i,"name","validateUsername");
+                validate2('mobilePhone'+i, 'mobile', {isEdit: false}, 'validateMobile');
+                validate('email'+i, 'email', 'validateEmail');
+            }
+
+            var total = $("#caseList").children().length;
+            for (var i=0;i<total;i++){
+                $("#casePhoto"+i).dropzone({
+                    url: "fileupload",
+                    paramName: "files",
+                    addRemoveLinks: true,
+                    uploadMultiple:false,
+                    dictRemoveLinks: "x",
+                    dictCancelUpload: "x",
+                    maxFiles: 6,
+                    maxFilesize: 5,
+                    previewTemplate:previewTemplate ,
+                    acceptedFiles: ".jpg,.gif,.png", //上传的类
+                    init:function(){
+                        if(casephoto[i] == undefined){
+                            var tempArray = [];
+                            casephoto[i] = tempArray;
+                        }
+                        var photo= $("#hiddenPhoto"+i).val().split(",");
+                        for (var j=0;j<photo.length;j++) {
+                            casephoto[i].push(photo[j]);
+                            var mockFile = {name: photo[j]};
+                            this.emit("addedfile", mockFile);
+                            this.emit("thumbnail", mockFile, "" + "upload/" + photo[j]);
+                            this.emit("complete", mockFile);
+                        }
+                        this.on("addedfile", function(file) {
+                            //上传文件时触发的事件
+                        });
+                        this.on("success",function(file,response) {
+                            //单个上传完成后触发的方法
+                            file.serverName = response.url;
+                            casephoto[i].push(file.serverName );
+                        });
+                        this.on("queuecomplete",function(file) {
+                            //上传完成后触发的方法
+                            $("#caseCount").val(casephoto.length);
+                        });
+                        this.on("removedfile",function(file){
+                            //删除文件时触发的方法
+                            for(var i=0;i<casephoto[total].length;i++){
+                                if(casephoto[total][i]==file.serverName){
+                                    casephoto[total].splice(i,1);
+                                    break;
+                                }
+                            }
+                            $.ajax({
+                                type: 'POST',
+                                url: 'filedelete',
+                                data: {name: file.serverName},
+                                dataType: 'html',
+                                success: function(data){
+                                    var rep = JSON.parse(data);
+                                    if(rep.code == 200)
+                                    {
+                                        $("#caseCount").val(casephoto.length);
+                                    }
+                                }
+                            });
+                        });
+                    }
+                });
+            }
+
         });
 
-        var photo=[];
-        var previewTemplate = "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-image\"><img data-dz-thumbnail /></div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  <div class=\"dz-success-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Check</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <path d=\"M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" stroke-opacity=\"0.198794158\" stroke=\"#747474\" fill-opacity=\"0.816519475\" fill=\"#FFFFFF\" sketch:type=\"MSShapeGroup\"></path>\n      </g>\n    </svg>\n  </div>\n  <div class=\"dz-error-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Error</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <g id=\"Check-+-Oval-2\" sketch:type=\"MSLayerGroup\" stroke=\"#747474\" stroke-opacity=\"0.198794158\" fill=\"#FFFFFF\" fill-opacity=\"0.816519475\">\n          <path d=\"M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" sketch:type=\"MSShapeGroup\"></path>\n        </g>\n      </g>\n    </svg>\n  </div>\n</div>";
-        Dropzone.autoDiscover = false;
+
+
+
         $("#photo").dropzone({
             url: "fileupload",
             paramName: "files",
@@ -768,20 +931,20 @@
 //            autoProcessQueue:false,
             acceptedFiles: ".jpg,.gif,.png", //上传的类型
             init:function(){
-//                debugger;
-//                var selectPhotoValue =  $("#selectphotoValue").val();
-//                if(selectPhotoValue && selectPhotoValue.indexOf(",") > 0){
-//                    var list = selectPhotoValue.split(",");
-//                    for(var j= 0;j< list.length; j++){
-//                        photo.push(list[j]);
-//                    }
-//                }
-//                for(var i=0;i<photo.length;i++){
-//                    var mockFile = { name: photo[i]};
-//                    this.emit("addedfile", mockFile);
-//                    this.emit("thumbnail", mockFile, "" +"E:/photo/"+photo[i]);
-//                    this.emit("complete", mockFile);
-//                }
+                debugger;
+                var selectPhotoValue =  $("#selectphotoValue").val();
+                if(selectPhotoValue!=""){
+                    var list = selectPhotoValue.split(",");
+                    for(var j= 0;j< list.length; j++){
+                        photo.push(list[j]);
+                    }
+                }
+                for(var i=0;i<photo.length;i++){
+                    var mockFile = { name: photo[i]};
+                    this.emit("addedfile", mockFile);
+                    this.emit("thumbnail", mockFile, "" +"upload/"+photo[i]);
+                    this.emit("complete", mockFile);
+                }
 
                 this.on("addedfile", function(file) {
                     //上传文件时触发的事件
@@ -821,78 +984,7 @@
             }
         });
 
-//        var casePhotoList = [];
-        $("#casePhoto0").dropzone({
-            url: "fileupload",
-            paramName: "files",
-            addRemoveLinks: true,
-            uploadMultiple:false,
-            dictRemoveLinks: "x",
-            dictCancelUpload: "x",
-            maxFiles: 10,
-            maxFilesize: 5,
-            previewTemplate:previewTemplate ,
-//            autoProcessQueue:false,
-            acceptedFiles: ".jpg,.gif,.png", //上传的类型
-            init:function(){
-                var mockFile = { name: "Filename",
-                    size: 10000
-                };
-//                this.emit("addedfile", mockFile);
-//                mockFile._viewLink.href = "rest/components/"+$scope.component.name+"/"+$scope.component.version +"/"+$scope.component.image;
-//                mockFile._viewLink.name = $scope.component.image;
-//                this.emit("thumbnail", mockFile, "rest/components/"+$scope.component.name+"/"+$scope.component.version +"/"+$scope.component.image);
-//                this.emit("complete", mockFile);
-//                var submitButton = document.querySelector("#saveBtn")
-//                submitButton.addEventListener("click", function () {
-//                    myDropzone.processQueue();
-//                });
-                this.on("addedfile", function(file) {
-                    console.info(file);
-                    //上传文件时触发的事件
-//                    $("#saveBtn").removeAttr("disabled");
-                });
-                this.on("success",function(file,response) {
-                    //单个上传完成后触发的方法
-                    debugger;
-                    file.serverName = response.url;
-                    if(casephoto[0] == undefined){
-                        var tempArray = [];
-                        casephoto[0] = tempArray;
 
-                    }
-                    casephoto[0].push(file.serverName );
-
-                });
-                this.on("queuecomplete",function(file) {
-                    //上传完成后触发的方法
-                    $("#caseCount").val(casephoto.length);
-                });
-                this.on("removedfile",function(file){
-                    debugger;
-                    //删除文件时触发的方法
-                    for(var i=0;i<casephoto[0].length;i++){
-                        if(casephoto[0][i]==file.serverName){
-                            casephoto[0].splice(i,1);
-                            break;
-                        }
-                    }
-                    $.ajax({
-                        type: 'POST',
-                        url: 'filedelete',
-                        data: {name: file.serverName},
-                        dataType: 'html',
-                        success: function(data){
-                            var rep = JSON.parse(data);
-                            if(rep.code == 200)
-                            {
-                                $("#caseCount").val(casephoto.length);
-                            }
-                        }
-                    });
-                });
-            }
-        });
 
         //        $("#myDropzone").dropzone({
         //            url: "index.php", //必须填写
@@ -924,9 +1016,6 @@
         //        });
 
 
-//        $("#setting").addClass("active");
-//        $("#userEdit").addClass("active");
-
         $('#firstOrderTime').datepicker({
             startView: 1,
             todayBtn: "linked",
@@ -943,13 +1032,7 @@
         //        validate('totalLessons', 'integer', 'validateInteger');
         validate('email', 'email', 'validateEmail');
 
-        var total = $("#contactList").children().length;
-        for (var i=0;i<total;i++)
-        {
-            validate("name"+i,"name","validateUsername");
-            validate2('mobilePhone'+i, 'mobile', {isEdit: false}, 'validateMobile');
-            validate('email'+i, 'email', 'validateEmail');
-        }
+
 
 
         var saveBtnda;
@@ -961,7 +1044,6 @@
 //            });
             var userList = new Array();
             var caseList = new Array();
-            debugger;
 //            caseList.push({"caseName":$("#caseName").val(),"casePhoto":casephoto.toString()});
             $("#contactList").children().each(function(index){
                 userName = $(this).find("input[name='name']").val();
@@ -975,7 +1057,7 @@
                     "email":userEmail
                 })
             })
-
+            debugger;
             $("#caseList").children().each(function(index){
                 caseName = $(this).find("input[name='caseName']").val();
                 casePhoto = casephoto[index].toString();
@@ -985,7 +1067,7 @@
                 })
             })
             var p = {
-//                id: $("#id").val(),
+                id: $("#id").val(),
                 referrer: $("#referrer").val().trim(),
                 factoryName: $("#factoryName").val().trim(),
                 director: $("#director").val().trim(),

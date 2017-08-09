@@ -1,6 +1,5 @@
 package com.yidatec.mapper;
 
-import com.yidatec.model.Contact;
 import com.yidatec.model.Customer;
 import com.yidatec.vo.CustomerVO;
 import org.apache.ibatis.annotations.*;
@@ -34,7 +33,7 @@ public interface CustomerMapper {
     int create(Customer customer);
 
     @Update("UPDATE T_CUSTOMER SET `name`=#{name},industry=#{industry},nature=#{nature}," +
-            "country=#{country},province=#{province},city=#{city},region=#{region},address=#{address},level=#{level},region=#{region},state=#{state}," +
+            "country=#{country},province=#{province},city=#{city},region=#{region},address=#{address},level=#{level},state=#{state}," +
             "modifierId=#{modifierId}," +
             "modifyTime=#{modifyTime} WHERE id=#{id}")
     int update(Customer customer);
@@ -44,18 +43,7 @@ public interface CustomerMapper {
 
 
     @Delete("DELETE FROM T_CUSTOMER_CONTACT  WHERE customerId =#{customerId}")
-    int deleteRelation(String customerId);
-
-    @Delete("DELETE FROM T_CONTACT  WHERE id in( SELECT contactId FROM T_CUSTOMER_CONTACT WHERE customerId=#{customerId})")
-    int deleteContact(String customerId);
-
-    @Select("SELECT * FROM T_CONTACT WHERE id in( SELECT contactId FROM T_CUSTOMER_CONTACT WHERE customerId=#{customerId} ORDER BY modifyTime DESC)")
-    List<Contact> getContact(String id);
-
-    @Select("SELECT * FROM T_CONTACT A INNER JOIN T_CUSTOMER_CONTACT B ON A.id= B.contactId and B.customerId = #{id}")
-    List<Contact> selectContact(String id);
-
-
+    int deleteCustomerRelation(String customerId);
 
 
 

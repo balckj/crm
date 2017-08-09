@@ -24,6 +24,9 @@ public class ActivityQueryProvider {
         if(!StringUtils.isEmpty(activityVO.getEndDate())){
             sb.append(" AND D.endDate = #{endDate}");
         }
+        if(!StringUtils.isEmpty(activityVO.getCreatorId())){
+            sb.append(" AND D.creatorId = #{creatorId}");
+        }
         sb.append(" LIMIT #{start},#{length}");
         return sb.toString();
     }
@@ -43,6 +46,9 @@ public class ActivityQueryProvider {
         }
         if(!StringUtils.isEmpty(activityVO.getEndDate())){
             sb.append(" AND D.endDate = #{endDate}");
+        }
+        if(!StringUtils.isEmpty(activityVO.getCreatorId())){
+            sb.append(" AND D.creatorId = #{creatorId}");
         }
         return sb.toString();
     }

@@ -56,7 +56,7 @@
                             <input type="hidden" name="selectRegionValue" id="selectRegionValue" th:value="${factory}?${factory.region}"/>
                             <input type="hidden" name="selectplatformLevelValue" id="selectplatformLevelValue" th:value="${factory}?${factory.platformLevel}"/>
                             <input type="hidden" name="selecttaxpayerTypeValue" id="selecttaxpayerTypeValue" th:value="${factory}?${factory.taxpayerType}"/>
-                            <input type="text" name="selectphotoValue" id="selectphotoValue" th:value="${factory}?${factory.photo}"/>
+                            <input type="hidden" name="selectphotoValue" id="selectphotoValue" th:value="${factory}?${factory.photo}"/>
 
                             <div class="form-group" id="referrerForm"><label class="col-sm-2 control-label">推荐人<span
                                     style="color:#ed5565;">*</span></label>
@@ -343,21 +343,28 @@
                             </div>
                             <div class="hr-line-dashed"></div>
 
-                            <div class="form-group" id="caseNameForm"><label
-                                    class="col-sm-2 control-label">案例名称</label>
-                                <div class="col-sm-4"><input id="caseName" name="caseName" type="text"
-                                                             class="form-control" maxlength="10"/></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="casePhotoForm">
-                                <label class="col-sm-2 control-label">案例照片</label>
-                                <div class="col-sm-4 dropzone" id="casePhoto">
-                                    <div class="am-text-success dz-message">
-                                        将文件拖拽到此处或点此打开文件管理器选择文件
+                            <div id="caseList"  style="background-color: #f8f7f6;border-radius: 4px;padding-top: 15px;padding-bottom: 15px;" >
+                                <div>
+                                    <div class="form-group " id="caseNameForm"><label
+                                            class="col-sm-2 control-label">案例名称</label>
+                                        <div class="col-sm-4"><input id="caseName0" name="caseName" type="text"
+                                                                     class="form-control" maxlength="10"/></div>
+                                        <label class="col-sm-4 control-label" style="text-align: left"></label>
+                                        <div class="col-sm-1">
+                                            <button onclick="addCase()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group " id="casePhotoForm">
+                                        <label class="col-sm-2 control-label">案例照片</label>
+                                        <input id="caseHidden" name="caseHidden" type='hidden'/>
+                                        <div class="col-sm-6 dropzone" id="casePhoto0" name="casePhoto">
+                                            <div class="am-text-success dz-message">
+                                                将文件拖拽到此处或点此打开文件管理器选择文件
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-4 control-label" style="text-align: left"></label>
                                     </div>
                                 </div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="valueAddedTaxAccountForm"><label
@@ -479,11 +486,110 @@
                 +" </div>"
                 +" </div>"
                 +" <div class='col-sm-1'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div></div>";
-            $("#contactList").append(row)
+            $("#contactList").append(row);
 
             validate("name"+total,"name","validateUsername");
             validate2('mobilePhone'+total, 'mobile', {isEdit: false}, 'validateMobile');
             validate('email'+total, 'email', 'validateEmail');
+        }
+
+        var casephoto=[];
+        function addCase(){
+            var total = $("#caseList").children().length;
+            alert(total);
+            var row =
+                " <div>"
+                        +"<div id='line"+total+ "' class='hr-line-dashed'></div>"
+                        +"<div class='form-group ' id='caseNameForm"+total+ "'>"
+                            +"<label class='col-sm-2 control-label'>案例名称</label> "
+                            +"<div class='col-sm-4'><input id='caseName"+total+ "' name='caseName' type='text' "
+                            +"class='form-control' maxlength='10'/></div> "
+                            +" <label class='col-sm-4 control-label' style='text-align: left'></label> "
+                            +" <div class='col-sm-1'><button onclick='delBtnData1("+total+ ")' id='casedel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div>"
+                        +"</div>"
+                        +"<div class='form-group ' id='casePhotoForm"+total+ "'>"
+                            +"<label class='col-sm-2 control-label'>案例照片</label>"
+//                            +"<input id='casePhoto"+total+ "' name='casePhoto' type='hidden' "
+                            +"<div class='col-sm-6 dropzone' id='casePhoto"+total+ "' name='casePhoto'>"
+                            +"<div class='am-text-success dz-message'>"
+                            +"将文件拖拽到此处或点此,打开文件管理器选择文件"
+                            +"</div>"
+                            +"</div>"
+                            +"<label class='col-sm-4 control-label' style='text-align: left'></label>"
+                        +"</div>"
+
+                +"</div>";
+            $("#caseList").append(row);
+
+            $("#casePhoto"+total).dropzone({
+                url: "fileupload",
+                paramName: "files",
+                addRemoveLinks: true,
+                uploadMultiple:false,
+                dictRemoveLinks: "x",
+                dictCancelUpload: "x",
+                maxFiles: 10,
+                maxFilesize: 5,
+                previewTemplate:previewTemplate ,
+//            autoProcessQueue:false,
+                acceptedFiles: ".jpg,.gif,.png", //上传的类型
+                init:function(){
+//                    var selectPhotoValue =  $("#selectphotoValue").val();
+//                    if(selectPhotoValue && selectPhotoValue.indexOf(",") > 0){
+//                        var list = selectPhotoValue.split(",");
+//                        for(var j= 0;j< list.length; j++){
+//                            photo.push(list[j]);
+//                        }
+//                    }
+//                    for(var i=0;i<photo.length;i++){
+//                        var mockFile = { name: photo[i]};
+//                        this.emit("addedfile", mockFile);
+//                        this.emit("thumbnail", mockFile, "" +"E:/photo/"+photo[i]);
+//                        this.emit("complete", mockFile);
+//                    }
+
+                    this.on("addedfile", function(file) {
+                        //上传文件时触发的事件
+                    });
+                    this.on("success",function(file,response) {
+                        //单个上传完成后触发的方法
+                        file.serverName = response.url;
+                        if(casephoto[total] == undefined){
+                            var tempArray = [];
+                            casephoto[total] = tempArray;
+
+                        }
+                        casephoto[total].push(file.serverName );
+
+                    });
+                    this.on("queuecomplete",function(file) {
+                        //上传完成后触发的方法
+                        $("#caseCount").val(casephoto.length);
+                    });
+                    this.on("removedfile",function(file){
+                        //删除文件时触发的方法
+                        for(var i=0;i<casephoto[total].length;i++){
+                            if(casephoto[total][i]==file.serverName){
+                                casephoto[total].splice(i,1);
+                                break;
+                            }
+                        }
+                        $.ajax({
+                            type: 'POST',
+                            url: 'filedelete',
+                            data: {name: file.serverName},
+                            dataType: 'html',
+                            success: function(data){
+                                var rep = JSON.parse(data);
+                                if(rep.code == 200)
+                                {
+                                    $("#caseCount").val(casephoto.length);
+                                }
+                            }
+                        });
+                    });
+                }
+            });
         }
         //为姓名或邮箱等添加span标签，好设置样式
         function addSpan(li,text){
@@ -495,6 +601,13 @@
         //为删除按钮添加删除节点功能
         function delBtnData(obj){
             $(obj).parent().parent().remove();
+        }
+
+        function delBtnData1(total){
+//            $("#addordel"+total).remove();
+            $("#caseNameForm"+total).remove();
+            $("#line"+total).remove();
+            $("#casePhotoForm"+total).remove();
         }
 
 
@@ -655,21 +768,20 @@
 //            autoProcessQueue:false,
             acceptedFiles: ".jpg,.gif,.png", //上传的类型
             init:function(){
-                debugger;
-                var selectPhotoValue =  $("#selectphotoValue").val();
-                if(selectPhotoValue && selectPhotoValue.indexOf(",") > 0){
-                    var list = selectPhotoValue.split(",");
-                    for(var j= 0;j< list.length; j++){
-                        photo.push(list[j]);
-                    }
-                }j
-                for(var i=0;i<photo.length;i++){
-                    var mockFile = {  };
-                    this.emit("addedfile", mockFile);
-                    this.emit("thumbnail", mockFile, "" +
-                        "c.baidu.com/imgad/pic/item/267f9e2f07082838b5168c32b299a9014c08f1f9.jpg");
-                    this.emit("complete", mockFile);
-                }
+//                debugger;
+//                var selectPhotoValue =  $("#selectphotoValue").val();
+//                if(selectPhotoValue && selectPhotoValue.indexOf(",") > 0){
+//                    var list = selectPhotoValue.split(",");
+//                    for(var j= 0;j< list.length; j++){
+//                        photo.push(list[j]);
+//                    }
+//                }
+//                for(var i=0;i<photo.length;i++){
+//                    var mockFile = { name: photo[i]};
+//                    this.emit("addedfile", mockFile);
+//                    this.emit("thumbnail", mockFile, "" +"E:/photo/"+photo[i]);
+//                    this.emit("complete", mockFile);
+//                }
 
                 this.on("addedfile", function(file) {
                     //上传文件时触发的事件
@@ -709,9 +821,8 @@
             }
         });
 
-        var casePhotoList = [];
-        var casephoto=[];
-        $("#casePhoto").dropzone({
+//        var casePhotoList = [];
+        $("#casePhoto0").dropzone({
             url: "fileupload",
             paramName: "files",
             addRemoveLinks: true,
@@ -743,18 +854,26 @@
                 });
                 this.on("success",function(file,response) {
                     //单个上传完成后触发的方法
+                    debugger;
                     file.serverName = response.url;
-                    casephoto.push(file.serverName );
+                    if(casephoto[0] == undefined){
+                        var tempArray = [];
+                        casephoto[0] = tempArray;
+
+                    }
+                    casephoto[0].push(file.serverName );
+
                 });
                 this.on("queuecomplete",function(file) {
                     //上传完成后触发的方法
-                    $("#caseCount").val(casePhotoList.length);
+                    $("#caseCount").val(casephoto.length);
                 });
                 this.on("removedfile",function(file){
+                    debugger;
                     //删除文件时触发的方法
-                    for(var i=0;i<casephoto.length;i++){
-                        if(casephoto[i]==file.serverName){
-                            casephoto.splice(i,1);
+                    for(var i=0;i<casephoto[0].length;i++){
+                        if(casephoto[0][i]==file.serverName){
+                            casephoto[0].splice(i,1);
                             break;
                         }
                     }
@@ -767,9 +886,8 @@
                             var rep = JSON.parse(data);
                             if(rep.code == 200)
                             {
-                                $("#caseCount").val(casePhotoList.length);
+                                $("#caseCount").val(casephoto.length);
                             }
-
                         }
                     });
                 });
@@ -844,9 +962,8 @@
             var userList = new Array();
             var caseList = new Array();
             debugger;
-            caseList.push({"caseName":$("#caseName").val(),"casePhoto":casephoto.toString()});
+//            caseList.push({"caseName":$("#caseName").val(),"casePhoto":casephoto.toString()});
             $("#contactList").children().each(function(index){
-                // user
                 userName = $(this).find("input[name='name']").val();
                 userPosition = $(this).find("input[name='position']").val();
                 userPhone = $(this).find("input[name='mobilePhone']").val();
@@ -856,6 +973,15 @@
                     "position":userPosition,
                     "mobilePhone":userPhone,
                     "email":userEmail
+                })
+            })
+
+            $("#caseList").children().each(function(index){
+                caseName = $(this).find("input[name='caseName']").val();
+                casePhoto = casephoto[index].toString();
+                caseList.push({
+                    "name":caseName,
+                    "photo":casePhoto
                 })
             })
             var p = {

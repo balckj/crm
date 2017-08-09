@@ -8,7 +8,7 @@ import java.util.Properties;
 /**
  * 读取系统配置类
  */
-class ConfigProperties {
+public class ConfigProperties {
 	/**
 	 * 日志记录
 	 */

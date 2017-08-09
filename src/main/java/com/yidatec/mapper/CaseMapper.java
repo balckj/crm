@@ -14,11 +14,14 @@ import java.util.List;
 @Mapper
 public interface CaseMapper {
 
-    @Insert("INSERT INTO T_CASE (id,caseName,casePhoto,type) VALUES (#{id},#{caseName},#{casePhoto},#{type})")
+    @Insert("INSERT INTO T_CASE (id,name,photo,type) VALUES (#{id},#{name},#{photo},#{type})")
     int createCase(Case cases);
 
     @Delete("DELETE FROM T_CASE  WHERE id in( SELECT caseId FROM T_FACTORY_CONTACT WHERE factoryId=#{factoryId})")
     int deleteCase(String factoryId);
+
+    @Delete("DELETE FROM T_CASE  WHERE id in( SELECT caseId FROM T_USER_CASE WHERE designerId=#{designerId})")
+    int deleteCaseForDesigner(String designerId);
 
     @Select("SELECT * FROM T_CASE WHERE id in( SELECT caseId FROM T_FACTORY_CONTACT WHERE factoryId=#{factoryId})")
     List<Case> getCase(String factoryId);

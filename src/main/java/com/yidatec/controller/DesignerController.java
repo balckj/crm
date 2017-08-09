@@ -1,12 +1,12 @@
 package com.yidatec.controller;
 
+import com.yidatec.mapper.UserCaseMapper;
 import com.yidatec.mapper.UserMapper;
-import com.yidatec.model.Dictionary;
-import com.yidatec.model.User;
-import com.yidatec.model.UserValidateDesigner;
+import com.yidatec.model.*;
 import com.yidatec.service.DesignerService;
 import com.yidatec.service.DictionaryService;
 import com.yidatec.service.SaleService;
+import com.yidatec.util.ConfigProperties;
 import com.yidatec.util.Constants;
 import com.yidatec.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +46,9 @@ public class DesignerController extends BaseController{
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    UserCaseMapper userCaseMapper;
+
     @RequestMapping("/designerList")
     public String designerList(ModelMap model){
         return "designerList";
@@ -61,7 +64,23 @@ public class DesignerController extends BaseController{
         model.put("goodAtAreaList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_AREA)); // 擅长面积
         model.put("designStyleList",dictionaryService.selectDictionaryListByCodeCommon(Constants.DESIGN_STYLE)); // 设计风格
         model.put("platformLevelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL)); // 平台等级
+        List<Case> caseList = userCaseMapper.getCaseList(id);
+        if (caseList != null){
+            for (int i= 0; i < caseList.size(); i++){
+                Case case1 = caseList.get(i);
+                case1.setPhoto(ConfigProperties.getFileUrl("path"));
+            }
+        }
+        model.put("designerCaseList",caseList);
         return "designerEdit";
+    }
+
+    @RequestMapping("/designerCaseList")
+    @ResponseBody
+    public Object designerCaseList(ModelMap model,@RequestParam(value="id",required = false) String id){
+       HashMap<String,Object> map = new HashMap<String,Object>();
+       map.put("designerCaseList",userCaseMapper.getCaseList(id));
+       return map;
     }
 
     @RequestMapping("/saveDesigner")

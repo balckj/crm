@@ -18,9 +18,9 @@ public interface UserCaseMapper {
     @Insert("INSERT INTO T_USER_CASE (designerId,caseId) VALUES (#{designerId},#{caseId})")
     int createUserCase(UserCase userCase);
 
-    @Delete("DELETE FROM T_USER_CASE  WHERE id=#{designerId}")
+    @Delete("DELETE FROM T_USER_CASE WHERE designerId=#{designerId}")
     int deleteUserCase(String designerId);
 
-    @Select("SELECT * FROM T_USER_CASE WHERE designerId in( SELECT caseId FROM T_USER_CASE WHERE designerId=#{designerId})")
-    List<Case> getCase(String designerId);
+    @Select("SELECT * FROM T_CASE  WHERE id in (SELECT caseId FROM T_USER_CASE WHERE designerId=#{designerId})")
+    List<Case> getCaseList(String designerId);
 }

@@ -17,9 +17,12 @@ public interface CaseMapper {
     @Insert("INSERT INTO T_CASE (id,name,photo,type) VALUES (#{id},#{name},#{photo},#{type})")
     int createCase(Case cases);
 
-    @Delete("DELETE FROM T_CASE  WHERE id in( SELECT caseId FROM T_FACTORY_CASE WHERE factoryId=#{factoryId})")
+    @Delete("DELETE FROM T_CASE  WHERE id in( SELECT caseId FROM T_FACTORY_CONTACT WHERE factoryId=#{factoryId})")
     int deleteCase(String factoryId);
 
-    @Select("SELECT * FROM T_CASE WHERE id in( SELECT caseId FROM T_FACTORY_CASE WHERE factoryId=#{factoryId})")
+    @Delete("DELETE FROM T_CASE  WHERE id in( SELECT caseId FROM T_USER_CASE WHERE designerId=#{designerId})")
+    int deleteCaseForDesigner(String designerId);
+
+    @Select("SELECT * FROM T_CASE WHERE id in( SELECT caseId FROM T_FACTORY_CONTACT WHERE factoryId=#{factoryId})")
     List<Case> getCase(String factoryId);
 }

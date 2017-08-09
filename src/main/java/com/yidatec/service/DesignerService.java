@@ -87,6 +87,19 @@ public class DesignerService {
 	public void createDesigner(User user) {
 		insertUserRole(user);
 		designerMapper.create(user);
+		caseAndUserCreate(user);
+
+	}
+
+	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
+	public void updateDesigner(User user) {
+		designerMapper.update(user);
+		caseMapper.deleteCaseForDesigner(user.getId());
+		userCaseMapper.deleteUserCase(user.getId());
+		caseAndUserCreate(user);
+	}
+
+	private void caseAndUserCreate(User user) {
 		if (user.getCaseList() != null){
 			for (int i = 0; i < user.getCaseList().size(); i ++){
 				Case aCase = user.getCaseList().get(i);
@@ -94,20 +107,12 @@ public class DesignerService {
 				aCase.setId(caseId);
 				aCase.setType(2);
 				caseMapper.createCase(aCase);
-
 				UserCase userCase = new UserCase();
 				userCase.setDesignerId(user.getId());
 				userCase.setCaseId(caseId);
 				userCaseMapper.createUserCase(userCase);
 			}
 		}
-
-	}
-
-	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
-	public void updateDesigner(User user) {
-		designerMapper.update(user);
-//		caseMapper.deleteCase();
 	}
 
 	private void insertUserRole(User user){

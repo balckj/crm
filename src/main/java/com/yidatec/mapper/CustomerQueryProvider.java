@@ -22,6 +22,9 @@ public class CustomerQueryProvider {
         if(!StringUtils.isEmpty(customerVO.getAddress())){
             sb.append(" AND D.address = #{address}");
         }
+        if(!StringUtils.isEmpty(customerVO.getCreatorId())){
+            sb.append(" AND D.creatorId = #{creatorId}");
+        }
         sb.append(" LIMIT #{start},#{length}");
         return sb.toString();
     }
@@ -41,6 +44,9 @@ public class CustomerQueryProvider {
         }
         if(!StringUtils.isEmpty(customerVO.getAddress())){
             sb.append(" AND D.address = #{address}");
+        }
+        if(!StringUtils.isEmpty(customerVO.getCreatorId())){
+            sb.append(" AND D.creatorId = #{creatorId}");
         }
         return sb.toString();
     }

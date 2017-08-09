@@ -36,7 +36,7 @@ public class CustomerService {
         Customer customer = customerMapper.selectCustomer(id);
         if(customer!=null){
             BeanUtils.copyProperties(customer, customerVO);
-            customerVO.setContactList(customerMapper.selectContact(id));
+            customerVO.setContactList(contactMapper.selectContact(id));
         }
         return customerVO;
     }
@@ -72,8 +72,8 @@ public class CustomerService {
 
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
     public void updateCustomer(Customer customer) {
-        customerMapper.deleteContact(customer.getId());
-        customerMapper.deleteRelation(customer.getId());
+        contactMapper.deleteCustomerContact(customer.getId());
+        customerMapper.deleteCustomerRelation(customer.getId());
         customerMapper.update(customer);
         for (int i=0;i<customer.getContactList().size();i++){
             customer.getContactList().get(i).setId(UUID.randomUUID().toString().toLowerCase());
@@ -87,6 +87,6 @@ public class CustomerService {
     }
 
     public List<Contact> getContact(String id){
-        return customerMapper.getContact(id);
+        return contactMapper.getContact(id);
     }
 }

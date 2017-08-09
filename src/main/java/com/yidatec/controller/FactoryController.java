@@ -79,35 +79,9 @@ public class FactoryController extends BaseController{
             factoryService.createFactory(factory);
 
         } else {//编辑
-            factory1.setId(factory.getId());
-            factory1.setId(UUID.randomUUID().toString().toLowerCase());
-            factory1.setReferrer(factory.getReferrer());
-            factory1.setFactoryName(factory.getFactoryName());
-            factory1.setDirector(factory.getDirector());
-            factory1.setFirstOrderTime(factory.getFirstOrderTime());
-            factory1.setUserList(factory.getUserList());
-            factory1.setCountry(factory.getCountry());
-            factory1.setProvince(factory.getProvince());
-            factory1.setCity(factory.getCity());
-            factory1.setRegion(factory.getRegion());
-            factory1.setAddress(factory.getAddress());
-            factory1.setFactoryArea(factory.getFactoryArea());
-            factory1.setPhoto(factory.getPhoto());
-            factory1.setRegisteredCapital(factory.getRegisteredCapital());
-            factory1.setTaxpayerType(factory.getTaxpayerType());
-            factory1.setFixedEmployeeCount(factory.getFixedEmployeeCount());
-            factory1.setGoodAtIndustry(factory.getGoodAtIndustry());
-            factory1.setGoodAtMaterial(factory.getGoodAtMaterial());
-            factory1.setGoodAtArea(factory.getGoodAtArea());
-            factory1.setPlatformLevel(factory.getPlatformLevel());
-            factory1.setValueAddedTaxAccount(factory.getValueAddedTaxAccount());
-            factory1.setTaxNumber(factory.getTaxNumber());
-            factory1.setState(factory.getState());
-            factory1.setCreatorId(getWebUser().getId());
-            factory1.setCreateTime(LocalDateTime.now());
-            factory1.setModifierId(getWebUser().getCreatorId());
-            factory1.setModifyTime(LocalDateTime.now());
-//            factoryService.updateFactory(factory1,getWebUser());
+            factory.setModifierId(getWebUser().getCreatorId());
+            factory.setModifyTime(LocalDateTime.now());
+            factoryService.updateFactory(factory);
         }
         return getSuccessJson(null);
     }

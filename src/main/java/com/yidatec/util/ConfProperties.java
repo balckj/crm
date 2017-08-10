@@ -29,6 +29,7 @@ public class ConfProperties {
     private String securitySettingId;
     private String adminRoleId;
 
+    private String path;
 
     public String getSystemLocale() {
         return systemLocale;
@@ -184,5 +185,13 @@ public class ConfProperties {
 
     public String getWrapExceptionHtml(String txt) {
         return wrapexceptionhtml.replace("$$$", txt);
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }

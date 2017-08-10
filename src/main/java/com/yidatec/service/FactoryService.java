@@ -56,19 +56,29 @@ public class FactoryService {
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
-    public void updateCustomer(FactoryVO factory,User user ) {
-//        factoryMapper.deleteContact(factory.getId());
-//        factoryMapper.deleteRelation(factory.getId());
-//        factoryMapper.update(factory);
-//        for (int i=0;i<factory.getPhoto().size();i++){
-//            factory.getPhoto().get(i).setId(UUID.randomUUID().toString().toLowerCase());
-//            factory.getPhoto().get(i).setCreatorId(user.getId());
-//            factory.getPhoto().get(i).setCreateTime(LocalDateTime.now());
-//            factory.getPhoto().get(i).setModifierId(user.getCreatorId());
-//            factory.getPhoto().get(i).setModifyTime(LocalDateTime.now());
-//            factoryMapper.createContact(factory.getPhoto().get(i));
-//            factoryMapper.createRelation(factory.getId(),factory.getPhoto().get(i).getId());
-//        }
+    public void updateFactory(FactoryEntity factory) {
+        contactMapper.deleteFactoryContact(factory.getId());
+        factoryMapper.deleteFactoryRelation(factory.getId());
+        caseMapper.deleteCase(factory.getId());
+        factoryMapper.deleteCaseRelation(factory.getId());
+        factoryMapper.update(factory);
+
+        for (int i=0;i<factory.getUserList().size();i++){
+            factory.getUserList().get(i).setId(UUID.randomUUID().toString().toLowerCase());
+            factory.getUserList().get(i).setCreatorId(factory.getId());
+            factory.getUserList().get(i).setCreateTime(LocalDateTime.now());
+            factory.getUserList().get(i).setModifierId(factory.getCreatorId());
+            factory.getUserList().get(i).setModifyTime(LocalDateTime.now());
+            contactMapper.createContact(factory.getUserList().get(i));
+            factoryMapper.createRelation(factory.getId(),factory.getUserList().get(i).getId());
+        }
+        for (int i=0;i<factory.getCaseList().size();i++){
+            factory.getCaseList().get(i).setId(UUID.randomUUID().toString().toLowerCase());
+            factory.getCaseList().get(i).setType(1);
+            caseMapper.createCase(factory.getCaseList().get(i));
+            factoryMapper.createCaseRelation(factory.getId(),factory.getCaseList().get(i).getId());
+        }
+
     }
 
     public List<FactoryEntity> selectFactoryList(FactoryVO factory) {

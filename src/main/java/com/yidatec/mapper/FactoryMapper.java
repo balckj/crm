@@ -17,9 +17,9 @@ public interface FactoryMapper {
             "#{director},#{firstOrderTime},#{country},#{province},#{city},#{region},#{address},#{factoryArea},#{photo},#{registeredCapital},#{taxpayerType},#{fixedEmployeeCount},#{goodAtIndustry},#{goodAtMaterial},#{goodAtArea},#{platformLevel},#{valueAddedTaxAccount},#{taxNumber},#{state},#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
     int create(FactoryEntity factory);
 
-    @Update("UPDATE T_CUSTOMER SET `companyName`=#{companyName},companyId=#{companyId},industry=#{industry},nature=#{nature}," +
-            "country=#{country},province=#{province},city=#{city},region=#{region},address=#{address},level=#{level},region=#{region},state=#{state}," +
-            "modifierId=#{modifierId}," +
+    @Update("UPDATE T_FACTORY SET `referrer`=#{referrer},factoryName=#{factoryName},director=#{director},firstOrderTime=#{firstOrderTime}," +
+            "country=#{country},province=#{province},city=#{city},region=#{region},address=#{address},factoryArea=#{factoryArea},photo=#{photo},registeredCapital=#{registeredCapital}," +
+            "taxpayerType=#{taxpayerType},fixedEmployeeCount=#{fixedEmployeeCount},goodAtIndustry=#{goodAtIndustry},goodAtMaterial=#{goodAtMaterial},goodAtArea=#{goodAtArea},platformLevel=#{platformLevel},valueAddedTaxAccount=#{valueAddedTaxAccount},taxNumber=#{taxNumber},state=#{state},modifierId=#{modifierId}," +
             "modifyTime=#{modifyTime} WHERE id=#{id}")
     int update(FactoryEntity factory);
 
@@ -37,8 +37,8 @@ public interface FactoryMapper {
     FactoryEntity selectFactory(String id);
 
 
-    @Delete("DELETE FROM T_FACTORY_CASE  WHERE customerId =#{customerId}")
-    int deleteRelation(String customerId);
+    @Delete("DELETE FROM T_FACTORY_CONTACT  WHERE factoryId =#{factoryId}")
+    int deleteFactoryRelation(String factoryId);
 
     @Insert("INSERT INTO T_FACTORY_CASE (factoryId,caseId) VALUES (#{factoryId},#{id})")
     int createCaseRelation(@Param(value="factoryId") String factoryId, @Param(value="id") String id);
@@ -51,6 +51,9 @@ public interface FactoryMapper {
 
     @Select("SELECT * FROM T_CONTACT A INNER JOIN T_FACTORY_CONTACT B ON A.id= B.contactId and B.factoryId = #{id}")
     List<Contact> selectContact(String id);
+
+    @Delete("DELETE FROM T_FACTORY_CASE  WHERE factoryId =#{factoryId}")
+    int deleteCaseRelation(String factoryId);
 
 
 }

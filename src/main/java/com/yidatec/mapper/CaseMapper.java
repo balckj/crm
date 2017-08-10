@@ -20,6 +20,9 @@ public interface CaseMapper {
     @Delete("DELETE FROM T_CASE  WHERE id in( SELECT caseId FROM T_FACTORY_CONTACT WHERE factoryId=#{factoryId})")
     int deleteCase(String factoryId);
 
+    @Delete("DELETE FROM T_CASE  WHERE id in( SELECT caseId FROM T_USER_CASE WHERE designerId=#{designerId})")
+    int deleteCaseForDesigner(String designerId);
+
     @Select("SELECT * FROM T_CASE WHERE id in( SELECT caseId FROM T_FACTORY_CONTACT WHERE factoryId=#{factoryId})")
     List<Case> getCase(String factoryId);
 }

@@ -71,7 +71,7 @@ public class WebSecurityConfig2 extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/inspinia_admin/**","/**/*.js", "/**/favicon.ico","/img/**");
+        web.ignoring().antMatchers("/99/**","/**/*.js", "/**/favicon.ico","/img/**","/upload/**");
     }
 
     @Bean(name = "usernamePasswordAuthenticationFilter")

@@ -1,7 +1,11 @@
 package com.yidatec.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.yidatec.util.CustomLocalDateTime2Serializer;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import java.time.LocalDateTime;
 
 /**
  * Created by Administrator on 2017/7/21.
@@ -13,9 +17,11 @@ public class Activity extends BaseModel{
     @Length( max = 200, message = "名称最多由200个字符组成", groups = { })
     private String name;
     @NotBlank(message = "必须输入开始时间", groups = { })
-    private String startDate;
+    @JsonSerialize(using = CustomLocalDateTime2Serializer.class)
+    private LocalDateTime startDate;
     @NotBlank(message = "必须输入结束时间", groups = { })
-    private String endDate;
+    @JsonSerialize(using = CustomLocalDateTime2Serializer.class)
+    private LocalDateTime endDate;
     @NotBlank(message = "必须选择国家", groups = { })
     private String country;
     @NotBlank(message = "必须选择省份", groups = { })
@@ -44,19 +50,19 @@ public class Activity extends BaseModel{
         this.name = name;
     }
 
-    public String getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 

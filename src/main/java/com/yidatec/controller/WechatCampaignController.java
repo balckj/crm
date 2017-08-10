@@ -37,64 +37,96 @@ public class WechatCampaignController extends BaseController{
     CustomerService customerService;
 
 
-    @RequestMapping(value="/campaign/{campaignId}",method=RequestMethod.GET)
-    public Map<String,Object> activityEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
-//        model.put("title",(id == null || id.isEmpty())?"新建活动":"编辑活动");
-//        model.put("activity",activityService.selectActivity(id));
-//        model.put("exhibitioHallList",exhibitionService.selectExhibitionAll());// 展馆列表
-//        model.put("customerList",customerService.selectCustomerAll());// 主办方列表
-//        return "activityEdit";
-        return null;
+    /**
+     * 新建或编辑
+     * @param model
+     * @param id
+     * @return
+     */
+    @RequestMapping(value={"/campaign","/campaign/{campaignId}"},method=RequestMethod.GET)
+    public Object activityEdit(ModelMap model,@PathVariable(value = "campaignId",required = false) String id){
+        Map<String,Object> res;
+        if(id == null){//新建
+            res = new HashMap<String,Object>();
+            res.put("res",1);
+            res.put("exhibitioHallList",exhibitionService.selectExhibitionAll());
+            res.put("customerList",customerService.selectCustomerAll());
+        }else{//编辑
+            Activity campaign = activityService.selectActivity(id);
+            if(campaign == null)
+                return getErrorJson("活动不存在！");
+            else{
+                res = new HashMap<String,Object>();
+                res.put("res",1);
+                res.put("exhibitioHallList",exhibitionService.selectExhibitionAll());
+                res.put("customerList",customerService.selectCustomerAll());
+                res.put("campaign",campaign);
+            }
+        }
+        return res;
     }
 
-//    @RequestMapping("/saveActivity")
-//    public Object saveActivity(@Validated @RequestBody Activity activity,
-//                               BindingResult result)throws Exception{
-//        List<FieldError> errors = result.getFieldErrors();
-//        if(errors  != null && errors.size() > 0){
-//            return errors;
-//        }
-//        Activity activity1 = new Activity();
-//        if(activity.getId() == null || activity.getId().trim().length() <= 0)//新建
-//        {
-//            activity1.setId(UUID.randomUUID().toString().toLowerCase());
-//            activity1.setName(activity.getName());
-//            activity1.setStartDate(activity.getStartDate());
-//            activity1.setEndDate(activity.getEndDate());
-//            activity1.setCountry(activity.getCountry());
-//            activity1.setProvince(activity.getProvince());
-//            activity1.setCity(activity.getCity());
-//            activity1.setRegion(activity.getRegion());
-//            activity1.setAddress(activity.getAddress());
-//            activity1.setState(activity.getState());
-//            activity1.setExhibitioHall(activity.getExhibitioHall());
-//            activity1.setSponsor(activity.getSponsor());
-//            activity1.setCreatorId(getWebUser().getId());
-//            activity1.setCreateTime(LocalDateTime.now());
-//            activity1.setModifierId(getWebUser().getCreatorId());
-//            activity1.setModifyTime(LocalDateTime.now());
-//            activityService.createActivity(activity1);
-//        } else {//编辑
-//            activity1.setId(activity.getId());
-//            activity1.setName(activity.getName());
-//            activity1.setStartDate(activity.getStartDate());
-//            activity1.setEndDate(activity.getEndDate());
-//            activity1.setCountry(activity.getCountry());
-//            activity1.setProvince(activity.getProvince());
-//            activity1.setCity(activity.getCity());
-//            activity1.setRegion(activity.getRegion());
-//            activity1.setAddress(activity.getAddress());
-//            activity1.setState(activity.getState());
-//            activity1.setExhibitioHall(activity.getExhibitioHall());
-//            activity1.setSponsor(activity.getSponsor());
-//            activity1.setState(activity.getState());
-//            activity1.setModifierId(getWebUser().getId());
-//            activity1.setModifyTime(LocalDateTime.now());
-//            activityService.updateActivity(activity1);
-//        }
-//        return getSuccessJson(null);
-//    }
+    /**
+     * 保存
+     * @param activity
+     * @param result
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/campaigns",method=RequestMethod.PUT)
+    public Object saveActivity(@Validated @RequestBody Activity activity,
+                               BindingResult result)throws Exception{
+        List<FieldError> errors = result.getFieldErrors();
+        if(errors  != null && errors.size() > 0){
+            return errors;
+        }
+        Activity activity1 = new Activity();
+        if(activity.getId() == null || activity.getId().trim().length() <= 0)//新建
+        {
+            activity1.setId(UUID.randomUUID().toString().toLowerCase());
+            activity1.setName(activity.getName());
+            activity1.setStartDate(activity.getStartDate());
+            activity1.setEndDate(activity.getEndDate());
+            activity1.setCountry(activity.getCountry());
+            activity1.setProvince(activity.getProvince());
+            activity1.setCity(activity.getCity());
+            activity1.setRegion(activity.getRegion());
+            activity1.setAddress(activity.getAddress());
+            activity1.setState(activity.getState());
+            activity1.setExhibitioHall(activity.getExhibitioHall());
+            activity1.setSponsor(activity.getSponsor());
+            activity1.setCreatorId(getWebUser().getId());
+            activity1.setCreateTime(LocalDateTime.now());
+            activity1.setModifierId(getWebUser().getCreatorId());
+            activity1.setModifyTime(LocalDateTime.now());
+            activityService.createActivity(activity1);
+        } else {//编辑
+            activity1.setId(activity.getId());
+            activity1.setName(activity.getName());
+            activity1.setStartDate(activity.getStartDate());
+            activity1.setEndDate(activity.getEndDate());
+            activity1.setCountry(activity.getCountry());
+            activity1.setProvince(activity.getProvince());
+            activity1.setCity(activity.getCity());
+            activity1.setRegion(activity.getRegion());
+            activity1.setAddress(activity.getAddress());
+            activity1.setState(activity.getState());
+            activity1.setExhibitioHall(activity.getExhibitioHall());
+            activity1.setSponsor(activity.getSponsor());
+            activity1.setState(activity.getState());
+            activity1.setModifierId(getWebUser().getId());
+            activity1.setModifyTime(LocalDateTime.now());
+            activityService.updateActivity(activity1);
+        }
+        return getSuccessJson(null);
+    }
 
+    /**
+     * 翻页查询
+     * @param activityVO
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/campaigns",method=RequestMethod.POST)
     public Object findActivity(@RequestBody ActivityVO activityVO)throws Exception{
         List<Activity> ActivityEntityList = activityService.selectActivityList(activityVO);

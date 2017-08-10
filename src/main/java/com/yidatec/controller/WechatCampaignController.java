@@ -73,7 +73,7 @@ public class WechatCampaignController extends BaseController{
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/campaigns",method=RequestMethod.POST)
+    @RequestMapping(value = "/campaigns",method=RequestMethod.PUT)
     public Object saveActivity(@Validated @RequestBody Activity activity,
                                BindingResult result)throws Exception{
         List<FieldError> errors = result.getFieldErrors();

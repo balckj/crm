@@ -64,7 +64,7 @@
                                 <label class="col-sm-2 control-label">开始日期<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="startDate" name="startDate" type="text"
-                                                             class="form-control" maxlength="200"  th:value="${activity}?${#dates.format(activity.startDate,'yyyy-MM-dd HH:mm')}" /></div>
+                                                             class="form-control" maxlength="200"  th:value="${activity}?${activity.startDateStr}" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed" ></div>
@@ -72,7 +72,7 @@
                                 <label class="col-sm-2 control-label">结束日期<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="endDate" name="endDate" type="text"
-                                                             class="form-control" maxlength="200" th:value="${activity}?${#dates.format(activity.endDate,'yyyy-MM-dd HH:mm')}"  /></div>
+                                                             class="form-control" maxlength="200" th:value="${activity}?${activity.endDateStr}"  /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>

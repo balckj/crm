@@ -43,8 +43,8 @@ public class WechatCampaignController extends BaseController{
      * @param id
      * @return
      */
-    @RequestMapping(value="/campaign/{campaignId}",method=RequestMethod.GET)
-    public Object activityEdit(ModelMap model,@PathVariable("campaignId") String id){
+    @RequestMapping(value={"/campaign","/campaign/{campaignId}"},method=RequestMethod.GET)
+    public Object activityEdit(ModelMap model,@PathVariable(value = "campaignId",required = false) String id){
         Map<String,Object> res;
         if(id == null){//新建
             res = new HashMap<String,Object>();

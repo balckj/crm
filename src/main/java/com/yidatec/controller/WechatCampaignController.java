@@ -80,43 +80,19 @@ public class WechatCampaignController extends BaseController{
         if(errors  != null && errors.size() > 0){
             return errors;
         }
-        Activity activity1 = new Activity();
         if(activity.getId() == null || activity.getId().trim().length() <= 0)//新建
         {
-            activity1.setId(UUID.randomUUID().toString().toLowerCase());
-            activity1.setName(activity.getName());
-            activity1.setStartDate(activity.getStartDate());
-            activity1.setEndDate(activity.getEndDate());
-            activity1.setCountry(activity.getCountry());
-            activity1.setProvince(activity.getProvince());
-            activity1.setCity(activity.getCity());
-            activity1.setRegion(activity.getRegion());
-            activity1.setAddress(activity.getAddress());
-            activity1.setState(activity.getState());
-            activity1.setExhibitioHall(activity.getExhibitioHall());
-            activity1.setSponsor(activity.getSponsor());
-            activity1.setCreatorId(getWebUser().getId());
-            activity1.setCreateTime(LocalDateTime.now());
-            activity1.setModifierId(getWebUser().getCreatorId());
-            activity1.setModifyTime(LocalDateTime.now());
-            activityService.createActivity(activity1);
+            activity.setId(UUID.randomUUID().toString().toLowerCase());
+            activity.setCreatorId(getWebUser().getId());
+            activity.setCreateTime(LocalDateTime.now());
+            activity.setModifierId(activity.getCreatorId());
+            activity.setModifyTime(activity.getModifyTime());
+            activityService.createActivity(activity);
         } else {//编辑
-            activity1.setId(activity.getId());
-            activity1.setName(activity.getName());
-            activity1.setStartDate(activity.getStartDate());
-            activity1.setEndDate(activity.getEndDate());
-            activity1.setCountry(activity.getCountry());
-            activity1.setProvince(activity.getProvince());
-            activity1.setCity(activity.getCity());
-            activity1.setRegion(activity.getRegion());
-            activity1.setAddress(activity.getAddress());
-            activity1.setState(activity.getState());
-            activity1.setExhibitioHall(activity.getExhibitioHall());
-            activity1.setSponsor(activity.getSponsor());
-            activity1.setState(activity.getState());
-            activity1.setModifierId(getWebUser().getId());
-            activity1.setModifyTime(LocalDateTime.now());
-            activityService.updateActivity(activity1);
+
+            activity.setModifierId(getWebUser().getId());
+            activity.setModifyTime(LocalDateTime.now());
+            activityService.updateActivity(activity);
         }
         return getSuccessJson(null);
     }

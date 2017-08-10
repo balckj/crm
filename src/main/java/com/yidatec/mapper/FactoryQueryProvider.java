@@ -11,7 +11,7 @@ public class FactoryQueryProvider {
     public String selectFactory(final FactoryVO factory)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM T_FACTORY  as D WHERE 1=1 ");
+        sb.append("SELECT B.name as referrer,A.* FROM T_FACTORY A LEFT JOIN T_USER B ON A.referrer = B.id");
 
         if(!StringUtils.isEmpty(factory.getFactoryName())){
             sb.append(" AND D.factoryName LIKE CONCAT('%',#{factoryName},'%')");

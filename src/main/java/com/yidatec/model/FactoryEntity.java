@@ -1,5 +1,7 @@
 package com.yidatec.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class FactoryEntity extends BaseModel{
     private String director;//厂长
 //    private Contact contacts;//联系人
     private List<Contact> userList;//联系人
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate firstOrderTime;//首单时间
     private String country;
     private String province;

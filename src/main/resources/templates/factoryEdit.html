@@ -578,7 +578,7 @@
                     });
                     this.on("queuecomplete",function(file) {
                         //上传完成后触发的方法
-                        $("#caseCount").val(casephoto.length);
+                        $("#caseCount").val(total+1);
                     });
                     this.on("removedfile",function(file){
                         //删除文件时触发的方法
@@ -597,7 +597,7 @@
                                 var rep = JSON.parse(data);
                                 if(rep.code == 200)
                                 {
-                                    $("#caseCount").val(casephoto.length);
+                                    $("#caseCount").val(total+1);
                                 }
                             }
                         });
@@ -693,6 +693,7 @@
 
         function delCase(obj){
             $(obj).parent().parent().parent().remove();
+            $("#caseCount").val($("#caseList").children().length);
 //            $("#addordel"+total).remove();
 //            $("#caseNameForm"+total).remove();
 //            $("#line"+total).remove();
@@ -849,71 +850,84 @@
                 validate('email'+i, 'email', 'validateEmail');
             }
 
+            //循环遍历案例照片
             var total = $("#caseList").children().length;
+            $("#caseCount").val(total);
             for (var i=0;i<total;i++){
-                $("#casePhoto"+i).dropzone({
-                    url: "fileupload",
-                    paramName: "files",
-                    addRemoveLinks: true,
-                    uploadMultiple:false,
-                    dictRemoveLinks: "x",
-                    dictCancelUpload: "x",
-                    maxFiles: 6,
-                    maxFilesize: 5,
-                    previewTemplate:previewTemplate ,
-                    acceptedFiles: ".jpg,.gif,.png", //上传的类
-                    init:function(){
-                        if(casephoto[i] == undefined){
-                            var tempArray = [];
-                            casephoto[i] = tempArray;
+                loadCasePhoto(i);
+            }
+        });
+
+        function loadCasePhoto(index){
+            $("#casePhoto"+index).dropzone({
+                url: "fileupload",
+                paramName: "files",
+                addRemoveLinks: true,
+                uploadMultiple:false,
+                dictRemoveLinks: "x",
+                dictCancelUpload: "x",
+                maxFiles: 6,
+                maxFilesize: 5,
+                previewTemplate:previewTemplate ,
+                acceptedFiles: ".jpg,.gif,.png", //上传的类
+                init:function(){
+                    if(casephoto[index] == undefined){
+                        var tempArray = [];
+                        casephoto[index] = tempArray;
+                    }
+                    var photo= $("#hiddenPhoto"+index).val().split(",");
+                    for (var j=0;j<photo.length;j++) {
+                        casephoto[index].push(photo[j]);
+                        var mockFile = {name: photo[j]};
+                        this.emit("addedfile", mockFile);
+                        this.emit("thumbnail", mockFile, "" + "upload/" + photo[j]);
+                        this.emit("complete", mockFile);
+                    }
+                    this.on("addedfile", function(file) {
+                        //上传文件时触发的事件
+                    });
+                    this.on("success",function(file,response) {
+                        //单个上传完成后触发的方法
+                        file.serverName = response.url;
+//                        if(casephoto[index] == undefined){
+//                            var tempArray = [];
+//                            casephoto[index] = tempArray;
+//                        }
+                        casephoto[index].push(file.serverName );
+                    });
+                    this.on("queuecomplete",function(file) {
+                        //上传完成后触发的方法
+                        $("#caseCount").val(casephoto.length);
+                    });
+                    this.on("removedfile",function(file){
+                        //删除文件时触发的方法
+                        debugger;
+                        if(file.serverName==undefined){
+                            file.serverName=file.name;
                         }
-                        var photo= $("#hiddenPhoto"+i).val().split(",");
-                        for (var j=0;j<photo.length;j++) {
-                            casephoto[i].push(photo[j]);
-                            var mockFile = {name: photo[j]};
-                            this.emit("addedfile", mockFile);
-                            this.emit("thumbnail", mockFile, "" + "upload/" + photo[j]);
-                            this.emit("complete", mockFile);
+                        for(var j=0;j<casephoto[index].length;j++){
+                            if(casephoto[index][j]==file.serverName){
+                                casephoto[index].splice(j,1);
+                                break;
+                            }
                         }
-                        this.on("addedfile", function(file) {
-                            //上传文件时触发的事件
-                        });
-                        this.on("success",function(file,response) {
-                            //单个上传完成后触发的方法
-                            file.serverName = response.url;
-                            casephoto[i].push(file.serverName );
-                        });
-                        this.on("queuecomplete",function(file) {
-                            //上传完成后触发的方法
-                            $("#caseCount").val(casephoto.length);
-                        });
-                        this.on("removedfile",function(file){
-                            //删除文件时触发的方法
-                            for(var i=0;i<casephoto[total].length;i++){
-                                if(casephoto[total][i]==file.serverName){
-                                    casephoto[total].splice(i,1);
-                                    break;
+                        $.ajax({
+                            type: 'POST',
+                            url: 'filedelete',
+                            data: {name: file.serverName},
+                            dataType: 'html',
+                            success: function(data){
+                                var rep = JSON.parse(data);
+                                if(rep.code == 200)
+                                {
+                                    $("#caseCount").val(casephoto.length);
                                 }
                             }
-                            $.ajax({
-                                type: 'POST',
-                                url: 'filedelete',
-                                data: {name: file.serverName},
-                                dataType: 'html',
-                                success: function(data){
-                                    var rep = JSON.parse(data);
-                                    if(rep.code == 200)
-                                    {
-                                        $("#caseCount").val(casephoto.length);
-                                    }
-                                }
-                            });
                         });
-                    }
-                });
-            }
-
-        });
+                    });
+                }
+            });
+        }
 
 
 
@@ -931,7 +945,6 @@
 //            autoProcessQueue:false,
             acceptedFiles: ".jpg,.gif,.png", //上传的类型
             init:function(){
-                debugger;
                 var selectPhotoValue =  $("#selectphotoValue").val();
                 if(selectPhotoValue!=""){
                     var list = selectPhotoValue.split(",");
@@ -1057,8 +1070,9 @@
                     "email":userEmail
                 })
             })
-            debugger;
+
             $("#caseList").children().each(function(index){
+                debugger;
                 caseName = $(this).find("input[name='caseName']").val();
                 casePhoto = casephoto[index].toString();
                 caseList.push({
@@ -1111,7 +1125,7 @@
                 },
                 error: function (result) {
                     alert("通信错误！");
-                    saveBtnda.stop();
+//                    saveBtnda.stop();
                 },
                 success: function (data) {
                     if (data.res == undefined) {

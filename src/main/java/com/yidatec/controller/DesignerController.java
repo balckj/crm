@@ -2,11 +2,14 @@ package com.yidatec.controller;
 
 import com.yidatec.mapper.UserCaseMapper;
 import com.yidatec.mapper.UserMapper;
-import com.yidatec.model.*;
+import com.yidatec.model.Case;
+import com.yidatec.model.Dictionary;
+import com.yidatec.model.User;
+import com.yidatec.model.UserValidateDesigner;
 import com.yidatec.service.DesignerService;
 import com.yidatec.service.DictionaryService;
 import com.yidatec.service.SaleService;
-import com.yidatec.util.ConfigProperties;
+import com.yidatec.util.ConfProperties;
 import com.yidatec.util.Constants;
 import com.yidatec.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+//import com.yidatec.util.ConfigProperties;
 
 /**
  * Created by jrw on 时间2017-08-04.
@@ -49,6 +54,9 @@ public class DesignerController extends BaseController{
     @Autowired
     UserCaseMapper userCaseMapper;
 
+    @Autowired
+    ConfProperties confProperties;
+
     @RequestMapping("/designerList")
     public String designerList(ModelMap model){
         return "designerList";
@@ -64,14 +72,7 @@ public class DesignerController extends BaseController{
         model.put("goodAtAreaList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_AREA)); // 擅长面积
         model.put("designStyleList",dictionaryService.selectDictionaryListByCodeCommon(Constants.DESIGN_STYLE)); // 设计风格
         model.put("platformLevelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL)); // 平台等级
-        List<Case> caseList = userCaseMapper.getCaseList(id);
-        if (caseList != null){
-            for (int i= 0; i < caseList.size(); i++){
-                Case case1 = caseList.get(i);
-                case1.setPhoto(ConfigProperties.getFileUrl("path"));
-            }
-        }
-        model.put("designerCaseList",caseList);
+        model.put("designerCaseList",userCaseMapper.getCaseList(id));
         return "designerEdit";
     }
 

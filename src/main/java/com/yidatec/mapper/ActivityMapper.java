@@ -20,6 +20,9 @@ public interface ActivityMapper {
     @Select("SELECT * FROM T_CAMPAIGN WHERE id = #{id}")
     Activity selectActivity(String id);
 
+    @Select("SELECT * FROM T_CAMPAIGN")
+    List<Activity> activityList();
+
     @SelectProvider(type=com.yidatec.mapper.ActivityQueryProvider.class,method = "selectActivity")
     List<Activity> selectActivityList(ActivityVO activityVO);
 

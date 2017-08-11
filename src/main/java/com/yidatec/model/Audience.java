@@ -38,6 +38,9 @@ public class Audience extends BaseModel {
 	@NotBlank(message = "必须输入兴趣爱好", groups = {})
 	private String hobby;
 
+	@NotBlank(message = "必须输入参加的活动", groups = {})
+	private String campaignId;
+
 	@NotBlank(message = "必须输入国家", groups = {})
 	private String country;
 	private String address;
@@ -115,5 +118,13 @@ public class Audience extends BaseModel {
 
 	public void setRegion(String region) {
 		this.region = region;
+	}
+
+	public String getCampaignId() {
+		return campaignId;
+	}
+
+	public void setCampaignId(String campaignId) {
+		this.campaignId = campaignId;
 	}
 }

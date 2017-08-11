@@ -12,7 +12,7 @@ public class AudienceQueryProvider {
     public String selectAudienceList(final AudienceVO audienceVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM T_AUDIENCE U " +
+        sb.append("SELECT U.*,B.campaignId FROM T_AUDIENCE U LEFT JOIN T_AUDIENCE_CAMPAIGN B ON U.id = B.audienceId " +
                 " WHERE 1=1 ");
 
         if (!StringUtils.isEmpty(audienceVO.getName())){
@@ -26,7 +26,7 @@ public class AudienceQueryProvider {
     public String countSelectAudienceList(final AudienceVO audienceVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT count(*) FROM T_AUDIENCE U " +
+        sb.append("SELECT count(*) FROM T_AUDIENCE U LEFT JOIN T_AUDIENCE_CAMPAIGN B ON U.id = B.audienceId " +
                 " WHERE 1=1 ");
 
         if (!StringUtils.isEmpty(audienceVO.getName())){

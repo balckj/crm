@@ -265,8 +265,14 @@
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="birthdayForm">
                                 <label class="col-sm-2 control-label">出生日期</label>
-                                <div class="col-sm-4"><input id="birthday" name="birthday" type="text"
-                                                             class="form-control" maxlength="200" th:value="${designer}?${designer.birthday}"/></div>
+                                <div class="col-sm-4" th:if="${designer}" >
+                                    <input id="birthday" name="birthday" type="text" readonly="readonly"
+                                                             class="form-control" maxlength="200" th:value="${designer}?${designer.birthday}"/>
+                                </div>
+                                <div class="col-sm-4" th:unless="${designer}" >
+                                    <input id="birthday" name="birthday" type="text"
+                                           class="form-control" maxlength="200" th:value="${designer}?${designer.birthday}"/>
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
@@ -302,7 +308,7 @@
                                             <input  th:attr="id='caseName'+${designerCaseStat.index}" name="caseName" type="text"
                                                                      class="form-control" maxlength="10" th:value="${designerCase}?${designerCase.name}"/>
                                         </div>
-                                        <label class="col-sm-4 control-label" style="text-align: left"></label>
+                                        <label class="col-sm-4 control-label" style="text-align: left;color: red;">*【案例名称】和【案例图片】同时输入才会被保存</label>
                                         <div class="col-sm-1">
                                             <button th:if="${designerCaseStat.index == 0}" onclick="addCase1()" type="button" class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
                                             <button th:unless="${designerCaseStat.index == 0}" th:attr="onclick='delBtnData1('+${designerCaseStat.index}+')'" type="button"  class="btn ladda-button btn-w-m btn-primary">删&nbsp;&nbsp;除</button>
@@ -328,7 +334,7 @@
                                             <input id="caseName0" name="caseName" type="text"
                                                    class="form-control" maxlength="10"/>
                                         </div>
-                                        <label class="col-sm-4 control-label" style="text-align: left"></label>
+                                        <label class="col-sm-4 control-label" style="text-align: left;color: red;">*【案例名称】和【案例图片】同时输入才会被保存</label>
                                         <div class="col-sm-1">
                                             <button onclick="addCase1()" type="button"  class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
                                         </div>
@@ -354,7 +360,7 @@
                                             <input id="caseName0" name="caseName" type="text"
                                                                      class="form-control" maxlength="10"/>
                                         </div>
-                                        <label class="col-sm-4 control-label" style="text-align: left"></label>
+                                        <label class="col-sm-4 control-label" style="text-align: left;color:red; ">*【案例名称】和【案例图片】同时输入才会被保存</label>
                                         <div class="col-sm-1">
                                             <button onclick="addCase1()" type="button" class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
                                         </div>
@@ -621,7 +627,7 @@
                 +"<label class='col-sm-2 control-label'>案例名称</label> "
                 +"<div class='col-sm-4'><input id='caseName"+total+ "' name='caseName' type='text' "
                 +"class='form-control' maxlength='10'/></div> "
-                +" <label class='col-sm-4 control-label' style='text-align: left'></label> "
+                +" <label class='col-sm-4 control-label' style='text-align: left;color: red;'>*【案例名称】和【案例图片】同时输入才会被保存</label> "
                 +" <div class='col-sm-1'><button onclick='delBtnData1("+total+ ")' id='casedel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div>"
                 +"</div>"
                 +"<div class='form-group ' id='casePhoto"+total+ 'Form' +"'>"
@@ -648,7 +654,7 @@
                 uploadMultiple: false,
                 dictRemoveLinks: "x",
                 dictCancelUpload: "x",
-                maxFiles: 10,
+                maxFiles: 6,
                 maxFilesize: 5,
                 previewTemplate: previewTemplate,
                 acceptedFiles: ".jpg,.gif,.png", //上传的类型

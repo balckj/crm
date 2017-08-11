@@ -19,7 +19,7 @@ public interface AudienceMapper {
 	 * 查找一个Audience
 	 * @return
 	 */
-	@Select("SELECT * FROM T_AUDIENCE WHERE id = #{id}")
+	@Select("SELECT a.*,b.campaignId FROM T_AUDIENCE a left join T_AUDIENCE_CAMPAIGN b on a.id = b.audienceId WHERE a.id = #{id}")
 	Audience selectAudience(String id);
 
 	@SelectProvider(type=AudienceQueryProvider.class,method = "selectAudienceList")

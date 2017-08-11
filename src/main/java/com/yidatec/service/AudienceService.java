@@ -1,13 +1,7 @@
 package com.yidatec.service;
 
-import com.yidatec.mapper.AudienceMapper;
-import com.yidatec.mapper.RoleMapper;
-import com.yidatec.mapper.SaleMapper;
-import com.yidatec.mapper.UserRoleMapper;
-import com.yidatec.model.Param;
-import com.yidatec.model.Audience;
-import com.yidatec.model.User;
-import com.yidatec.model.UserRole;
+import com.yidatec.mapper.*;
+import com.yidatec.model.*;
 import com.yidatec.util.Constants;
 import com.yidatec.vo.AudienceVO;
 import com.yidatec.vo.UserVO;
@@ -19,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 观众
@@ -31,6 +26,9 @@ public class AudienceService {
 
 	@Autowired
 	AudienceMapper audienceMapper;
+
+	@Autowired
+	AudienceCampaignMapper audienceCampaignMapper;
 
 	public Audience selectAudience(String id){
 		return  audienceMapper.selectAudience(id);
@@ -50,8 +48,8 @@ public class AudienceService {
 	 *
 	 * @return
 	 */
-	public int countSelectAudienceList(AudienceVO Audience) {
-		return audienceMapper.countSelectAudienceList(Audience);
+	public int countSelectAudienceList(AudienceVO audience) {
+		return audienceMapper.countSelectAudienceList(audience);
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
@@ -63,17 +61,33 @@ public class AudienceService {
 	/**
 	 * 创建一个观众
 	 *
-	 * @param Audience
+	 * @param audience
 	 * @return
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
-	public void createAudience(Audience Audience) {
-		audienceMapper.create(Audience);
+	public void createAudience(Audience audience) {
+		audienceMapper.create(audience);
+		createAudienceCampaign(audience);
 	}
 
+
+
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
-	public void updateAudience(Audience Audience) {
-		audienceMapper.update(Audience);
+	public void updateAudience(Audience audience) {
+		audienceCampaignMapper.deleteAudienceCampaign(audience.getId());
+		audienceMapper.update(audience);
+		createAudienceCampaign(audience);
+
+	}
+
+	/**
+	 * 观众和活动关系表操作
+	 */
+	private void createAudienceCampaign(Audience audience) {
+		AudienceCampaign audienceCampaign = new AudienceCampaign();
+		audienceCampaign.setAudienceId(audience.getId());
+		audienceCampaign.setCampaignId(audience.getCampaignId());
+		audienceCampaignMapper.createAudienceCampaign(audienceCampaign);
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.yidatec.controller;
 
+import com.yidatec.model.Activity;
 import com.yidatec.model.Audience;
+import com.yidatec.service.ActivityService;
 import com.yidatec.service.AudienceService;
 import com.yidatec.service.DictionaryService;
 import com.yidatec.util.Constants;
@@ -8,6 +10,7 @@ import com.yidatec.vo.AudienceVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -24,6 +27,7 @@ import java.util.UUID;
 
 /**
  * Created by jrw on 2017/7/12.
+ * 观众Controller
  */
 @Controller
 public class AudienceController extends BaseController{
@@ -33,6 +37,9 @@ public class AudienceController extends BaseController{
 
     @Autowired
     DictionaryService dictionaryService;
+
+    @Autowired
+    ActivityService activityService;
 
     @RequestMapping("/audienceList")
     public String audienceList(){
@@ -44,6 +51,7 @@ public class AudienceController extends BaseController{
         model.put("title",(id == null || id.isEmpty())?"新建观众":"编辑观众");
         model.put("audience",audienceService.selectAudience(id));
         model.put("hobbyList",dictionaryService.selectDictionaryListByCodeCommon(Constants.HOBBY));
+        model.put("campaignList",activityService.activityList());
         return "audienceEdit";
     }
 
@@ -74,6 +82,24 @@ public class AudienceController extends BaseController{
     @ResponseBody
     public Object findAudience(@RequestBody AudienceVO audienceVO)throws Exception{
         List<Audience> audienceList = audienceService.selectAudienceList(audienceVO);
+        if(audienceList != null && audienceList.size() > 0){
+            for (Audience audience : audienceList){
+                String campaignId = audience.getCampaignId();
+                if(!StringUtils.isEmpty(campaignId)){
+                    String[] campaignIds = campaignId.split(",");
+                    String temp = "";
+                    for(int i = 0 ; i < campaignIds.length; i++){
+                        Activity activity = activityService.selectActivity(campaignIds[i]);
+                        if(i != campaignIds.length -1){
+                            temp = temp + activity.getName()  +",";
+                        }else{
+                            temp = temp + activity.getName();
+                        }
+                    }
+                    audience.setCampaignId(temp);// 活动名称
+                }
+            }
+        }
         int count = audienceService.countSelectAudienceList(audienceVO);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("draw", audienceVO.getDraw());

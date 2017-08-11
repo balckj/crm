@@ -31,15 +31,13 @@
                         <form method="POST" class="form-horizontal">
                             <input type="hidden" name="id" id="id" th:value="${audience}?${audience.id}"/>
 
-
                             <input type="hidden" name="selectHobbyValue" id="selectHobbyValue" th:value="${audience}?${audience.hobby}"/>
+                            <input type="hidden" name="selectCampaignIdValue" id="selectCampaignIdValue" th:value="${audience}?${audience.campaignId}"/>
 
                             <input type="hidden" name="selectCountryValue" id="selectCountryValue" th:value="${audience}?${audience.country}"/>
                             <input type="hidden" name="selectProvinceValue" id="selectProvinceValue" th:value="${audience}?${audience.province}"/>
                             <input type="hidden" name="selectCityValue" id="selectCityValue" th:value="${audience}?${audience.city}"/>
                             <input type="hidden" name="selectRegionValue" id="selectRegionValue" th:value="${audience}?${audience.region}"/>
-
-
 
                             <div class="form-group" id="nameForm">
                                 <label class="col-sm-2 control-label">观众名称<span
@@ -121,6 +119,17 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="hobby" id="hobby" multiple="multiple">
                                         <option th:value="${hobby.id}" th:text="${hobby.value}" th:each="hobby:${hobbyList}"></option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="campaignIdForm">
+                                <label class="col-sm-2 control-label">参加的活动</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="campaignId" id="campaignId" multiple="multiple">
+                                        <option th:value="${campaign.id}" th:text="${campaign.name}" th:each="campaign:${campaignList}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -259,6 +268,20 @@
             }else{
                 $("#hobby").val(selectHobbyValue).trigger('change')
             }
+
+            $("#campaignId").select2({ maximumInputLength: 3 });
+
+            var selectCampaignIdValue = $("#selectCampaignIdValue").val();
+            if(selectCampaignIdValue && selectCampaignIdValue.indexOf(",") > 0){
+                var list = selectCampaignIdValue.split(",");
+                var setkey = [];
+                for(var i= 0;i< list.length; i++){
+                    setkey.push(list[i]);
+                }
+                $("#campaignId").val(setkey).trigger('change')
+            }else{
+                $("#campaignId").val(selectCampaignIdValue).trigger('change')
+            }
         })
         /*]]>*/
     </script>
@@ -277,6 +300,8 @@
 
         validateMultipleSelect('hobby', 'hobby', 'validateHobby');
 
+        validateMultipleSelect('campaignId', 'campaignId', 'validateCampaignId');
+
         var saveBtnda;
         function saveAudience(btn) {
             saveBtnda = Ladda.create(btn);
@@ -289,7 +314,8 @@
                 province: $("#province").val().trim(),
                 city: $("#city").val().trim(),
                 region: $("#region").val().trim(),
-                hobby: $("#hobby").val().toString().trim()
+                hobby: $("#hobby").val().toString().trim(),
+                campaignId: $("#campaignId").val().toString().trim()
             }
             var a = JSON.stringify(p);
             $.ajax({

@@ -32,7 +32,7 @@
                             <input type="hidden" name="id" id="id" th:value="${audience}?${audience.id}"/>
 
                             <input type="hidden" name="selectHobbyValue" id="selectHobbyValue" th:value="${audience}?${audience.hobby}"/>
-                            <input type="hidden" name="selectCampaignIdValue" id="selectCampaignIdValue" th:value="${audience}?${audience.campaignId}"/>
+                            <input type="hidden" name="selectCampaignNameValue" id="selectCampaignNameValue" th:value="${audience}?${audience.campaignName}"/>
 
                             <input type="hidden" name="selectCountryValue" id="selectCountryValue" th:value="${audience}?${audience.country}"/>
                             <input type="hidden" name="selectProvinceValue" id="selectProvinceValue" th:value="${audience}?${audience.province}"/>
@@ -54,8 +54,8 @@
                                 <label class="col-sm-2 control-label">电话<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <input id="mobilePhone" name="mobilePhone" type="tel"
-                                           class="form-control" maxlength="30" th:value="${audience}?${audience.mobilePhone}"/>
+                                    <input id="mobilePhone" name="mobilePhone" type="number" oninput="if(value.length>11)value=value.slice(0,11)"
+                                           class="form-control" maxlength="11" th:value="${audience}?${audience.mobilePhone}"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
@@ -125,10 +125,10 @@
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="campaignIdForm">
+                            <div class="form-group" id="campaignNameForm">
                                 <label class="col-sm-2 control-label">参加的活动</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="campaignId" id="campaignId" multiple="multiple">
+                                    <select class="form-control m-b" name="campaignName" id="campaignName" multiple="multiple">
                                         <option th:value="${campaign.id}" th:text="${campaign.name}" th:each="campaign:${campaignList}"></option>
                                     </select>
                                 </div>
@@ -269,18 +269,18 @@
                 $("#hobby").val(selectHobbyValue).trigger('change')
             }
 
-            $("#campaignId").select2({ maximumInputLength: 3 });
+            $("#campaignName").select2({ maximumInputLength: 3 });
 
-            var selectCampaignIdValue = $("#selectCampaignIdValue").val();
-            if(selectCampaignIdValue && selectCampaignIdValue.indexOf(",") > 0){
-                var list = selectCampaignIdValue.split(",");
+            var selectCampaignNameValue = $("#selectCampaignNameValue").val();
+            if(selectCampaignNameValue && selectCampaignNameValue.indexOf(",") > 0){
+                var list = selectCampaignNameValue.split(",");
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){
                     setkey.push(list[i]);
                 }
-                $("#campaignId").val(setkey).trigger('change')
+                $("#campaignName").val(setkey).trigger('change')
             }else{
-                $("#campaignId").val(selectCampaignIdValue).trigger('change')
+                $("#campaignName").val(selectCampaignNameValue).trigger('change')
             }
         })
         /*]]>*/
@@ -300,11 +300,20 @@
 
         validateMultipleSelect('hobby', 'hobby', 'validateHobby');
 
-        validateMultipleSelect('campaignId', 'campaignId', 'validateCampaignId');
+        validateMultipleSelect('campaignName', 'campaignName', 'validateCampaignName');
 
         var saveBtnda;
         function saveAudience(btn) {
             saveBtnda = Ladda.create(btn);
+            var activityIdList = [];
+           var campaignName =  $("#campaignName").val();
+           for(var i = 0; i< campaignName.length; i ++){
+               var temp = {};
+               temp.id = campaignName[i];
+               activityIdList.push(temp);
+           }
+
+
             var p = {
                 id: $("#id").val().trim(),
                 name: $("#name").val().trim(),
@@ -315,7 +324,7 @@
                 city: $("#city").val().trim(),
                 region: $("#region").val().trim(),
                 hobby: $("#hobby").val().toString().trim(),
-                campaignId: $("#campaignId").val().toString().trim()
+                activityList: activityIdList
             }
             var a = JSON.stringify(p);
             $.ajax({

@@ -19,7 +19,9 @@ public interface AudienceMapper {
 	 * 查找一个Audience
 	 * @return
 	 */
-	@Select("SELECT a.*,b.campaignId FROM T_AUDIENCE a left join T_AUDIENCE_CAMPAIGN b on a.id = b.audienceId WHERE a.id = #{id}")
+	@Select("SELECT U.*, GROUP_CONCAT(DISTINCT(C.id)) campaignName  FROM T_AUDIENCE U LEFT JOIN T_AUDIENCE_CAMPAIGN B ON U.id = B.audienceId " +
+			" LEFT JOIN T_CAMPAIGN C ON B.campaignId = C.id" +
+			" WHERE U.id = #{id}")
 	Audience selectAudience(String id);
 
 	@SelectProvider(type=AudienceQueryProvider.class,method = "selectAudienceList")

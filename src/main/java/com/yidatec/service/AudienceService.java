@@ -84,10 +84,15 @@ public class AudienceService {
 	 * 观众和活动关系表操作
 	 */
 	private void createAudienceCampaign(Audience audience) {
-		AudienceCampaign audienceCampaign = new AudienceCampaign();
-		audienceCampaign.setAudienceId(audience.getId());
-		audienceCampaign.setCampaignId(audience.getCampaignId());
-		audienceCampaignMapper.createAudienceCampaign(audienceCampaign);
+		if(audience.getActivityList() != null){
+			for (int i = 0; i < audience.getActivityList().size(); i++) {
+				Activity activity = audience.getActivityList().get(i);
+				AudienceCampaign audienceCampaign = new AudienceCampaign();
+				audienceCampaign.setAudienceId(audience.getId());
+				audienceCampaign.setCampaignId(activity.getId());
+				audienceCampaignMapper.createAudienceCampaign(audienceCampaign);
+			}
+		}
 	}
 
 }

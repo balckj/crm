@@ -404,9 +404,9 @@ public class ValidateController extends BaseController{
     }
 
 
-    @RequestMapping(value = "/validateCampaignId")
-    public String validateCampaignId(@RequestParam(value="campaignId") String campaignId){
-        if(campaignId == null || campaignId.trim().isEmpty()){
+    @RequestMapping(value = "/validateCampaignName")
+    public String validateCampaignId(@RequestParam(value="campaignName") String campaignName){
+        if(campaignName == null || campaignName.trim().isEmpty()){
             return getErrorJson("必须输入参加的活动");
         }
         return getSuccessJson(null);

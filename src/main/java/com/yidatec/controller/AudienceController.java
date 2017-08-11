@@ -82,24 +82,24 @@ public class AudienceController extends BaseController{
     @ResponseBody
     public Object findAudience(@RequestBody AudienceVO audienceVO)throws Exception{
         List<Audience> audienceList = audienceService.selectAudienceList(audienceVO);
-        if(audienceList != null && audienceList.size() > 0){
-            for (Audience audience : audienceList){
-                String campaignId = audience.getCampaignId();
-                if(!StringUtils.isEmpty(campaignId)){
-                    String[] campaignIds = campaignId.split(",");
-                    String temp = "";
-                    for(int i = 0 ; i < campaignIds.length; i++){
-                        Activity activity = activityService.selectActivity(campaignIds[i]);
-                        if(i != campaignIds.length -1){
-                            temp = temp + activity.getName()  +",";
-                        }else{
-                            temp = temp + activity.getName();
-                        }
-                    }
-                    audience.setCampaignId(temp);// 活动名称
-                }
-            }
-        }
+//        if(audienceList != null && audienceList.size() > 0){
+//            for (Audience audience : audienceList){
+//                String campaignId = audience.getCampaignId();
+//                if(!StringUtils.isEmpty(campaignId)){
+//                    String[] campaignIds = campaignId.split(",");
+//                    String temp = "";
+//                    for(int i = 0 ; i < campaignIds.length; i++){
+//                        Activity activity = activityService.selectActivity(campaignIds[i]);
+//                        if(i != campaignIds.length -1){
+//                            temp = temp + activity.getName()  +",";
+//                        }else{
+//                            temp = temp + activity.getName();
+//                        }
+//                    }
+//                    audience.setCampaignId(temp);// 活动名称
+//                }
+//            }
+//        }
         int count = audienceService.countSelectAudienceList(audienceVO);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("draw", audienceVO.getDraw());

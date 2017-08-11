@@ -367,8 +367,8 @@
             var p = {
                 id: $("#id").val().trim(),
                 name: $("#name").val().trim(),
-                startDate: $("#startDate").val(),
-                endDate:$("#endDate").val(),
+                startDate: $("#startDate").val().replace(' ','T')+":00",
+                endDate:$("#endDate").val().replace(' ','T')+":00",
                 country:$("#country").val(),
                 province:$("#province").val(),
                 city:$("#city").val(),

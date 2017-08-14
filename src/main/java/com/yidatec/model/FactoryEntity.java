@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class FactoryEntity extends BaseModel{
     private String referrer;//推荐人
-    private String factoryName;//企业名称
+    private String name;//企业名称
     private String director;//厂长
 //    private Contact contacts;//联系人
     private List<Contact> userList;//联系人
@@ -60,9 +60,9 @@ public class FactoryEntity extends BaseModel{
         this.referrer = referrer;
     }
 
-    public String getFactoryName() {return factoryName;}
+    public String getName() {return name;}
 
-    public void setFactoryName(String factoryName) {this.factoryName = factoryName;}
+    public void setName(String name) {this.name = name;}
 
     public String getDirector() {
         return director;

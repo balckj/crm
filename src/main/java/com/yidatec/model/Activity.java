@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yidatec.util.CustomLocalDateTime2Serializer;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -16,11 +18,13 @@ public class Activity extends BaseModel{
     @NotBlank(message = "必须输入活动名称", groups = { })
     @Length( max = 200, message = "名称最多由200个字符组成", groups = { })
     private String name;
-    @NotBlank(message = "必须输入开始时间", groups = { })
+    @NotNull(message = "必须输入开始时间", groups = { })
     @JsonSerialize(using = CustomLocalDateTime2Serializer.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:ss")
     private LocalDateTime startDate;
-    @NotBlank(message = "必须输入结束时间", groups = { })
+    @NotNull(message = "必须输入结束时间", groups = { })
     @JsonSerialize(using = CustomLocalDateTime2Serializer.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:ss")
     private LocalDateTime endDate;
     @NotBlank(message = "必须选择国家", groups = { })
     private String country;
@@ -32,7 +36,7 @@ public class Activity extends BaseModel{
     private String region;
     @Length( max = 200, message = "地址最多由200个字符组成", groups = { })
     private String address;
-    private String state;
+    private Integer state;
     //展馆
     @NotBlank(message = "必须选择展馆", groups = { })
     private String exhibitioHall;
@@ -106,11 +110,11 @@ public class Activity extends BaseModel{
         this.address = address;
     }
 
-    public String getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 

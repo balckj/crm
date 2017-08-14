@@ -4,8 +4,6 @@
 <div  th:fragment="vendorAppointmentEdit">
     <link th:href="@{99/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
     <script th:src="@{jquery.koala.js}" type="text/javascript"></script>
-    <!--<link th:href="@{99/css/bootstrap.min.css}" rel="stylesheet"/>-->
-    <!--<link th:href="@{99/font-awesome/css/font-awesome.css}" rel="stylesheet"/>-->
     <link th:href="@{99/css/plugins/iCheck/custom.css}" rel="stylesheet"/>
     <!-- fullcalendar -->
     <link th:href="@{99/css/plugins/fullcalendar/fullcalendar.min.css}" rel="stylesheet"/>
@@ -65,6 +63,7 @@
                                 <div class="col-sm-6">
                                     <select class="form-control m-b" id="vendorType" name="vendorType">
                                         <option th:value="${role.id}" th:text="${role.name}" th:each="role:${roleList}"></option>
+                                        <option value="">工厂</option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -75,8 +74,6 @@
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-6">
                                     <select class="form-control m-b" id="vendorId" name="vendorId">
-                                        <!--<option value="1" selected="selected">供应商名称 1</option>-->
-                                        <!--<option value="2">供应商名称 2</option>-->
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -120,7 +117,7 @@
     <!-- Sweet alert -->
     <script th:src="@{99/js/plugins/sweetalert/sweetalert.min.js}"></script>
     <script th:src="@{me.js}" type="text/javascript"></script>
-    <!--<script th:src="@{vendorAppointmentEdit/vendorAppointmentEdit.js}" type="text/javascript"></script>-->
+
     <script type="text/javascript">
         /*<![CDATA[*/
         /**
@@ -151,12 +148,20 @@
                         $('#calendar').fullCalendar('removeEvents',originalId);
                     },
                     success: function (data) {
-                        if(data.user){
-                            debugger
-                            for(var i = 0; i < data.user.length; i++){
-                                $("#vendorId").append("<option value='"+data.user[i].id+"'>"+data.user[i].name+"</option>");
+                        if(data.type == '2'){
+                            if(data.factory){
+                                for(var i = 0; i < data.factory.length; i++){
+                                    $("#vendorId").append("<option type='2' value='"+data.factory[i].id+"'>"+data.factory[i].factoryName+"</option>");
+                                }
+                            }
+                        }else{
+                            if(data.user){
+                                for(var i = 0; i < data.user.length; i++){
+                                    $("#vendorId").append("<option type='1' value='"+data.user[i].id+"'>"+data.user[i].name+"</option>");
+                                }
                             }
                         }
+
                     }
                 });
             }
@@ -236,11 +241,10 @@
             /* initialize the external events
              -----------------------------------------------------------------*/
             $('#external-events div.external-event').each(function() {
-
                 // store data so the calendar knows to render an event upon drop
                 $(this).data('event', {
                     title: $.trim($(this).text()), // use the element's text as the event title
-                    type: 1,//$(this).attr("id"),
+                    type: "",// $(this).attr("type"),
                     stick: true, // maintain when user navigates (see docs on the renderEvent method)
                     durationEditable:true,
                     editable:true
@@ -289,6 +293,7 @@
                         event.id = generateUUID();
                     }
                     var start = event.start.format('YYYY-MM-DD HH:mm:ss');
+                    event.type = $("#vendorId").find("option:selected").attr("type");
                     save(event.id,event.type,start,null,event.title,event.allDay);
                 },
                 eventResize: function( event, delta, revertFunc, jsEvent, ui, view ){
@@ -296,6 +301,7 @@
                         event.id = generateUUID();
                     }
                     var start = event.start.format('YYYY-MM-DD HH:mm:ss');
+                    event.type = $("#vendorId").find("option:selected").attr("type");
                     save(event.id,event.type,start,"",event.title,event.allDay);
                 },
 
@@ -305,6 +311,7 @@
                     }
                     console.log('eventReceive',event)
                     var start = event.start.format('YYYY-MM-DD HH:mm:ss');
+                    event.type = $("#vendorId").find("option:selected").attr("type");
                     save(event.id,event.type,start,"",event.title,event.allDay,event._id);
                 },
                 eventAllow:function(dropLocation, draggedEvent) {

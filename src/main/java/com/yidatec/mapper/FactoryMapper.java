@@ -36,6 +36,8 @@ public interface FactoryMapper {
     @Select("SELECT * FROM T_FACTORY WHERE id = #{id}")
     FactoryEntity selectFactory(String id);
 
+    @Select("SELECT * FROM T_FACTORY")
+    List<FactoryEntity> getFactoryList();
 
     @Delete("DELETE FROM T_FACTORY_CONTACT  WHERE factoryId =#{factoryId}")
     int deleteFactoryRelation(String factoryId);

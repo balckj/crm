@@ -13,11 +13,11 @@ import java.util.List;
 @Mapper
 public interface FactoryMapper {
 
-    @Insert("INSERT INTO T_FACTORY (id,referrer,factoryName,director,firstOrderTime,country,province,city,region,address,factoryArea,photo,registeredCapital,taxpayerType,fixedEmployeeCount,goodAtIndustry,goodAtMaterial,goodAtArea,platformLevel,valueAddedTaxAccount,taxNumber,state,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{referrer},#{factoryName}," +
+    @Insert("INSERT INTO T_FACTORY (id,referrer,name,director,firstOrderTime,country,province,city,region,address,factoryArea,photo,registeredCapital,taxpayerType,fixedEmployeeCount,goodAtIndustry,goodAtMaterial,goodAtArea,platformLevel,valueAddedTaxAccount,taxNumber,state,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{referrer},#{name}," +
             "#{director},#{firstOrderTime},#{country},#{province},#{city},#{region},#{address},#{factoryArea},#{photo},#{registeredCapital},#{taxpayerType},#{fixedEmployeeCount},#{goodAtIndustry},#{goodAtMaterial},#{goodAtArea},#{platformLevel},#{valueAddedTaxAccount},#{taxNumber},#{state},#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
     int create(FactoryEntity factory);
 
-    @Update("UPDATE T_FACTORY SET `referrer`=#{referrer},factoryName=#{factoryName},director=#{director},firstOrderTime=#{firstOrderTime}," +
+    @Update("UPDATE T_FACTORY SET `referrer`=#{referrer},name=#{name},director=#{director},firstOrderTime=#{firstOrderTime}," +
             "country=#{country},province=#{province},city=#{city},region=#{region},address=#{address},factoryArea=#{factoryArea},photo=#{photo},registeredCapital=#{registeredCapital}," +
             "taxpayerType=#{taxpayerType},fixedEmployeeCount=#{fixedEmployeeCount},goodAtIndustry=#{goodAtIndustry},goodAtMaterial=#{goodAtMaterial},goodAtArea=#{goodAtArea},platformLevel=#{platformLevel},valueAddedTaxAccount=#{valueAddedTaxAccount},taxNumber=#{taxNumber},state=#{state},modifierId=#{modifierId}," +
             "modifyTime=#{modifyTime} WHERE id=#{id}")
@@ -36,6 +36,8 @@ public interface FactoryMapper {
     @Select("SELECT * FROM T_FACTORY WHERE id = #{id}")
     FactoryEntity selectFactory(String id);
 
+    @Select("SELECT * FROM T_FACTORY")
+    List<FactoryEntity> getFactoryList();
 
     @Delete("DELETE FROM T_FACTORY_CONTACT  WHERE factoryId =#{factoryId}")
     int deleteFactoryRelation(String factoryId);

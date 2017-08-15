@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Created by Administrator on 2017/7/21.
@@ -20,11 +21,11 @@ public class Activity extends BaseModel{
     private String name;
     @NotNull(message = "必须输入开始时间", groups = { })
     @JsonSerialize(using = CustomLocalDateTime2Serializer.class)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:ss")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startDate;
     @NotNull(message = "必须输入结束时间", groups = { })
     @JsonSerialize(using = CustomLocalDateTime2Serializer.class)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:ss")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endDate;
     @NotBlank(message = "必须选择国家", groups = { })
     private String country;
@@ -36,7 +37,7 @@ public class Activity extends BaseModel{
     private String region;
     @Length( max = 200, message = "地址最多由200个字符组成", groups = { })
     private String address;
-    private Integer state;
+    private String state;
     //展馆
     @NotBlank(message = "必须选择展馆", groups = { })
     private String exhibitioHall;
@@ -110,11 +111,11 @@ public class Activity extends BaseModel{
         this.address = address;
     }
 
-    public Integer getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(Integer state) {
+    public void setState(String state) {
         this.state = state;
     }
 
@@ -132,5 +133,15 @@ public class Activity extends BaseModel{
 
     public void setSponsor(String sponsor) {
         this.sponsor = sponsor;
+    }
+
+    public String getStartDateStr(){
+        if(startDate == null)return "";
+        return startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
+
+    public String getEndDateStr(){
+        if(endDate == null)return "";
+        return endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 }

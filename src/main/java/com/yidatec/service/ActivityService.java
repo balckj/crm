@@ -32,6 +32,14 @@ public class ActivityService {
         return activityMapper.selectActivityList(activityVO);
     }
 
+    /**
+     * 查询所有活动
+     * @return
+     */
+    public List<Activity> activityList() {
+        return activityMapper.activityList();
+    }
+
     public int countActivityList(ActivityVO activityVO) {
         return activityMapper.countActivityList(activityVO);
     }

@@ -73,7 +73,7 @@
                             <div class="form-group" id="mobilePhoneForm">
                                 <label class="col-sm-2 control-label">项目经理电话<span
                                         style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="mobilePhone" name="mobilePhone" type="text"
+                                <div class="col-sm-4"><input id="mobilePhone" name="mobilePhone" type="number" oninput="if(value.length>11)value=value.slice(0,11)"
                                                              class="form-control" maxlength="11" th:value="${pm}?${pm.mobilePhone}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>

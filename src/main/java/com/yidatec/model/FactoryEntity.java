@@ -1,12 +1,7 @@
 package com.yidatec.model;
 
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,9 +12,10 @@ public class FactoryEntity extends BaseModel{
     @NotBlank(message = "必须输入推荐人", groups = {})
     private String referrer;//推荐人
 
+
     @NotBlank(message = "必须输入企业名称", groups = { })
     @Length( max = 200, message = "名称最多由200个字符组成", groups = { })
-    private String factoryName;//企业名称
+    private String name;//企业名称
 
     @NotBlank(message = "必须输入厂长名称", groups = { })
     @Length( max = 30, message = "名称最多由30个字符组成", groups = { })
@@ -102,9 +98,9 @@ public class FactoryEntity extends BaseModel{
         this.referrer = referrer;
     }
 
-    public String getFactoryName() {return factoryName;}
+    public String getName() {return name;}
 
-    public void setFactoryName(String factoryName) {this.factoryName = factoryName;}
+    public void setName(String name) {this.name = name;}
 
     public String getDirector() {
         return director;

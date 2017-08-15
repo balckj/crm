@@ -8,10 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -38,12 +35,18 @@ public class Audience extends BaseModel {
 	@NotBlank(message = "必须输入兴趣爱好", groups = {})
 	private String hobby;
 
+	@NotNull(message = "必须输入参加的活动", groups = {})
+	@Size(min=1,message = "必须输入参加的活动")
+	private List<Activity> activityList;
+
 	@NotBlank(message = "必须输入国家", groups = {})
 	private String country;
 	private String address;
 	private String province;
 	private String city;
 	private String region;
+
+	private String campaignName;
 
 	public String getName() {
 		return name;
@@ -115,5 +118,21 @@ public class Audience extends BaseModel {
 
 	public void setRegion(String region) {
 		this.region = region;
+	}
+
+	public List<Activity> getActivityList() {
+		return activityList;
+	}
+
+	public void setActivityList(List<Activity> activityList) {
+		this.activityList = activityList;
+	}
+
+	public String getCampaignName() {
+		return campaignName;
+	}
+
+	public void setCampaignName(String campaignName) {
+		this.campaignName = campaignName;
 	}
 }

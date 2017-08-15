@@ -103,6 +103,9 @@ public class DesignerService {
 		if (user.getCaseList() != null){
 			for (int i = 0; i < user.getCaseList().size(); i ++){
 				Case aCase = user.getCaseList().get(i);
+				if(StringUtils.isEmpty(aCase.getName()) || StringUtils.isEmpty(aCase.getPhoto()) ){
+					continue;
+				}
 				String caseId = UUID.randomUUID().toString().toLowerCase();
 				aCase.setId(caseId);
 				aCase.setType(2);

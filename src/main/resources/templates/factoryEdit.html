@@ -70,10 +70,10 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="factoryNameForm"><label class="col-sm-2 control-label">工厂企业名称<span
+                            <div class="form-group" id="nameForm"><label class="col-sm-2 control-label">工厂企业名称<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="factoryName" name="factoryName" type="text" class="form-control"
-                                                             maxlength="20" th:value="${factory}?${factory.factoryName}"/></div>
+                                <div class="col-sm-4"><input id="name" name="name" type="text" class="form-control"
+                                                             maxlength="20" th:value="${factory}?${factory.name}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -1140,7 +1140,7 @@
             var p = {
                 id: $("#id").val(),
                 referrer: $("#referrer").val().trim(),
-                factoryName: $("#factoryName").val().trim(),
+                name: $("#name").val().trim(),
                 director: $("#director").val().trim(),
                 firstOrderTime: $("#firstOrderTime").val(),
                 userList:userList,

@@ -1,5 +1,6 @@
 package com.yidatec.controller;
 
+import com.yidatec.mapper.FactoryMapper;
 import com.yidatec.model.VendorAppointment;
 import com.yidatec.service.ParamService;
 import com.yidatec.service.VendorAppointmentService;
@@ -8,6 +9,7 @@ import com.yidatec.vo.VendorAppointmentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,9 @@ public class VendorAppointmentController extends BaseController{
     VendorAppointmentService vendorAppointmentService;
     @Autowired
     ParamService paramService;
+    @Autowired
+    FactoryMapper factoryMapper;
+
     @RequestMapping("/vendorAppointmentList")
     public String vendorAppointmentList(ModelMap model){
         model.put("roleList",paramService.findRoles(Constants.VENDORAPPOINTMENT_PARAM_ID));
@@ -39,6 +44,8 @@ public class VendorAppointmentController extends BaseController{
     public Object getUserByRoleId(String roleId){
         HashMap<String,Object> map = new HashMap<String,Object>();
         map.put("user",paramService.findUsersByRole(roleId));
+        map.put("factory",factoryMapper.getFactoryList()); // 工厂
+        map.put("type",StringUtils.isEmpty(roleId)?"2":"1");
         return map;
     }
 

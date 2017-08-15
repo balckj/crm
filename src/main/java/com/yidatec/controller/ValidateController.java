@@ -403,6 +403,15 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
+
+    @RequestMapping(value = "/validateCampaignName")
+    public String validateCampaignId(@RequestParam(value="campaignName") String campaignName){
+        if(campaignName == null || campaignName.trim().isEmpty()){
+            return getErrorJson("必须输入参加的活动");
+        }
+        return getSuccessJson(null);
+    }
+
     @RequestMapping(value = "/validateDesignStyle")
     public String validateDesignStyle(@RequestParam(value="designStyle") String designStyle){
         if(designStyle == null || designStyle.trim().isEmpty()){

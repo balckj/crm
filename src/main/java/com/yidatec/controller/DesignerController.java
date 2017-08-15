@@ -2,7 +2,6 @@ package com.yidatec.controller;
 
 import com.yidatec.mapper.UserCaseMapper;
 import com.yidatec.mapper.UserMapper;
-import com.yidatec.model.Case;
 import com.yidatec.model.Dictionary;
 import com.yidatec.model.User;
 import com.yidatec.model.UserValidateDesigner;
@@ -30,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-//import com.yidatec.util.ConfigProperties;
 
 /**
  * Created by jrw on 时间2017-08-04.

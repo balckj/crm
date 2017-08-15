@@ -1,7 +1,12 @@
 package com.yidatec.model;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -67,11 +72,14 @@ public class FactoryEntity extends BaseModel{
     @NotBlank(message = "必须输入平台等级", groups = { })
     private String platformLevel;//平台等级
 
-
+    @Length(max = 100, message = "增值税发票账号最多由100个字符组成", groups = { })
     private String valueAddedTaxAccount;//增值税发票账号
+    @Length(max = 100, message = "税号最多由100个字符组成", groups = { })
     private String taxNumber;//税号
+
     private Integer state;
 
+    @Valid
     private List<Case> caseList;//案例列表
 
     public List<Case> getCaseList() {

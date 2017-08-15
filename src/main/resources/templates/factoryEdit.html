@@ -531,6 +531,8 @@
 
         var casephoto=[];
         var photolist=[];
+        var delCasephotoList=[];
+        var delPhotoList=[];
         //js
         var previewTemplate = "<div class=\"dz-preview dz-file-preview\" onclick='showPicture(this)'>\n  " +
             "  <div class=\"dz-details\">\n" +
@@ -626,25 +628,27 @@
                     });
                     this.on("removedfile",function(file){
                         //删除文件时触发的方法
+                        debugger;
                         for(var i=0;i<casephoto[total].length;i++){
                             if(casephoto[total][i]==file.serverName){
                                 casephoto[total].splice(i,1);
+                                delCasephotoList.push(file.serverName);
                                 break;
                             }
                         }
-                        $.ajax({
-                            type: 'POST',
-                            url: 'filedelete',
-                            data: {name: file.serverName},
-                            dataType: 'html',
-                            success: function(data){
-                                var rep = JSON.parse(data);
-                                if(rep.code == 200)
-                                {
-                                    $("#caseCount").val(total+1);
-                                }
-                            }
-                        });
+//                        $.ajax({
+//                            type: 'POST',
+//                            url: 'filedelete',
+//                            data: {name: file.serverName},
+//                            dataType: 'html',
+//                            success: function(data){
+//                                var rep = JSON.parse(data);
+//                                if(rep.code == 200)
+//                                {
+//                                    $("#caseCount").val(total+1);
+//                                }
+//                            }
+//                        });
                     });
                 }
             });
@@ -950,28 +954,30 @@
                     });
                     this.on("removedfile",function(file){
                         //删除文件时触发的方法
+                        debugger;
                         if(file.serverName==undefined){
                             file.serverName=file.name;
                         }
                         for(var j=0;j<casephoto[index].length;j++){
                             if(casephoto[index][j]==file.serverName){
                                 casephoto[index].splice(j,1);
+                                delCasephotoList.push(file.serverName);
                                 break;
                             }
                         }
-                        $.ajax({
-                            type: 'POST',
-                            url: 'filedelete',
-                            data: {name: file.serverName},
-                            dataType: 'html',
-                            success: function(data){
-                                var rep = JSON.parse(data);
-                                if(rep.code == 200)
-                                {
-                                    $("#caseCount").val(casephoto.length);
-                                }
-                            }
-                        });
+//                        $.ajax({
+//                            type: 'POST',
+//                            url: 'filedelete',
+//                            data: {name: file.serverName},
+//                            dataType: 'html',
+//                            success: function(data){
+//                                var rep = JSON.parse(data);
+//                                if(rep.code == 200)
+//                                {
+//                                    $("#caseCount").val(casephoto.length);
+//                                }
+//                            }
+//                        });
                     });
                 }
             });
@@ -1027,8 +1033,10 @@
                     for(var i=0;i<photolist.length;i++){
                         if(photolist[i]==file.serverName){
                             photolist.splice(i,1);
+                            delPhotoList.push(file.serverName);
                             break;
                         }
+
                     }
 
                 });
@@ -1048,6 +1056,22 @@
 //                                $("#photoCounter").text( "(" + photo_counter + ")");
 //                            }
 
+                }
+            });
+        }
+
+        function delcasePhoto(fileName){
+            $.ajax({
+                type: 'POST',
+                url: 'filedelete',
+                data: {name: fileName},
+                dataType: 'html',
+                success: function(data){
+                    var rep = JSON.parse(data);
+                    if(rep.code == 200)
+                    {
+                        $("#caseCount").val(casephoto.length);
+                    }
                 }
             });
         }
@@ -1167,7 +1191,7 @@
 //                email: $("#email").val().trim(),
             };
             console.info(p);
-            debugger;
+
             var a = JSON.stringify(p);
             $.ajax({
                 url: 'saveFactory',
@@ -1197,13 +1221,17 @@
                             }
                         }
                     }else{
-
                         loadPage("factoryList",function(){
                             saveBtnda.stop();
                         });
-                        for(var i=0;i<photolist.length;i++){
-                            delphotoList(photolist[i]);
+                        debugger;
+                        for(var i=0;i<delPhotoList.length;i++){
+                            delphotoList(delPhotoList[i]);
+                        };
+                        for(var i=0;i<delCasephotoList.length;i++){
+                            delcasePhoto(delCasephotoList[i]);
                         }
+
                     }
                 }
             });

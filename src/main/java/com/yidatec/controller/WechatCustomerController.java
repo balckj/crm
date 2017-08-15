@@ -26,7 +26,7 @@ import java.util.UUID;
  */
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/mobile")
+
 public class WechatCustomerController extends BaseController{
 
     @Autowired
@@ -117,5 +117,9 @@ public class WechatCustomerController extends BaseController{
         return getSuccessJson(null);
     }
 
-
+    @RequestMapping("/getCustomerContact")
+    public Object getContact(@Validated @RequestBody String id){
+        customerService.getContact(id);
+        return getSuccessJson(null);
+    }
 }

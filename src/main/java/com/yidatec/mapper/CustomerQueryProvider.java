@@ -20,12 +20,12 @@ public class CustomerQueryProvider {
             sb.append(" AND D.nature = #{nature}");
         }
         if(!StringUtils.isEmpty(customerVO.getAddress())){
-            sb.append(" AND D.address = #{address}");
+            sb.append(" AND D.address LIKE CONCAT('%',#{address},'%')");
         }
         if(!StringUtils.isEmpty(customerVO.getCreatorId())){
             sb.append(" AND D.creatorId = #{creatorId}");
         }
-        sb.append(" LIMIT #{start},#{length}");
+        sb.append(" ORDER BY D.modifyTime DESC LIMIT #{start},#{length}");
         return sb.toString();
     }
     public String countCustomer(final CustomerVO customerVO)

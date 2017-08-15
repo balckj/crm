@@ -32,8 +32,8 @@
 
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="factoryName" class="control-label">工厂名称</label>
-                        <input type="text" placeholder="包含您的输入值的类型" id="factoryName" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="name" class="control-label">工厂名称</label>
+                        <input type="text" placeholder="包含您的输入值的类型" id="name" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -129,29 +129,12 @@
                     contentType: 'application/json; charset=utf-8',
 
                     "data": function (d) {
-                        var roles =[];
-//                    $('input[name="role"]:checked').each(function(){
-                        if($('#role').val() != '')
-                            roles.push({id:$('#role').val()});
-//                    });
                         var p = {};
                         p.draw = d.draw;
                         p.length = d.length;
                         p.start = d.start;
-
-//                    p.nick = $('#nick').val();
-                        p.name = $('#name').val();
-                        p.mobilePhone = $('#mobilePhone').val();
-//                    p.totalLessons = $('#totalLessons').val();
-//                    p.height = $('#height').val();
-//                    p.weight = $('#weight').val();
-//                    p.target = $('#target').val();
-//                    p.experience = $('#experience').val();
-
-                        p.state = $('#state').val();
-
-                        p.gender = $('#gender').val();
-                        p.roleList = roles;
+                        p.factoryName=$("#factoryName").val();
+                        p.address=$("#address").val();
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -167,7 +150,7 @@
                         },
                     },
                     {"data": "referrer", "width": "100px"},
-                    {"data": "factoryName", "width": "100px"},
+                    {"data": "name", "width": "100px"},
                     {"data": "director", "width": "100px"},
                     {"data": "firstOrderTime", "width": "100px"},
                     {"data": "country", "width": "100px"},
@@ -243,10 +226,10 @@
                         last: "最后一页"
                     },
                     "sSearch": "搜索",
-                    zeroRecords: "没有用户",//table tbody内容为空时，tbody的内容。
+                    zeroRecords: "没有工厂",//table tbody内容为空时，tbody的内容。
                     //下面三者构成了总体的左下角的内容。
-                    info: "当前显示第_START_到第_END_个用户 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
-                    infoEmpty: "0个用户",//筛选为空时左下角的显示。
+                    info: "当前显示第_START_到第_END_个工厂 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    infoEmpty: "0个工厂",//筛选为空时左下角的显示。
                     infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
                 }
                 , "lengthChange": true

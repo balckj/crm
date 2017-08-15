@@ -174,7 +174,7 @@
                                                 <label class="control-label">电话<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <input type="text" name="mobilePhone" id="mobilePhone0" class="form-control input-sm" maxlength="20"/>
+                                                    <input type="number" oninput="if(value.length>11)value=value.slice(0,11)" name="mobilePhone" id="mobilePhone0" class="form-control input-sm" maxlength="20"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -219,7 +219,7 @@
                                                 <label class="control-label">电话<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <input type="text" th:attr="id='mobilePhone'+${terStat.index}, name='mobilePhone'" class="form-control input-sm" maxlength="20" th:value="${contact.mobilePhone}"/>
+                                                    <input type="number" oninput="if(value.length>11)value=value.slice(0,11)"  th:attr="id='mobilePhone'+${terStat.index}, name='mobilePhone'" class="form-control input-sm" maxlength="20" th:value="${contact.mobilePhone}"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -255,7 +255,7 @@
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group"><label class="col-sm-2 control-label">用户状态</label>
+                            <div class="form-group"><label class="col-sm-2 control-label">状态</label>
                                 <div class="col-sm-4">
                                     <div class="radio radio-inline radio-info">
                                         <input type="radio" name="state" id="s1" value="1" th:checked="${customer}?${customer.state eq 1}:'true'"/>
@@ -484,42 +484,27 @@
                     $(this).attr("selected",true);
                 }
             });
+
+            var total = $("#contactList").children().length;
+            for (var i=0;i<total;i++)
+            {
+                validate("name"+i,"name","validateUsername");
+                validate2('mobilePhone'+i, 'mobile', {isEdit: false}, 'validateMobile');
+                validate('email'+i, 'email', 'validateEmail');
+            }
+
+            validate('name', 'name', 'validateCompanyName');
+            validateSelect('industry', 'industry', 'validateIndustry');
+            validateSelect('nature', 'nature', 'validateNature');
+            validateSelect('country', 'country', 'validateCountry');
+            validateSelect('province', 'province', 'validateProvince');
+            validateSelect('city', 'city', 'validateCity');
+            validateSelect('region', 'region', 'validateRegion');
+            validate('address', 'address', 'validateAddress');
+            validateSelect('level', 'level', 'validateLevel');
         });
 
-        $("#setting").addClass("active");
-        $("#userEdit").addClass("active");
 
-        $('#birthday').datepicker({
-            startView: 1,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'cn',
-        });
-
-
-        validate('name', 'name', 'validateCompanyName');
-        validateSelect('industry', 'industry', 'validateIndustry');
-        validateSelect('nature', 'nature', 'validateNature');
-        validateSelect('country', 'country', 'validateCountry');
-        validateSelect('province', 'province', 'validateProvince');
-        validateSelect('city', 'city', 'validateCity');
-        validateSelect('region', 'region', 'validateRegion');
-        validateSelect('level', 'level', 'validateLevel');
-        validate('address', 'address', 'validateAddress');
-
-
-
-
-        var total = $("#contactList").children().length;
-        for (var i=0;i<total;i++)
-        {
-            validate("name"+i,"name","validateUsername");
-            validate2('mobilePhone'+i, 'mobile', {isEdit: false}, 'validateMobile');
-            validate('email'+i, 'email', 'validateEmail');
-        }
 
 
         var saveBtnda;

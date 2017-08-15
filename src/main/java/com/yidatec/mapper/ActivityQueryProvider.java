@@ -27,7 +27,7 @@ public class ActivityQueryProvider {
         if(!StringUtils.isEmpty(activityVO.getCreatorId())){
             sb.append(" AND D.creatorId = #{creatorId}");
         }
-        sb.append(" ORDER BY modifyTime DESC");
+        sb.append(" ORDER BY D.modifyTime DESC");
         sb.append(" LIMIT #{start},#{length}");
         return sb.toString();
     }

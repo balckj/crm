@@ -13,8 +13,8 @@ public class FactoryQueryProvider {
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT B.name as referrer,A.* FROM T_FACTORY A LEFT JOIN T_USER B ON A.referrer = B.id");
 
-        if(!StringUtils.isEmpty(factory.getFactoryName())){
-            sb.append(" AND D.factoryName LIKE CONCAT('%',#{factoryName},'%')");
+        if(!StringUtils.isEmpty(factory.getName())){
+            sb.append(" AND A.name LIKE CONCAT('%',#{name},'%')");
         }
 //        if (!StringUtils.isEmpty(factory.getUserList())){
 //            if(!StringUtils.isEmpty(factory.getUserList().get(0).getName())){
@@ -26,8 +26,9 @@ public class FactoryQueryProvider {
 //            sb.append(" AND D.companyId = #{companyId}");
 //        }
         if(!StringUtils.isEmpty(factory.getAddress())){
-            sb.append(" AND D.address LIKE CONCAT('%',#{address},'%')");
+            sb.append(" AND A.address LIKE CONCAT('%',#{address},'%')");
         }
+        sb.append(" ORDER BY A.modifyTime DESC");
         sb.append(" LIMIT #{start},#{length}");
         return sb.toString();
     }
@@ -36,8 +37,8 @@ public class FactoryQueryProvider {
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT count(*) from T_FACTORY  as D WHERE 1=1");
 
-        if(!StringUtils.isEmpty(factory.getFactoryName())){
-            sb.append(" AND D.factoryName LIKE CONCAT('%',#{factoryName},'%')");
+        if(!StringUtils.isEmpty(factory.getName())){
+            sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
         }
 //        if(!StringUtils.isEmpty(factory.getUserList().get(0).getName())){
 //            sb.append(" AND D.companyId = #{companyId}");

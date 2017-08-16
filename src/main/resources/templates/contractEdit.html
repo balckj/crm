@@ -5,7 +5,7 @@
     <!--<link th:href="@{inspinia_admin/css/plugins/cropper/cropper.min.css}" rel="stylesheet"/>-->
     <!--<link th:href="@{inspinia_admin/css/plugins/select2/select2.min.css}" rel="stylesheet"/>-->
     <!--<link th:href="@{inspinia_admin/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet"/>-->
-    <link th:href="@{inspinia_admin/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
+    <link th:href="@{99/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
     <script th:src="@{jquery.koala.js}" type="text/javascript"></script>
 
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -33,36 +33,30 @@
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
                             <!--<input type="hidden" name="id" id="id" th:value="${user}?${user.id}"/>-->
-                            <!--<div class="form-group" id="nickForm"><label class="col-sm-2 control-label">昵称</label>
-                                <div class="col-sm-4"><input id="nick" name="nick" type="text" class="form-control"
-                                                             maxlength="20" th:value="${user}? ${user.nick}"/></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>-->
-                            <!--<div class="hr-line-dashed"></div>-->
-                            <div class="form-group" id="companyNameForm"><label class="col-sm-2 control-label">合同签署日期<span
+                            <div class="form-group" id="signDayForm"><label class="col-sm-2 control-label">合同签署日期<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="startDate" name="startDate" type="text"
+                                <div class="col-sm-4"><input id="signDay" name="signDay" type="text"
                                                              class="form-control" maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="contractNameForm"><label class="col-sm-2 control-label">合同名称<span
+                            <div class="form-group" id="nameForm"><label class="col-sm-2 control-label">合同名称<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="contractName" name="contractName" type="text"
+                                <div class="col-sm-4"><input id="name" name="name" type="text"
                                                              class="form-control" maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="contractIdForm"><label class="col-sm-2 control-label">合同编码<span
+                            <div class="form-group" id="codeForm"><label class="col-sm-2 control-label">合同编码<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="contractId" name="contractId" type="text"
+                                <div class="col-sm-4"><input id="code" name="code" type="text"
                                                              class="form-control" maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="productIdForm"><label class="col-sm-2 control-label">项目编号<span
+                            <div class="form-group" id="projectIdForm"><label class="col-sm-2 control-label">项目编号<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="productId" name="productId" type="text"
+                                <div class="col-sm-4"><input id="projectId" name="projectId" type="text"
                                                              class="form-control" maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
@@ -74,16 +68,16 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="activityForm"><label class="col-sm-2 control-label">市场活动<span
+                            <div class="form-group" id="campaignIdForm"><label class="col-sm-2 control-label">市场活动<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="activity" name="activity" type="text"
+                                <div class="col-sm-4"><input id="campaignId" name="campaignId" type="text"
                                                              class="form-control" maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="boothIdForm"><label class="col-sm-2 control-label">展位号<span
+                            <div class="form-group" id="exhibitionNumberForm"><label class="col-sm-2 control-label">展位号<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="boothId" name="boothId" type="text"
+                                <div class="col-sm-4"><input id="exhibitionNumber" name="exhibitionNumber" type="text"
                                                              class="form-control" maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
@@ -95,9 +89,9 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="contractTotalForm"><label class="col-sm-2 control-label">合同总价<span
+                            <div class="form-group" id="amountForm"><label class="col-sm-2 control-label">合同总价<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="contractTotal" name="contractTotal" type="text"
+                                <div class="col-sm-4"><input id="amount" name="amount" type="text"
                                                              class="form-control" maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
@@ -106,7 +100,7 @@
                                 <label class="col-sm-2 control-label">合同分类<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="contractType">
+                                    <select class="form-control m-b" name="category" id="category">
                                         <option value="" selected="selected">未选择</option>
                                         <option>option 1</option>
                                         <option>option 2</option>
@@ -127,7 +121,7 @@
                                 <label class="col-sm-2 control-label">付款方式<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="payType">
+                                    <select class="form-control m-b" name="paymentMethod" id="paymentMethod">
                                         <option value="" selected="selected">未选择</option>
                                         <option>option 1</option>
                                         <option>option 2</option>
@@ -137,42 +131,42 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="initialPaymentTimeForm">
                                 <label class="col-sm-2 control-label">首付时间<span
                                         style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="firstDate" name="firstDate" type="text"
+                                <div class="col-sm-4"><input id="initialPaymentTime" name="initialPaymentTime" type="text"
                                                              class="form-control" maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="middlePaymentTimeForm">
                                 <label class="col-sm-2 control-label">中款时间<span
                                         style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="middleDate" name="middleDate" type="text"
+                                <div class="col-sm-4"><input id="middlePaymentTime" name="middlePaymentTime" type="text"
                                                              class="form-control" maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="finalPaymentTimeForm">
                                 <label class="col-sm-2 control-label">尾款时间<span
                                         style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="endDate" name="endDate" type="text"
+                                <div class="col-sm-4"><input id="finalPaymentTime" name="finalPaymentTime" type="text"
                                                              class="form-control" maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="ticketinfoForm"><label class="col-sm-2 control-label">开票信息<span
+                            <div class="form-group" id="billingInfoForm"><label class="col-sm-2 control-label">开票信息<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="ticketinfo" name="ticketinfo" type="text"
+                                <div class="col-sm-4"><input id="billingInfo" name="billingInfo" type="text"
                                                              class="form-control" maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="firstPartyForm">
                                 <label class="col-sm-2 control-label">合同甲方<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="contractPartyA">
+                                    <select class="form-control m-b" name="firstParty" id="firstParty">
                                         <option value="" selected="selected">未选择</option>
                                         <option>option 1</option>
                                         <option>option 2</option>
@@ -180,13 +174,14 @@
                                         <option>option 4</option>
                                     </select>
                                 </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="secondPartyForm">
                                 <label class="col-sm-2 control-label">合同乙方<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="contractPartyB">
+                                    <select class="form-control m-b" name="secondParty" id="secondParty">
                                         <option value="" selected="selected">未选择</option>
                                         <option>option 1</option>
                                         <option>option 2</option>
@@ -194,6 +189,7 @@
                                         <option>option 4</option>
                                     </select>
                                 </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">

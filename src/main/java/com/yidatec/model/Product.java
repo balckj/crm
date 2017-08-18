@@ -34,7 +34,7 @@ public class Product extends BaseModel {
 	private String way;
 
 	@NotNull(message = "必须输入低价", groups = { })
-	@Digits(integer = 18 ,message = "低价价整数位不能超过18位,小数位必须是两位", fraction = 2 /*scale*/)
+	@Digits(integer = 18 ,message = "低价整数位不能超过18位,小数位必须是两位", fraction = 2 /*scale*/)
 	private Float low;
 
 	@NotNull(message = "必须输入中价", groups = { })

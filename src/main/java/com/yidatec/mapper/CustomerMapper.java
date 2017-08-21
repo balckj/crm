@@ -23,10 +23,10 @@ public interface CustomerMapper {
 
 
     @SelectProvider(type=com.yidatec.mapper.CustomerQueryProvider.class,method = "selectCustomer")
-    List<Customer> selectCustomerList(CustomerVO dictionaryVO);
+    List<Customer> selectCustomerList(CustomerVO customerVO);
 
     @SelectProvider(type=com.yidatec.mapper.CustomerQueryProvider.class,method = "countCustomer")
-    int countCustomerList(CustomerVO dictionaryVO);
+    int countCustomerList(CustomerVO customerVO);
 
     @Insert("INSERT INTO T_CUSTOMER (id,name,industry,nature,country,province,city,region,address,level,state,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{name}," +
             "#{industry},#{nature},#{country},#{province},#{city},#{region},#{address},#{level},#{state},#{creatorId},#{createTime},#{modifierId},#{modifyTime})")

@@ -79,4 +79,19 @@ public interface Constants {
      * 平台等级
      */
     public static final String PLATFORM_LEVEL = "level";
+
+    /**
+     * 设计进度
+     */
+    public static final String DESIGN_PROGRESS = "designProgress";
+
+    /**
+     * 项目进度
+     */
+    public static final String PROJECT_PROGRESS = "projectProgress";
+
+    /**
+     * 工厂进度
+     */
+    public static final String FACTORY_PROGRESS = "factoryProgress";
 }

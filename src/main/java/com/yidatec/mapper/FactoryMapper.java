@@ -33,6 +33,9 @@ public interface FactoryMapper {
     @SelectProvider(type=com.yidatec.mapper.FactoryQueryProvider.class,method = "countFactory")
     int countFactoryList(FactoryVO factory);
 
+    @SelectProvider(type=com.yidatec.mapper.FactoryQueryProvider.class,method = "selectFactoryListForProject")
+    List<FactoryEntity> selectFactoryListForProject(FactoryVO factory);
+
     @Select("SELECT * FROM T_FACTORY WHERE id = #{id}")
     FactoryEntity selectFactory(String id);
 

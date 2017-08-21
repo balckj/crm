@@ -85,6 +85,10 @@ public class FactoryService {
         return factoryMapper.selectFactoryList(factory);
     }
 
+    public List<FactoryEntity> selectFactoryListForProject() {
+        return factoryMapper.getFactoryList();
+    }
+
     public int countFactoryList(FactoryVO factory) {
         return factoryMapper.countFactoryList(factory);
     }

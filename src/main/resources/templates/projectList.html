@@ -32,32 +32,32 @@
 
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="projectName" class="control-label">项目名称</label>
-                        <input type="text" placeholder="包含您的输入值的项目名称" id="projectName" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="name" class="control-label">项目名称</label>
+                        <input type="text" placeholder="包含您的输入值的项目名称" id="name" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="marketActivities" class="control-label">市场活动</label>
-                        <input type="text" placeholder="包含您的输入值的市场活动" id="marketActivities" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="campaignId" class="control-label">市场活动</label>
+                        <input type="text" placeholder="包含您的输入值的市场活动" id="campaignId" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="projectCode" class="control-label">项目编号</label>
-                        <input type="text" placeholder="包含您的输入值的项目编号" id="projectCode" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="code" class="control-label">项目编号</label>
+                        <input type="text" placeholder="包含您的输入值的项目编号" id="code" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="importance" class="control-label">重要程度</label>
-                        <input type="text" placeholder="包含您的输入值的项目编号" id="importance" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="degreeOfImportance" class="control-label">重要程度</label>
+                        <input type="text" placeholder="包含您的输入值的项目编号" id="degreeOfImportance" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="projectManager" class="control-label">项目经理</label>
-                        <input type="text" placeholder="包含您的输入值的项目经理" id="projectManager" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="pmId" class="control-label">项目经理</label>
+                        <input type="text" placeholder="包含您的输入值的项目经理" id="pmId" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -79,6 +79,7 @@
                                 <tr>
                                     <th>操作</th>
                                     <th>项目名称</th>
+                                    <th>类型</th>
                                     <th>客户</th>
                                     <th>市场活动</th>
                                     <th>项目编号</th>
@@ -90,18 +91,15 @@
                                     <th>项目成本</th>
                                     <th>重要程度</th>
                                     <th>项目潜力</th>
-                                    <th>设计师</th>
                                     <th>设计进度</th>
                                     <th>项目经理</th>
                                     <th>项目进度</th>
-                                    <th>工厂</th>
                                     <th>工厂进度</th>
                                     <th>项目评分</th>
                                     <th>设计评分</th>
                                     <th>项目经理评分</th>
                                     <th>开发销售</th>
                                     <th>跟进销售</th>
-                                    <th>项目图片</th>
                                     <th>状态</th>
                                     <th>创建时间</th>
                                     <th>修改时间</th>
@@ -127,35 +125,26 @@
         projecttable = $('#projecttable').DataTable({
             "sScrollX": true,
             "ajax": {
-                "url": "findproject",
+                "url": "findProject",
                 "dataType": 'json',
                 "type": "POST",
                 contentType: 'application/json; charset=utf-8',
 
                 "data": function (d) {
-                    var roles =[];
-//                    $('input[name="role"]:checked').each(function(){
-                        if($('#role').val() != '')
-                        roles.push({id:$('#role').val()});
-//                    });
+//                    var roles =[];
+////                    $('input[name="role"]:checked').each(function(){
+//                        if($('#role').val() != '')
+//                        roles.push({id:$('#role').val()});
+////                    });
                     var p = {};
                     p.draw = d.draw;
                     p.length = d.length;
                     p.start = d.start;
-
-//                    p.nick = $('#nick').val();
                     p.name = $('#name').val();
-                    p.mobilePhone = $('#mobilePhone').val();
-//                    p.totalLessons = $('#totalLessons').val();
-//                    p.height = $('#height').val();
-//                    p.weight = $('#weight').val();
-//                    p.target = $('#target').val();
-//                    p.experience = $('#experience').val();
-
-                    p.state = $('#state').val();
-
-                    p.gender = $('#gender').val();
-                    p.roleList = roles;
+                    p.campaignId = $('#campaignId').val();
+                    p.code = $('#code').val();
+                    p.degreeOfImportance = $('#degreeOfImportance').val();
+                    p.pmId = $('#pmId').val();
                     var a = JSON.stringify(p);
                     return a;
                 }
@@ -173,31 +162,44 @@
                     },
                 },
 
-                {"data": "projectName", "width": "100px"},
-                {"data": "customer", "width": "100px"},
-                {"data": "marketActivities", "width": "100px"},
-                {"data": "projectCode", "width": "100px"},
+                {"data": "name", "width": "100px"},
+                {"data": "type", "width": "100px"},
+                {"data": "customerId", "width": "100px"},
+                {"data": "campaignId", "width": "100px"},
+                {"data": "code", "width": "100px"},
                 {"data": "budget", "width": "100px"},
-                {"data": "boothNumber", "width": "140px"},
+                {"data": "exhibitionNumber", "width": "140px"},
                 {"data": "area", "width": "140px"},
-                {"data": "buildTime", "width": "140px"},
-                {"data": "noShowTime", "width": "140px"},
-                {"data": "projectCost", "width": "140px"},
-                {"data": "importance", "width": "140px"},
-                {"data": "projectPotential", "width": "140px"},
-                {"data": "designer", "width": "140px"},
-                {"data": "designSchedule", "width": "140px"},
-                {"data": "projectManager", "width": "140px"},
-                {"data": "projectSchedule", "width": "140px"},
-                {"data": "factory", "width": "140px"},
-                {"data": "factorySchedule", "width": "140px"},
-                {"data": "projectScoring", "width": "140px"},
+                {"data": "setupTime", "width": "140px"},
+                {"data": "tearDownTime", "width": "140px"},
+                {"data": "cost", "width": "140px"},
+                {"data": "degreeOfImportance", "width": "140px"},
+                {"data": "potential", "width": "140px"},
+                {"data": "designProgress", "width": "140px"},
+                {"data": "pmId", "width": "140px"},
+                {"data": "projectProgress", "width": "140px"},
+                {"data": "factoryProgress", "width": "140px"},
+                {"data": "projectScore", "width": "140px"},
                 {"data": "designScore", "width": "140px"},
-                {"data": "projectManagerScore", "width": "140px"},
-                {"data": "developmentSales", "width": "140px"},
-                {"data": "followUpSales", "width": "140px"},
-                {"data": "projectPicture", "width": "140px"},
-                {"data": "state", "width": "140px"},
+                {"data": "pmScore", "width": "140px"},
+                {"data": "developSaleId", "width": "140px"},
+                {"data": "traceSaleId", "width": "140px"},
+                {
+                    "data": "state", "width": "40px",
+                    "render": function (data, type, full, meta) {
+                        if (data == 1) {
+                            return '可用';
+                        }
+                        else if (data == 2) {
+                            return '锁定';
+                        }
+                        else if (data == 3) {
+                            return '禁用';
+                        } else {
+                            return '';
+                        }
+                    }
+                },
                 {"data": "createTime", "width": "140px"},
                 {"data": "modifyTime", "width": "140px"}
             ]

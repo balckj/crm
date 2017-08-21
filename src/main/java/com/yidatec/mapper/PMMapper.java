@@ -26,6 +26,9 @@ public interface PMMapper {
 	@SelectProvider(type=com.yidatec.mapper.PMQueryProvider.class,method = "countUserByRolePM")
 	int countUserByRolePM(UserVO userVO);
 
+	@SelectProvider(type=com.yidatec.mapper.PMQueryProvider.class,method = "selectPMforProject")
+	List<User> selectPMforProject(UserVO userVO);
+
 	@Insert("INSERT INTO T_USER (id,`referrer`,`name`,`nameEN`,mobilePhone,password,wechat,email,englishAbility,country,province,city,address,region,birthday,previous,experience,goodAtIndustry,goodAtArea,state," +
 			"creatorId,createTime,modifierId,modifyTime) VALUES (" +
 			"#{id},#{referrer},#{name},#{nameEN},#{mobilePhone},#{password},#{wechat},#{email},#{englishAbility},#{country},#{province},#{city},#{address},#{region},#{birthday},#{previous},#{experience},#{goodAtIndustry},#{goodAtArea},#{state}," +

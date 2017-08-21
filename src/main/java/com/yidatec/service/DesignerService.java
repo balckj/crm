@@ -60,6 +60,12 @@ public class DesignerService {
 		return  designerMapper.selectUserByRoleDesigner(userVO);
 	}
 
+	public List<User> selectDesignerforProject(UserVO userVO) {
+		Param param = paramService.findParam(Constants.DESIGNER_PARAM_ID);
+		userVO.setParaRoleIDS(param.getValue());
+		return  designerMapper.selectDesignerforProject(userVO);
+	}
+
 	/**
 	 * 查询Designer
 	 *

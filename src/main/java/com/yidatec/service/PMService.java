@@ -56,6 +56,12 @@ public class PMService {
 		return  pMMapper.selectUserByRolePM(userVO);
 	}
 
+	public List<User> selectPMforProject(UserVO userVO) {
+		Param param = paramService.findParam(Constants.PM_PARAM_ID);
+		userVO.setParaRoleIDS(param.getValue());
+		return  pMMapper.selectPMforProject(userVO);
+	}
+
 	/**
 	 * 查询PM
 	 *

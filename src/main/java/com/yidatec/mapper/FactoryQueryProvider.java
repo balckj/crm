@@ -48,4 +48,11 @@ public class FactoryQueryProvider {
         }
         return sb.toString();
     }
+
+    public String selectFactoryListForProject(final FactoryVO factory)
+    {
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM T_FACTORY A ");
+        return sb.toString();
+    }
 }

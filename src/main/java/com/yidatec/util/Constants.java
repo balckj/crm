@@ -94,4 +94,19 @@ public interface Constants {
      * 成本中心
      */
     public static final String COST_CENTER = "costCenter";
+
+    /**
+     * 设计进度
+     */
+    public static final String DESIGN_PROGRESS = "designProgress";
+
+    /**
+     * 项目进度
+     */
+    public static final String PROJECT_PROGRESS = "projectProgress";
+
+    /**
+     * 工厂进度
+     */
+    public static final String FACTORY_PROGRESS = "factoryProgress";
 }

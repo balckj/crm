@@ -33,7 +33,7 @@ public class SequenceService {
         return ym+"-"+sequence;
     }
 
-    public String geneateContractSequence(String type,String projectCode){
+    public String generateContractSequence(String type,String projectCode){
         int a = sequenceMapper.generateSequence(projectCode);
         String sequence = "";
         if(a<10){

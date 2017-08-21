@@ -618,8 +618,9 @@
 
         var casephoto=[];
         var delFilesList = [];
+        var total = 1;
         function addCase1(){
-            var total = $("#caseList").children().length;
+
             var row =
                 " <div>"
                 +"<div id='line"+total+ "' class='hr-line-dashed'></div>"
@@ -644,6 +645,7 @@
             $("#caseList").append(row);
 
             initDropzone(total);
+            total++;
         }
 
         function initDropzone(index) {

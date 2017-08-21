@@ -2,9 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <div  th:fragment="contractEdit">
-    <!--<link th:href="@{inspinia_admin/css/plugins/cropper/cropper.min.css}" rel="stylesheet"/>-->
-    <!--<link th:href="@{inspinia_admin/css/plugins/select2/select2.min.css}" rel="stylesheet"/>-->
-    <!--<link th:href="@{inspinia_admin/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet"/>-->
+    
     <link th:href="@{99/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
     <script th:src="@{jquery.koala.js}" type="text/javascript"></script>
 
@@ -32,69 +30,106 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
-                            <!--<input type="hidden" name="id" id="id" th:value="${user}?${user.id}"/>-->
-                            <div class="form-group" id="signDayForm"><label class="col-sm-2 control-label">合同签署日期<span
+                            <input type="hidden" name="id" id="id" th:value="${contract}?${contract.id}"/>
+
+                            <div class="form-group" id="signDayForm">
+                                <label class="col-sm-2 control-label">合同签署日期<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="signDay" name="signDay" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="signDay" name="signDay" type="text" readonly="readonly" th:value="${contract}?${contract.signDay}"
+                                                             class="form-control" maxlength="200" />
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="nameForm"><label class="col-sm-2 control-label">合同名称<span
+                            <div class="form-group" id="nameForm">
+                                <label class="col-sm-2 control-label">合同名称<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="name" name="name" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="name" name="name" type="text" th:value="${contract}?${contract.name}"
+                                                             class="form-control" maxlength="200" />
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="codeForm"><label class="col-sm-2 control-label">合同编码<span
+                            <div class="form-group" id="codeForm">
+                                <label class="col-sm-2 control-label">合同编码<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="code" name="code" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="code" name="code" type="text" readonly="readonly" th:value="${contract}?${contract.code}"
+                                                             class="form-control" maxlength="200" />
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="projectIdForm"><label class="col-sm-2 control-label">项目编号<span
+                            <div class="form-group" id="projectIdForm">
+                                <label class="col-sm-2 control-label">项目编号<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="projectId" name="projectId" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="projectId" name="projectId" type="text" readonly="readonly" th:value="${contract}?${contract.projectId}"
+                                                             class="form-control" maxlength="200" />
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="productNameForm"><label class="col-sm-2 control-label">项目名称<span
+                            <div class="form-group" id="productNameForm">
+                                <label class="col-sm-2 control-label">项目名称<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="productName" name="productName" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="productName" name="productName" placeholder="请选择项目名称" readonly="readonly" type="text" th:value="${contract}?${contract.productName}"
+                                                             class="form-control" maxlength="200" />
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="campaignIdForm"><label class="col-sm-2 control-label">市场活动<span
+                            <div class="form-group" id="campaignIdForm">
+                                <label class="col-sm-2 control-label">市场活动<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="campaignId" name="campaignId" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="campaignId" name="campaignId" type="text" th:value="${contract}?${contract.campaignId}"
+                                                             class="form-control" maxlength="200" />
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="exhibitionNumberForm"><label class="col-sm-2 control-label">展位号<span
+                            <div class="form-group" id="exhibitionNumberForm">
+                                <label class="col-sm-2 control-label">展位号<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="exhibitionNumber" name="exhibitionNumber" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="exhibitionNumber" name="exhibitionNumber" type="number" th:value="${contract}?${contract.exhibitionNumber}"
+                                                             class="form-control"  oninput="if(value.length>30)value=value.slice(0,0)"/>
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="areaForm"><label class="col-sm-2 control-label">面积<span
+                            <div class="form-group" id="areaForm">
+                                <label class="col-sm-2 control-label">面积<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="area" name="area" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="area" name="area" type="text" th:value="${contract}?${contract.area}"
+                                                             class="form-control" maxlength="200" />
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="amountForm"><label class="col-sm-2 control-label">合同总价<span
+                            <div class="form-group" id="amountForm">
+                                <label class="col-sm-2 control-label">合同总价<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="amount" name="amount" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="amount" name="amount" type="text" th:value="${contract}?${contract.amount}"
+                                                             class="form-control" maxlength="200" />
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">合同分类<span
@@ -102,65 +137,84 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="category" id="category">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
+                                        <option value="C">销售合同</option>
+                                        <option value="S">供应商合同-主办方</option>
+                                        <option value="D">供应商合同-设计师</option>
+                                        <option value="F">供应商合同-工厂</option>
+                                        <option value="P">供应商合同-项目经理</option>
                                     </select>
                                 </div>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="taxlForm"><label class="col-sm-2 control-label">税<span
+                            <div class="form-group" id="taxForm">
+                                <label class="col-sm-2 control-label">税<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="tax" name="tax" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="tax" name="tax" type="text" th:value="${contract}?${contract.tax}"
+                                                             class="form-control" maxlength="200" />
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="contractPaymentMethodForm">
                                 <label class="col-sm-2 control-label">付款方式<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="paymentMethod" id="paymentMethod">
+                                    <select class="form-control m-b" name="contractPaymentMethod" id="contractPaymentMethod">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
+                                        <option value="5.5">5.5</option>
+                                        <option value="7.3">7.3</option>
+                                        <option value="6.4">6.4</option>
                                     </select>
                                 </div>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="initialPaymentTimeForm">
                                 <label class="col-sm-2 control-label">首付时间<span
                                         style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="initialPaymentTime" name="initialPaymentTime" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="initialPaymentTime" name="initialPaymentTime" type="text"  readonly="readonly" th:value="${contract}?${contract.initialPaymentTime}"
+                                                             class="form-control" maxlength="200" />
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="middlePaymentTimeForm">
                                 <label class="col-sm-2 control-label">中款时间<span
                                         style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="middlePaymentTime" name="middlePaymentTime" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="middlePaymentTime" name="middlePaymentTime" type="text" readonly="readonly" th:value="${contract}?${contract.middlePaymentTime}"
+                                                             class="form-control" maxlength="200" />
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="finalPaymentTimeForm">
                                 <label class="col-sm-2 control-label">尾款时间<span
                                         style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="finalPaymentTime" name="finalPaymentTime" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="finalPaymentTime" name="finalPaymentTime" type="text"  readonly="readonly" th:value="${contract}?${contract.finalPaymentTime}"
+                                                             class="form-control" maxlength="200" />
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="billingInfoForm"><label class="col-sm-2 control-label">开票信息<span
+                            <div class="form-group" id="billingInfoForm">
+                                <label class="col-sm-2 control-label">开票信息<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="billingInfo" name="billingInfo" type="text"
-                                                             class="form-control" maxlength="200" /></div>
+                                <div class="col-sm-4">
+                                    <input id="billingInfo" name="billingInfo" type="text" th:value="${contract}?${contract.billingInfo}"
+                                                             class="form-control" maxlength="200" />
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="firstPartyForm">
                                 <label class="col-sm-2 control-label">合同甲方<span
@@ -168,14 +222,12 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="firstParty" id="firstParty">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
+                                        <option th:value="${firstParty.id}" th:text="${firstParty.name}" th:each="firstParty:${firstPartyList}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="secondPartyForm">
                                 <label class="col-sm-2 control-label">合同乙方<span
@@ -183,90 +235,36 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="secondParty" id="secondParty">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
+                                        <option th:value="${secondParty.id}" th:text="${secondParty.name}" th:each="secondParty:${secondPartyList}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">款项类型<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">台账</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="moneyType">
-                                        <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                    </select>
+                                    <input id="ledgerListInput" name="ledgerListInput" type="text" th:value="${contract}?${contract.ledgerListInput}"
+                                           class="form-control"  onclick="ledgerClick()" readonly="readonly" placeholder="请选择"/>
                                 </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                            <label class="col-sm-2 control-label">支付方式<span
-                                    style="color:#ed5565;">*</span></label>
-                            <div class="col-sm-4">
-                                <select class="form-control m-b" name="paymentType">
-                                    <option value="" selected="selected">未选择</option>
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
-                                </select>
-                            </div>
-                        </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">成本中心<span
-                                        style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4">
-                                    <select class="form-control m-b" name="costCenter">
-                                        <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">付款时间<span
-                                        style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="payDate" name="payDate" type="text"
-                                                             class="form-control" maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">经办人</label>
-                                <div class="col-sm-4"><input id="handler" name="handler" type="text"
-                                                             class="form-control" maxlength="15" /></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">变更原因</label>
-                                <div class="col-sm-4"><input id="changeReason" name="changeReason" type="text"
-                                                             class="form-control" maxlength="15" /></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
+
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">备注</label>
-                                <div class="col-sm-4"><input id="remarks" name="remarks" type="text"
-                                                             class="form-control" maxlength="15" /></div>
+                                <div class="col-sm-4">
+                                    <input id="remarks" name="remarks" type="text" th:value="${contract}?${contract.remarks}"
+                                                             class="form-control" maxlength="15" />
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            <div class="hr-line-dashed"></div>
 
+                            <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button id="saveBtn" class="btn ladda-button btn-w-m btn-primary" data-style="zoom-in" type="button" onclick="saveUser(this);">
+                                    <button id="saveBtn" class="btn ladda-button btn-w-m btn-primary" data-style="zoom-in" type="button" onclick="saveContract(this);">
                                         <span class="ladda-label">保&nbsp;&nbsp;存</span>
                                     </button>
                                 </div>
@@ -278,147 +276,520 @@
             </div>
         </div>
     </div>
-    <!-- Image cropper -->
-    <!--<script th:src="@{inspinia_admin/js/plugins/cropper/cropper.min.js}"></script>-->
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="ledgerModal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog " style="width:95%;"  role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 >台账填写</h3>
+                </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-content">
+                                    <div class="form-group" style="overflow-y:scroll;height:300px;">
+
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <table class="table table-condensed" id="ledgerList">
+                                                    <tr>
+                                                        <td>
+                                                            <div id="moneyType0Form">
+                                                                    <label class="control-label">款项类型<span
+                                                                            style="color:#ed5565;">*</span></label>
+                                                                    <div >
+                                                                        <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="moneyType" id="moneyType0">
+                                                                            <!--<option value="" selected="selected">未选择</option>-->
+                                                                            <!--<option th:value="${moneyType.id}" th:text="${moneyType.value}" th:each="moneyType:${moneyTypeList}"></option>-->
+                                                                            <!--<option >管理费</option>-->
+                                                                        </select>
+                                                                    </div>
+                                                                    <label class=" control-label" style="text-align: left"></label>
+                                                                </div>
+                                                        </td>
+                                                        <td>
+                                                            <div id="paymentMethod0Form">
+                                                                    <label class="control-label">支付方式<span
+                                                                            style="color:#ed5565;">*</span></label>
+                                                                    <div>
+                                                                        <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="paymentMethod" id="paymentMethod0">
+                                                                            <!--<option value="" selected="selected">未选择</option>-->
+                                                                            <!--<option th:value="${paymentMethod.id}" th:text="${paymentMethod.value}" th:each="paymentMethod:${paymentMethodList}"></option>-->
+                                                                        </select>
+                                                                    </div>
+                                                                    <label class=" control-label" style="text-align: left"></label>
+                                                                </div>
+                                                        </td>
+                                                        <td>
+                                                            <div id="costCenter0Form">
+                                                                    <label class="control-label">成本中心<span
+                                                                            style="color:#ed5565;">*</span></label>
+                                                                    <div>
+                                                                        <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="costCenter" id="costCenter0">
+                                                                            <!--<option value="" selected="selected">未选择</option>-->
+                                                                            <!--<option th:value="${costCenter.id}" th:text="${costCenter.value}" th:each="costCenter:${costCenterList}"></option>-->
+                                                                        </select>
+                                                                    </div>
+                                                                    <label class=" control-label" style="text-align: left"></label>
+                                                                </div>
+                                                        </td>
+                                                        <td>
+                                                            <div id="paymentTime0Form">
+                                                                    <label class="control-label">付款时间<span
+                                                                            style="color:#ed5565;">*</span></label>
+                                                                    <div>
+                                                                        <input type="text" name="paymentTime" id="paymentTime0" class="form-control input-sm" maxlength="50" readonly="readonly"/>
+                                                                    </div>
+                                                                    <label class="control-label" style="text-align: left"></label>
+                                                                </div>
+                                                        </td>
+                                                        <td>
+                                                            <div id="paymentAmount0Form">
+                                                                    <label class="control-label">付款金额<span
+                                                                            style="color:#ed5565;">*</span></label>
+                                                                    <div>
+                                                                        <input type="text"  name="paymentAmount" id="paymentAmount0" class="form-control input-sm" oninput="if(value.length>18)value=value.slice(0,18)"/>
+                                                                    </div>
+                                                                    <label class="control-label" style="text-align: left"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div id="operator0Form">
+                                                                    <label class="control-label">经办人<span
+                                                                            style="color:#ed5565;">*</span></label>
+                                                                    <div>
+                                                                        <input type="text" name="operator" id="operator0" class="form-control input-sm" maxlength="30"/>
+                                                                    </div>
+                                                                    <label class="control-label" style="text-align: left"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div id="reasonForChange0Form">
+                                                                    <label class="control-label">变更原因</label>
+                                                                    <div>
+                                                                        <input type="text" name="reasonForChange" id="reasonForChange0" class="form-control input-sm" maxlength="50"/>
+                                                                    </div>
+                                                                    <label class=" control-label" style="text-align: left"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td >
+                                                            <button class="btn btn-primary btn-sm" type="button" style="width: 100%;margin-top: 23px;" onclick="add();">增&nbsp;&nbsp;加</button>
+                                                        </td>
+                                                    </tr>
+
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+                    <button type="button" class="btn ladda-button btn-primary" onclick="checkLedgerInfo(this);"><span class="ladda-label">确定</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="projectTable" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 >请选择一个项目</h3>
+                </div>
+                <div class="row">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content table-responsive">
+                            <table id="usertable" class="table table-striped table-bordered table-hover dataTables-example">
+                                <thead>
+                                <tr>
+                                    <th>操作</th>
+                                    <th>项目名称</th>
+                                    <th>项目编号</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn ladda-button btn-primary" onclick="projectClick(this);"><span class="ladda-label">确定</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Data picker -->
     <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
 
-    <!-- Select2 -->
-    <!--<script th:src="@{inspinia_admin/js/plugins/select2/select2.full.min.js}"></script>-->
+     <!--Select2 -->
+    <script th:src="@{99/js/plugins/select2/select2.full.min.js}"></script>
 
-    <!-- Chosen -->
-    <!--<script th:src="@{inspinia_admin/js/plugins/chosen/chosen.jquery.js}"></script>-->
     <script th:src="@{me.js}" type="text/javascript"></script>
 
     <script type="text/javascript">
         /*<![CDATA[*/
-        $("#setting").addClass("active");
-        $("#userEdit").addClass("active");
+        $("#contractEdit").addClass("active");
+        var format = "yyyy-mm-dd";
+        var moneyTypeStr = "<option value=\"\" selected=\"selected\">未选择</option>";
+        var paymentMethodStr = "<option value=\"\" selected=\"selected\">未选择</option>";
+        var costCenterStr = "<option value=\"\" selected=\"selected\">未选择</option>";
+        var projectTable = null;
+        $(function () {
+            datepickerInit("signDay",format);
+            datepickerInit("initialPaymentTime",format);
+            datepickerInit("middlePaymentTime",format);
+            datepickerInit("finalPaymentTime",format);
+            ledgerInitList();// 台账list
+            // 各种验证
+            validate('signDay', 'signDay', 'validateSignDay');
+            validate('name', 'name', 'validateContractName');
+            validate('code', 'code', 'validateContractCode');
+            validate('projectId', 'projectId', 'validateProjectId');
+            validate('projectName', 'projectName', 'validateProjectName');
+            validate('campaignId', 'campaignId', 'validateCampaignId');
+            validate('exhibitionNumber', 'exhibitionNumber', 'validateExhibitionNumber');
+            validate('area', 'area', 'validateArea');
+            validate('amount', 'amount', 'validatAemount');
+            validateSelect('category', 'category', 'validatCategory');
+            validate('tax', 'tax', 'validatTax');
+            validate('contractPaymentMethod', 'contractPaymentMethod', 'validatContractPaymentMethod');
+            validate('initialPaymentTime', 'initialPaymentTime', 'validatInitialPaymentTime');
+            validate('middlePaymentTime', 'middlePaymentTime', 'validatMiddlePaymentTime');
+            validate('finalPaymentTime', 'finalPaymentTime', 'validatFinalPaymentTime');
+            validate('billingInfo', 'billingInfo', 'validatBillingInfo');
+            validateSelect('firstParty', 'firstParty', 'validatFirstParty');
+            validateSelect('secondParty', 'secondParty', 'validatSecondParty');
+            validate('ledgerInput', 'ledgerInput', 'validatLedgerInput');
 
-        $('#startDate').datepicker({
-            startView: 1,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'cn',
-        });
+            // create ledger check
+            validateSelect('moneyType0', 'moneyType', 'validatMoneyType');
+            validateSelect('paymentMethod0', 'paymentMethod', 'validatPaymentMethod');
+            validateSelect('costCenter0', 'costCenter', 'validatCostCenter');
+            validateSelect('paymentTime0', 'paymentTime', 'validatPaymentTime');
+            validate('paymentAmount0', 'paymentAmount', 'validatPaymentAmount');
+            datepickerInit("paymentTime0",format);
+            validate('operator0', 'operator', 'validatPerator');
+        })
 
-        $('#endDate').datepicker({
-            startView: 1,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'cn',
-        });
+        function datepickerInit(id,format) {
+            $('#'+id).datepicker({
+                startView: 1,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: format,
+                language: 'cn',
+            });
+        }
 
-        $('#firstDate').datepicker({
-            startView: 1,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'cn',
-        });
+        // show项目table
+        function projectClick() {
+            $('#projectTable').modal('show');
+        }
 
-        $('#middleDate').datepicker({
-            startView: 1,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'cn',
-        });
+        /***
+         *
+         * 项目相关
+         *
+         **/
+        function projectTableInit() {
+            projectTable = $('#projectTable').DataTable({
+                "sScrollX": true,
+                "ajax": {
+                    "url": "findProjectList",
+                    "dataType": 'json',
+                    "type": "POST",
+                    "async":"true",
+                    contentType: 'application/json; charset=utf-8',
+                },
+                "columns": [
+                    {
+                        "data": "id", "width": "80px"
+                        ,
+                        "render": function (data, type, row) {
+                            var tid = $("#trainerIds").val();
+                            if(tid.indexOf(row.id)>=0) {
+                                return "<input type='checkbox' name='tra' checked='checked' value='" + row.id + "'/>";
+                            }else{
+                                return "<input type='checkbox' name='tra' value='" + row.id + "'/>";
+                            }
+                        },
+                    },
+                    {"data": "name", "width": "120px"},
+                    {"projectId": "mobilePhone", "width": "120px"},
+//                    {"data": "studentCount", "width": "120px"},
+                ]
+                , language: {
+                    lengthMenu: '每页显示 <select class="form-control input-sm">'
+                    + '<option value="100">100</option>'
+                    + '</select> 个项目'
+                    ,
+                    processing: "载入中 ...",//处理页面数据的时候的显示
+                    paginate: {//分页的样式文本内容。
+                        previous: "上一页",
+                        next: "下一页",
+                        first: "第一页",
+                        last: "最后一页"
+                    },
+                    "sSearch": "搜索",
+                    zeroRecords: "没有项目",//table tbody内容为空时，tbody的内容。
+                    //下面三者构成了总体的左下角的内容。
+                    info: "当前显示第_START_到第_END_个项目 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    infoEmpty: "0个项目",//筛选为空时左下角的显示。
+                    infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
+                }
+//                , "lengthChange": true
+                , "bFilter": true //搜索栏
+                , "bAutoWidth": true  //自适应宽度
+                , "sPaginationType": "full_numbers" //分页，一共两种样式，full_numbers和two_button(默认)
+                , "bJQueryUI": false //开关，是否启用JQueryUI风格
+                , "bSort": false
+                , "processing": true
+                , "serverSide": true
+                , "paging": false
+            });
+        }
 
-        $('#payDate').datepicker({
-            startView: 1,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'cn',
-        });
+        /***
+         *
+         * 台账相关
+         *
+        **/
+        // 添加台账
+        function add() {
+            var number = $("#ledgerList tr").length;
+            var row ="<tr>\n" +
+                "      <td>\n" +
+                "          <div id=\"moneyType"+number+"Form\">\n" +
+                "              <div >\n" +
+                "                  <select class=\"form-control input-sm\" style=\"padding-top: 4px;width:95px;\" name=\"moneyType\" id=\"moneyType"+number+"\">\n" +
+                "                      "+ moneyTypeStr +
+                "                  </select>\n" +
+                "              </div>\n" +
+                "              <label class=\" control-label\" style=\"text-align: left\"></label>\n" +
+                "          </div>\n" +
+                "      </td>\n" +
+                "      <td>\n" +
+                "          <div id=\"paymentMethod"+number+"Form\">\n" +
+                "              <div>\n" +
+                "                  <select class=\"form-control input-sm\" style=\"padding-top: 4px;width:95px;\" name=\"paymentMethod\" id=\"paymentMethod"+number+"\">\n" +
+                "                      "+ paymentMethodStr +
+                "                  </select>\n" +
+                "              </div>\n" +
+                "              <label class=\" control-label\" style=\"text-align: left\"></label>\n" +
+                "          </div>\n" +
+                "      </td>\n" +
+                "      <td>\n" +
+                "          <div id=\"costCenter"+number+"Form\">\n" +
+                "              <div>\n" +
+                "                  <select class=\"form-control input-sm\" style=\"padding-top: 4px;width:95px;\" name=\"costCenter\" id=\"costCenter"+number+"\">\n" +
+                "                      "+ costCenterStr +
+                "                  </select>\n" +
+                "              </div>\n" +
+                "              <label class=\" control-label\" style=\"text-align: left\"></label>\n" +
+                "          </div>\n" +
+                "      </td>\n" +
+                "      <td>\n" +
+                "          <div id=\"paymentTime"+number+"Form\">\n" +
+                "              <div>\n" +
+                "                  <input type=\"text\" name=\"paymentTime\" id=\"paymentTime"+number+"\" class=\"form-control input-sm\" maxlength=\"50\" readonly=\"readonly\"/>\n" +
+                "              </div>\n" +
+                "              <label class=\"control-label\" style=\"text-align: left\"></label>\n" +
+                "          </div>\n" +
+                "      </td>\n" +
+                "      <td>\n" +
+                "          <div id=\"paymentAmount"+number+"Form\">\n" +
+                "              <div>\n" +
+                "                  <input type=\"text\"  name=\"paymentAmount\" id=\"paymentAmount"+number+"\" class=\"form-control input-sm\" oninput=\"if(value.length>18)value=value.slice(0,18)\"/>\n" +
+                "              </div>\n" +
+                "              <label class=\"control-label\" style=\"text-align: left\"></label>\n" +
+                "          </div>\n" +
+                "      </td>\n" +
+                "      <td>\n" +
+                "          <div id=\"operator"+number+"Form\">\n" +
+                "              <div>\n" +
+                "                  <input type=\"text\" name=\"operator\" id=\"operator"+number+"\" class=\"form-control input-sm\" maxlength=\"30\"/>\n" +
+                "              </div>\n" +
+                "              <label class=\"control-label\" style=\"text-align: left\"></label>\n" +
+                "          </div>\n" +
+                "      </td>\n" +
+                "      <td>\n" +
+                "          <div id=\"reasonForChange"+number+"Form\">\n" +
+                "              <div>\n" +
+                "                  <input type=\"text\" name=\"reasonForChange\" id=\"reasonForChange"+number+"\" class=\"form-control input-sm\" maxlength=\"50\"/>\n" +
+                "              </div>\n" +
+                "              <label class=\" control-label\" style=\"text-align: left\"></label>\n" +
+                "          </div>\n" +
+                "      </td>\n" +
+                "      <td >\n" +
+                "          <button class=\"btn btn-primary btn-sm\" onclick=\"delBtnData(this)\" type=\"button\" style=\"width: 100%;\" onclick=\"add();\">删&nbsp;&nbsp;除</button>\n" +
+                "      </td>\n" +
+                "  </tr>";
+            $("#ledgerList").append(row);
 
+            validateSelect('moneyType'+number, 'moneyType', 'validatMoneyType');
+            validateSelect('paymentMethod'+number, 'paymentMethod', 'validatPaymentMethod');
+            validateSelect('costCenter'+number, 'costCenter', 'validatCostCenter');
+            validateSelect('paymentTime'+number, 'paymentTime', 'validatPaymentTime');
+            validate('paymentAmount'+number, 'paymentAmount', 'validatPaymentAmount');
+            datepickerInit('paymentTime'+number,format);
+            validate('operator'+number, 'operator', 'validatPerator');
+            var id =$("#id").val();
+            if(id) validate('reasonForChange'+number, 'reasonForChange', 'validatValidatReasonForChange');
+            number++;
 
-        validate('name', 'name', 'validateUserName');
-        validate2('mobilePhone', 'mobile', {isEdit: false}, 'validateMobile');
-        validate('password', 'password', 'validatePassword');
-        //        validate('totalLessons', 'integer', 'validateInteger');
-        validate('email', 'email', 'validateEmail');
+        }
 
+        // 删除添加行
+        function delBtnData(obj){
+            $(obj).parent().parent().remove();
+            updateId();
+        }
 
-        /*var $image = $(".image-crop > img")
-         $($image).cropper({
-         aspectRatio: 16 / 16,
-         preview: ".img-preview",
-         done: function (data) {
+        // 更新添加台账Form和input的Id
+        function updateId() {
+            $("#ledgerList tr").each(function(index){
+                $(this).find($("div[id^='moneyType']")).attr("id","moneyType"+index+"Form");
+                $(this).find($("select[id^='moneyType']")).attr("id","moneyType"+index);
 
-         }
-         });
+                $(this).find($("div[id^='paymentMethod']")).attr("id","paymentMethod"+index+"Form");
+                $(this).find($("select[id^='paymentMethod']")).attr("id","paymentMethod"+index);
 
-         var $inputImage = $("#inputImage");
-         if (window.FileReader) {
-         $inputImage.change(function () {
-         var fileReader = new FileReader(),
-         files = this.files,
-         file;
+                $(this).find($("div[id^='costCenter']")).attr("id","costCenter"+index+"Form");
+                $(this).find($("select[id^='costCenter']")).attr("id","costCenter"+index);
 
-         if (!files.length) {
-         return;
-         }
+                $(this).find($("div[id^='paymentTime']")).attr("id","paymentTime"+index+"Form");
+                $(this).find($("input[id^='paymentTime']")).attr("id","paymentTime"+index);
+                $(this).find($("div[id^='paymentAmount']")).attr("id","paymentAmount"+index+"Form");
+                $(this).find($("input[id^='paymentAmount']")).attr("id","paymentAmount"+index);
+                $(this).find($("div[id^='operator']")).attr("id","operator"+index+"Form");
+                $(this).find($("input[id^='operator']")).attr("id","operator"+index);
 
-         file = files[0];
+                $(this).find($("div[id^='reasonForChange']")).attr("id","reasonForChange"+index+"Form");
+                $(this).find($("input[id^='reasonForChange']")).attr("id","reasonForChange"+index);
 
-         if (/^image\/\w+$/.test(file.type)) {
-         fileReader.readAsDataURL(file);
-         fileReader.onload = function () {
-         $inputImage.val("");
-         $image.cropper("reset", true).cropper("replace", this.result);
-         };
-         } else {
-         showMessage("请选择一个用于头像的图像");
-         }
-         });
-         } else {
-         $inputImage.addClass("hide");
-         }
+            })
+        }
 
-         $('.chosen-select').chosen({width: "100%"});
+        function ledgerClick() {
+            $('#ledgerModal').modal('show');
+        }
 
-         $("#download").click(function () {
-         window.open($image.cropper("getDataURL"));
-         });
+        // 加载台账3个list
+        function ledgerInitList() {
+            $.ajax({
+                url: 'ledgerInitList',
+                async: true,
+                type: 'POST',
+//                data: a,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                timeout: 300000,
+                beforeSend: function () {
+                },
+                error: function (result) {
+                    alert("通信错误！");
+                },
+                success: function (data) {
+                    if (data.moneyTypeList) {
+                        for (var a= 0;a < data.moneyTypeList.length;a++) {
+                            var moneyType = data.moneyTypeList[a];
+                            moneyTypeStr += '<option value="'+moneyType.id+'">'+moneyType.value+'</option>';
+                        }
+                        $("#moneyType0").html(moneyTypeStr);
+                    }
+                    if (data.paymentMethodList) {
+                        for (var a= 0;a < data.paymentMethodList.length;a++) {
+                            var paymentMethod = data.paymentMethodList[a];
+                            paymentMethodStr += '<option value="'+paymentMethod.id+'">'+paymentMethod.value+'</option>';
+                        }
+                        $("#paymentMethod0").html(paymentMethodStr);
+                    }
+                    if (data.costCenterList) {
+                        for (var a= 0;a < data.costCenterList.length;a++) {
+                            var costCenter = data.costCenterList[a];
+                            costCenterStr += '<option value="'+costCenter.id+'">'+costCenter.value+'</option>';
+                        }
+                        $("#costCenter0").html(costCenterStr);
+                    }
+                }
+            });
+        }
 
-         $("#zoomIn").click(function () {
-         $image.cropper("zoom", 0.1);
-         });
+        // 台账后台验证
+        function checkLedgerInfo() {
+            var ledgerList = [];
+            $("#ledgerList tr").each(function(index){
+                moneyType = $(this).find("select[name=moneyType]").val();
+                paymentMethod = $(this).find("select[name=paymentMethod]").val();
+                costCenter = $(this).find("select[name=costCenter]").val();
+                paymentTime = $(this).find("input[name=paymentTime]").val();
+                paymentAmount = $(this).find("input[name=paymentAmount]").val();
+                operator = $(this).find("input[name=operator]").val();
+                reasonForChange = $(this).find("input[name=reasonForChange]").val();
+                ledgerList.push({
+                    "moneyType":moneyType,
+                    "paymentMethod":paymentMethod,
+                    "costCenter":costCenter,
+                    "paymentTime":paymentTime,
+                    "paymentAmount":paymentAmount,
+                    "operator":operator,
+                    "reasonForChange":reasonForChange
+                })
+            })
+            var p = {
+                ledgerList: ledgerList
+            };
+            var a = JSON.stringify(p);
+            $.ajax({
+                url: 'checkLedgerInfo',
+                async: true,
+                type: 'POST',
+                data: a,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                timeout: 300000,
+                beforeSend: function () {
+                },
+                error: function (result) {
+                    alert("通信错误！");
+                },
+                success: function (data) {
+                    if (data.res == undefined) {
+                        for (var p in data) {
+                            for (var p in data) {
+                                var tempField = data[p].field;
+                                if(tempField.startsWith("ledgerList[")){
+                                    data[p].field= tempField.split(".")[1]+tempField.substring(tempField.indexOf("[")+1,tempField.indexOf("]"));
+                                }
+                                var tmp = $("#" + data[p].field).parent().next();
 
-         $("#zoomOut").click(function () {
-         $image.cropper("zoom", -0.1);
-         });
-
-         $("#rotateLeft").click(function () {
-         $image.cropper("rotate", 45);
-         });
-
-         $("#rotateRight").click(function () {
-         $image.cropper("rotate", -45);
-         });
-
-         $("#setDrag").click(function () {
-         $image.cropper("setDragMode", "crop");
-         });*/
+                                if (tmp.text() == '') {
+                                    $("#" + data[p].field + "Form").addClass("has-error")
+                                    var tmp = $("#" + data[p].field).parent().next();
+                                    tmp.html(data[p].defaultMessage);
+                                }
+                            }
+                        }
+                        $("#ledgerListInput").val("")
+                    }else{
+                        $("#ledgerListInput").val("已填写台账");
+                        $('#ledgerModal').modal('hide');
+                    }
+                    return ledgerList;
+                }
+            });
+        }
 
         var saveBtnda;
-        function saveUser(btn) {
+        function saveContract(btn) {
             saveBtnda = Ladda.create( btn );
             var roles = [];
             $('input[name="role"]:checked').each(function () {
@@ -431,18 +802,14 @@
                 mobilePhone: $("#mobilePhone").val().trim(),
                 password: $("#password").val(),
                 roleList: roles,
-//                totalLessons: $("#totalLessons").val().trim(),
 
                 state: $("input[name='state']:checked").val(),
                 gender: $("input[name='gender']:checked").val(),
                 email: $("#email").val().trim(),
-
-
-
             };
             var a = JSON.stringify(p);
             $.ajax({
-                url: 'saveUser',
+                url: 'saveContract',
                 async: true,
                 type: 'POST',
                 data: a,
@@ -469,7 +836,7 @@
                         }
                     }else{
 
-                        loadPage("userList",function(){
+                        loadPage("ContractList",function(){
                             saveBtnda.stop();
                         });
                     }

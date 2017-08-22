@@ -31,6 +31,10 @@ public class ProjectQueryProvider {
         if(!StringUtils.isEmpty(projectVO.getPmId())){
             sb.append(" AND D.pmId = #{pmId}");
         }
+        //
+        if(!StringUtils.isEmpty(projectVO.getSearch())){
+            sb.append(" AND D.name LIKE CONCAT('%',#{search},'%') OR D.code LIKE CONCAT('%',#{search},'%')");
+        }
         sb.append(" ORDER BY D.modifyTime DESC LIMIT #{start},#{length}");
         return sb.toString();
     }

@@ -81,6 +81,21 @@ public interface Constants {
     public static final String PLATFORM_LEVEL = "level";
 
     /**
+     * 款项类型
+     */
+    public static final String MONEY_TYPE = "moneyType";
+
+    /**
+     * 支付方式
+     */
+    public static final String PAYMENT_METHOD = "paymentMethod";
+
+    /**
+     * 成本中心
+     */
+    public static final String COST_CENTER = "costCenter";
+
+    /**
      * 设计进度
      */
     public static final String DESIGN_PROGRESS = "designProgress";

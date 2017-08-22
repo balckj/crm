@@ -407,7 +407,7 @@ public class ValidateController extends BaseController{
 
 
     @RequestMapping(value = "/validateCampaignName")
-    public String validateCampaignId(@RequestParam(value="campaignName") String campaignName){
+    public String validateCampaignName(@RequestParam(value="campaignName") String campaignName){
         if(campaignName == null || campaignName.trim().isEmpty()){
             return getErrorJson("必须输入参加的活动");
         }
@@ -426,6 +426,223 @@ public class ValidateController extends BaseController{
     public String validatePlatformLevel(@RequestParam(value="platformLevel") String platformLevel){
         if(platformLevel == null || platformLevel.trim().isEmpty()){
             return getErrorJson("必须输入平台级别");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateSignDay")
+    public String validateSignDay(@RequestParam(value="signDay") String signDay){
+        if(signDay == null || signDay.trim().isEmpty()){
+            return getErrorJson("必须输入合同签署日期");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateContractName")
+    public String validateContractName(@RequestParam(value="name") String name){
+        if(name == null || name.trim().isEmpty()){
+            return getErrorJson("必须输入合同名称");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateContractCode")
+    public String validateContractCode(@RequestParam(value="code") String code){
+        if(code == null || code.trim().isEmpty()){
+            return getErrorJson("必须输入合同编码");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateProjectId")
+    public String validateProjectId(@RequestParam(value="projectId") String projectId){
+        if(projectId == null || projectId.trim().isEmpty()){
+            return getErrorJson("必须输入项目编码");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateProjectName")
+    public String validateProjectName(@RequestParam(value="projectName") String projectName){
+        if(projectName == null || projectName.trim().isEmpty()){
+            return getErrorJson("必须输入项目名称");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateCampaignId")
+    public String validateCampaignId(@RequestParam(value="campaignId") String campaignId){
+        if(campaignId == null || campaignId.trim().isEmpty()){
+            return getErrorJson("必须输入市场活动");
+        }
+        return getSuccessJson(null);
+    }
+
+
+    @RequestMapping(value = "/validateExhibitionNumber")
+    public String validateExhibitionNumber(@RequestParam(value="exhibitionNumber") String exhibitionNumber){
+        if(exhibitionNumber == null || exhibitionNumber.trim().isEmpty()){
+            return getErrorJson("必须输入展位号");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateArea")
+    public String validateArea(@RequestParam(value="area") String area){
+        if(area == null || area.trim().isEmpty()){
+            return getErrorJson("必须输入面积");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatAemount")
+    public String validatAemount(@RequestParam(value="amount") String amount){
+        if(amount == null || amount.trim().isEmpty()){
+            return getErrorJson("必须输入合同工总价");
+        }
+        boolean res2 = amount.matches("^[0-9]+(.[0-9]{2})?$");
+        if(!res2)
+            if(!res2)
+                return getErrorJson("合同总价整数位不能超过18位,小数位必须是两位");
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatCategory")
+    public String validatCategory(@RequestParam(value="category") String category){
+        if(category == null || category.trim().isEmpty()){
+            return getErrorJson("必须输入合同分类");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatTax")
+    public String validatTax(@RequestParam(value="tax") String tax){
+        if(tax == null || tax.trim().isEmpty()){
+            return getErrorJson("必须输入税");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/contractPaymentMethod")
+    public String contractPaymentMethod(@RequestParam(value="contractPaymentMethod") String contractPaymentMethod){
+        if(contractPaymentMethod == null || contractPaymentMethod.trim().isEmpty()){
+            return getErrorJson("必须输入付款方式");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatInitialPaymentTime")
+    public String validatInitialPaymentTime(@RequestParam(value="initialPaymentTime") String initialPaymentTime){
+        if(initialPaymentTime == null || initialPaymentTime.trim().isEmpty()){
+            return getErrorJson("必须输入首付时间");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatMiddlePaymentTime")
+    public String validatMiddlePaymentTime(@RequestParam(value="middlePaymentTime") String middlePaymentTime){
+        if(middlePaymentTime == null || middlePaymentTime.trim().isEmpty()){
+            return getErrorJson("必须输入中款时间");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatFinalPaymentTime")
+    public String validatFinalPaymentTime(@RequestParam(value="finalPaymentTime") String finalPaymentTime){
+        if(finalPaymentTime == null || finalPaymentTime.trim().isEmpty()){
+            return getErrorJson("必须输入尾款时间");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatBillingInfo")
+    public String validatBillingInfo(@RequestParam(value="billingInfo") String billingInfo){
+        if(billingInfo == null || billingInfo.trim().isEmpty()){
+            return getErrorJson("必须输入开票信息");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatFirstParty")
+    public String validatFirstParty(@RequestParam(value="firstParty") String firstParty){
+        if(firstParty == null || firstParty.trim().isEmpty()){
+            return getErrorJson("必须输入合同甲方");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatSecondParty")
+    public String validatSecondParty(@RequestParam(value="secondParty") String secondParty){
+        if(secondParty == null || secondParty.trim().isEmpty()){
+            return getErrorJson("必须输入合同乙方");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatMoneyType")
+    public String validatMoneyType(@RequestParam(value="moneyType") String moneyType){
+        if(moneyType == null || moneyType.trim().isEmpty()){
+            return getErrorJson("必须输入款项类型");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatPaymentMethod")
+    public String validatPaymentMethod(@RequestParam(value="paymentMethod") String paymentMethod){
+        if(paymentMethod == null || paymentMethod.trim().isEmpty()){
+            return getErrorJson("必须输入支付方式");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatCostCenter")
+    public String validatCostCenter(@RequestParam(value="costCenter") String costCenter){
+        if(costCenter == null || costCenter.trim().isEmpty()){
+            return getErrorJson("必须输入成本中心");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatPaymentTime")
+    public String validatPaymentTime(@RequestParam(value="paymentTime") String paymentTime){
+        if(paymentTime == null || paymentTime.trim().isEmpty()){
+            return getErrorJson("必须输入付款时间");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatPaymentAmount")
+    public String validatPaymentAmount(@RequestParam(value="paymentAmount") String paymentAmount){
+        if(paymentAmount == null || paymentAmount.trim().isEmpty()){
+            return getErrorJson("必须输入付款金额");
+        }
+        boolean res2 = paymentAmount.matches("^[0-9]+(.[0-9]{2})?$");
+        if(!res2)
+            if(!res2)
+                return getErrorJson("付款金额整数位不能超过18位,小数位必须是两位");
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatPerator")
+    public String validatPerator(@RequestParam(value="operator") String operator){
+        if(operator == null || operator.trim().isEmpty()){
+            return getErrorJson("必须输入经办人");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatReascononForChange")
+    public String validatReasonForChange(@RequestParam(value="reasonForChange") String reasonForChange){
+        if(reasonForChange == null || reasonForChange.trim().isEmpty()){
+            return getErrorJson("必须输入变更原因");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatLedgerInput")
+    public String validatLedgerInput(@RequestParam(value="ledgerInput") String ledgerInput){
+        if(ledgerInput == null || ledgerInput.trim().isEmpty()){
+            return getErrorJson("必须输入台账");
         }
         return getSuccessJson(null);
     }

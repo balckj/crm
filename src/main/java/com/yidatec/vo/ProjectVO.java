@@ -9,7 +9,7 @@ public class ProjectVO extends ProjectEntity{
     private Integer draw;
     private Integer length;
     private Integer start;
-
+    private String search;
     public Integer getDraw() {
         return draw;
     }
@@ -32,5 +32,13 @@ public class ProjectVO extends ProjectEntity{
 
     public void setStart(Integer start) {
         this.start = start;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
     }
 }

@@ -24,8 +24,12 @@ public class ProjectEntity extends BaseModel {
     @NotBlank(message = "必须选择客户", groups = { })
     private String customerId;
 
+    private String customerName;
+
     @NotBlank(message = "必须选择市场活动", groups = { })
     private String campaignId;//市场活动
+
+    private String campaignName;
 
     private String code;
 
@@ -289,5 +293,21 @@ public class ProjectEntity extends BaseModel {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCampaignName() {
+        return campaignName;
+    }
+
+    public void setCampaignName(String campaignName) {
+        this.campaignName = campaignName;
     }
 }

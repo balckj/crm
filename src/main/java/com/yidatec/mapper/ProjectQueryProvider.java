@@ -11,7 +11,10 @@ public class ProjectQueryProvider {
     public String selectProject(final ProjectVO projectVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM T_PROJECT  as D WHERE 1=1");
+        sb.append("SELECT b.name as customerName,c.name as campaignName,D.* FROM T_PROJECT  as D LEFT JOIN T_CUSTOMER b\n" +
+                "on D.customerId=b.id\n" +
+                "LEFT JOIN T_CAMPAIGN c\n" +
+                "on D.campaignId = c.id WHERE 1=1");
 
         if(!StringUtils.isEmpty(projectVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");

@@ -94,4 +94,20 @@ public interface Constants {
      * 工厂进度
      */
     public static final String FACTORY_PROGRESS = "factoryProgress";
+
+    /**
+     * 重要程度
+     */
+    public static final String DEGREEOFIMPORTANCE = "degreeOfImportance";
+
+
+    /**
+     * 重要程度
+     */
+    public static final String POTENTIAL = "potential";
+
+    /**
+     * 项目类型
+     */
+    public static final String PROJECT_TYPE = "type";
 }

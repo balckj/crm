@@ -3,7 +3,6 @@
       xmlns:th="http://www.thymeleaf.org">
 <div  th:fragment="projectEdit">
     <!--<link th:href="@{inspinia_admin/css/plugins/cropper/cropper.min.css}" rel="stylesheet"/>-->
-    <!--<link th:href="@{inspinia_admin/css/plugins/select2/select2.min.css}" rel="stylesheet"/>-->
     <!--<link th:href="@{inspinia_admin/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet"/>-->
     <link th:href="@{99/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
     <link th:href="@{99/css/plugins/dropzone/dropzone.css}" rel="stylesheet"/>
@@ -38,11 +37,11 @@
                             <input type="hidden" name="selecttypeValue" id="selecttypeValue" th:value="${project}?${project.type}"/>
                             <input type="hidden" name="selectcustomerIdValue" id="selectcustomerIdValue" th:value="${project}?${project.customerId}"/>
                             <input type="hidden" name="selectcampaignIdValue" id="selectcampaignIdValue" th:value="${project}?${project.campaignId}"/>
-                            <input type="hidden" name="selectdesignersValue" id="selectdesignersValue" th:value="${designers}"/>
+                            <input type="hidden" name="selectdesignersValue" id="selectdesignersValue" th:value="${project}?${project.designers}"/>
                             <input type="hidden" name="selectdesignProgressValue" id="selectdesignProgressValue" th:value="${project}?${project.designProgress}"/>
                             <input type="hidden" name="selectpmIdValue" id="selectpmIdValue" th:value="${project}?${project.pmId}"/>
                             <input type="hidden" name="selectprojectProgressValue" id="selectprojectProgressValue" th:value="${project}?${project.projectProgress}"/>
-                            <input type="hidden" name="selectfactoriesValue" id="selectfactoriesValue" th:value="${factories}"/>
+                            <input type="hidden" name="selectfactoriesValue" id="selectfactoriesValue" th:value="${project}?${project.factories}"/>
                             <input type="hidden" name="selectfactoryProgressValue" id="selectfactoryProgressValue" th:value="${project}?${project.factoryProgress}"/>
                             <input type="hidden" name="selectdevelopSaleIdValue" id="selectdevelopSaleIdValue" th:value="${project}?${project.developSaleId}"/>
                             <input type="hidden" name="selecttraceSaleIdValue" id="selecttraceSaleIdValue" th:value="${project}?${project.traceSaleId}"/>
@@ -63,14 +62,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="type" id="type">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>办展</option>
-                                        <option>特装</option>
-                                        <option>标摊</option>
-                                        <option>工装</option>
-                                        <option>活动</option>
-                                        <option>庆典</option>
-                                        <option>赛事</option>
-                                        <option>会议</option>
+                                        <option th:value="${type.id}" th:text="${type.value}" th:each="type : ${type}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -79,13 +71,8 @@
                             <div class="form-group" id="customerIdForm"><label class="col-sm-2 control-label">客户<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="customerId" id="customerId" >
-                                        <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                    </select>
+                                    <input id="customerId" name="customerId" placeholder="请选择客户名称" readonly="readonly"  type="text" th:value="${project}?${project.customerId}"
+                                           class="form-control" maxlength="200" onclick="customerClick();" style="cursor:pointer;"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
@@ -93,13 +80,8 @@
                             <div class="form-group" id="campaignIdForm"><label class="col-sm-2 control-label">市场活动<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="campaignId" id="campaignId">
-                                        <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                    </select>
+                                    <input id="campaignId" name="campaignId" placeholder="请选择市场活动" readonly="readonly"  type="text" th:value="${project}?${project.customerId}"
+                                           class="form-control" maxlength="200" onclick="campaignClick();" style="cursor:pointer;"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
@@ -159,9 +141,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="degreeOfImportance" id="degreeOfImportance">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>三星</option>
-                                        <option>四星</option>
-                                        <option>五星</option>
+                                        <option th:value="${degreeOfImportance.id}" th:text="${degreeOfImportance.value}" th:each="degreeOfImportance : ${degreeOfImportance}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -173,12 +153,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="potential" id="potential">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>10%</option>
-                                        <option>30%</option>
-                                        <option>50%</option>
-                                        <option>60%</option>
-                                        <option>80%</option>
-                                        <option>100%</option>
+                                        <option th:value="${potential.id}" th:text="${potential.value}" th:each="potential : ${potential}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -188,7 +163,7 @@
                             <div class="form-group" id="designerIdForm"><label class="col-sm-2 control-label">设计师<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="designerId" id="designerId" multiple="multiple">
+                                    <select class="form-control m-b select2_demo_2" name="designerId" id="designerId" multiple="multiple">
                                         <option th:value="${designer.id}" th:text="${designer.name}" th:each="designer:${designer}"></option>
                                     </select>
                                 </div>
@@ -221,7 +196,6 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">项目进度</label>
                                 <div class="col-sm-4">
-
                                     <div class="checkbox checkbox-inline checkbox-info" th:each="project:${projectProgress}">
                                         <input type="checkbox" name="projectProgress" id="p1" th:value="${project.id}" />
                                         <label for="p1" th:text="${project.value}"></label>
@@ -233,7 +207,7 @@
                             <div class="form-group" id="factoryIdForm"><label class="col-sm-2 control-label">工厂<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="factoryId" id="factoryId" multiple="multiple">
+                                    <select class="form-control m-b " name="factoryId" id="factoryId" multiple="multiple">
                                         <option th:value="${factories.id}" th:text="${factories.name}" th:each="factories:${factories}"></option>
                                     </select>
                                 </div>
@@ -282,10 +256,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="developSaleId" id="developSaleId">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
+                                        <option th:value="${developSale.id}" th:text="${developSale.name}" th:each="developSale:${developSale}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -297,10 +268,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="traceSaleId" id="traceSaleId">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
+                                        <option th:value="${traceSale.id}" th:text="${traceSale.name}" th:each="traceSale:${traceSale}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -357,6 +325,70 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="customerTableModal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 >请选择一个客户</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <table id="customerTable" class="table table-striped table-bordered table-hover dataTables-example">
+                                    <thead>
+                                    <tr>
+                                        <th>操作</th>
+                                        <th>客户名称</th>
+                                        <th>所属行业</th>
+                                        <th>企业性质</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn ladda-button btn-primary" onclick="chooseCustomer(this);"><span class="ladda-label">确定</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="campaignTableModal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 >请选择一个活动</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <table id="campaignTable" class="table table-striped table-bordered table-hover dataTables-example">
+                                    <thead>
+                                    <tr>
+                                        <th>操作</th>
+                                        <th>活动名称</th>
+                                        <th>开始时间</th>
+                                        <th>结束时间</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn ladda-button btn-primary" onclick="chooseActivity(this);"><span class="ladda-label">确定</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Image cropper -->
     <!--<script th:src="@{inspinia_admin/js/plugins/cropper/cropper.min.js}"></script>-->
     <!-- Data picker -->
@@ -366,8 +398,6 @@
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
 
-    <!-- Select2 -->
-    <!--<script th:src="@{inspinia_admin/js/plugins/select2/select2.full.min.js}"></script>-->
 
     <!-- Chosen -->
     <!--<script th:src="@{inspinia_admin/js/plugins/chosen/chosen.jquery.js}"></script>-->
@@ -379,6 +409,16 @@
         var photolist=[];
         var delPhotoList=[];
         $(function () {
+            $('#customerTableModal').on('shown.bs.modal',function(){
+//                if(customerTable == undefined && customerTable == null){
+                    customerTableInit();// 项目table初始化
+//                }
+            })
+            $('#campaignTableModal').on('shown.bs.modal',function(){
+//                if(customerTable == undefined && customerTable == null){
+                campaignTableInit();// 项目table初始化
+//                }
+            })
             $("#designerId").select2();
             $("#factoryId").select2();
             $("#setting").addClass("active");
@@ -511,34 +551,224 @@
                     }
                 }
             }
-            debugger;
             var selectdesignersValue = $("#selectdesignersValue").val();
-            if(selectdesignersValue!=''){
-                var list = selectdesignersValue.substring(1,selectdesignersValue.length-1).split(',');
+            if(selectdesignersValue && selectdesignersValue.indexOf(",") > 0){
+                var list = selectdesignersValue.substring(1,selectdesignersValue.length-1).replace(" ","").split(',');
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){
                     setkey.push(list[i]);
                 }
-                $("#designerId").val(setkey).trigger('change')
+                $("#designerId").val(setkey).select2();
             }else{
-                $("#designerId").val(selectdesignersValue.substring(1,selectdesignersValue.length-1)).trigger('change')
+//                $("#designerId").val(selectdesignersValue.substring(1,selectfactoriesValue.length-1)).trigger('change')
             }
 
             var selectfactoriesValue = $("#selectfactoriesValue").val();
-            if(selectfactoriesValue!=''){
-                var list = selectfactoriesValue.substring(1,selectfactoriesValue.length-1).split(',');
+            if(selectdesignersValue && selectdesignersValue.indexOf(",") > 0){
+                var list = selectfactoriesValue.substring(1,selectfactoriesValue.length-1).replace(" ","").split(',');
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){
                     setkey.push(list[i]);
                 }
                 $("#factoryId").val(setkey).trigger('change')
             }else{
-                $("#factoryId").val(selectfactoriesValue.substring(1,selectfactoriesValue.length-1)).trigger('change')
+//                $("#factoryId").val(selectfactoriesValue.substring(1,selectfactoriesValue.length-1)).trigger('change')
             }
+
+//            $("#type").change(function(){
+//                if($(this).val()=="069d53d1-4b9b-4acf-b4b6-da4d77a00e7b"){
+//                    $("#customerId ").get(0).selectedIndex=0;
+//                    $("#customerId").attr("disabled",true);
+//                }else{
+//                    $("#customerId ").get(0).selectedIndex=0;
+//                    $("#customerId").attr("disabled",false);
+//                }
+//            });
+//
+//            if ($("#type").val()=="069d53d1-4b9b-4acf-b4b6-da4d77a00e7b"){
+////                $("#customerId ").get(0).selectedIndex=0;
+//                $("#customerId").attr("disabled",true);
+//            }else{
+//                $("#customerId").attr("disabled",false);
+//            }
 
 
 
         });
+
+        function customerClick() {
+            $('#customerTableModal').modal('show');
+        }
+
+        function campaignClick() {
+            $('#campaignTableModal').modal('show');
+        }
+
+        function customerTableInit() {
+            customerTable = $('#customerTable').DataTable({
+                "sScrollX": true,
+                "ajax": {
+                    "url": "findCustomer",
+                    "dataType": 'json',
+                    "type": "POST",
+                    contentType: 'application/json; charset=utf-8',
+
+                    "data": function (d) {
+                        var p = {};
+                        p.draw = d.draw;
+                        p.length = d.length;
+                        p.start = d.start;
+                        p.search = d.search.value;
+                        var a = JSON.stringify(p);
+                        return a;
+                    }
+                },
+
+                "columns": [
+                    {
+                        "data": "id", "width": "80px",
+                        "render": function (data, type, row) {
+                            var u = "";
+                            u =  "<input type=\"radio\" name='customer' value='" + row.id + "' cusId='" + row.name + "' />";
+                            return u;
+
+                        },
+                    },
+
+                    {"data": "name", "width": "100px"},
+                    {"data": "industry", "width": "200px"},
+                    {"data": "nature", "width": "50px"},
+                ]
+                , language: {
+                    lengthMenu: '每页显示 <select class="form-control input-sm">'
+                    + '<option value="10">10</option>'
+                    + '<option value="20">20</option>'
+                    + '<option value="500">50</option>'
+                    + '</select> 个项目'
+                    ,
+                    processing: "载入中 ...",//处理页面数据的时候的显示
+                    paginate: {//分页的样式文本内容。
+                        previous: "上一页",
+                        next: "下一页",
+                        first: "第一页",
+                        last: "最后一页"
+                    },
+                    "sSearch": "搜索",
+                    zeroRecords: "没有用户",//table tbody内容为空时，tbody的内容。
+                    //下面三者构成了总体的左下角的内容。
+                    info: "当前显示第_START_到第_END_个用户 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    infoEmpty: "0个用户",//筛选为空时左下角的显示。
+                    infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
+                }
+                , "lengthChange": true
+                , "bFilter": true //搜索栏
+                , "bAutoWidth": true  //自适应宽度
+                , "sPaginationType": "full_numbers" //分页，一共两种样式，full_numbers和two_button(默认)
+                , "bJQueryUI": false //开关，是否启用JQueryUI风格
+                , "bSort": false
+                , "processing": true
+                , "serverSide": true
+                , "iDisplayLength": 10 //默认显示的记录数
+            });
+        }
+
+        function chooseCustomer() {
+            var customer=document.getElementsByName("customer");
+            $.each(customer, function(i,v) {
+                if(v.checked == true){
+                    $("#customerId").val($(this).attr("cusId")); // 项目编号
+                    $("#customerId").attr("value",$(this).val());
+//                    $("#customerId").text($(this).attr("cusId")); // 项目编号 ID
+                }
+            });
+            $('#customerTableModal').modal('hide');
+//            $("#code").val("");
+        }
+
+        function campaignTableInit() {
+            campaignTable = $('#campaignTable').DataTable({
+                "sScrollX": true,
+                "ajax": {
+                    "url": "findActivity",
+                    "dataType": 'json',
+                    "type": "POST",
+                    contentType: 'application/json; charset=utf-8',
+
+                    "data": function (d) {
+                        var p = {};
+                        p.draw = d.draw;
+                        p.length = d.length;
+                        p.start = d.start;
+                        p.search = d.search.value;
+                        var a = JSON.stringify(p);
+                        return a;
+                    }
+                },
+
+                "columns": [
+                    {
+                        "data": "id", "width": "80px",
+                        "render": function (data, type, row) {
+                            var u = "";
+                            u =  "<input type=\"radio\" name='activity' value='" + row.id + "' cusId='" + row.name + "' sponser='"+row.sponsor+"' ' />";
+                            return u;
+
+                        },
+                    },
+
+                    {"data": "name", "width": "200px"},
+                    {"data": "startDate", "width": "100px"},
+                    {"data": "endDate", "width": "100px"},
+                ]
+                , language: {
+                    lengthMenu: '每页显示 <select class="form-control input-sm">'
+                    + '<option value="20">20</option>'
+                    + '<option value="40">40</option>'
+                    + '<option value="100">100</option>'
+                    + '</select> 个项目'
+                    ,
+                    processing: "载入中 ...",//处理页面数据的时候的显示
+                    paginate: {//分页的样式文本内容。
+                        previous: "上一页",
+                        next: "下一页",
+                        first: "第一页",
+                        last: "最后一页"
+                    },
+                    "sSearch": "搜索",
+                    zeroRecords: "没有用户",//table tbody内容为空时，tbody的内容。
+                    //下面三者构成了总体的左下角的内容。
+                    info: "当前显示第_START_到第_END_个用户 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    infoEmpty: "0个用户",//筛选为空时左下角的显示。
+                    infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
+                }
+                , "lengthChange": true
+                , "bFilter": true //搜索栏
+                , "bAutoWidth": true  //自适应宽度
+                , "sPaginationType": "full_numbers" //分页，一共两种样式，full_numbers和two_button(默认)
+                , "bJQueryUI": false //开关，是否启用JQueryUI风格
+                , "bSort": false
+                , "processing": true
+                , "serverSide": true
+                , "iDisplayLength": 20 //默认显示的记录数
+            });
+        }
+
+        function chooseActivity() {
+            debugger;
+            var activity=document.getElementsByName("activity");
+            $.each(activity, function(i,v) {
+                if(v.checked == true){
+                    $("#campaignId").val($(this).attr("cusId")); // 项目编号
+                    $("#campaignId").attr("value",$(this).val());
+                    $("#campaignId").val($(this).attr("cusId")); // 项目编号
+//                    $("#customerId").attr("value",$(this).attr("sponser")); // 项目编号 ID
+                }
+            });
+            $('#campaignTableModal').modal('hide');
+//            $("#code").val("");
+        }
+
+
 
         var previewTemplate = "<div class=\"dz-preview dz-file-preview\" onclick='showPicture(this)'>\n  " +
             "  <div class=\"dz-details\">\n" +
@@ -636,7 +866,6 @@
                     factorylist.push(factory[j]);
                 }
             }
-            debugger;
             var designProgress="";
             $("input[name='designProgress']:checked").each(function() {
                     designProgress += $(this).val()+",";
@@ -657,8 +886,8 @@
                 id: $("#id").val().trim(),
                 name: $("#name").val().trim(),
                 type: $("#type").val().trim(),
-                customerId: $("#customerId").val(),
-                campaignId: $("#campaignId").val(),
+                customerId: $("#customerId").attr("value"),
+                campaignId: $("#campaignId").attr("value"),
                 code: $("#code").val(),
                 budget: $("#budget").val(),
                 exhibitionNumber: $("#exhibitionNumber").val(),

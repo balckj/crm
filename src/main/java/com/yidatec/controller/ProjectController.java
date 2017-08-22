@@ -2,6 +2,7 @@ package com.yidatec.controller;
 
 import com.yidatec.model.Dictionary;
 import com.yidatec.model.ProjectEntity;
+import com.yidatec.model.User;
 import com.yidatec.service.*;
 import com.yidatec.util.Constants;
 import com.yidatec.vo.ProjectVO;
@@ -48,23 +49,33 @@ public class ProjectController extends BaseController {
     @Autowired
     FactoryService factoryService;
 
+    @Autowired
+    SaleService saleService;
+
 
     @RequestMapping("/projectEdit")
     public String projectEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建客户":"编辑客户");
         model.put("project",projectService.selectProject(id));
+        model.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.PROJECT_TYPE));
         model.put("code",sequenceService.generateProjectSequence());
         model.put("designer",designerService.selectDesignerforProject(new UserVO()));
         model.put("pm",pmService.selectPMforProject(new UserVO()));
         model.put("factories",factoryService.selectFactoryListForProject());
+        model.put("degreeOfImportance",dictionaryService.selectDictionaryListByCodeCommon(Constants.DEGREEOFIMPORTANCE));
+        model.put("potential",dictionaryService.selectDictionaryListByCodeCommon(Constants.POTENTIAL));
         model.put("designerProgress",dictionaryService.selectDictionaryListByCodeCommon(Constants.DESIGN_PROGRESS));
         model.put("projectProgress",dictionaryService.selectDictionaryListByCodeCommon(Constants.PROJECT_PROGRESS));
         model.put("factoryProgress",dictionaryService.selectDictionaryListByCodeCommon(Constants.FACTORY_PROGRESS));
+        model.put("developSale",saleService.selectSaleListforProject(new UserVO()));
+        model.put("traceSale",saleService.selectSaleListforProject(new UserVO()));
         return "projectEdit";
     }
 
     @RequestMapping("/projectList")
     public String projectList(ModelMap model){
+        model.put("pm",pmService.selectPMforProject(new UserVO()));
+        model.put("degreeOfImportance",dictionaryService.selectDictionaryListByCodeCommon(Constants.DEGREEOFIMPORTANCE));
         return "projectList";
     }
 
@@ -143,6 +154,96 @@ public class ProjectController extends BaseController {
                         }
                     }
                     project1.setFactoryProgress(temp);
+                }
+
+                String importantparams = project1.getDegreeOfImportance();
+                if (!StringUtils.isEmpty(importantparams)){
+                    String[] paramsList = importantparams.split(",");
+                    String temp = "";
+                    for(int i = 0 ; i < paramsList.length; i++){
+                        Dictionary dictionary = dictionaryService.selectDictionary(paramsList[i]);
+                        if(i != paramsList.length -1){
+                            temp = temp + dictionary.getValue()  +",";
+                        }else{
+                            temp = temp + dictionary.getValue();
+                        }
+                    }
+                    project1.setDegreeOfImportance(temp);
+                }
+
+                String potentialparams = project1.getPotential();
+                if (!StringUtils.isEmpty(potentialparams)){
+                    String[] paramsList = potentialparams.split(",");
+                    String temp = "";
+                    for(int i = 0 ; i < paramsList.length; i++){
+                        Dictionary dictionary = dictionaryService.selectDictionary(paramsList[i]);
+                        if(i != paramsList.length -1){
+                            temp = temp + dictionary.getValue()  +",";
+                        }else{
+                            temp = temp + dictionary.getValue();
+                        }
+                    }
+                    project1.setPotential(temp);
+                }
+
+                String pmparams = project1.getPmId();
+                if (!StringUtils.isEmpty(pmparams)){
+                    String[] paramsList = pmparams.split(",");
+                    String temp = "";
+                    for(int i = 0 ; i < paramsList.length; i++){
+                        User user = pmService.selectPM(paramsList[i]);
+                        if(i != paramsList.length -1){
+                            temp = temp + user.getName()  +",";
+                        }else{
+                            temp = temp + user.getName();
+                        }
+                    }
+                    project1.setPmId(temp);
+                }
+
+//                String developSaleparams = project1.getDevelopSaleId();
+//                if (!StringUtils.isEmpty(developSaleparams)){
+//                    String[] paramsList = developSaleparams.split(",");
+//                    String temp = "";
+//                    for(int i = 0 ; i < paramsList.length; i++){
+//                        User user = saleService.selectSale(paramsList[i]);
+//                        if(i != paramsList.length -1){
+//                            temp = temp + user.getName()  +",";
+//                        }else{
+//                            temp = temp + user.getName();
+//                        }
+//                    }
+//                    project1.setDevelopSaleId(temp);
+//                }
+
+//                String traceSaleparams = project1.getTraceSaleId();
+//                if (!StringUtils.isEmpty(traceSaleparams)){
+//                    String[] paramsList = traceSaleparams.split(",");
+//                    String temp = "";
+//                    for(int i = 0 ; i < paramsList.length; i++){
+//                        User user = saleService.selectSale(paramsList[i]);
+//                        if(i != paramsList.length -1){
+//                            temp = temp + user.getName()  +",";
+//                        }else{
+//                            temp = temp + user.getName();
+//                        }
+//                    }
+//                    project1.setTraceSaleId(temp);
+//                }
+
+                String typeparams = project1.getType();
+                if (!StringUtils.isEmpty(typeparams)){
+                    String[] paramsList = typeparams.split(",");
+                    String temp = "";
+                    for(int i = 0 ; i < paramsList.length; i++){
+                        Dictionary dictionary = dictionaryService.selectDictionary(paramsList[i]);
+                        if(i != paramsList.length -1){
+                            temp = temp + dictionary.getValue()  +",";
+                        }else{
+                            temp = temp + dictionary.getValue();
+                        }
+                    }
+                    project1.setType(temp);
                 }
             }
         }

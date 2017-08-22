@@ -1,7 +1,6 @@
 package com.yidatec.service;
 
 import com.yidatec.mapper.ProjectMapper;
-import com.yidatec.model.Customer;
 import com.yidatec.model.ProjectEntity;
 import com.yidatec.vo.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by Administrator on 2017/8/17.
@@ -39,7 +37,7 @@ public class ProjectService {
         projectMapper.deleteFactoryRelation(project.getId());
         projectMapper.update(project);
         for (int i=0;i<project.getDesigners().size();i++){
-            projectMapper.createDesignerRelation(project.getId(),project.getFactories().get(i));
+            projectMapper.createDesignerRelation(project.getId(),project.getDesigners().get(i));
         }
 
         for (int i=0;i<project.getFactories().size();i++){

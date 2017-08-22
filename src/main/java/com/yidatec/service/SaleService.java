@@ -54,6 +54,12 @@ public class SaleService {
 		return  roleMapper.selectUserByRoleCommon(userVO);
 	}
 
+	public List<User> selectSaleListforProject(UserVO userVO) {
+		Param param = paramService.findParam(Constants.DESIGNER_PARAM_ID);
+		userVO.setParaRoleIDS(param.getValue());
+		return  roleMapper.selectSaleListALL(userVO);
+	}
+
 	/**
 	 * 查询销售
 	 *

@@ -5,6 +5,7 @@ import com.yidatec.model.Dictionary;
 import com.yidatec.service.CustomerService;
 import com.yidatec.service.DictionaryService;
 import com.yidatec.service.WechatService;
+import com.yidatec.util.ConfProperties;
 import com.yidatec.util.Constants;
 import com.yidatec.util.WeixinHelper;
 import com.yidatec.vo.CustomerVO;
@@ -32,10 +33,13 @@ public class WechatJsSdkSignatureController extends BaseController{
     @Autowired
     WechatService wechatService;
 
+    @Autowired
+    ConfProperties confProperties;
+
 
     @RequestMapping("/getJsSdkSignature")
     public Object getContact(@RequestParam(value="url") String url){
-        Map<String,String> signure = wechatService.generateJSAPISignature(WeixinHelper.host+WeixinHelper.contextPath+url);
+        Map<String,String> signure = wechatService.generateJSAPISignature(confProperties.getWeChatHost()+confProperties.getWeChatContextPath()+url);
         return signure;
     }
 }

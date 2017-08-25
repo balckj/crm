@@ -31,7 +31,11 @@
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
                             <input type="hidden" name="id" id="id" th:value="${contract}?${contract.id}"/>
-
+                            <input type="hidden" name="hiddenCategoryValue" id="hiddenCategoryValue" th:value="${contract}?${contract.category}"/>
+                            <input type="hidden" name="hiddenContractPaymentMethodValue" id="hiddenContractPaymentMethodValue" th:value="${contract}?${contract.contractPaymentMethod}"/>
+                            <input type="hidden" name="hiddenFirstPartyValue" id="hiddenFirstPartyValue" th:value="${contract}?${contract.firstParty}"/>
+                            <input type="hidden" name="hiddenSecondPartyValue" id="hiddenSecondPartyValue" th:value="${contract}?${contract.secondParty}"/>
+                            <input type="hidden" name="hiddenProjectIdValue" id="hiddenProjectIdValue" th:value="${contract}?${contract.projectId}"/>
                             <div class="form-group" id="signDayForm">
                                 <label class="col-sm-2 control-label">合同签署日期<span
                                     style="color:#ed5565;">*</span></label>
@@ -55,7 +59,7 @@
                             
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="codeForm">
-                                <label class="col-sm-2 control-label">合同编码<span
+                                <label class="col-sm-2 control-label">合同编号<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
                                     <input id="code" name="code" type="text" readonly="readonly" th:value="${contract}?${contract.code}"
@@ -69,19 +73,19 @@
                                 <label class="col-sm-2 control-label">项目编号<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <input id="projectId" name="projectId" type="text" readonly="readonly" th:value="${contract}?${contract.projectId}"
+                                    <input id="projectId" name="projectId" type="text" readonly="readonly" th:value="${contract}?${contract.projectCode}" th:attr="valueSetID=${contract}?${contract.projectId}"
                                                              class="form-control" maxlength="200" />
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="productNameForm">
+                            <div class="form-group" id="projectNameForm">
                                 <label class="col-sm-2 control-label">项目名称<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <input id="productName" name="productName" placeholder="请选择项目名称" readonly="readonly" type="text" th:value="${contract}?${contract.productName}"
-                                                             class="form-control" maxlength="200" />
+                                    <input id="projectName" name="projectName" placeholder="请选择项目名称" readonly="readonly" type="text" th:value="${contract}?${contract.projectName}"
+                                                             class="form-control" maxlength="200" onclick="projectClick();" style="cursor:pointer;"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
@@ -91,8 +95,8 @@
                                 <label class="col-sm-2 control-label">市场活动<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <input id="campaignId" name="campaignId" type="text" th:value="${contract}?${contract.campaignId}"
-                                                             class="form-control" maxlength="200" />
+                                    <input id="campaignId" name="campaignId" type="text" th:value="${contract}?${contract.campaignName}" th:attr="valueSetID=${contract}?${contract.campaignId}"
+                                                             class="form-control" maxlength="200" readonly="readonly"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
@@ -131,11 +135,11 @@
                             </div>
                             
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="categoryForm">
                                 <label class="col-sm-2 control-label">合同分类<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="category" id="category">
+                                    <select class="form-control m-b" name="category" id="category" onchange="categoryClick();">
                                         <option value="" selected="selected">未选择</option>
                                         <option value="C">销售合同</option>
                                         <option value="S">供应商合同-主办方</option>
@@ -144,6 +148,7 @@
                                         <option value="P">供应商合同-项目经理</option>
                                     </select>
                                 </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             
                             <div class="hr-line-dashed"></div>
@@ -159,8 +164,8 @@
                             
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="contractPaymentMethodForm">
-                                <label class="col-sm-2 control-label">付款方式<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">付款方式
+                                    <span style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="contractPaymentMethod" id="contractPaymentMethod">
                                         <option value="" selected="selected">未选择</option>
@@ -169,6 +174,7 @@
                                         <option value="6.4">6.4</option>
                                     </select>
                                 </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             
                             <div class="hr-line-dashed"></div>
@@ -242,11 +248,11 @@
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="ledgerInputForm">
                                 <label class="col-sm-2 control-label">台账</label>
                                 <div class="col-sm-4">
-                                    <input id="ledgerListInput" name="ledgerListInput" type="text" th:value="${contract}?${contract.ledgerListInput}"
-                                           class="form-control"  onclick="ledgerClick()" readonly="readonly" placeholder="请选择"/>
+                                    <input id="ledgerInput" name="ledgerInput" type="text" th:value="${contract}?${contract.ledgerListInput}"
+                                           class="form-control"  onclick="ledgerClick()" readonly="readonly" placeholder="请填写台账" style="cursor:pointer;"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
@@ -277,6 +283,7 @@
         </div>
     </div>
 
+    <!--台账Modal-->
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="ledgerModal" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog " style="width:95%;"  role="document">
             <div class="modal-content">
@@ -291,7 +298,8 @@
 
                                         <div class="col-lg-12">
                                             <div class="row">
-                                                <table class="table table-condensed" id="ledgerList">
+                                                <!--创建-->
+                                                <table th:unless="${contract}?${contract.id}" class="table table-condensed" id="ledgerList">
                                                     <tr>
                                                         <td>
                                                             <div id="moneyType0Form">
@@ -299,9 +307,8 @@
                                                                             style="color:#ed5565;">*</span></label>
                                                                     <div >
                                                                         <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="moneyType" id="moneyType0">
-                                                                            <!--<option value="" selected="selected">未选择</option>-->
-                                                                            <!--<option th:value="${moneyType.id}" th:text="${moneyType.value}" th:each="moneyType:${moneyTypeList}"></option>-->
-                                                                            <!--<option >管理费</option>-->
+                                                                            <option value="" selected="selected">未选择</option>
+                                                                            <option th:value="${moneyType.id}" th:text="${moneyType.value}" th:each="moneyType:${moneyTypeList}"></option>
                                                                         </select>
                                                                     </div>
                                                                     <label class=" control-label" style="text-align: left"></label>
@@ -313,8 +320,8 @@
                                                                             style="color:#ed5565;">*</span></label>
                                                                     <div>
                                                                         <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="paymentMethod" id="paymentMethod0">
-                                                                            <!--<option value="" selected="selected">未选择</option>-->
-                                                                            <!--<option th:value="${paymentMethod.id}" th:text="${paymentMethod.value}" th:each="paymentMethod:${paymentMethodList}"></option>-->
+                                                                            <option value="" selected="selected">未选择</option>
+                                                                            <option th:value="${paymentMethod.id}" th:text="${paymentMethod.value}" th:each="paymentMethod:${paymentMethodList}"></option>
                                                                         </select>
                                                                     </div>
                                                                     <label class=" control-label" style="text-align: left"></label>
@@ -326,8 +333,8 @@
                                                                             style="color:#ed5565;">*</span></label>
                                                                     <div>
                                                                         <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="costCenter" id="costCenter0">
-                                                                            <!--<option value="" selected="selected">未选择</option>-->
-                                                                            <!--<option th:value="${costCenter.id}" th:text="${costCenter.value}" th:each="costCenter:${costCenterList}"></option>-->
+                                                                            <option value="" selected="selected">未选择</option>
+                                                                            <option th:value="${costCenter.id}" th:text="${costCenter.value}" th:each="costCenter:${costCenterList}"></option>
                                                                         </select>
                                                                     </div>
                                                                     <label class=" control-label" style="text-align: left"></label>
@@ -378,6 +385,101 @@
                                                     </tr>
 
                                                 </table>
+                                                <!--编辑-->
+                                                <table th:if="${contract}?${contract.id}" class="table table-condensed" id="ledgerList">
+                                                    <tr th:each="ledger,ledgerListStat : ${ledgerList}">
+                                                        <td>
+                                                            <div  th:attr="id='moneyType'+${ledgerListStat.index}+'Form'">
+                                                                <label class="control-label" th:if="${ledgerListStat.index == 0}">款项类型<span
+                                                                        style="color:#ed5565;">*</span></label>
+                                                                <div >
+                                                                    <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="moneyType" th:attr="id='moneyType'+${ledgerListStat.index}" >
+                                                                        <option value="" th:if="${contract}?${contract.id}" selected="selected">未选择</option>
+                                                                        <option value="" th:unless="${contract}?${contract.id}" >未选择</option>
+                                                                        <option th:value="${moneyType.id}" th:text="${moneyType.value}" th:each="moneyType:${moneyTypeList}" th:selected="${moneyType.id==ledger.moneyType?'selected':'false'}"></option>
+                                                                    </select>
+                                                                </div>
+                                                                <label class=" control-label" style="text-align: left"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div th:attr="id='paymentMethod'+${ledgerListStat.index}+'Form'">
+                                                                <label class="control-label" th:if="${ledgerListStat.index == 0}">支付方式<span
+                                                                        style="color:#ed5565;">*</span></label>
+                                                                <div>
+                                                                    <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="paymentMethod" th:attr="id='paymentMethod'+${ledgerListStat.index}">
+                                                                        <option value="" th:if="${contract}?${contract.id}" selected="selected">未选择</option>
+                                                                        <option value="" th:unless="${contract}?${contract.id}" >未选择</option>
+                                                                        <option th:value="${paymentMethod.id}" th:text="${paymentMethod.value}" th:each="paymentMethod:${paymentMethodList}" th:selected="${paymentMethod.id==ledger.paymentMethod?'selected':'false'}"></option>
+                                                                    </select>
+                                                                </div>
+                                                                <label class=" control-label" style="text-align: left"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div th:attr="id='costCenter'+${ledgerListStat.index}+'Form'">
+                                                                <label class="control-label" th:if="${ledgerListStat.index == 0}">成本中心<span
+                                                                        style="color:#ed5565;">*</span></label>
+                                                                <div>
+                                                                    <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="costCenter" th:attr="id='costCenter'+${ledgerListStat.index}">
+                                                                        <option value="" th:if="${contract}?${contract.id}" selected="selected">未选择</option>
+                                                                        <option value="" th:unless="${contract}?${contract.id}" >未选择</option>
+                                                                        <option th:value="${costCenter.id}" th:text="${costCenter.value}" th:each="costCenter:${costCenterList}" th:selected="${costCenter.id==ledger.costCenter?'selected':'false'}"></option>
+                                                                    </select>
+                                                                </div>
+                                                                <label class=" control-label" style="text-align: left"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div th:attr="id='paymentTime'+${ledgerListStat.index}+'Form'">
+                                                                <label class="control-label" th:if="${ledgerListStat.index == 0}">付款时间<span
+                                                                        style="color:#ed5565;">*</span></label>
+                                                                <div>
+                                                                    <input type="text" name="paymentTime" th:attr="id='paymentTime'+${ledgerListStat.index}" th:value="${ledger}?${ledger.paymentTime}"
+                                                                           class="form-control input-sm" maxlength="50" readonly="readonly"/>
+                                                                </div>
+                                                                <label class="control-label" style="text-align: left"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div th:attr="id='paymentAmount'+${ledgerListStat.index}+'Form'">
+                                                                <label class="control-label" th:if="${ledgerListStat.index == 0}">付款金额<span
+                                                                        style="color:#ed5565;">*</span></label>
+                                                                <div>
+                                                                    <input type="text"  name="paymentAmount" th:attr="id='paymentAmount'+${ledgerListStat.index}" th:value="${ledger}?${ledger.paymentAmount}"
+                                                                           class="form-control input-sm" oninput="if(value.length>18)value=value.slice(0,18)"/>
+                                                                </div>
+                                                                <label class="control-label" style="text-align: left"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div th:attr="id='operator'+${ledgerListStat.index}+'Form'">
+                                                                <label class="control-label" th:if="${ledgerListStat.index == 0}">经办人<span
+                                                                        style="color:#ed5565;">*</span></label>
+                                                                <div>
+                                                                    <input type="text" name="operator" th:attr="id='operator'+${ledgerListStat.index}" th:value="${ledger}?${ledger.operator}"
+                                                                           class="form-control input-sm" maxlength="30"/>
+                                                                </div>
+                                                                <label class="control-label" style="text-align: left"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div th:attr="id='reasonForChange'+${ledgerListStat.index}+'Form'">
+                                                                <label class="control-label" th:if="${ledgerListStat.index == 0}">变更原因</label>
+                                                                <div>
+                                                                    <input type="text" name="reasonForChange" th:attr="id='reasonForChange'+${ledgerListStat.index}" th:value="${ledger}?${ledger.reasonForChange}"
+                                                                           class="form-control input-sm" maxlength="50"/>
+                                                                </div>
+                                                                <label class=" control-label" style="text-align: left"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td >
+                                                            <button class="btn btn-primary btn-sm" th:if="${ledgerListStat.index == 0}" type="button" style="width: 100%;margin-top: 23px;" onclick="add();">增&nbsp;&nbsp;加</button>
+                                                            <button class="btn btn-primary btn-sm" th:unless="${ledgerListStat.index == 0}"  th:attr="onclick='delBtnData(this)'" type="button" style="width: 100%;">删&nbsp;&nbsp;除</button>
+                                                        </td>
+                                                    </tr>
+
+                                                </table>
                                             </div>
 
                                         </div>
@@ -393,30 +495,34 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="projectTable" data-backdrop="static" data-keyboard="false">
+    <!--项目Modal-->
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="projectTableModal" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 >请选择一个项目</h3>
                 </div>
                 <div class="row">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content table-responsive">
-                            <table id="usertable" class="table table-striped table-bordered table-hover dataTables-example">
-                                <thead>
-                                <tr>
-                                    <th>操作</th>
-                                    <th>项目名称</th>
-                                    <th>项目编号</th>
-                                </tr>
-                                </thead>
-                            </table>
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <table id="projectTable" class="table table-striped table-bordered table-hover dataTables-example">
+                                    <thead>
+                                    <tr>
+                                        <th>操作</th>
+                                        <th>项目名称</th>
+                                        <th>项目编号</th>
+                                        <th>市场活动</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn ladda-button btn-primary" onclick="projectClick(this);"><span class="ladda-label">确定</span></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn ladda-button btn-primary" onclick="chooseProject(this);"><span class="ladda-label">确定</span></button>
                 </div>
             </div>
         </div>
@@ -432,40 +538,91 @@
 
     <script th:src="@{me.js}" type="text/javascript"></script>
 
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var moneyTypeStr = "<option value=\"\" selected=\"selected\">未选择</option>";
+        var paymentMethodStr = "<option value=\"\" selected=\"selected\">未选择</option>";
+        var costCenterStr = "<option value=\"\" selected=\"selected\">未选择</option>";
+        var moneyTypeList = /*[[${moneyTypeList}]]*/;
+        if (moneyTypeList) {
+            for (var a= 0;a < moneyTypeList.length;a++) {
+                var moneyType = moneyTypeList[a];
+                moneyTypeStr += '<option value="'+moneyType.id+'">'+moneyType.value+'</option>';
+            }
+        }
+
+        var paymentMethodList = /*[[${paymentMethodList}]]*/;
+        if (paymentMethodList) {
+            for (var a= 0;a < paymentMethodList.length;a++) {
+                var paymentMethod = paymentMethodList[a];
+                paymentMethodStr += '<option value="'+paymentMethod.id+'">'+paymentMethod.value+'</option>';
+            }
+        }
+
+        var costCenterList = /*[[${costCenterList}]]*/;
+        if (costCenterList) {
+            for (var a= 0;a < costCenterList.length;a++) {
+                var costCenter = costCenterList[a];
+                costCenterStr += '<option value="'+costCenter.id+'">'+costCenter.value+'</option>';
+            }
+        }
+
+        // 编辑时台账Input的处理
+
+        if(IsEdit()) $("#ledgerInput").val("已填写台账");
+        function IsEdit() {
+            var contractId = $("#id").val();
+            var ledgerList = /*[[${ledgerList}]]*/;
+            if(contractId && ledgerList.length > 0){
+                return true;
+            }
+            return false;
+        }
+        /*]]>*/
+    </script>
+
     <script type="text/javascript">
         /*<![CDATA[*/
         $("#contractEdit").addClass("active");
         var format = "yyyy-mm-dd";
-        var moneyTypeStr = "<option value=\"\" selected=\"selected\">未选择</option>";
-        var paymentMethodStr = "<option value=\"\" selected=\"selected\">未选择</option>";
-        var costCenterStr = "<option value=\"\" selected=\"selected\">未选择</option>";
+
+        var AListStr = "<option value=\"\" selected=\"selected\">未选择</option>";
+        var BListStr = "<option value=\"\" selected=\"selected\">未选择</option>";
         var projectTable = null;
         $(function () {
             datepickerInit("signDay",format);
             datepickerInit("initialPaymentTime",format);
             datepickerInit("middlePaymentTime",format);
             datepickerInit("finalPaymentTime",format);
-            ledgerInitList();// 台账list
+
+            $('#projectTableModal').on('shown.bs.modal',function(){
+                if(projectTable == undefined && projectTable == null){
+                    projectTableInit();// 项目table初始化
+                }
+            })
+//            // 台账list
+//            ledgerInitList();
+
             // 各种验证
-            validate('signDay', 'signDay', 'validateSignDay');
+            validateSelect('signDay', 'signDay', 'validateSignDay');
             validate('name', 'name', 'validateContractName');
-            validate('code', 'code', 'validateContractCode');
-            validate('projectId', 'projectId', 'validateProjectId');
-            validate('projectName', 'projectName', 'validateProjectName');
-            validate('campaignId', 'campaignId', 'validateCampaignId');
+            validateSelect('code', 'code', 'validateContractCode');
+            validateSelect('projectId', 'projectId', 'validateProjectId');
+            validateSelect('projectName', 'projectName', 'validateProjectName');
+            validateSelect('campaignId', 'campaignId', 'validateCampaignId');
             validate('exhibitionNumber', 'exhibitionNumber', 'validateExhibitionNumber');
             validate('area', 'area', 'validateArea');
             validate('amount', 'amount', 'validatAemount');
             validateSelect('category', 'category', 'validatCategory');
             validate('tax', 'tax', 'validatTax');
-            validate('contractPaymentMethod', 'contractPaymentMethod', 'validatContractPaymentMethod');
-            validate('initialPaymentTime', 'initialPaymentTime', 'validatInitialPaymentTime');
-            validate('middlePaymentTime', 'middlePaymentTime', 'validatMiddlePaymentTime');
-            validate('finalPaymentTime', 'finalPaymentTime', 'validatFinalPaymentTime');
+            validateSelect('contractPaymentMethod', 'contractPaymentMethod', 'validatContractPaymentMethod');
+            validateSelect('initialPaymentTime', 'initialPaymentTime', 'validatInitialPaymentTime');
+            validateSelect('middlePaymentTime', 'middlePaymentTime', 'validatMiddlePaymentTime');
+            validateSelect('finalPaymentTime', 'finalPaymentTime', 'validatFinalPaymentTime');
             validate('billingInfo', 'billingInfo', 'validatBillingInfo');
             validateSelect('firstParty', 'firstParty', 'validatFirstParty');
             validateSelect('secondParty', 'secondParty', 'validatSecondParty');
-            validate('ledgerInput', 'ledgerInput', 'validatLedgerInput');
+            validateSelect('ledgerInput', 'ledgerInput', 'validatLedgerInput');
 
             // create ledger check
             validateSelect('moneyType0', 'moneyType', 'validatMoneyType');
@@ -475,6 +632,31 @@
             validate('paymentAmount0', 'paymentAmount', 'validatPaymentAmount');
             datepickerInit("paymentTime0",format);
             validate('operator0', 'operator', 'validatPerator');
+
+            // 如果是编辑的话加载甲乙合同并选中
+            var hiddenProjectIdValue = $("#hiddenProjectIdValue").val();
+            if(hiddenProjectIdValue){
+                getABList(hiddenProjectIdValue);
+            }
+
+            $("#category option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#hiddenCategoryValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            $("#contractPaymentMethod option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#hiddenContractPaymentMethodValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
         })
 
         function datepickerInit(id,format) {
@@ -489,11 +671,6 @@
             });
         }
 
-        // show项目table
-        function projectClick() {
-            $('#projectTable').modal('show');
-        }
-
         /***
          *
          * 项目相关
@@ -503,31 +680,42 @@
             projectTable = $('#projectTable').DataTable({
                 "sScrollX": true,
                 "ajax": {
-                    "url": "findProjectList",
+                    "url": "findProject",
                     "dataType": 'json',
                     "type": "POST",
-                    "async":"true",
                     contentType: 'application/json; charset=utf-8',
+
+                    "data": function (d) {
+                        var p = {};
+                        p.draw = d.draw;
+                        p.length = d.length;
+                        p.start = d.start;
+                        p.search = d.search.value;
+                        var a = JSON.stringify(p);
+                        return a;
+                    }
                 },
+
                 "columns": [
                     {
-                        "data": "id", "width": "80px"
-                        ,
+                        "data": "id", "width": "50px",
                         "render": function (data, type, row) {
-                            var tid = $("#trainerIds").val();
-                            if(tid.indexOf(row.id)>=0) {
-                                return "<input type='checkbox' name='tra' checked='checked' value='" + row.id + "'/>";
-                            }else{
-                                return "<input type='checkbox' name='tra' value='" + row.id + "'/>";
-                            }
+                            var u = "";
+                            u =  "<input type=\"radio\" style=\"cursor:pointer;\" name='project' value='" + row.id + "' proName='" + row.name + "' proCode='" + row.code + "' " +
+                                "proCampaignId='" + row.campaignId + "' proCampaignName='" + row.campaignName + "'/>";
+                            return u;
+
                         },
                     },
-                    {"data": "name", "width": "120px"},
-                    {"projectId": "mobilePhone", "width": "120px"},
-//                    {"data": "studentCount", "width": "120px"},
+
+                    {"data": "name", "width": "200px"},
+                    {"data": "code", "width": "100px"},
+                    {"data": "campaignName", "width": "100px"},
                 ]
                 , language: {
                     lengthMenu: '每页显示 <select class="form-control input-sm">'
+                    + '<option value="20">20</option>'
+                    + '<option value="40">40</option>'
                     + '<option value="100">100</option>'
                     + '</select> 个项目'
                     ,
@@ -539,13 +727,13 @@
                         last: "最后一页"
                     },
                     "sSearch": "搜索",
-                    zeroRecords: "没有项目",//table tbody内容为空时，tbody的内容。
+                    zeroRecords: "没有用户",//table tbody内容为空时，tbody的内容。
                     //下面三者构成了总体的左下角的内容。
-                    info: "当前显示第_START_到第_END_个项目 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
-                    infoEmpty: "0个项目",//筛选为空时左下角的显示。
+                    info: "当前显示第_START_到第_END_个用户 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    infoEmpty: "0个用户",//筛选为空时左下角的显示。
                     infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
                 }
-//                , "lengthChange": true
+                , "lengthChange": true
                 , "bFilter": true //搜索栏
                 , "bAutoWidth": true  //自适应宽度
                 , "sPaginationType": "full_numbers" //分页，一共两种样式，full_numbers和two_button(默认)
@@ -553,8 +741,149 @@
                 , "bSort": false
                 , "processing": true
                 , "serverSide": true
-                , "paging": false
+                , "iDisplayLength": 20 //默认显示的记录数
             });
+        }
+
+        // 选择一个项目
+        function chooseProject() {
+            var project=document.getElementsByName("project");
+            var projectId = "";
+            $.each(project, function(i,v) {
+                if(v.checked == true){
+                    $("#projectId").val($(this).attr("proCode")); // 项目编号
+                    $("#projectId").attr("valueSetID",$(this).val()); // 项目编号 ID
+
+                    $("#projectName").val($(this).attr("proName")); // 项目名称
+
+                    $("#campaignId").val($(this).attr("proCampaignName")); // 活动名
+                    $("#campaignId").attr("valueSetID",$(this).attr("proCampaignId"));
+
+                    projectId =  $("#projectId").attr("valueSetID");
+                }
+            });
+            $("#projectId").change();
+            $("#projectName").change();
+            $("#campaignId").change();
+            $("#code").val("");
+            $("#code").change();
+            $('#projectTableModal').modal('hide');
+            getABList(projectId);
+            $("#category option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",true);
+                }
+            });
+            $("#category").change();
+        }
+
+        //甲方乙方列表
+        function getABList(projectId) {
+            if (projectId){
+                $("#firstParty").empty();
+                $("#secondParty").empty();
+                var p = {
+                    projectId: projectId
+                };
+//                var a = JSON.stringify(p);
+                $.ajax({
+                    url: '/getABList',
+                    async: true,
+                    type: 'POST',
+                    data: p,
+//                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    timeout: 300000,
+                    beforeSend: function () {
+                    },
+                    error: function (result) {
+                        alert("通信错误！");
+                        $("#firstParty").html(ABListStr);
+                        $("#secondParty").html(ABListStr);
+                    },
+                    success: function (data) {
+                        if (data.ABList != "0"){
+                            var hiddenFirstPartyValue = $("#hiddenFirstPartyValue").val();
+                            var hiddenSecondPartyValue = $("#hiddenSecondPartyValue").val();
+                            for (var a= 0;a < data.ABList.length;a++) {
+                                var ab = data.ABList[a];
+                                var stringBuilder = [];
+                                stringBuilder.push("<option ");
+                                stringBuilder.push(" value=");
+                                stringBuilder.push("'");
+                                stringBuilder.push(ab.id);
+                                stringBuilder.push("'");
+                                stringBuilder.push(ab.id == hiddenFirstPartyValue?"selected='selected'":null);
+                                stringBuilder.push(">");
+                                stringBuilder.push(ab.name);
+                                stringBuilder.push("</option>");
+                                AListStr += stringBuilder.join("");
+                            }
+                            for (var a= 0;a < data.ABList.length;a++) {
+                                var ab = data.ABList[a];
+                                var stringBuilder = [];
+                                stringBuilder.push("<option ");
+                                stringBuilder.push(" value=");
+                                stringBuilder.push("'");
+                                stringBuilder.push(ab.id);
+                                stringBuilder.push("'");
+                                stringBuilder.push(ab.id == hiddenSecondPartyValue?"selected='selected'":null);
+                                stringBuilder.push(">");
+                                stringBuilder.push(ab.name);
+                                stringBuilder.push("</option>");
+                                BListStr += stringBuilder.join("");
+                            }
+                        }
+                        $("#firstParty").html(AListStr);
+                        $("#secondParty").html(BListStr);
+                    }
+                });
+            }
+        }
+        
+        // show项目table
+        function projectClick() {
+            $('#projectTableModal').modal('show');
+        }
+
+        /***
+         *
+         * 合同分类
+         *
+         **/
+        function categoryClick() {
+            var projectCode = $("#projectId").val();
+            var proName = $("#projectName").val();
+            var type = $("#category").val();
+
+            if (projectCode && proName && type){
+                var p = {
+                    code: projectCode,
+                    type:type
+                };
+                var a = JSON.stringify(p);
+                $.ajax({
+                    url: '/getContractCode',
+                    async: true,
+                    type: 'POST',
+                    data: a,
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    timeout: 300000,
+                    beforeSend: function () {
+                    },
+                    error: function (result) {
+                        alert("通信错误！");
+                    },
+                    success: function (data) {
+                        $("#code").val(data.code);
+                        $("#code").change();
+                    }
+                });
+            }else {
+                $("#code").val("");
+                $("#code").change();
+            }
         }
 
         /***
@@ -629,7 +958,7 @@
                 "          </div>\n" +
                 "      </td>\n" +
                 "      <td >\n" +
-                "          <button class=\"btn btn-primary btn-sm\" onclick=\"delBtnData(this)\" type=\"button\" style=\"width: 100%;\" onclick=\"add();\">删&nbsp;&nbsp;除</button>\n" +
+                "          <button class=\"btn btn-primary btn-sm\" onclick=\"delBtnData(this)\" type=\"button\" style=\"width: 100%;\" >删&nbsp;&nbsp;除</button>\n" +
                 "      </td>\n" +
                 "  </tr>";
             $("#ledgerList").append(row);
@@ -641,8 +970,7 @@
             validate('paymentAmount'+number, 'paymentAmount', 'validatPaymentAmount');
             datepickerInit('paymentTime'+number,format);
             validate('operator'+number, 'operator', 'validatPerator');
-            var id =$("#id").val();
-            if(id) validate('reasonForChange'+number, 'reasonForChange', 'validatValidatReasonForChange');
+            if(IsEdit()) validate('reasonForChange'+number, 'reasonForChange', 'validatReasonForChange');
             number++;
 
         }
@@ -683,45 +1011,45 @@
         }
 
         // 加载台账3个list
-        function ledgerInitList() {
-            $.ajax({
-                url: 'ledgerInitList',
-                async: true,
-                type: 'POST',
-//                data: a,
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                timeout: 300000,
-                beforeSend: function () {
-                },
-                error: function (result) {
-                    alert("通信错误！");
-                },
-                success: function (data) {
-                    if (data.moneyTypeList) {
-                        for (var a= 0;a < data.moneyTypeList.length;a++) {
-                            var moneyType = data.moneyTypeList[a];
-                            moneyTypeStr += '<option value="'+moneyType.id+'">'+moneyType.value+'</option>';
-                        }
-                        $("#moneyType0").html(moneyTypeStr);
-                    }
-                    if (data.paymentMethodList) {
-                        for (var a= 0;a < data.paymentMethodList.length;a++) {
-                            var paymentMethod = data.paymentMethodList[a];
-                            paymentMethodStr += '<option value="'+paymentMethod.id+'">'+paymentMethod.value+'</option>';
-                        }
-                        $("#paymentMethod0").html(paymentMethodStr);
-                    }
-                    if (data.costCenterList) {
-                        for (var a= 0;a < data.costCenterList.length;a++) {
-                            var costCenter = data.costCenterList[a];
-                            costCenterStr += '<option value="'+costCenter.id+'">'+costCenter.value+'</option>';
-                        }
-                        $("#costCenter0").html(costCenterStr);
-                    }
-                }
-            });
-        }
+//        function ledgerInitList() {
+//            $.ajax({
+//                url: 'ledgerInitList',
+//                async: true,
+//                type: 'POST',
+////                data: a,
+//                contentType: 'application/json; charset=utf-8',
+//                dataType: 'json',
+//                timeout: 300000,
+//                beforeSend: function () {
+//                },
+//                error: function (result) {
+//                    alert("通信错误！");
+//                },
+//                success: function (data) {
+//                    if (data.moneyTypeList) {
+//                        for (var a= 0;a < data.moneyTypeList.length;a++) {
+//                            var moneyType = data.moneyTypeList[a];
+//                            moneyTypeStr += '<option value="'+moneyType.id+'">'+moneyType.value+'</option>';
+//                        }
+//                        $("#moneyType0").html(moneyTypeStr);
+//                    }
+//                    if (data.paymentMethodList) {
+//                        for (var a= 0;a < data.paymentMethodList.length;a++) {
+//                            var paymentMethod = data.paymentMethodList[a];
+//                            paymentMethodStr += '<option value="'+paymentMethod.id+'">'+paymentMethod.value+'</option>';
+//                        }
+//                        $("#paymentMethod0").html(paymentMethodStr);
+//                    }
+//                    if (data.costCenterList) {
+//                        for (var a= 0;a < data.costCenterList.length;a++) {
+//                            var costCenter = data.costCenterList[a];
+//                            costCenterStr += '<option value="'+costCenter.id+'">'+costCenter.value+'</option>';
+//                        }
+//                        $("#costCenter0").html(costCenterStr);
+//                    }
+//                }
+//            });
+//        }
 
         // 台账后台验证
         function checkLedgerInfo() {
@@ -779,33 +1107,45 @@
                             }
                         }
                         $("#ledgerListInput").val("")
+                        ledgerList = [];
                     }else{
-                        $("#ledgerListInput").val("已填写台账");
+                        $("#ledgerInput").val("已填写台账");
+                        $("#ledgerInput").change();
                         $('#ledgerModal').modal('hide');
                     }
-                    return ledgerList;
                 }
             });
+            return ledgerList;
         }
 
         var saveBtnda;
         function saveContract(btn) {
             saveBtnda = Ladda.create( btn );
-            var roles = [];
-            $('input[name="role"]:checked').each(function () {
-                roles.push({id: $(this).val().trim()});
-            });
+
             var p = {
                 id: $("#id").val().trim(),
-//                nick: $("#nick").val().trim(),
+                signDay: $("#signDay").val().trim(),
                 name: $("#name").val().trim(),
-                mobilePhone: $("#mobilePhone").val().trim(),
-                password: $("#password").val(),
-                roleList: roles,
+                code: $("#code").val().trim(),
+                projectId: $("#projectId").attr("valueSetID"),
+                projectName:$("#projectName").val(),
+                campaignId: $("#campaignId").attr("valueSetID"),
+                exhibitionNumber: $("#exhibitionNumber").val().trim(),
+                area: $("#area").val().trim(),
+                amount: $("#amount").val().trim(),
+                category: $("#category").val().trim(),
+                tax: $("#tax").val().trim(),
+                contractPaymentMethod: $("#contractPaymentMethod").val().trim(),
+                initialPaymentTime: $("#initialPaymentTime").val().trim(),
+                middlePaymentTime: $("#middlePaymentTime").val().trim(),
+                finalPaymentTime: $("#finalPaymentTime").val().trim(),
+                billingInfo: $("#billingInfo").val().trim(),
+                firstParty: $("#firstParty").val().trim(),
+                secondParty: $("#secondParty").val().trim(),
+                remarks: $("#remarks").val().trim(),
 
-                state: $("input[name='state']:checked").val(),
-                gender: $("input[name='gender']:checked").val(),
-                email: $("#email").val().trim(),
+                ledgerListInput: checkLedgerInfo(),
+                ledgerInput:$("#ledgerInput").val().trim()
             };
             var a = JSON.stringify(p);
             $.ajax({
@@ -821,6 +1161,7 @@
                 },
                 error: function (result) {
                     alert("通信错误！");
+                    saveBtnda.stop();
                 },
                 success: function (data) {
                     if (data.res == undefined) {
@@ -836,7 +1177,7 @@
                         }
                     }else{
 
-                        loadPage("ContractList",function(){
+                        loadPage("contractList",function(){
                             saveBtnda.stop();
                         });
                     }

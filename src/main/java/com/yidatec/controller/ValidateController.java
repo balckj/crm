@@ -520,11 +520,15 @@ public class ValidateController extends BaseController{
         if(tax == null || tax.trim().isEmpty()){
             return getErrorJson("必须输入税");
         }
+        boolean res2 = tax.matches("^[0-9]+(.[0-9]{2})?$");
+        if(!res2)
+            if(!res2)
+                return getErrorJson("税整数位不能超过18位,小数位必须是两位");
         return getSuccessJson(null);
     }
 
-    @RequestMapping(value = "/contractPaymentMethod")
-    public String contractPaymentMethod(@RequestParam(value="contractPaymentMethod") String contractPaymentMethod){
+    @RequestMapping(value = "/validatContractPaymentMethod")
+    public String validatContractPaymentMethod(@RequestParam(value="contractPaymentMethod") String contractPaymentMethod){
         if(contractPaymentMethod == null || contractPaymentMethod.trim().isEmpty()){
             return getErrorJson("必须输入付款方式");
         }
@@ -631,7 +635,7 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
-    @RequestMapping(value = "/validatReascononForChange")
+    @RequestMapping(value = "/validatReasonForChange")
     public String validatReasonForChange(@RequestParam(value="reasonForChange") String reasonForChange){
         if(reasonForChange == null || reasonForChange.trim().isEmpty()){
             return getErrorJson("必须输入变更原因");

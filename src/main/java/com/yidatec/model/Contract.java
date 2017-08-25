@@ -1,5 +1,7 @@
 package com.yidatec.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.yidatec.util.CustomLocalDateSerializer;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -16,14 +18,14 @@ import java.util.List;
 public class Contract extends BaseModel {
 
     @NotNull(message = "必须输入合同签署日期", groups = { })
-//    @Length(max = 36, message = "合同签署日期最大不能超过36个字符", groups = { })
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
     private LocalDate signDay;
 
     @NotBlank(message = "必须输入合同名称", groups = { })
     @Length(max = 200, message = "合同名称最大不能超过200个字符", groups = { })
     private String name;
 
-    @NotBlank(message = "必须输入合同编码", groups = { })
+    @NotBlank(message = "必须输入合同编号", groups = { })
     @Length(max = 30, message = "合同编码最大不能超过30个字符", groups = { })
     private String code;
     @NotBlank(message = "必须输入项目编号", groups = { })
@@ -75,6 +77,9 @@ public class Contract extends BaseModel {
     @NotNull(message = "必须输入台账", groups = {})
     @Size(min=1,message = "必须输入台账")
     private List<Ledger> ledgerListInput;
+
+    @NotBlank(message = "必须输入台账", groups = { })
+    private String ledgerInput;
 
     public LocalDate getSignDay() {
         return signDay;
@@ -234,5 +239,13 @@ public class Contract extends BaseModel {
 
     public void setLedgerListInput(List<Ledger> ledgerListInput) {
         this.ledgerListInput = ledgerListInput;
+    }
+
+    public String getLedgerInput() {
+        return ledgerInput;
+    }
+
+    public void setLedgerInput(String ledgerInput) {
+        this.ledgerInput = ledgerInput;
     }
 }

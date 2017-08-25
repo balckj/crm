@@ -311,7 +311,7 @@
                                         <label class="col-sm-4 control-label" style="text-align: left;color: red;">*【案例名称】和【案例图片】同时输入才会被保存</label>
                                         <div class="col-sm-1">
                                             <button th:if="${designerCaseStat.index == 0}" onclick="addCase1()" type="button" class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
-                                            <button th:unless="${designerCaseStat.index == 0}" th:attr="onclick='delBtnData1('+${designerCaseStat.index}+')'" type="button"  class="btn ladda-button btn-w-m btn-primary">删&nbsp;&nbsp;除</button>
+                                            <button th:unless="${designerCaseStat.index == 0}" th:attr="onclick='delBtnData1(this)'" type="button"  class="btn ladda-button btn-w-m btn-primary">删&nbsp;&nbsp;除</button>
                                         </div>
                                     </div>
                                     <div class="form-group " th:attr="id='casePhoto'+${designerCaseStat.index}+'Form'">
@@ -328,7 +328,7 @@
                                 </div>
                                 <!--如果编辑的时候没有 就默认显示一个-->
                                 <div  th:if="${#lists.isEmpty(designerCaseList)}">
-                                    <div class="form-group " id="caseNameForm"><label
+                                    <div class="form-group " th:attr="id='caseName'+${designerCaseStat.index}+'Form'"><label
                                             class="col-sm-2 control-label">案例名称</label>
                                         <div class="col-sm-4">
                                             <input id="caseName0" name="caseName" type="text"
@@ -354,7 +354,7 @@
                             <!--创建-->
                             <div id="caseList" th:unless="${designer}?${designer.id}" style="background-color: #f8f7f6;border-radius: 4px;padding-top: 15px;padding-bottom: 15px;" >
                                 <div>
-                                    <div class="form-group " id="caseNameForm"><label
+                                    <div class="form-group " id="caseName0Form"><label
                                             class="col-sm-2 control-label">案例名称</label>
                                         <div class="col-sm-4">
                                             <input id="caseName0" name="caseName" type="text"
@@ -365,7 +365,7 @@
                                             <button onclick="addCase1()" type="button" class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
                                         </div>
                                     </div>
-                                    <div class="form-group " id="casePhotoForm">
+                                    <div class="form-group " id="casePhoto0Form">
                                         <label class="col-sm-2 control-label">案例照片</label>
                                         <div class="col-sm-6 dropzone" id="casePhoto0" name="casePhoto">
                                             <div class="am-text-success dz-message">
@@ -618,9 +618,9 @@
 
         var casephoto=[];
         var delFilesList = [];
-        var total = 1;
-        function addCase1(){
 
+        function addCase1(){
+            var total = $("#caseList").children().length;
             var row =
                 " <div>"
                 +"<div id='line"+total+ "' class='hr-line-dashed'></div>"
@@ -629,7 +629,7 @@
                 +"<div class='col-sm-4'><input id='caseName"+total+ "' name='caseName' type='text' "
                 +"class='form-control' maxlength='10'/></div> "
                 +" <label class='col-sm-4 control-label' style='text-align: left;color: red;'>*【案例名称】和【案例图片】同时输入才会被保存</label> "
-                +" <div class='col-sm-1'><button onclick='delBtnData1("+total+ ")' id='casedel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div>"
+                +" <div class='col-sm-1'><button onclick='delBtnData1(this)' type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div>"
                 +"</div>"
                 +"<div class='form-group ' id='casePhoto"+total+ 'Form' +"'>"
                 +"<label class='col-sm-2 control-label'>案例照片</label>"
@@ -722,13 +722,21 @@
             });
         }
 
-        function delBtnData1(total){
-            debugger
-            $("#caseName"+total+"Form").remove();
-            $("#line"+total).remove();
-            $("#casePhoto"+total+"Form").remove();
+        function delBtnData1(obj){
+            $(obj).parent().parent().parent().remove();
+            updateId();
         }
 
+        function updateId() {
+            $("#caseList > div").each(function(index){
+
+                $(this).find($("input[id^='caseName']")).attr("id","caseName"+index+"Form");
+                $(this).find($("div[id^='caseName']")).attr("id","caseName"+index);
+
+                $(this).find($("div[id^='casePhoto']")).attr("id","casePhoto"+index+"Form");
+                $(this).find($(".dropzone")).attr("id","casePhoto"+index);
+            })
+        }
         $("#projectManager").addClass("active");
 
         validateSelect('referrer', 'referrer', 'validateReferrer');

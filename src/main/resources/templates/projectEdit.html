@@ -71,7 +71,7 @@
                             <div class="form-group" id="customerIdForm"><label class="col-sm-2 control-label">客户<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <input id="customerId" name="customerId" placeholder="请选择客户名称" readonly="readonly"  type="text" th:value="${project}?${project.customerId}"
+                                    <input id="customerId" name="customerId" placeholder="请选择客户名称" readonly="readonly"  type="text" th:value="${project}?${project.customerName}" th:attr="customerid=${project.customerId}"
                                            class="form-control" maxlength="200" onclick="customerClick();" style="cursor:pointer;"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -80,7 +80,7 @@
                             <div class="form-group" id="campaignIdForm"><label class="col-sm-2 control-label">市场活动<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <input id="campaignId" name="campaignId" placeholder="请选择市场活动" readonly="readonly"  type="text" th:value="${project}?${project.customerId}"
+                                    <input id="campaignId" name="campaignId" placeholder="请选择市场活动" readonly="readonly"  type="text" th:value="${project}?${project.campaignName}" th:attr="campaignid=${project.campaignId}"
                                            class="form-control" maxlength="200" onclick="campaignClick();" style="cursor:pointer;"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -629,7 +629,7 @@
                         "data": "id", "width": "80px",
                         "render": function (data, type, row) {
                             var u = "";
-                            u =  "<input type=\"radio\" name='customer' value='" + row.id + "' cusId='" + row.name + "' />";
+                            u =  "<input type=\"radio\" name='customer' value='" + row.id + "' customerName='" + row.name + "' />";
                             return u;
 
                         },
@@ -676,8 +676,8 @@
             var customer=document.getElementsByName("customer");
             $.each(customer, function(i,v) {
                 if(v.checked == true){
-                    $("#customerId").val($(this).attr("cusId")); // 项目编号
-                    $("#customerId").attr("value",$(this).val());
+                    $("#customerId").val($(this).attr("customerName")); // 项目编号
+                    $("#customerId").attr("customerid",$(this).val());
 //                    $("#customerId").text($(this).attr("cusId")); // 项目编号 ID
                 }
             });
@@ -710,7 +710,7 @@
                         "data": "id", "width": "80px",
                         "render": function (data, type, row) {
                             var u = "";
-                            u =  "<input type=\"radio\" name='activity' value='" + row.id + "' cusId='" + row.name + "' sponser='"+row.sponsor+"' ' />";
+                            u =  "<input type=\"radio\" name='activity' value='" + row.id + "' activityName='" + row.name + "' sponser='"+row.sponsor+"' ' />";
                             return u;
 
                         },
@@ -758,14 +758,11 @@
             var activity=document.getElementsByName("activity");
             $.each(activity, function(i,v) {
                 if(v.checked == true){
-                    $("#campaignId").val($(this).attr("cusId")); // 项目编号
-                    $("#campaignId").attr("value",$(this).val());
-                    $("#campaignId").val($(this).attr("cusId")); // 项目编号
-//                    $("#customerId").attr("value",$(this).attr("sponser")); // 项目编号 ID
+                    $("#campaignId").val($(this).attr("activityName")); // 项目编号
+                    $("#campaignId").attr("campaignid",$(this).val());
                 }
             });
             $('#campaignTableModal').modal('hide');
-//            $("#code").val("");
         }
 
 
@@ -886,8 +883,8 @@
                 id: $("#id").val().trim(),
                 name: $("#name").val().trim(),
                 type: $("#type").val().trim(),
-                customerId: $("#customerId").attr("value"),
-                campaignId: $("#campaignId").attr("value"),
+                customerId: $("#customerId").attr("customerid"),
+                campaignId: $("#campaignId").attr("campaignid"),
                 code: $("#code").val(),
                 budget: $("#budget").val(),
                 exhibitionNumber: $("#exhibitionNumber").val(),

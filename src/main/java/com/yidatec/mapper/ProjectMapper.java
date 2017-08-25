@@ -43,7 +43,7 @@ public interface ProjectMapper {
     @SelectProvider(type=com.yidatec.mapper.ProjectQueryProvider.class,method = "countProject")
     int countCustomerList(ProjectVO projectVO);
 
-    @Select("SELECT * FROM T_PROJECT WHERE id = #{id}")
+    @Select("SELECT b.name as customerName,c.name as campaignName,D.* FROM T_PROJECT D LEFT JOIN T_CUSTOMER b on D.customerId=b.id LEFT JOIN T_CAMPAIGN c on D.campaignId = c.id WHERE D.id = #{id}")
     ProjectEntity selectProject(String id);
 
     @Select("SELECT designerId FROM T_PROJECT_DESIGNER WHERE projectId = #{id}")

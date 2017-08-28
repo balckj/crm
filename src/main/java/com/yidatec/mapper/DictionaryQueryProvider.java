@@ -17,6 +17,9 @@ public class DictionaryQueryProvider {
         if(!StringUtils.isEmpty(dictionaryVO.getCode())){
             sb.append(" AND D.code = #{code}");
         }
+        if(!StringUtils.isEmpty(dictionaryVO.getDescription())){
+            sb.append(" AND D.description LIKE CONCAT('%',#{description},'%')");
+        }
         if(!StringUtils.isEmpty(dictionaryVO.getState())){
             sb.append(" AND D.state = #{state}");
         }
@@ -31,6 +34,9 @@ public class DictionaryQueryProvider {
 
         if(!StringUtils.isEmpty(dictionaryVO.getCode())){
             sb.append(" AND D.code = #{code}");
+        }
+        if(!StringUtils.isEmpty(dictionaryVO.getDescription())){
+            sb.append(" AND D.description = #{description}");
         }
         if(!StringUtils.isEmpty(dictionaryVO.getState())){
             sb.append(" AND D.state = #{state}");

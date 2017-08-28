@@ -38,6 +38,12 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
+                        <label for="description" class="control-label">项目描述</label>
+                        <input type="text" placeholder="包含您的输入值的项目描述" id="description" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
                         <label for="state" class="control-label">状态</label>
                         <select name="state" id="state" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
                             <option value="" selected="selected">不限</option>
@@ -98,6 +104,7 @@
                         p.length = d.length;
                         p.start = d.start;
                         p.code = $('#code').val().trim();
+                        p.description = $('#description').val().trim();
                         p.state = $('#state').val().trim();
                         var a = JSON.stringify(p);
                         return a;

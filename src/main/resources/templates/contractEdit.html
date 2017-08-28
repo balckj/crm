@@ -1077,7 +1077,7 @@
             };
             var a = JSON.stringify(p);
             $.ajax({
-                url: 'checkLedgerInfo',
+                url: IsEdit() == true ? 'checkLedgerInfo2':'checkLedgerInfo',
                 async: true,
                 type: 'POST',
                 data: a,
@@ -1122,6 +1122,23 @@
         function saveContract(btn) {
             saveBtnda = Ladda.create( btn );
 
+            // 编辑的是检查变更原因是否有空的。
+            if(IsEdit()){
+                var led = checkLedgerInfo();
+                if(led.length > 0){
+                    var rFlag = false;
+                    for (var i = 0;i<led.length;i++){
+                        var reasonForChange = led[i].reasonForChange;
+                        if (reasonForChange == "" || reasonForChange == undefined || reasonForChange == null){
+                            rFlag = true;
+                            break;
+                        }
+                    }
+                    if(rFlag){
+                        $("#ledgerInput").val("");
+                    }
+                }
+            }
             var p = {
                 id: $("#id").val().trim(),
                 signDay: $("#signDay").val().trim(),

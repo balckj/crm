@@ -10,7 +10,7 @@ public class ActivityQueryProvider {
     public String selectActivity(final ActivityVO activityVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM T_CAMPAIGN  as D WHERE 1=1 ");
+        sb.append("SELECT b.name as customerName,c.name as exhibitioHallName,D.* FROM T_CAMPAIGN  as D LEFT JOIN T_CUSTOMER b on D.sponsor = b.id LEFT JOIN T_EXHIBITION_HALL c on D.exhibitioHall=c.id WHERE 1=1 ");
 
         if(!StringUtils.isEmpty(activityVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");

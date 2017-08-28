@@ -111,50 +111,50 @@ public class ProjectController extends BaseController {
         List<ProjectEntity> ProjectEntityList = projectService.selectProjectList(project);
         if (ProjectEntityList != null){
             for(ProjectEntity project1 : ProjectEntityList){
-                String designparams = project1.getDesignProgress();
-                if (!StringUtils.isEmpty(designparams)){
-                    String[] paramsList = designparams.split(",");
-                    String temp = "";
-                    for(int i = 0 ; i < paramsList.length; i++){
-                        Dictionary dictionary = dictionaryService.selectDictionary(paramsList[i]);
-                        if(i != paramsList.length -1){
-                            temp = temp + dictionary.getValue()  +",";
-                        }else{
-                            temp = temp + dictionary.getValue();
-                        }
-                    }
-                    project1.setDesignProgress(temp);
-                }
-
-                String projectparams = project1.getProjectProgress();
-                if (!StringUtils.isEmpty(projectparams)){
-                    String[] paramsList = projectparams.split(",");
-                    String temp = "";
-                    for(int i = 0 ; i < paramsList.length; i++){
-                        Dictionary dictionary = dictionaryService.selectDictionary(paramsList[i]);
-                        if(i != paramsList.length -1){
-                            temp = temp + dictionary.getValue()  +",";
-                        }else{
-                            temp = temp + dictionary.getValue();
-                        }
-                    }
-                    project1.setProjectProgress(temp);
-                }
-
-                String factoryparams = project1.getFactoryProgress();
-                if (!StringUtils.isEmpty(factoryparams)){
-                    String[] paramsList = factoryparams.split(",");
-                    String temp = "";
-                    for(int i = 0 ; i < paramsList.length; i++){
-                        Dictionary dictionary = dictionaryService.selectDictionary(paramsList[i]);
-                        if(i != paramsList.length -1){
-                            temp = temp + dictionary.getValue()  +",";
-                        }else{
-                            temp = temp + dictionary.getValue();
-                        }
-                    }
-                    project1.setFactoryProgress(temp);
-                }
+//                String designparams = project1.getDesignProgress();
+//                if (!StringUtils.isEmpty(designparams)){
+//                    String[] paramsList = designparams.split(",");
+//                    String temp = "";
+//                    for(int i = 0 ; i < paramsList.length; i++){
+//                        Dictionary dictionary = dictionaryService.selectDictionary(paramsList[i]);
+//                        if(i != paramsList.length -1){
+//                            temp = temp + dictionary.getValue()  +",";
+//                        }else{
+//                            temp = temp + dictionary.getValue();
+//                        }
+//                    }
+//                    project1.setDesignProgress(temp);
+//                }
+//
+//                String projectparams = project1.getProjectProgress();
+//                if (!StringUtils.isEmpty(projectparams)){
+//                    String[] paramsList = projectparams.split(",");
+//                    String temp = "";
+//                    for(int i = 0 ; i < paramsList.length; i++){
+//                        Dictionary dictionary = dictionaryService.selectDictionary(paramsList[i]);
+//                        if(i != paramsList.length -1){
+//                            temp = temp + dictionary.getValue()  +",";
+//                        }else{
+//                            temp = temp + dictionary.getValue();
+//                        }
+//                    }
+//                    project1.setProjectProgress(temp);
+//                }
+//
+//                String factoryparams = project1.getFactoryProgress();
+//                if (!StringUtils.isEmpty(factoryparams)){
+//                    String[] paramsList = factoryparams.split(",");
+//                    String temp = "";
+//                    for(int i = 0 ; i < paramsList.length; i++){
+//                        Dictionary dictionary = dictionaryService.selectDictionary(paramsList[i]);
+//                        if(i != paramsList.length -1){
+//                            temp = temp + dictionary.getValue()  +",";
+//                        }else{
+//                            temp = temp + dictionary.getValue();
+//                        }
+//                    }
+//                    project1.setFactoryProgress(temp);
+//                }
 
                 String importantparams = project1.getDegreeOfImportance();
                 if (!StringUtils.isEmpty(importantparams)){
@@ -201,35 +201,6 @@ public class ProjectController extends BaseController {
                     project1.setPmId(temp);
                 }
 
-//                String developSaleparams = project1.getDevelopSaleId();
-//                if (!StringUtils.isEmpty(developSaleparams)){
-//                    String[] paramsList = developSaleparams.split(",");
-//                    String temp = "";
-//                    for(int i = 0 ; i < paramsList.length; i++){
-//                        User user = saleService.selectSale(paramsList[i]);
-//                        if(i != paramsList.length -1){
-//                            temp = temp + user.getName()  +",";
-//                        }else{
-//                            temp = temp + user.getName();
-//                        }
-//                    }
-//                    project1.setDevelopSaleId(temp);
-//                }
-
-//                String traceSaleparams = project1.getTraceSaleId();
-//                if (!StringUtils.isEmpty(traceSaleparams)){
-//                    String[] paramsList = traceSaleparams.split(",");
-//                    String temp = "";
-//                    for(int i = 0 ; i < paramsList.length; i++){
-//                        User user = saleService.selectSale(paramsList[i]);
-//                        if(i != paramsList.length -1){
-//                            temp = temp + user.getName()  +",";
-//                        }else{
-//                            temp = temp + user.getName();
-//                        }
-//                    }
-//                    project1.setTraceSaleId(temp);
-//                }
 
                 String typeparams = project1.getType();
                 if (!StringUtils.isEmpty(typeparams)){

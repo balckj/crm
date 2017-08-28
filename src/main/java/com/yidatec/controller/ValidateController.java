@@ -182,6 +182,14 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
+    @RequestMapping(value = "/validateDirector")
+    public String validateDirector(@RequestParam(value = "director") String director) {
+        if (director == null || director.trim().isEmpty()) {
+            return getErrorJson("必须输入工厂厂长名称");
+        }
+        return getSuccessJson(null);
+    }
+
     @RequestMapping(value = "/validateIndustry")
     public String validateIndustry(@RequestParam(value="industry") String industry){
         if(industry == null || industry.trim().isEmpty()){
@@ -647,6 +655,118 @@ public class ValidateController extends BaseController{
     public String validatLedgerInput(@RequestParam(value="ledgerInput") String ledgerInput){
         if(ledgerInput == null || ledgerInput.trim().isEmpty()){
             return getErrorJson("必须输入台账");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateType")
+    public String validateType(@RequestParam(value = "type") String type) {
+        if (type == null || type.trim().isEmpty()) {
+            return getErrorJson("必须选择类型");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateCustomerId")
+    public String validateCustomerId(@RequestParam(value = "customerId") String customerId) {
+        if (customerId == null || customerId.trim().isEmpty()) {
+            return getErrorJson("必须选择客户");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateBudget")
+    public String validateBudget(@RequestParam(value = "budget") String budget) {
+        if (budget == null || budget.trim().isEmpty()) {
+            return getErrorJson("必须输入预算");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateSetupTime")
+    public String validateSetupTime(@RequestParam(value = "setupTime") String setupTime) {
+        if (setupTime == null || setupTime.trim().isEmpty()) {
+            return getErrorJson("必须输入搭建时间");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateTearDownTime")
+    public String validateTearDownTime(@RequestParam(value = "tearDownTime") String tearDownTime) {
+        if (tearDownTime == null || tearDownTime.trim().isEmpty()) {
+            return getErrorJson("必须输入撤展时间");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateCost")
+    public String validateCost(@RequestParam(value = "cost") String cost) {
+        if (cost == null || cost.trim().isEmpty()) {
+            return getErrorJson("必须输入成本");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateDegreeOfImportance")
+    public String validateDegreeOfImportance(@RequestParam(value = "degreeOfImportance") String degreeOfImportance) {
+        if (degreeOfImportance == null || degreeOfImportance.trim().isEmpty()) {
+            return getErrorJson("必须选择重要程度");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatePotential")
+    public String validatePotential(@RequestParam(value = "potential") String potential) {
+        if (potential == null || potential.trim().isEmpty()) {
+            return getErrorJson("必须选择项目潜力");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateDesignerId")
+    public String validateDesignerId(@RequestParam(value = "designerId") String designerId) {
+        if (designerId == null || designerId.trim().isEmpty()) {
+            return getErrorJson("必须选择设计师");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateFactoryId")
+    public String validateFactoryId(@RequestParam(value = "factoryId") String factoryId) {
+        if (factoryId == null || factoryId.trim().isEmpty()) {
+            return getErrorJson("必须选择工厂");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatemId")
+    public String validatemId(@RequestParam(value = "pmId") String pmId) {
+        if (pmId == null || pmId.trim().isEmpty()) {
+            return getErrorJson("必须选择项目经理");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateDevelopSaleId")
+    public String validateDevelopSaleId(@RequestParam(value = "developSaleId") String developSaleId) {
+        if (developSaleId == null || developSaleId.trim().isEmpty()) {
+            return getErrorJson("必须选择开发销售");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateCaseName")
+    public String validateCaseName(@RequestParam(value = "caseName") String caseName) {
+        if (caseName == null || caseName.trim().isEmpty()) {
+            return getErrorJson("必须输入案例名称");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatePhoto")
+    public String validatePhoto(@RequestParam(value = "photo") String photo) {
+        if (photo == null || photo.trim().isEmpty()) {
+            return getErrorJson("必须上传照片");
         }
         return getSuccessJson(null);
     }

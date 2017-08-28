@@ -1,12 +1,10 @@
 package com.yidatec.controller;
 
 import com.yidatec.model.Activity;
-import com.yidatec.model.Customer;
 import com.yidatec.service.ActivityService;
 import com.yidatec.service.CustomerService;
 import com.yidatec.service.ExhibitionService;
 import com.yidatec.vo.ActivityVO;
-import com.yidatec.vo.ExhibitionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -82,18 +80,18 @@ public class ActivityController extends BaseController{
     @ResponseBody
     public Object findActivity(@RequestBody ActivityVO activityVO)throws Exception{
         List<Activity> ActivityEntityList = activityService.selectActivityList(activityVO);
-        if (ActivityEntityList!=null){
-            for(Activity activity:ActivityEntityList){
-                ExhibitionVO exhibition = exhibitionService.selectExhibition(activity.getExhibitioHall());
-                if(exhibition != null){
-                    activity.setExhibitioHall(exhibition.getName());
-                }
-                Customer customer = customerService.selectCustomer(activity.getSponsor());
-                if(customer != null){
-                    activity.setSponsor(customer.getName());
-                }
-            }
-        }
+//        if (ActivityEntityList!=null){
+//            for(Activity activity:ActivityEntityList){
+//                ExhibitionVO exhibition = exhibitionService.selectExhibition(activity.getExhibitioHall());
+//                if(exhibition != null){
+//                    activity.setExhibitioHall(exhibition.getName());
+//                }
+//                Customer customer = customerService.selectCustomer(activity.getSponsor());
+//                if(customer != null){
+//                    activity.setSponsor(customer.getName());
+//                }
+//            }
+//        }
         int count = activityService.countActivityList(activityVO);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("draw", activityVO.getDraw());

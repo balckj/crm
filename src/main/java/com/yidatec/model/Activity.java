@@ -40,11 +40,27 @@ public class Activity extends BaseModel{
     //展馆
     @NotBlank(message = "必须选择展馆", groups = { })
     private String exhibitioHall;
+    private String exhibitioHallName;
     //主办方
     @NotBlank(message = "必须选择主办方", groups = { })
     private String sponsor;
+    private String customerName;
 
+    public String getExhibitioHallName() {
+        return exhibitioHallName;
+    }
 
+    public void setExhibitioHallName(String exhibitioHallName) {
+        this.exhibitioHallName = exhibitioHallName;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 
     public String getName() {
         return name;

@@ -11,7 +11,7 @@ import javax.validation.constraints.Pattern;
  */
 public class Contact extends BaseModel{
     @NotBlank(message = "必须输入联系人", groups = { })
-    @Length(min =1, max = 30, message = "联系人必须由3到30个字符组成", groups = { })
+    @Length(min =1, max = 30, message = "联系人必须由1到30个字符组成", groups = { })
     private String name;
 
     @NotBlank(message = "必须输入联系人电话", groups = { })

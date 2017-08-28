@@ -37,14 +37,14 @@ public class FactoryService {
     public void createFactory(FactoryEntity factory){
 
         factoryMapper.create(factory);
-        for (int i=0;i<factory.getUserList().size();i++){
-            factory.getUserList().get(i).setId(UUID.randomUUID().toString().toLowerCase());
-            factory.getUserList().get(i).setCreatorId(factory.getId());
-            factory.getUserList().get(i).setCreateTime(LocalDateTime.now());
-            factory.getUserList().get(i).setModifierId(factory.getCreatorId());
-            factory.getUserList().get(i).setModifyTime(LocalDateTime.now());
-            contactMapper.createContact(factory.getUserList().get(i));
-            factoryMapper.createRelation(factory.getId(),factory.getUserList().get(i).getId());
+        for (int i=0;i<factory.getContactList().size();i++){
+            factory.getContactList().get(i).setId(UUID.randomUUID().toString().toLowerCase());
+            factory.getContactList().get(i).setCreatorId(factory.getId());
+            factory.getContactList().get(i).setCreateTime(LocalDateTime.now());
+            factory.getContactList().get(i).setModifierId(factory.getCreatorId());
+            factory.getContactList().get(i).setModifyTime(LocalDateTime.now());
+            contactMapper.createContact(factory.getContactList().get(i));
+            factoryMapper.createRelation(factory.getId(),factory.getContactList().get(i).getId());
         }
         for (int i=0;i<factory.getCaseList().size();i++){
             factory.getCaseList().get(i).setId(UUID.randomUUID().toString().toLowerCase());
@@ -63,14 +63,14 @@ public class FactoryService {
         factoryMapper.deleteCaseRelation(factory.getId());
         factoryMapper.update(factory);
 
-        for (int i=0;i<factory.getUserList().size();i++){
-            factory.getUserList().get(i).setId(UUID.randomUUID().toString().toLowerCase());
-            factory.getUserList().get(i).setCreatorId(factory.getId());
-            factory.getUserList().get(i).setCreateTime(LocalDateTime.now());
-            factory.getUserList().get(i).setModifierId(factory.getCreatorId());
-            factory.getUserList().get(i).setModifyTime(LocalDateTime.now());
-            contactMapper.createContact(factory.getUserList().get(i));
-            factoryMapper.createRelation(factory.getId(),factory.getUserList().get(i).getId());
+        for (int i=0;i<factory.getContactList().size();i++){
+            factory.getContactList().get(i).setId(UUID.randomUUID().toString().toLowerCase());
+            factory.getContactList().get(i).setCreatorId(factory.getId());
+            factory.getContactList().get(i).setCreateTime(LocalDateTime.now());
+            factory.getContactList().get(i).setModifierId(factory.getCreatorId());
+            factory.getContactList().get(i).setModifyTime(LocalDateTime.now());
+            contactMapper.createContact(factory.getContactList().get(i));
+            factoryMapper.createRelation(factory.getId(),factory.getContactList().get(i).getId());
         }
         for (int i=0;i<factory.getCaseList().size();i++){
             factory.getCaseList().get(i).setId(UUID.randomUUID().toString().toLowerCase());
@@ -98,7 +98,7 @@ public class FactoryService {
         FactoryEntity factory = factoryMapper.selectFactory(id);
         if (factory!=null){
             BeanUtils.copyProperties(factory, factoryVO);
-            factoryVO.setUserList(factoryMapper.getContact(id));
+            factoryVO.setContactList(factoryMapper.getContact(id));
             factoryVO.setCaseList(caseMapper.getCase(id));
         }
         return factoryVO;

@@ -37,11 +37,11 @@
                             <input type="hidden" name="selecttypeValue" id="selecttypeValue" th:value="${project}?${project.type}"/>
                             <input type="hidden" name="selectcustomerIdValue" id="selectcustomerIdValue" th:value="${project}?${project.customerId}"/>
                             <input type="hidden" name="selectcampaignIdValue" id="selectcampaignIdValue" th:value="${project}?${project.campaignId}"/>
-                            <input type="hidden" name="selectdesignersValue" id="selectdesignersValue" th:value="${project}?${project.designers}"/>
+                            <input type="hidden" name="selectdesignersValue" id="selectdesignersValue" th:value="${project}?${project.designerId}"/>
                             <input type="hidden" name="selectdesignProgressValue" id="selectdesignProgressValue" th:value="${project}?${project.designProgress}"/>
                             <input type="hidden" name="selectpmIdValue" id="selectpmIdValue" th:value="${project}?${project.pmId}"/>
                             <input type="hidden" name="selectprojectProgressValue" id="selectprojectProgressValue" th:value="${project}?${project.projectProgress}"/>
-                            <input type="hidden" name="selectfactoriesValue" id="selectfactoriesValue" th:value="${project}?${project.factories}"/>
+                            <input type="hidden" name="selectfactoriesValue" id="selectfactoriesValue" th:value="${project}?${project.factoryId}"/>
                             <input type="hidden" name="selectfactoryProgressValue" id="selectfactoryProgressValue" th:value="${project}?${project.factoryProgress}"/>
                             <input type="hidden" name="selectdevelopSaleIdValue" id="selectdevelopSaleIdValue" th:value="${project}?${project.developSaleId}"/>
                             <input type="hidden" name="selecttraceSaleIdValue" id="selecttraceSaleIdValue" th:value="${project}?${project.traceSaleId}"/>
@@ -71,7 +71,7 @@
                             <div class="form-group" id="customerIdForm"><label class="col-sm-2 control-label">客户<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <input id="customerId" name="customerId" placeholder="请选择客户名称" readonly="readonly"  type="text" th:value="${project}?${project.customerName}" th:attr="customerid=${project.customerId}"
+                                    <input id="customerId" name="customerId" placeholder="请选择客户名称" readonly="readonly"  type="text" th:value="${project}?${project.customerName}" th:attr="customerid=${project}?${project.customerId}"
                                            class="form-control" maxlength="200" onclick="customerClick();" style="cursor:pointer;"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -80,7 +80,7 @@
                             <div class="form-group" id="campaignIdForm"><label class="col-sm-2 control-label">市场活动<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <input id="campaignId" name="campaignId" placeholder="请选择市场活动" readonly="readonly"  type="text" th:value="${project}?${project.campaignName}" th:attr="campaignid=${project.campaignId}"
+                                    <input id="campaignId" name="campaignId" placeholder="请选择市场活动" readonly="readonly"  type="text" th:value="${project}?${project.campaignName}" th:attr="campaignid=${project}?${project.campaignId}"
                                            class="form-control" maxlength="200" onclick="campaignClick();" style="cursor:pointer;"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -128,8 +128,7 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="costForm"><label class="col-sm-2 control-label">项目成本<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="costForm"><label class="col-sm-2 control-label">项目成本</label>
                                 <div class="col-sm-4"><input id="cost" name="cost" type="text" class="form-control"
                                                              maxlength="30" th:value="${project}?${project.cost}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -211,40 +210,38 @@
                                         <option th:value="${factories.id}" th:text="${factories.name}" th:each="factories:${factories}"></option>
                                     </select>
                                 </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">工厂进度</label>
                                 <div class="col-sm-4">
-
                                     <div class="checkbox checkbox-inline checkbox-info" th:each="factory:${factoryProgress}">
                                         <input type="checkbox" name="factoryProgress" id="f1" th:value="${factory.id}" />
                                         <label for="f1" th:text="${factory.value}"></label>
                                     </div>
                                 </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="projectScoreForm"><label class="col-sm-2 control-label">项目评分<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="projectScoreForm"><label class="col-sm-2 control-label">项目评分</label>
                                 <div class="col-sm-4"><input id="projectScore" name="projectScore" type="text" class="form-control"
                                                              maxlength="10" th:value="${project}?${project.projectScore}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="designScoreForm"><label class="col-sm-2 control-label">设计评分<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="designScoreForm"><label class="col-sm-2 control-label">设计评分</label>
                                 <div class="col-sm-4"><input id="designScore" name="designScore" type="text" class="form-control"
                                                              maxlength="10" th:value="${project}?${project.designScore}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="pmScoreForm"><label class="col-sm-2 control-label">项目经理评分<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="pmScoreForm"><label class="col-sm-2 control-label">项目经理评分</label>
                                 <div class="col-sm-4"><input id="pmScore" name="pmScore" type="text" class="form-control"
                                                              maxlength="10" th:value="${project}?${project.pmScore}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -263,8 +260,7 @@
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="traceSaleIdForm" ><label class="col-sm-2 control-label">跟进销售<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="traceSaleIdForm" ><label class="col-sm-2 control-label">跟进销售</label>
                                 <div class="col-sm-4">
                                     <select class="form-control m-b" name="traceSaleId" id="traceSaleId">
                                         <option value="" selected="selected">未选择</option>
@@ -273,11 +269,11 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" ><label class="col-sm-2 control-label">项目图片<span
+                            <div class="form-group" id="photoForm"><label class="col-sm-2 control-label">项目图片<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4 dropzone" id="photo">
-                                    <div class="am-text-success dz-message row">
-                                        将文件拖拽到此处或点此打开文件管理器选择文件
+                                <div class="col-sm-4 dropzone">
+                                    <div class="am-text-success dz-message row" id="photo">
+                                        点此打开文件管理器选择文件
                                     </div>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -410,14 +406,14 @@
         var delPhotoList=[];
         $(function () {
             $('#customerTableModal').on('shown.bs.modal',function(){
-//                if(customerTable == undefined && customerTable == null){
+                if(customerTable == undefined && customerTable == null){
                     customerTableInit();// 项目table初始化
-//                }
+                }
             })
             $('#campaignTableModal').on('shown.bs.modal',function(){
-//                if(customerTable == undefined && customerTable == null){
+                if(campaignTable == undefined && campaignTable == null){
                 campaignTableInit();// 项目table初始化
-//                }
+                }
             })
             $("#designerId").select2();
             $("#factoryId").select2();
@@ -442,6 +438,17 @@
                 autoclose: true,
                 format: "yyyy-mm-dd",
                 language: 'cn',
+            });
+
+            $("#type").change(function(){
+                if($('#type option:selected').text()=="办展"){
+                    $("#customerId").removeAttr("onclick");
+                    $("#customerId").val("");
+                    $("#customerId").attr('placeholder','可以不选择客户');
+                }else{
+                    $("#customerId").attr("onclick","customerClick();");
+                    $("#customerId").attr('placeholder','请选择客户名称');
+                }
             });
 
             $("#type option").each(function(){
@@ -575,25 +582,75 @@
 //                $("#factoryId").val(selectfactoriesValue.substring(1,selectfactoriesValue.length-1)).trigger('change')
             }
 
-//            $("#type").change(function(){
-//                if($(this).val()=="069d53d1-4b9b-4acf-b4b6-da4d77a00e7b"){
-//                    $("#customerId ").get(0).selectedIndex=0;
-//                    $("#customerId").attr("disabled",true);
-//                }else{
-//                    $("#customerId ").get(0).selectedIndex=0;
-//                    $("#customerId").attr("disabled",false);
-//                }
-//            });
-//
-//            if ($("#type").val()=="069d53d1-4b9b-4acf-b4b6-da4d77a00e7b"){
-////                $("#customerId ").get(0).selectedIndex=0;
-//                $("#customerId").attr("disabled",true);
-//            }else{
-//                $("#customerId").attr("disabled",false);
-//            }
+        });
 
 
+        var previewTemplate = "<div class=\"dz-preview dz-file-preview\" onclick='showPicture(this)'>\n  " +
+            "  <div class=\"dz-details\">\n" +
+//            "  <img data-dz-thumbnail name='picture' style='width: 300px;height: 300px;display: none'/>\n" +
+            "  </div>\n" +
+            "<div class=\"dz-image\"><img data-dz-thumbnail style='width: 120px;height: 120px;'/></div>\n  " +
+            "<div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  " +
+            "<div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  " +
+            "<div class=\"dz-success-mark\">\n    " +
+            "</div>\n</div>";
 
+        $("#photo").dropzone({
+            url: "fileupload",
+            paramName: "files",
+            addRemoveLinks: true,
+            uploadMultiple:false,
+            dictRemoveLinks: "x",
+            dictCancelUpload: "x",
+            maxFiles: 10,
+            maxFilesize: 5,
+            previewTemplate:previewTemplate ,
+//            autoProcessQueue:false,
+            acceptedFiles: ".jpg,.gif,.png", //上传的类型
+            init:function(){
+                var selectPhotoValue =  $("#selectphotoValue").val();
+                if(selectPhotoValue!=""){
+                    $("#photo").text("");
+                    var list = selectPhotoValue.split(",");
+                    for(var j= 0;j< list.length; j++){
+                        photolist.push(list[j]);
+                    }
+                }
+                for(var i=0;i<photolist.length;i++){
+                    var mockFile = { name: photolist[i]};
+                    this.emit("addedfile", mockFile);
+                    this.emit("thumbnail", mockFile, "" +"upload/"+photolist[i]);
+                    this.emit("complete", mockFile);
+                }
+
+                this.on("addedfile", function(file) {
+                    //上传文件时触发的事件
+                });
+                this.on("success",function(file,response) {
+                    //单个上传完成后触发的方法
+                    file.serverName = response.url;
+                    photolist.push(file.serverName);
+                });
+                this.on("queuecomplete",function(file) {
+                    //上传完成后触发的方法
+//                    $("#saveBtn").removeAttr("disabled");
+                });
+                this.on("removedfile",function(file){
+                    //删除文件时触发的方法
+                    if(file.serverName==undefined){
+                        file.serverName=file.name;
+                    }
+                    for(var i=0;i<photolist.length;i++){
+                        if(photolist[i]==file.serverName){
+                            photolist.splice(i,1);
+                            delPhotoList.push(file.serverName);
+                            break;
+                        }
+
+                    }
+
+                });
+            }
         });
 
         function customerClick() {
@@ -604,6 +661,93 @@
             $('#campaignTableModal').modal('show');
         }
 
+        var campaignTable = null;
+        function campaignTableInit() {
+            campaignTable = $('#campaignTable').DataTable({
+                "sScrollX": true,
+                "ajax": {
+                    "url": "findActivity",
+                    "dataType": 'json',
+                    "type": "POST",
+                    contentType: 'application/json; charset=utf-8',
+
+                    "data": function (d) {
+                        var p = {};
+                        p.draw = d.draw;
+                        p.length = d.length;
+                        p.start = d.start;
+                        p.search = d.search.value;
+                        var a = JSON.stringify(p);
+                        return a;
+                    }
+                },
+
+                "columns": [
+                    {
+                        "data": "id", "width": "80px",
+                        "render": function (data, type, row) {
+                            var u = "";
+                            u =  "<input type=\"radio\" name='activity' value='" + row.id + "' activityName='" + row.name + "' sponser='"+row.customerName+"' sponserid='"+row.sponsor+"' ' />";
+                            return u;
+
+                        },
+                    },
+
+                    {"data": "name", "width": "200px"},
+                    {"data": "startDate", "width": "100px"},
+                    {"data": "endDate", "width": "100px"},
+                ]
+                , language: {
+                    lengthMenu: '每页显示 <select class="form-control input-sm">'
+                    + '<option value="20">20</option>'
+                    + '<option value="40">40</option>'
+                    + '<option value="100">100</option>'
+                    + '</select> 个项目'
+                    ,
+                    processing: "载入中 ...",//处理页面数据的时候的显示
+                    paginate: {//分页的样式文本内容。
+                        previous: "上一页",
+                        next: "下一页",
+                        first: "第一页",
+                        last: "最后一页"
+                    },
+                    "sSearch": "搜索",
+                    zeroRecords: "没有用户",//table tbody内容为空时，tbody的内容。
+                    //下面三者构成了总体的左下角的内容。
+                    info: "当前显示第_START_到第_END_个用户 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    infoEmpty: "0个用户",//筛选为空时左下角的显示。
+                    infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
+                }
+                , "lengthChange": true
+                , "bFilter": true //搜索栏
+                , "bAutoWidth": true  //自适应宽度
+                , "sPaginationType": "full_numbers" //分页，一共两种样式，full_numbers和two_button(默认)
+                , "bJQueryUI": false //开关，是否启用JQueryUI风格
+                , "bSort": false
+                , "processing": true
+                , "serverSide": true
+                , "iDisplayLength": 20 //默认显示的记录数
+            });
+        }
+
+        function chooseActivity() {
+            var activity=document.getElementsByName("activity");
+            $.each(activity, function(i,v) {
+                if(v.checked == true){
+                    $("#campaignId").val($(this).attr("activityName")); // 项目编号
+                    $("#campaignId").attr("campaignid",$(this).val());
+                    if($('#type option:selected').text()=="办展"){
+                        $("#customerId").val($(this).attr("sponser"));
+                        $("#customerId").attr("customerid",$(this).attr("sponserid"));
+                    }
+                }
+            });
+
+            $('#campaignTableModal').modal('hide');
+            $("#campaignId").change();
+        }
+
+        var customerTable = null;
         function customerTableInit() {
             customerTable = $('#customerTable').DataTable({
                 "sScrollX": true,
@@ -682,163 +826,29 @@
                 }
             });
             $('#customerTableModal').modal('hide');
+            $("#customerId").change();
 //            $("#code").val("");
         }
 
-        function campaignTableInit() {
-            campaignTable = $('#campaignTable').DataTable({
-                "sScrollX": true,
-                "ajax": {
-                    "url": "findActivity",
-                    "dataType": 'json',
-                    "type": "POST",
-                    contentType: 'application/json; charset=utf-8',
+        validate('name', 'projectName', 'validateProjectName');
+        validateSelect('type','type','validateType');
+        validateSelect('customerId', 'customerId', 'validateCustomerId');
+        validateSelect('campaignId', 'campaignId', 'validateCampaignId');
+        validate('budget', 'budget', 'validateBudget');
+        validate('exhibitionNumber', 'exhibitionNumber', 'validateExhibitionNumber');
+        validate('area', 'area', 'validateArea');
+        validateSelect('setupTime', 'setupTime', 'validateSetupTime');
+        validateSelect('tearDownTime', 'tearDownTime', 'validateTearDownTime');
+//        validate('cost', 'cost', 'validateCost');
+        validateSelect('degreeOfImportance', 'degreeOfImportance', 'validateDegreeOfImportance');
+        validateSelect('potential', 'potential', 'validatePotential');
+        validateSelect('potential', 'potential', 'validatePotential');
 
-                    "data": function (d) {
-                        var p = {};
-                        p.draw = d.draw;
-                        p.length = d.length;
-                        p.start = d.start;
-                        p.search = d.search.value;
-                        var a = JSON.stringify(p);
-                        return a;
-                    }
-                },
-
-                "columns": [
-                    {
-                        "data": "id", "width": "80px",
-                        "render": function (data, type, row) {
-                            var u = "";
-                            u =  "<input type=\"radio\" name='activity' value='" + row.id + "' activityName='" + row.name + "' sponser='"+row.sponsor+"' ' />";
-                            return u;
-
-                        },
-                    },
-
-                    {"data": "name", "width": "200px"},
-                    {"data": "startDate", "width": "100px"},
-                    {"data": "endDate", "width": "100px"},
-                ]
-                , language: {
-                    lengthMenu: '每页显示 <select class="form-control input-sm">'
-                    + '<option value="20">20</option>'
-                    + '<option value="40">40</option>'
-                    + '<option value="100">100</option>'
-                    + '</select> 个项目'
-                    ,
-                    processing: "载入中 ...",//处理页面数据的时候的显示
-                    paginate: {//分页的样式文本内容。
-                        previous: "上一页",
-                        next: "下一页",
-                        first: "第一页",
-                        last: "最后一页"
-                    },
-                    "sSearch": "搜索",
-                    zeroRecords: "没有用户",//table tbody内容为空时，tbody的内容。
-                    //下面三者构成了总体的左下角的内容。
-                    info: "当前显示第_START_到第_END_个用户 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
-                    infoEmpty: "0个用户",//筛选为空时左下角的显示。
-                    infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
-                }
-                , "lengthChange": true
-                , "bFilter": true //搜索栏
-                , "bAutoWidth": true  //自适应宽度
-                , "sPaginationType": "full_numbers" //分页，一共两种样式，full_numbers和two_button(默认)
-                , "bJQueryUI": false //开关，是否启用JQueryUI风格
-                , "bSort": false
-                , "processing": true
-                , "serverSide": true
-                , "iDisplayLength": 20 //默认显示的记录数
-            });
-        }
-
-        function chooseActivity() {
-            debugger;
-            var activity=document.getElementsByName("activity");
-            $.each(activity, function(i,v) {
-                if(v.checked == true){
-                    $("#campaignId").val($(this).attr("activityName")); // 项目编号
-                    $("#campaignId").attr("campaignid",$(this).val());
-                }
-            });
-            $('#campaignTableModal').modal('hide');
-        }
-
-
-
-        var previewTemplate = "<div class=\"dz-preview dz-file-preview\" onclick='showPicture(this)'>\n  " +
-            "  <div class=\"dz-details\">\n" +
-//            "  <img data-dz-thumbnail name='picture' style='width: 300px;height: 300px;display: none'/>\n" +
-            "  </div>\n" +
-            "<div class=\"dz-image\"><img data-dz-thumbnail style='width: 120px;height: 120px;'/></div>\n  " +
-            "<div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  " +
-            "<div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  " +
-            "<div class=\"dz-success-mark\">\n    " +
-            "</div>\n</div>";
-
-        $("#photo").dropzone({
-            url: "fileupload",
-            paramName: "files",
-            addRemoveLinks: true,
-            uploadMultiple:false,
-            dictRemoveLinks: "x",
-            dictCancelUpload: "x",
-            maxFiles: 10,
-            maxFilesize: 5,
-            previewTemplate:previewTemplate ,
-//            autoProcessQueue:false,
-            acceptedFiles: ".jpg,.gif,.png", //上传的类型
-            init:function(){
-                var selectPhotoValue =  $("#selectphotoValue").val();
-                if(selectPhotoValue!=""){
-                    var list = selectPhotoValue.split(",");
-                    for(var j= 0;j< list.length; j++){
-                        photolist.push(list[j]);
-                    }
-                }
-                for(var i=0;i<photolist.length;i++){
-                    var mockFile = { name: photolist[i]};
-                    this.emit("addedfile", mockFile);
-                    this.emit("thumbnail", mockFile, "" +"upload/"+photolist[i]);
-                    this.emit("complete", mockFile);
-                }
-
-                this.on("addedfile", function(file) {
-                    //上传文件时触发的事件
-                });
-                this.on("success",function(file,response) {
-                    //单个上传完成后触发的方法
-                    file.serverName = response.url;
-                    photolist.push(file.serverName);
-                });
-                this.on("queuecomplete",function(file) {
-                    //上传完成后触发的方法
-//                    $("#saveBtn").removeAttr("disabled");
-                });
-                this.on("removedfile",function(file){
-                    //删除文件时触发的方法
-                    if(file.serverName==undefined){
-                        file.serverName=file.name;
-                    }
-                    for(var i=0;i<photolist.length;i++){
-                        if(photolist[i]==file.serverName){
-                            photolist.splice(i,1);
-                            delPhotoList.push(file.serverName);
-                            break;
-                        }
-
-                    }
-
-                });
-            }
-        });
-
-//        validate('name', 'name', 'validateprojectName');
-//        validate2('mobilePhone', 'mobile', {isEdit: false}, 'validateMobile');
-//        validate('password', 'password', 'validatePassword');
-////        validate('totalLessons', 'integer', 'validateInteger');
-//        validate('email', 'email', 'validateEmail');
+        validateMultipleSelect('designerId', 'designerId', 'validateDesignerId');
+        validateSelect('pmId', 'pmId', 'validatemId');
+        validateMultipleSelect('factoryId', 'factoryId', 'validateFactoryId');
+        validateSelect('developSaleId', 'developSaleId', 'validateDevelopSaleId');
+        validate('photo', 'photo', 'validatePhoto');
 
         var designerlist=[];
         var factorylist=[];
@@ -850,19 +860,19 @@
 //                roles.push({id: $(this).val().trim()});
 //            });
 
-            if($("#designerId").val()!=""){
-                var designer=$("#designerId").val();
-                for(var j= 0;j< designer.length; j++){
-                    designerlist.push(designer[j]);
-                }
-            }
-
-            if($("#factoryId").val()!=""){
-                var factory=$("#factoryId").val();
-                for(var j= 0;j< factory.length; j++){
-                    factorylist.push(factory[j]);
-                }
-            }
+//            if($("#designerId").val()!=""){
+//                var designer=$("#designerId").val();
+//                for(var j= 0;j< designer.length; j++){
+//                    designerlist.push(designer[j]);
+//                }
+//            }
+//
+//            if($("#factoryId").val()!=""){
+//                var factory=$("#factoryId").val();
+//                for(var j= 0;j< factory.length; j++){
+//                    factorylist.push(factory[j]);
+//                }
+//            }
             var designProgress="";
             $("input[name='designProgress']:checked").each(function() {
                     designProgress += $(this).val()+",";
@@ -894,11 +904,11 @@
                 cost: $("#cost").val(),
                 degreeOfImportance: $("#degreeOfImportance").val(),
                 potential: $("#potential").val(),
-                designers: designerlist,
+                designerId: $("#designerId").val(),
                 designProgress:designProgress.substring(0,designProgress.length-1),
                 pmId: $("#pmId").val(),
                 projectProgress: projectProgress.substring(0,projectProgress.length-1),
-                factories: factorylist,
+                factoryId: $("#factoryId").val(),
                 factoryProgress: factoryProgress.substring(0,factoryProgress.length-1),
                 projectScore: $("#projectScore").val(),
                 designScore: $("#designScore").val(),
@@ -909,7 +919,6 @@
                 state: $("input[name='state']:checked").val(),
             };
             var a = JSON.stringify(p);
-            debugger;
 
             $.ajax({
                 url: 'saveProject',
@@ -927,6 +936,7 @@
                     swal("操作失败", "通信错误!", "error");
                 },
                 success: function (data) {
+                    debugger;
                     if (data.res == undefined) {
                         saveBtnda.stop();
                         for (var p in data) {

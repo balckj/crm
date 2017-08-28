@@ -2,6 +2,7 @@ package com.yidatec.model;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
@@ -27,7 +28,8 @@ public class FactoryEntity extends BaseModel{
     private String director;//厂长
 
     @Valid
-    private List<Contact> userList;//联系人
+    @NotEmpty
+    private List<Contact> contactList;//联系人
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate firstOrderTime;//首单时间
@@ -49,6 +51,7 @@ public class FactoryEntity extends BaseModel{
     @Length(max = 50, message = "面积最多由50个字符组成", groups = { })
     private String factoryArea;//厂房面积
 
+    @NotBlank(message = "必须上传厂房照片", groups = { })
     private String photo;
     @NotNull(message = "必须输入注册资金", groups = { })
     @Digits(integer = 18 ,message = "资金整数位不能超过18位,小数位必须是两位", fraction = 2 /*scale*/)
@@ -80,6 +83,7 @@ public class FactoryEntity extends BaseModel{
     private Integer state;
 
     @Valid
+    @NotEmpty
     private List<Case> caseList;//案例列表
 
     public List<Case> getCaseList() {
@@ -90,12 +94,12 @@ public class FactoryEntity extends BaseModel{
         this.caseList = caseList;
     }
 
-    public List<Contact> getUserList() {
-        return userList;
+    public List<Contact> getContactList() {
+        return contactList;
     }
 
-    public void setUserList(List<Contact> userList) {
-        this.userList = userList;
+    public void setContactList(List<Contact> contactList) {
+        this.contactList = contactList;
     }
 
     public String getReferrer() {

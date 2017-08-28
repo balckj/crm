@@ -84,11 +84,12 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group user">
+
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">联系人<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-10" id="contactList">
-                                    <div class="row" th:if="${#lists.isEmpty(factory.userList)}">
+                                    <div class="row" th:if="${#lists.isEmpty(factory.contactList)}">
 
                                         <div class="col-sm-2">
                                             <div id="name0Form">
@@ -105,7 +106,7 @@
                                                 <label class="control-label">电话<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <input type="text" name="mobilePhone" id="mobilePhone0" class="form-control input-sm" maxlength="20"/>
+                                                    <input type="number" oninput="if(value.length>11)value=value.slice(0,11)" name="mobilePhone" id="mobilePhone0" class="form-control input-sm" maxlength="20"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -134,7 +135,7 @@
                                             <button onclick="addLi()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
                                         </div>
                                     </div>
-                                    <div class="row" th:unless="${#lists.isEmpty(factory.userList)}" th:each="contact,terStat : ${factory.userList}">
+                                    <div class="row" th:unless="${#lists.isEmpty(factory.contactList)}" th:each="contact,terStat : ${factory.contactList}">
                                         <div class="col-sm-2">
                                             <div  th:attr="id='name'+${terStat.index}+'Form'">
                                                 <label class="control-label">姓名<span
@@ -150,7 +151,7 @@
                                                 <label class="control-label">电话<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <input type="text" th:attr="id='mobilePhone'+${terStat.index}, name='mobilePhone'" class="form-control input-sm" maxlength="20" th:value="${contact.mobilePhone}"/>
+                                                    <input type="number" oninput="if(value.length>11)value=value.slice(0,11)"  th:attr="id='mobilePhone'+${terStat.index}, name='mobilePhone'" class="form-control input-sm" maxlength="20" th:value="${contact.mobilePhone}"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -262,8 +263,8 @@
                             <div class="form-group" id="photoForm">
                                 <label class="col-sm-2 control-label">厂房照片<span
                                         style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4 dropzone" id="photo">
-                                    <div class="am-text-success dz-message row">
+                                <div class="col-sm-4 dropzone" >
+                                    <div class="am-text-success dz-message row" id="photo">
                                     将文件拖拽到此处或点此打开文件管理器选择文件
                                     </div>
                                 </div>
@@ -353,20 +354,22 @@
 
                             <div id="caseList"  style="background-color: #f8f7f6;border-radius: 4px;padding-top: 15px;padding-bottom: 15px;" >
                                 <div  th:if="${#lists.isEmpty(factory.caseList)}">
-                                    <div class="form-group " id="caseNameForm"><label
+                                    <div class="form-group " id="caseName0Form"><label
                                             class="col-sm-2 control-label">案例名称</label>
-                                        <div class="col-sm-4"><input id="caseName0" name="caseName" type="text"
-                                                                     class="form-control" maxlength="10"/></div>
+                                        <div class="col-sm-4">
+                                            <input id="caseName0" name="caseName" type="text"
+                                                                     class="form-control" maxlength="10"/>
+                                        </div>
                                         <label class="col-sm-4 control-label" style="text-align: left"></label>
                                         <div class="col-sm-1">
                                             <button onclick="addCase()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
                                         </div>
                                     </div>
-                                    <div class="form-group " id="casePhotoForm">
+                                    <div class="form-group " id="casePhoto0Form">
                                         <input th:attr="id='hiddenPhoto0', name='hiddenPhoto'" type='hidden' />
                                         <label class="col-sm-2 control-label">案例照片</label>
-                                        <div class="col-sm-6 dropzone" id="casePhoto0" name="casePhoto">
-                                            <div class="am-text-success dz-message">
+                                        <div class="col-sm-6 dropzone" >
+                                            <div class="am-text-success dz-message" id="casePhoto0" name="casePhoto">
                                                 将文件拖拽到此处或点此打开文件管理器选择文件
                                             </div>
                                         </div>
@@ -393,8 +396,8 @@
                                     <div class="form-group " th:attr="id='casePhotoForm'+${terStat.index}">
                                         <input th:attr="id='hiddenPhoto'+${terStat.index}, name='hiddenPhoto'" type='hidden' th:value="${case.photo}" />
                                         <label class="col-sm-2 control-label">案例照片</label>
-                                        <div class="col-sm-6 dropzone" th:attr="id='casePhoto'+${terStat.index}">
-                                            <div class="am-text-success dz-message">
+                                        <div class="col-sm-6 dropzone">
+                                            <div class="am-text-success dz-message" th:attr="id='casePhoto'+${terStat.index}">
                                                 将文件拖拽到此处或点此打开文件管理器选择文件
                                             </div>
                                         </div>
@@ -487,7 +490,6 @@
         /*<![CDATA[*/
         //创建li标签，包含显示姓名，邮箱，电话号码及删除按钮
         function addLi() {
-
             var total = $("#contactList").children().length;
             var row =  "<div class='row'><div class='col-sm-2'>"
                 +" <div id='name"+total+ "Form'>"
@@ -522,8 +524,7 @@
                 +" </div>"
                 +" </div>"
                 +" <div class='col-sm-1'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div></div>";
-            $("#contactList").append(row);
-
+            $("#contactList").append(row)
             validate("name"+total,"name","validateUsername");
             validate2('mobilePhone'+total, 'mobile', {isEdit: false}, 'validateMobile');
             validate('email'+total, 'email', 'validateEmail');
@@ -578,8 +579,8 @@
                         +"<div class='form-group ' id='casePhotoForm"+total+ "'>"
                             +"<label class='col-sm-2 control-label'>案例照片</label>"
 //                            +"<input id='casePhoto"+total+ "' name='casePhoto' type='hidden' "
-                            +"<div class='col-sm-6 dropzone' id='casePhoto"+total+ "' name='casePhoto'>"
-                            +"<div class='am-text-success dz-message'>"
+                            +"<div class='col-sm-6 dropzone'>"
+                            +"<div class='am-text-success dz-message' id='casePhoto"+total+ "' name='casePhoto'>"
                             +"将文件拖拽到此处或点此,打开文件管理器选择文件"
                             +"</div>"
                             +"</div>"
@@ -589,6 +590,8 @@
                 +"</div>";
             $("#caseList").append(row);
             $("#caseCount").val(total+1);
+            validate("caseName"+total,"caseName","validateCaseName");
+
 
             $("#casePhoto"+total).dropzone({
                 url: "fileupload",
@@ -855,7 +858,6 @@
             });
 
 //            $("#goodAtIndustry").select2({ maximumInputLength: 3 });
-debugger;
             var selectGoodAtIndustryValue = $("#selectGoodAtIndustryValue").val();
             if(selectGoodAtIndustryValue && selectGoodAtIndustryValue.indexOf(",") > 0){
                 var list = selectGoodAtIndustryValue.split(",");
@@ -898,6 +900,7 @@ debugger;
             validate('email'+i, 'email', 'validateEmail');
         }
 
+
         function loadCasePhoto(index){
             $("#casePhoto"+index).dropzone({
                 url: "fileupload",
@@ -932,7 +935,6 @@ debugger;
                         //上传文件时触发的事件
                     });
                     this.on("thumbnail",function (file,dataUrl) {
-                        debugger;
                         file.thumbnail = dataUrl;
                     })
                     this.on("success",function(file,response) {
@@ -941,7 +943,6 @@ debugger;
 //                        file._viewLink.href = response.url;
 //                        file._viewLink.name = response.url;
 
-                        debugger;
 //                        if(casephoto[index] == undefined){
 //                            var tempArray = [];
 //                            casephoto[index] = tempArray;
@@ -954,7 +955,6 @@ debugger;
                     });
                     this.on("removedfile",function(file){
                         //删除文件时触发的方法
-                        debugger;
                         if(file.serverName==undefined){
                             file.serverName=file.name;
                         }
@@ -1120,7 +1120,7 @@ debugger;
 
         validateSelect('referrer', 'referrer', 'validateReferrer');
         validate('factoryName', 'name', 'validateCompanyName');
-        validate('name', 'name', 'validateUserName');
+        validate('director', 'director', 'validateDirector');
         validateSelect('country', 'country', 'validateCountry');
         validateSelect('province', 'province', 'validateProvince');
         validateSelect('city', 'city', 'validateCity');
@@ -1154,8 +1154,9 @@ debugger;
             })
 
             $("#caseList").children().each(function(index){
+                debugger;
                 caseName = $(this).find("input[name='caseName']").val();
-                casePhoto = casephoto[index].toString();
+                casePhoto = casephoto[index].toString;
                 caseList.push({
                     "name":caseName,
                     "photo":casePhoto
@@ -1167,7 +1168,7 @@ debugger;
                 name: $("#name").val().trim(),
                 director: $("#director").val().trim(),
                 firstOrderTime: $("#firstOrderTime").val(),
-                userList:userList,
+                contactList:userList,
                 country: $("#country").val(),
                 province: $("#province").val(),
                 city: $("#city").val(),
@@ -1212,6 +1213,17 @@ debugger;
                     if (data.res == undefined) {
                         saveBtnda.stop();
                         for (var p in data) {
+                            var tempField = data[p].field;
+                            if(tempField.startsWith("contactList[")){
+                                data[p].field= tempField.split(".")[1]+tempField.substring(tempField.indexOf("[")+1,tempField.indexOf("]"));
+                            }
+                            if(tempField.startsWith("caseList[")){
+                                debugger;
+                                var tempString = tempField.split(".")[1]+tempField.substring(tempField.indexOf("[")+1,tempField.indexOf("]"));
+                                tempString = tempString.substring(0,1).toUpperCase()+tempString.substring(1,tempString.length);
+
+                                data[p].field="case"+tempString;
+                            }
                             var tmp = $("#" + data[p].field).parent().next();
 
                             if (tmp.text() == '') {
@@ -1224,7 +1236,6 @@ debugger;
                         loadPage("factoryList",function(){
                             saveBtnda.stop();
                         });
-                        debugger;
                         for(var i=0;i<delPhotoList.length;i++){
                             delphotoList(delPhotoList[i]);
                         };

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yidatec.util.CustomLocalDateSerializer;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -53,7 +54,7 @@ public class ProjectEntity extends BaseModel {
     @JsonSerialize(using = CustomLocalDateSerializer.class)
     private LocalDate tearDownTime;
 
-    @NotNull(message = "必须输入项目成本", groups = { })
+//    @NotNull(message = "必须输入项目成本", groups = { })
     @Digits(integer = 18 ,message = "成本整数位不能超过18位,小数位必须是两位", fraction = 2 /*scale*/)
     private Float cost;
 
@@ -63,8 +64,8 @@ public class ProjectEntity extends BaseModel {
     @NotBlank(message = "必须选择项目潜力", groups = { })
     private String potential;
 
-//    @NotBlank(message = "必须选择设计师", groups = { })
-    private List<String> designers;
+    @NotEmpty(message = "必须选择设计师", groups = { })
+    private List<String> designerId;
 
 
     private String designProgress;
@@ -74,8 +75,9 @@ public class ProjectEntity extends BaseModel {
 
     private String projectProgress;
 
-//    @NotBlank(message = "必须选择工厂", groups = { })
-    private List<String> factories;
+
+    @NotEmpty(message = "必须选择工厂", groups = { })
+    private List<String> factoryId;
 
     private String factoryProgress;
     private Float projectScore;
@@ -84,6 +86,8 @@ public class ProjectEntity extends BaseModel {
     @NotBlank(message = "必须选择开发销售", groups = { })
     private String developSaleId;
     private String traceSaleId;
+
+    @NotBlank(message = "必须上传照片", groups = { })
     private String photo;
     private Integer state;
 
@@ -215,20 +219,20 @@ public class ProjectEntity extends BaseModel {
         this.projectProgress = projectProgress;
     }
 
-    public List<String> getDesigners() {
-        return designers;
+    public List<String> getDesignerId() {
+        return designerId;
     }
 
-    public void setDesigners(List<String> designers) {
-        this.designers = designers;
+    public void setDesignerId(List<String> designerId) {
+        this.designerId = designerId;
     }
 
-    public List<String> getFactories() {
-        return factories;
+    public List<String> getFactoryId() {
+        return factoryId;
     }
 
-    public void setFactories(List<String> factories) {
-        this.factories = factories;
+    public void setFactoryId(List<String> factoryId) {
+        this.factoryId = factoryId;
     }
 
     public String getFactoryProgress() {

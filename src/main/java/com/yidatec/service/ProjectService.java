@@ -22,12 +22,12 @@ public class ProjectService {
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
     public void createProject(ProjectEntity project){
         projectMapper.create(project);
-        for (int i=0;i<project.getDesigners().size();i++){
-            projectMapper.createDesignerRelation(project.getId(),project.getFactories().get(i));
+        for (int i=0;i<project.getDesignerId().size();i++){
+            projectMapper.createDesignerRelation(project.getId(),project.getDesignerId().get(i));
         }
 
-        for (int i=0;i<project.getFactories().size();i++){
-            projectMapper.createFactoryRelation(project.getId(),project.getFactories().get(i));
+        for (int i=0;i<project.getFactoryId().size();i++){
+            projectMapper.createFactoryRelation(project.getId(),project.getFactoryId().get(i));
         }
     }
 
@@ -36,12 +36,12 @@ public class ProjectService {
         projectMapper.deleteDesignerRelation(project.getId());
         projectMapper.deleteFactoryRelation(project.getId());
         projectMapper.update(project);
-        for (int i=0;i<project.getDesigners().size();i++){
-            projectMapper.createDesignerRelation(project.getId(),project.getDesigners().get(i));
+        for (int i=0;i<project.getDesignerId().size();i++){
+            projectMapper.createDesignerRelation(project.getId(),project.getDesignerId().get(i));
         }
 
-        for (int i=0;i<project.getFactories().size();i++){
-            projectMapper.createFactoryRelation(project.getId(),project.getFactories().get(i));
+        for (int i=0;i<project.getFactoryId().size();i++){
+            projectMapper.createFactoryRelation(project.getId(),project.getFactoryId().get(i));
         }
     }
 
@@ -56,8 +56,8 @@ public class ProjectService {
     public ProjectEntity selectProject(String id){
         ProjectEntity project = projectMapper.selectProject(id);
         if (project!=null){
-            project.setDesigners(projectMapper.selectDesigner(id));
-            project.setFactories(projectMapper.selectFactory(id));
+            project.setDesignerId(projectMapper.selectDesigner(id));
+            project.setFactoryId(projectMapper.selectFactory(id));
         }
         return project;
     }

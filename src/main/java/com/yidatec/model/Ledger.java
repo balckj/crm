@@ -41,9 +41,6 @@ public class Ledger extends BaseModel {
 
 	private String reasonForChange;
 
-	@Valid
-	private List<Ledger> ledgerList;
-
 	public String getMoneyType() {
 		return moneyType;
 	}
@@ -90,14 +87,6 @@ public class Ledger extends BaseModel {
 
 	public void setOperator(String operator) {
 		this.operator = operator;
-	}
-
-	public List<Ledger> getLedgerList() {
-		return ledgerList;
-	}
-
-	public void setLedgerList(List<Ledger> ledgerList) {
-		this.ledgerList = ledgerList;
 	}
 
 	public String getReasonForChange() {

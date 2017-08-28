@@ -125,4 +125,13 @@ public interface Constants {
      * 项目类型
      */
     public static final String PROJECT_TYPE = "type";
+
+    /**
+     * 鼎世ID
+     */
+    public static final String DING_SHI_ID = "99999999-9999-9999-9999-999999999999";
+    /**
+     * 项目类型
+     */
+    public static final String DING_SHI_NAME = "鼎世";
 }

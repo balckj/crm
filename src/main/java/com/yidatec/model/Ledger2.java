@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
  * @author jrw
  *
  */
-public class Ledger extends BaseModel {
+public class Ledger2 extends BaseModel {
 	private static final long serialVersionUID = -140219923846563098L;
 	@NotBlank(message = "必须输入款项类型", groups = { })
 	@Length(max = 36, message = "款项类型最大不能超过36个字符", groups = { })
@@ -25,6 +25,7 @@ public class Ledger extends BaseModel {
 	@Length(max = 36, message = "成本中心最大不能超过36个字符", groups = { })
 	private String costCenter;
 
+
 	@NotBlank(message = "必须输入付款时间", groups = { })
 	private String paymentTime;
 
@@ -36,6 +37,8 @@ public class Ledger extends BaseModel {
 	@Length(max = 30, message = "经办人最大不能超过30个字符", groups = { })
 	private String operator;
 
+	@NotBlank(message = "必须输入变更原因", groups = { })
+	@Length(max = 100, message = "经办人最大不能超过100个字符", groups = { })
 	private String reasonForChange;
 
 	public String getMoneyType() {

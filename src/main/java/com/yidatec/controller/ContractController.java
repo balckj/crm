@@ -93,6 +93,24 @@ public class ContractController extends BaseController{
     }
 
     /**
+     * 台账必须验证
+     * @param ledger
+     * @param result
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/checkLedgerInfo2")
+    @ResponseBody
+    public Object checkLedgerInfo2(@Validated @RequestBody LedgerVO2 ledger,
+                                  BindingResult result)throws Exception{
+        List<FieldError> errors = result.getFieldErrors();
+        if(errors  != null && errors.size() > 0){
+            return errors;
+        }
+        return getSuccessJson(null);
+    }
+
+    /**
      * 获取合同编号
      * @param contractCodeVO
      * @return

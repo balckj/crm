@@ -558,8 +558,9 @@
                     }
                 }
             }
+            debugger;
             var selectdesignersValue = $("#selectdesignersValue").val();
-            if(selectdesignersValue && selectdesignersValue.indexOf(",") > 0){
+            if(selectdesignersValue !=""||selectdesignersValue !=null){
                 var list = selectdesignersValue.substring(1,selectdesignersValue.length-1).replace(" ","").split(',');
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){
@@ -571,7 +572,7 @@
             }
 
             var selectfactoriesValue = $("#selectfactoriesValue").val();
-            if(selectdesignersValue && selectdesignersValue.indexOf(",") > 0){
+            if(selectfactoriesValue !=""||selectfactoriesValue !=null){
                 var list = selectfactoriesValue.substring(1,selectfactoriesValue.length-1).replace(" ","").split(',');
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){

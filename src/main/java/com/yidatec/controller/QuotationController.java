@@ -1,6 +1,10 @@
 package com.yidatec.controller;
 
+import com.yidatec.model.Product;
 import com.yidatec.model.Quotation;
+import com.yidatec.service.ProductService;
+import com.yidatec.vo.ProductVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -12,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -20,6 +26,10 @@ import java.util.UUID;
  */
 @Controller
 public class QuotationController extends BaseController{
+
+    @Autowired
+    ProductService productService;
+
 
     @RequestMapping("/quotationList")
     public  String quotationList(){
@@ -57,9 +67,16 @@ public class QuotationController extends BaseController{
         return getSuccessJson(null);
     }
 
-    @RequestMapping("/getProductName")
+    @RequestMapping("/findProduct")
     @ResponseBody
-    public String getProductName(){
-        return "";
+    public Object findProduct(@RequestBody ProductVO productVO){
+        List<Product> ProductList = productService.selectProductList(productVO);
+        int count = productService.countSelectProductList(productVO);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("draw", productVO.getDraw());
+        map.put("recordsTotal", count);
+        map.put("recordsFiltered", count);
+        map.put("data", ProductList);
+        return map;
     }
 }

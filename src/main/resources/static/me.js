@@ -34,6 +34,22 @@ function validateSelect(id,key,url){
         v(id,param,url);
     });
 }
+
+function validateDiv(id,key,url){
+    $("#"+id).bind('DOMNodeInserted', function(e) {
+        debugger;
+        var param = {};
+        param[key] = $("#"+id).children.length==2?"a":"";
+        console.info($("#"+id).html());
+        alert($("#"+id).children.length);
+        v2(id,param,url);
+    });
+    // $("#"+id).change(function(event){
+    //     var param = {};
+    //     param[key] = $("#"+id).val();
+    //     v(id,param,url);
+    // });
+}
 function validateMultipleSelect(id,key,url){
     $("#"+id).change(function(event){
         var param = {};
@@ -46,6 +62,33 @@ function validateMultipleSelect(id,key,url){
             v(id,param,url);
         }
 
+    });
+}
+function v2(id,param,url){
+    $.ajax({
+        url : url,
+        async : true,
+        type : 'GET',
+        data : param,
+        contentType: 'application/json; charset=utf-8',
+        dataType : 'json',
+        timeout : 300000,
+        beforeSend: function () {
+            //spinner.spin(target);
+        },
+        error : function(result) {
+//                            alert("通信错误！");
+        },
+        success : function(data) {
+            debugger;
+            if(data.res == 0){
+                $("#"+id+"Form").addClass("has-error")
+                $("#"+id).next().html(data.txt);
+            }else{
+                $("#"+id+"Form").removeClass("has-error")
+                $("#"+id).next().html("<i class='fa fa-check' style='color:#21b384;'/>");
+            }
+        }
     });
 }
 function v(id,param,url){

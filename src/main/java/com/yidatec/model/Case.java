@@ -11,7 +11,7 @@ public class Case extends BaseModel {
     @Length( max = 100, message = "名称最多由100个字符组成", groups = { })
     private String name;
 
-//    @NotBlank(message = "必须上传案例照片", groups = { })
+    @NotBlank(message = "必须上传案例照片", groups = { })
     private String photo;
     private Integer type;
 

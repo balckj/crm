@@ -37,18 +37,12 @@ function validateSelect(id,key,url){
 
 function validateDiv(id,key,url){
     $("#"+id).bind('DOMNodeInserted', function(e) {
-        debugger;
         var param = {};
         param[key] = $("#"+id).children.length==2?"a":"";
         console.info($("#"+id).html());
         alert($("#"+id).children.length);
         v2(id,param,url);
     });
-    // $("#"+id).change(function(event){
-    //     var param = {};
-    //     param[key] = $("#"+id).val();
-    //     v(id,param,url);
-    // });
 }
 function validateMultipleSelect(id,key,url){
     $("#"+id).change(function(event){
@@ -80,7 +74,6 @@ function v2(id,param,url){
 //                            alert("通信错误！");
         },
         success : function(data) {
-            debugger;
             if(data.res == 0){
                 $("#"+id+"Form").addClass("has-error")
                 $("#"+id).next().html(data.txt);

@@ -38,7 +38,7 @@ public class WechatJsSdkSignatureController extends BaseController{
 
 
     @RequestMapping("/getJsSdkSignature")
-    public Object getContact(@RequestParam(value="url") String url){
+    public Object getContact(@RequestParam(value="other") String url){
         Map<String,String> signure = wechatService.generateJSAPISignature(confProperties.getWeChatHost()+confProperties.getWeChatContextPath()+url);
         return signure;
     }

@@ -83,7 +83,7 @@ class ConfigProperties {
 	 * @return
 	 */
 	public static String getWeixinAppId() {
-		return getSetting("weixin_APP_ID");
+		return getSetting("weChatAppId");
 	}
 	
 	/**
@@ -91,7 +91,7 @@ class ConfigProperties {
 	 * @return
 	 */
 	public static String getWeixinAppSecret() {
-		return getSetting("weixin_APP_SECRET");
+		return getSetting("weChatAppSecret");
 	}
 	
 	/**
@@ -99,7 +99,7 @@ class ConfigProperties {
 	 * @return
 	 */
 	public static String getWeixinToken() {
-		return getSetting("weixin_token");
+		return getSetting("weChatToken");
 	}
 
     public static String getWeixinCorpId() {
@@ -123,7 +123,7 @@ class ConfigProperties {
     }
 
 	public static String getJsapi_debug(){
-		return getSetting("jsapi_debug");
+		return getSetting("jsapiDebug");
 	}
 
 	public static String getPageSize(){

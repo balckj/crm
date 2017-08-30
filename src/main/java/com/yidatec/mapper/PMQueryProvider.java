@@ -11,8 +11,9 @@ public class PMQueryProvider {
     public String selectUserByRolePM(final UserVO userVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT U.id,U.name,DD.referrer,U.mobilePhone ,U.country ,U.city,U.goodAtIndustry,U.englishAbility,U.goodAtArea,U.state,U.createTime,U.modifyTime  FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId " +
-                "LEFT JOIN (SELECT A.id,B.name as referrer FROM T_USER AS  A INNER JOIN T_USER as B ON A.referrer = B.id) as DD ON DD.id = U.id WHERE 1=1 ");
+        sb.append(" SELECT A.*,count(P.Id) caseNumb FROM (");
+        sb.append(" SELECT U.id,U.name,DD.referrer,U.mobilePhone ,U.country ,U.city,U.goodAtIndustry,U.englishAbility,U.goodAtArea,U.state,U.createTime,U.modifyTime  FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId " +
+                " LEFT JOIN (SELECT A.id,B.name as referrer FROM T_USER AS  A INNER JOIN T_USER as B ON A.referrer = B.id) as DD ON DD.id = U.id WHERE 1=1 ");
 
         sb.append(" AND UR.roleId in (");
 
@@ -37,17 +38,25 @@ public class PMQueryProvider {
             sb.append(" AND U.mobilePhone = #{mobilePhone}");
         }
 
-        sb.append(" and U.state = 1 GROUP BY U.id ORDER BY U.modifyTime DESC");
+        sb.append(" and U.state = 1 GROUP BY U.id");
+        sb.append(" ) A");
+        sb.append(" LEFT JOIN T_PROJECT P ON P.pmId = A.id");
+        sb.append(" GROUP BY A.id");
+        sb.append(" ORDER BY A.modifyTime DESC");
+
         sb.append(" LIMIT #{start},#{length}");
+
         return sb.toString();
     }
     public String countUserByRolePM(final UserVO userVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT count(*) FROM ( " +
-                "SELECT count(*) FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId LEFT JOIN (SELECT A.id,B.name as referrer FROM T_USER AS  A INNER JOIN T_USER as B ON A.referrer = B.id) as DD ON DD.id = U.id ");
+        sb.append("SELECT count(*) FROM ( ");
+        sb.append(" SELECT A.*,count(P.Id) FROM (");
+        sb.append(" SELECT U.id,U.name,DD.referrer,U.mobilePhone ,U.country ,U.city,U.goodAtIndustry,U.englishAbility,U.goodAtArea,U.state,U.createTime,U.modifyTime  FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId " +
+                " LEFT JOIN (SELECT A.id,B.name as referrer FROM T_USER AS  A INNER JOIN T_USER as B ON A.referrer = B.id) as DD ON DD.id = U.id WHERE 1=1 ");
 
-        sb.append(" WHERE 1=1  AND UR.roleId in (");
+        sb.append(" AND UR.roleId in (");
 
         String[] roleids = userVO.getParaRoleIDS().split(",");
 
@@ -70,15 +79,17 @@ public class PMQueryProvider {
             sb.append(" AND U.mobilePhone = #{mobilePhone}");
         }
 
-        sb.append(" and U.state = 1 GROUP BY U.id ORDER BY U.modifyTime DESC");
-        sb.append(" LIMIT #{start},#{length}");
+        sb.append(" and U.state = 1 GROUP BY U.id");
+        sb.append(" ) A");
+        sb.append(" LEFT JOIN T_PROJECT P ON P.pmId = A.id");
+        sb.append(" GROUP BY A.id");
+        sb.append(" ORDER BY A.modifyTime DESC");
         sb.append(") as A");
         return sb.toString();
     }
 
 
-    public String selectPMforProject(final UserVO userVO)
-    {
+    public String selectPMforProject(final UserVO userVO) {
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT U.id,U.name,DD.referrer,U.mobilePhone ,U.country ,U.city,U.goodAtIndustry,U.englishAbility,U.goodAtArea,U.state,U.createTime,U.modifyTime  FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId " +
                 "LEFT JOIN (SELECT A.id,B.name as referrer FROM T_USER AS  A INNER JOIN T_USER as B ON A.referrer = B.id) as DD ON DD.id = U.id WHERE 1=1 ");

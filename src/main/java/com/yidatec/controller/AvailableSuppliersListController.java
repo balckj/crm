@@ -6,6 +6,7 @@ import com.yidatec.model.Param;
 import com.yidatec.model.User;
 import com.yidatec.service.AvailableSupplierService;
 import com.yidatec.service.DictionaryService;
+import com.yidatec.util.Constants;
 import com.yidatec.vo.AvailableSupplierVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +63,9 @@ public class AvailableSuppliersListController extends BaseController{
     @RequestMapping(value = "/findAvailableSuppliers")
     @ResponseBody
     public Object findAvailableSuppliers(@RequestBody AvailableSupplierVO availableSupplierVO)throws Exception{
-        List<Param> paramList = paramMapper.findAllParam();
+        Param param = paramMapper.findParamById(Constants.VENDORAPPOINTMENT_PARAM_ID);
+        List<Param> paramList = new ArrayList<>();
+        paramList.add(param);
         List<AvailableSupplierVO> availableSupplierVOList = availableSupplierService.selectAvailableSupplierList(availableSupplierVO,paramList);
 
         if (availableSupplierVOList != null) {

@@ -104,6 +104,8 @@ public class User extends BaseModel implements UserDetails {
 
     private List<Case> caseList;//案例列表
 
+    private int caseNumb;
+
     public String getName() {
         return name;
     }
@@ -393,5 +395,13 @@ public class User extends BaseModel implements UserDetails {
 
     public void setCaseList(List<Case> caseList) {
         this.caseList = caseList;
+    }
+
+    public int getCaseNumb() {
+        return caseNumb;
+    }
+
+    public void setCaseNumb(int caseNumb) {
+        this.caseNumb = caseNumb;
     }
 }

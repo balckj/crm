@@ -5,6 +5,8 @@ import com.yidatec.model.Customer;
 import com.yidatec.service.ActivityService;
 import com.yidatec.service.CustomerService;
 import com.yidatec.service.ExhibitionService;
+import com.yidatec.service.WechatService;
+import com.yidatec.util.ConfProperties;
 import com.yidatec.vo.ActivityVO;
 import com.yidatec.vo.ExhibitionVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,12 @@ public class WechatCampaignController extends BaseController{
     @Autowired
     CustomerService customerService;
 
+    @Autowired
+    WechatService wechatService;
+
+    @Autowired
+    ConfProperties confProperties;
+
 
     /**
      * 新建或编辑
@@ -44,7 +52,7 @@ public class WechatCampaignController extends BaseController{
      * @return
      */
     @RequestMapping(value={"/campaign","/campaign/{campaignId}"},method=RequestMethod.GET)
-    public Object activityEdit(ModelMap model,@PathVariable(value = "campaignId",required = false) String id){
+    public Object activityEdit(ModelMap model,@PathVariable(value = "campaignId",required = false) String id,@RequestParam(value="other") String url){
         Map<String,Object> res;
         if(id == null){//新建
             res = new HashMap<String,Object>();
@@ -63,6 +71,8 @@ public class WechatCampaignController extends BaseController{
                 res.put("campaign",campaign);
             }
         }
+        Map<String,String> signure = wechatService.generateJSAPISignature(confProperties.getWeChatHost()+confProperties.getWeChatContextPath()+url);
+        res.putAll(signure);
         return res;
     }
 

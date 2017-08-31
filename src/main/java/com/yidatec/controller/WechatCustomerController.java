@@ -5,6 +5,8 @@ import com.yidatec.model.Customer;
 import com.yidatec.model.Dictionary;
 import com.yidatec.service.CustomerService;
 import com.yidatec.service.DictionaryService;
+import com.yidatec.service.WechatService;
+import com.yidatec.util.ConfProperties;
 import com.yidatec.util.Constants;
 import com.yidatec.vo.CustomerVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +37,16 @@ public class WechatCustomerController extends BaseController{
     @Autowired
     DictionaryService dictionaryService;
 
+    @Autowired
+    WechatService wechatService;
+
+    @Autowired
+    ConfProperties confProperties;
+
 
 
     @RequestMapping(value={"/customer","/customer/{customerId}"},method=RequestMethod.GET)
-    public Object customerEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
+    public Object customerEdit(ModelMap model,@RequestParam(value="id",required = false) String id,@RequestParam(value="other") String url){
 
 
         Map<String,Object> res;
@@ -62,6 +70,8 @@ public class WechatCustomerController extends BaseController{
                 res.put("levelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL));// 平台等级
             }
         }
+        Map<String,String> signure = wechatService.generateJSAPISignature(confProperties.getWeChatHost()+confProperties.getWeChatContextPath()+url);
+        res.putAll(signure);
         return res;
     }
 

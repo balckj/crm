@@ -36,11 +36,11 @@ function validateSelect(id,key,url){
 }
 
 function validateDiv(id,key,url){
+    debugger;
     $("#"+id).bind('DOMNodeInserted', function(e) {
         var param = {};
         param[key] = $("#"+id).children.length==2?"a":"";
         console.info($("#"+id).html());
-        alert($("#"+id).children.length);
         v2(id,param,url);
     });
 }
@@ -74,6 +74,7 @@ function v2(id,param,url){
 //                            alert("通信错误！");
         },
         success : function(data) {
+            debugger;
             if(data.res == 0){
                 $("#"+id+"Form").addClass("has-error")
                 $("#"+id).next().html(data.txt);

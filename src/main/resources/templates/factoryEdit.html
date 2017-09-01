@@ -372,7 +372,6 @@
                                         <label class="col-sm-2 control-label">案例照片</label>
                                         <div class="col-sm-6 dropzone" id="casePhoto0" name="casePhoto">
                                             <div class="am-text-success dz-message" >
-                                                将文件拖拽到此处或点此打开文件管理器选择文件
                                             </div>
                                         </div>
                                         <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -395,12 +394,11 @@
                                             <button onclick="delCase(this)" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button btn-w-m btn-primary">删&nbsp;&nbsp;除</button>
                                         </div>
                                     </div>
-                                    <div class="form-group " th:attr="id='casePhotoForm'+${terStat.index}">
+                                    <div class="form-group " th:attr="id='casePhoto'+${terStat.index}+'Form'">
                                         <input th:attr="id='hiddenPhoto'+${terStat.index}, name='hiddenPhoto'" type='hidden' th:value="${case.photo}" />
                                         <label class="col-sm-2 control-label">案例照片</label>
                                         <div class="col-sm-6 dropzone" th:attr="id='casePhoto'+${terStat.index}">
                                             <div class="am-text-success dz-message" >
-                                                将文件拖拽到此处或点此打开文件管理器选择文件
                                             </div>
                                         </div>
                                         <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -570,19 +568,19 @@
             var row =
                 " <div>"
                         +"<div id='line"+total+ "' class='hr-line-dashed'></div>"
-                        +"<div class='form-group ' id='caseNameForm"+total+ "'>"
+                        +"<div class='form-group ' id='caseName"+total+ "Form'>"
                             +"<label class='col-sm-2 control-label'>案例名称</label> "
                             +"<div class='col-sm-4'><input id='caseName"+total+ "' name='caseName' type='text' "
                             +"class='form-control' maxlength='10'/></div> "
                             +" <label class='col-sm-4 control-label' style='text-align: left'></label> "
                             +" <div class='col-sm-1'><button onclick='delCase(this)' id='casedel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div>"
                         +"</div>"
-                        +"<div class='form-group ' id='casePhotoForm"+total+ "'>"
+                        +"<div class='form-group ' id='casePhoto"+total+"Form'>"
                             +"<label class='col-sm-2 control-label'>案例照片</label>"
 //                            +"<input id='casePhoto"+total+ "' name='casePhoto' type='hidden' "
                             +"<div class='col-sm-6 dropzone' id='casePhoto"+total+ "' name='casePhoto'>"
                             +"<div class='am-text-success dz-message' >"
-                            +"将文件拖拽到此处或点此,打开文件管理器选择文件"
+//                            +"将文件拖拽到此处或点此,打开文件管理器选择文件"
                             +"</div>"
                             +"</div>"
                             +"<label class='col-sm-4 control-label' style='text-align: left'></label>"
@@ -592,7 +590,7 @@
             $("#caseList").append(row);
             $("#caseCount").val(total+1);
             validate("caseName"+total,"caseName","validateCaseName");
-
+            validateDiv("casePhoto"+total,'casePhoto','validateCasePhoto');
 
             $("#casePhoto"+total).dropzone({
                 url: "fileupload",
@@ -1121,15 +1119,23 @@
             language: 'cn',
         });
         validateSelect('referrer', 'referrer', 'validateReferrer');
-        validate('factoryName', 'name', 'validateCompanyName');
+        validate('name', 'name', 'validateCompanyName');
         validate('director', 'director', 'validateDirector');
         validateSelect('country', 'country', 'validateCountry');
         validateSelect('province', 'province', 'validateProvince');
         validateSelect('city', 'city', 'validateCity');
         validateSelect('region', 'region', 'validateRegion');
         validate('address', 'address', 'validateAddress');
+        validate('factoryArea', 'area', 'validateArea');
+        validateSelect('taxpayerType', 'taxpayerType', 'validateTaxpayerType');
+        validateMultipleSelect('goodAtIndustry', 'goodAtIndustry', 'validateGoodAtIndustry');
+        validateMultipleSelect('goodAtArea', 'goodAtArea', 'validateGoodAtArea');
+        validateMultipleSelect('goodAtMaterial', 'goodAtMaterial', 'validateGoodAtMaterial');
+        validateSelect('platformLevel', 'platformLevel', 'validatePlatformLevel');
+        validate('caseName0', 'caseName', 'validateCaseName');
+
         validateDiv('photo','photo','validatePhoto');
-        validateDiv('casePhoto','casePhoto','validatePhoto');
+        validateDiv('casePhoto0','casePhoto','validateCasePhoto');
 
         var saveBtnda;
         function saveUser(btn) {
@@ -1156,7 +1162,10 @@
 
             $("#caseList").children().each(function(index){
                 caseName = $(this).find("input[name='caseName']").val();
-                casePhoto = casephoto[index].toString;
+                if(casephoto[index]==undefined){
+                    casephoto[index]='';
+                }
+                casePhoto = casephoto[index].toString();
                 caseList.push({
                     "name":caseName,
                     "photo":casePhoto
@@ -1207,7 +1216,7 @@
                 },
                 error: function (result) {
                     alert("通信错误！");
-//                    saveBtnda.stop();
+                    saveBtnda.stop();
                 },
                 success: function (data) {
                     if (data.res == undefined) {
@@ -1223,7 +1232,8 @@
 
                                 data[p].field="case"+tempString;
                             }
-                            if(data[p].field=='photo'||data[p].field.startsWith("case")){
+                            if(data[p].field=='photo'||data[p].field.startsWith("caseP")){
+                                debugger;
                                 var tmp = $("#" + data[p].field).next();
                             }else{
                                 var tmp = $("#" + data[p].field).parent().next();
@@ -1232,7 +1242,7 @@
 
                             if (tmp.text() == '') {
                                 $("#" + data[p].field + "Form").addClass("has-error")
-                                if(data[p].field=='photo'||data[p].field.startsWith("case")){
+                                if(data[p].field=='photo'||data[p].field.startsWith("caseP")){
                                     var tmp = $("#" + data[p].field).next();
                                 }else{
                                     var tmp = $("#" + data[p].field).parent().next();

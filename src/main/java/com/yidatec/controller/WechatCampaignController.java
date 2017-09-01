@@ -140,7 +140,7 @@ public class WechatCampaignController extends BaseController{
         }
         if(images.length()>0){
             images = images.substring(0, images.length()-1);
-            activity.setPhotos(images);
+            activity.setPhoto(images);
         }
         if(activity.getId() == null || activity.getId().trim().length() <= 0)//新建
         {

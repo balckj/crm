@@ -17,6 +17,8 @@ public interface DictionaryMapper {
 	@Select("SELECT * FROM T_DICTIONARY WHERE id = #{id}")
 	Dictionary selectDictionary(String id);
 
+	@Select("SELECT * FROM T_DICTIONARY")
+	List<Dictionary> findDictionaryAll();
 	/**
 	 * 载入字典可列表
 	 * @return

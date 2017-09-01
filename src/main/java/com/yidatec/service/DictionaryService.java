@@ -9,12 +9,15 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 字典服务
  *
- * @author j
+ * @author jrw
  *
  */
 @Service("dictionaryService")
@@ -23,8 +26,30 @@ public class DictionaryService {
 	@Autowired
 	DictionaryMapper dictionaryMapper;
 
+	public Map<String,Dictionary> ALL_DICTIONARY_CACHE = null;
+
+	@PostConstruct
+	public void loadAllDictionary(){
+		if (ALL_DICTIONARY_CACHE == null){
+			ALL_DICTIONARY_CACHE = new HashMap<>();
+			List<Dictionary> dictionaryList = dictionaryMapper.findDictionaryAll();
+			for (Dictionary d: dictionaryList) {
+				ALL_DICTIONARY_CACHE.put(d.getId(),d);
+			}
+		}
+	}
+
+	public void refreshDictionary(){
+		if(ALL_DICTIONARY_CACHE != null){
+			ALL_DICTIONARY_CACHE.clear();
+			ALL_DICTIONARY_CACHE = null;
+		}
+		loadAllDictionary();
+	}
+
 	public Dictionary selectDictionary(String id){
-		return  dictionaryMapper.selectDictionary(id);
+		return ALL_DICTIONARY_CACHE.get(id);
+//		return dictionaryMapper.selectDictionary(id);
 	}
 
 	public List<Dictionary> selectDictionaryListByCodeCommon(String code){
@@ -63,10 +88,12 @@ public class DictionaryService {
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
 	public void createDictionary(Dictionary dictionary) {
 		dictionaryMapper.create(dictionary);
+		refreshDictionary();
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
 	public void updateDictionary(Dictionary dictionary) {
 		dictionaryMapper.update(dictionary);
+		refreshDictionary();
 	}
 }

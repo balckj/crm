@@ -64,8 +64,7 @@ public class WechatService {
 			outMsg = null;
 		}
 		else if(EventType.SUBSCRIBE.equals(inMsg.getEvent())){
-			outMsg = new OutMessage();
-			outMsg.setContent("Hi，奔友，你终于来啦，我们这里可好玩啦 ，快点进去看看吧，在这里提供健身、营养方面的信息交流，还可以在这里投稿（特约稿件有酬谢哦），成为会员的话就可以预约上私教课啦，内有宝藏，欢迎来探！有问题可以随时联系客服哦：13818104253");
+			outMsg = null;
 		}
 		else if(EventType.UNSUBSCRIBE.equals(inMsg.getEvent())){
 //			userMapper.unBind(inMsg.getFromUserName());

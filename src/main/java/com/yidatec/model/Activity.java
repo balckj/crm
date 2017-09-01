@@ -47,7 +47,7 @@ public class Activity extends BaseModel{
     private String customerName;
 
     private String mediaIds;
-    private String photos;
+    private String photo;
 
 
     public String getExhibitioHallName() {
@@ -172,11 +172,11 @@ public class Activity extends BaseModel{
         this.mediaIds = mediaIds;
     }
 
-    public String getPhotos() {
-        return photos;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setPhotos(String photos) {
-        this.photos = photos;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

@@ -29,7 +29,7 @@ public class ConfProperties {
     private String securitySettingId;
     private String adminRoleId;
 
-    private String path;
+    private String imagePath;
 
     public String getSystemLocale() {
         return systemLocale;
@@ -187,11 +187,11 @@ public class ConfProperties {
         return wrapexceptionhtml.replace("$$$", txt);
     }
 
-    public String getPath() {
-        return path;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setImagePath(String path) {
+        this.imagePath = path;
     }
 }

@@ -26,7 +26,7 @@ public class FileController extends BaseController{
     public Map handleFileUpload(@RequestParam("files") MultipartFile file) throws IOException {
         long  startTime=System.currentTimeMillis();
         System.out.println("fileName："+file.getOriginalFilename());
-        return FileUtills.FileUpload(file,"path");
+        return FileUtills.FileUpload(file);
     }
 
     /**

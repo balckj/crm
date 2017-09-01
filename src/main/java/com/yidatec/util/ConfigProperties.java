@@ -135,8 +135,8 @@ class ConfigProperties {
 	 * 文件上传路径
 	 * @return
 	 */
-	public static String getFileUrl(String fileurl) {
-		return getSetting(fileurl);
+	public static String getFileUrl() {
+		return getSetting("imagePath");
 	}
 
 }

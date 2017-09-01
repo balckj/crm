@@ -16,9 +16,9 @@ public class FileUtills {
     /*
     文件上传
      */
-    public static Map FileUpload(MultipartFile file, String fileUrl) throws IOException {
+    public static Map FileUpload(MultipartFile file) throws IOException {
         String serverName = new Date().getTime()+"_"+file.getOriginalFilename();
-        String path = buildFile(ConfigProperties.getFileUrl(fileUrl),true)+File.separator+serverName;
+        String path = buildFile(ConfigProperties.getFileUrl(),true)+File.separator+serverName;
         File newFile=new File(path);
         //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
         file.transferTo(newFile);
@@ -35,7 +35,7 @@ public class FileUtills {
     public static String filedelete(String filename)
             throws Exception {
         String result = "";
-        String path = buildFile(ConfigProperties.getFileUrl("path"),true)+File.separator+filename;
+        String path = buildFile(ConfigProperties.getFileUrl(),true)+File.separator+filename;
         File targetFile = new File(path);
         if (targetFile.exists()) {
             targetFile.delete();

@@ -118,7 +118,7 @@ public class WechatCampaignController extends BaseController{
                             if (imageData != null && imageData.length > 0) {
                                 String tmp = UUID.randomUUID().toString();
                                 images+=tmp+",";
-                                String path = FileUtills.buildFile(confProperties.getPath(), true) + File.separator + tmp + ".jpg";
+                                String path = FileUtills.buildFile(confProperties.getImagePath(), true) + File.separator + tmp + ".jpg";
 
                                 fos = new FileOutputStream(path);
                                 fos.write(imageData);
@@ -145,7 +145,7 @@ public class WechatCampaignController extends BaseController{
         if(activity.getId() == null || activity.getId().trim().length() <= 0)//新建
         {
             activity.setId(UUID.randomUUID().toString().toLowerCase());
-            activity.setCreatorId(getWebUser().getId());
+//            activity.setCreatorId(getWebUser().getId());
             activity.setCreateTime(LocalDateTime.now());
             activity.setModifierId(activity.getCreatorId());
             activity.setModifyTime(activity.getModifyTime());

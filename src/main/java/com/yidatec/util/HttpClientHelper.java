@@ -122,7 +122,7 @@ public class HttpClientHelper {
 			};
 			String responseBody = httpClient.execute(get, responseHandler);
 
-			if(responseBody.contains("errcode")){
+			if(!responseBody.contains("ok")){
 				logger.error("request url : "+url);
 				logger.error("request method : get");
 				logger.error("response body : "+responseBody);

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author QuShengWen
  */
-@Service("jsApiTicketService")
+
 public class JsApiTicketService {
 
     public static final String URL_TICKET = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi";
@@ -41,7 +41,7 @@ public class JsApiTicketService {
     public synchronized void execute() {
         for(int i=0;i<2;i++) {
             String accessToken = accessTokenService.getAccessToken();
-            if (accessToken == null) {
+            if (accessToken == null || accessToken.trim().isEmpty()) {
                 accessTokenService.execute();
                 accessToken = accessTokenService.getAccessToken();
             }
@@ -50,7 +50,6 @@ public class JsApiTicketService {
             try {
                 String json =  HttpClientHelper
                         .getTrustHttps(ticketUrl);
-//                String json = null;
                 if (json != null) {
                     JsonNode jsonObj = new ObjectMapper().readTree(json);
                     try {

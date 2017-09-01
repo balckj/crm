@@ -7,7 +7,7 @@ import com.yidatec.model.Activity;
 import com.yidatec.model.Customer;
 import com.yidatec.service.*;
 import com.yidatec.util.ConfProperties;
-import com.yidatec.util.ConfigProperties;
+
 import com.yidatec.util.FileUtills;
 import com.yidatec.util.HttpClientHelper;
 import com.yidatec.vo.ActivityVO;

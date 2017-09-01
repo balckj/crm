@@ -299,6 +299,14 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
+    @RequestMapping(value = "/validateGoodAtMaterial")
+    public String validateGoodAtMaterial(@RequestParam(value="goodAtMaterial") String goodAtMaterial){
+        if(goodAtMaterial == null || goodAtMaterial.trim().isEmpty()){
+            return getErrorJson("必须输入擅长材料");
+        }
+        return getSuccessJson(null);
+    }
+
     @RequestMapping(value = "/validateGoodAtArea")
     public String validateGoodAtArea(@RequestParam(value="goodAtArea") String goodAtArea){
         if(goodAtArea == null || goodAtArea.trim().isEmpty()){
@@ -767,6 +775,22 @@ public class ValidateController extends BaseController{
     public String validatePhoto(@RequestParam(value = "photo") String photo) {
         if (photo == null || photo.trim().isEmpty()) {
             return getErrorJson("必须上传照片");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateCasePhoto")
+    public String validateCasePhoto(@RequestParam(value = "casePhoto") String casePhoto) {
+        if (casePhoto == null || casePhoto.trim().isEmpty()) {
+            return getErrorJson("必须上传照片");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateTaxpayerType")
+    public String validateTaxpayerType(@RequestParam(value = "taxpayerType") String taxpayerType) {
+        if (taxpayerType == null || taxpayerType.trim().isEmpty()) {
+            return getErrorJson("必须选择纳税人身份");
         }
         return getSuccessJson(null);
     }

@@ -7,7 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -53,7 +52,7 @@ public class FactoryEntity extends BaseModel{
 
     @NotBlank(message = "必须上传厂房照片", groups = { })
     private String photo;
-    @NotNull(message = "必须输入注册资金", groups = { })
+//    @NotNull(message = "必须输入注册资金", groups = { })
     @Digits(integer = 18 ,message = "资金整数位不能超过18位,小数位必须是两位", fraction = 2 /*scale*/)
     private Float registeredCapital;//注册资金
 

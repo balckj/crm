@@ -29,12 +29,12 @@ public interface ActivityMapper {
     @SelectProvider(type=com.yidatec.mapper.ActivityQueryProvider.class,method = "countActivity")
     int countActivityList(ActivityVO activityVo);
 
-    @Insert("INSERT INTO T_CAMPAIGN (id,name,startDate,endDate,country,province,city,region,address,state,exhibitioHall,sponsor,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{name},#{startDate}," +
-            "#{endDate},#{country},#{province},#{city},#{region},#{address},#{state},#{exhibitioHall},#{sponsor},#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
+    @Insert("INSERT INTO T_CAMPAIGN (id,name,startDate,endDate,country,province,city,region,address,state,exhibitioHall,sponsor,photo,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{name},#{startDate}," +
+            "#{endDate},#{country},#{province},#{city},#{region},#{address},#{state},#{exhibitioHall},#{sponsor},#{photo},#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
     int create(Activity activity);
 
     @Update("UPDATE T_CAMPAIGN SET `name`=#{name},startDate=#{startDate},endDate=#{endDate}," +
-            "country=#{country},province=#{province},city=#{city},region=#{region},address=#{address},state=#{state},exhibitioHall=#{exhibitioHall},sponsor=#{sponsor}," +
+            "country=#{country},province=#{province},city=#{city},region=#{region},address=#{address},state=#{state},exhibitioHall=#{exhibitioHall},sponsor=#{sponsor},photo=#{photo}," +
             "modifierId=#{modifierId}," +
             "modifyTime=#{modifyTime} WHERE id=#{id}")
     int update(Activity activity);

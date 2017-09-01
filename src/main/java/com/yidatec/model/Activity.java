@@ -46,6 +46,10 @@ public class Activity extends BaseModel{
     private String sponsor;
     private String customerName;
 
+    private String mediaIds;
+    private String photos;
+
+
     public String getExhibitioHallName() {
         return exhibitioHallName;
     }
@@ -158,5 +162,21 @@ public class Activity extends BaseModel{
     public String getEndDateStr(){
         if(endDate == null)return "";
         return endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
+
+    public String getMediaIds() {
+        return mediaIds;
+    }
+
+    public void setMediaIds(String mediaIds) {
+        this.mediaIds = mediaIds;
+    }
+
+    public String getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(String photos) {
+        this.photos = photos;
     }
 }

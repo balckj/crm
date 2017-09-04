@@ -116,9 +116,9 @@ public class WechatCampaignController extends BaseController{
                         try {
                             byte[] imageData = HttpClientHelper.downloadFile(url);
                             if (imageData != null && imageData.length > 0) {
-                                String tmp = UUID.randomUUID().toString();
+                                String tmp = UUID.randomUUID().toString()+".jpg";
                                 images+=tmp+",";
-                                String path = FileUtills.buildFile(confProperties.getImagePath(), true) + File.separator + tmp + ".jpg";
+                                String path = FileUtills.buildFile(confProperties.getImagePath(), true) + File.separator + tmp;
 
                                 fos = new FileOutputStream(path);
                                 fos.write(imageData);

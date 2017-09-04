@@ -37,7 +37,7 @@ public class ParamService {
     public Map<String,List<UserVO>> FIND_USERS_CACHE = new HashMap<String,List<UserVO>>(200);
     public Map<String,Role> ALL_ROLE_CACHE = null;
     public Map<String,User> ALL_USER_CACHE = null;
-    @PostConstruct
+//    @PostConstruct
     public void postRoleInist(){
         if(ALL_ROLE_CACHE == null){
             ALL_ROLE_CACHE = new HashMap<String,Role>();
@@ -50,23 +50,25 @@ public class ParamService {
     }
 
     private void findAllParam(){
-        List<Param> paramsList = paramMapper.findAllParam();
+
         if(FIND_ROLES_CACHE == null){
             FIND_ROLES_CACHE = new HashMap<>();
-        }
-        for (Param p : paramsList){
-            if( !StringUtils.isEmpty(p.getValue())){
-                String[] roleid = p.getValue().split(",");
-                List<Role> roles = new ArrayList<Role>();
-                for(String s : roleid){
-                    Role role = ALL_ROLE_CACHE.get(s);
-                    if (role != null) {
-                        roles.add(role);
+            List<Param> paramsList = paramMapper.findAllParam();
+            for (Param p : paramsList){
+                if( !StringUtils.isEmpty(p.getValue())){
+                    String[] roleid = p.getValue().split(",");
+                    List<Role> roles = new ArrayList<Role>();
+                    for(String s : roleid){
+                        Role role = ALL_ROLE_CACHE.get(s);
+                        if (role != null) {
+                            roles.add(role);
+                        }
                     }
+                    FIND_ROLES_CACHE.put(p.getId(),roles);
                 }
-                FIND_ROLES_CACHE.put(p.getId(),roles);
             }
         }
+
     }
 
 //    @PostConstruct
@@ -92,6 +94,7 @@ public class ParamService {
 //    }
 
     public List<Role> findRoles(String fixedId){
+        postRoleInist();
         return FIND_ROLES_CACHE.get(fixedId);
     }
 

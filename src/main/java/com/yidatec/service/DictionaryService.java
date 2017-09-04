@@ -28,8 +28,8 @@ public class DictionaryService {
 
 	public Map<String,Dictionary> ALL_DICTIONARY_CACHE = null;
 
-	@PostConstruct
-	public void loadAllDictionary(){
+//	@PostConstruct
+	private void loadAllDictionary(){
 		if (ALL_DICTIONARY_CACHE == null){
 			ALL_DICTIONARY_CACHE = new HashMap<>();
 			List<Dictionary> dictionaryList = dictionaryMapper.findDictionaryAll();
@@ -48,6 +48,7 @@ public class DictionaryService {
 	}
 
 	public Dictionary selectDictionary(String id){
+		refreshDictionary();
 		return ALL_DICTIONARY_CACHE.get(id);
 //		return dictionaryMapper.selectDictionary(id);
 	}
@@ -77,6 +78,7 @@ public class DictionaryService {
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
 	public void deleteDictionary(String id) {
 		dictionaryMapper.delete(id);
+		refreshDictionary();
 	}
 
 	/**

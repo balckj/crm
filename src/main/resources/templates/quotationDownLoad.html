@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="quotationDownLoad">
+    <link th:href="@{99/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
+    <style type="text/css">
+        #availableSupplierstable_length  select {
+            padding-top: 3px;
+        }
+    </style>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2 >可用供应商列表</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="index.html">首页</a>
+                </li>
+                <li>
+                    <a>报表下载</a>
+                </li>
+                <li class="active">
+                    <strong>报价单</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+        <div class="ibox-content m-b-sm border-bottom">
+            <div class="row">
+                <div class="col-sm-12">
+                <form method="POST" class="form-horizontal form-inline" id='quotationForm'>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">报价单<span style="color:#ed5565;"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="startTime" class="control-label">开始时间</label>
+                                <input type="text" placeholder="包含您的输入值的开始时间" id="startTime" name="startTime" readonly="readonly" class="form-control input-sm"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="endTime" class="control-label">结束时间</label>
+                                <input type="text" placeholder="包含您的输入值的结束时间" id="endTime" name="endTime" readonly="readonly" class="form-control input-sm"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-sm" type="button" style="width: 100%;margin-top: 23px;" onclick="query();">下&nbsp;&nbsp;载</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Data picker -->
+    <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+
+    <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
+    <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
+    <script type="text/javascript">
+        /*<![CDATA[*/
+
+        $('#startTime').datepicker({
+            startView: 1,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: "yyyy-mm-dd",
+            language: 'cn',
+        });
+
+        $('#endTime').datepicker({
+            startView: 1,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: "yyyy-mm-dd",
+            language: 'cn',
+        });
+        /**
+         *
+         * 获取当前时间
+         */
+        function p(s) {
+            return s < 10 ? '0' + s: s;
+        }
+
+        var myDate = new Date();
+        //获取当前年
+        var year=myDate.getFullYear();
+        //获取当前月
+        var month=myDate.getMonth()+1;
+        //获取当前日
+        var date=myDate.getDate();
+        var now = year+'-'+p(month)+"-"+p(date);//+" "+p(h)+':'+p(m)+":"+p(s);
+        $('#startTime').val(now);
+        $('#endTime').val(now);
+
+        function query(){
+            var startTime = $("#startTime").val();
+            var endTime = $("#endTime").val();
+//            if(startTime == "" || endTime == ""){
+//                sweetAlert("开始时间和结束时间必须选择");
+//                return ;
+//            }
+//            if(!checkEndTime(startTime,endTime)){
+//                sweetAlert("结束时间必须晚于开始时间！");
+//                return;
+//            }
+
+            $('#quotationForm').attr('action', "/quotationDownLoad");
+            $("#quotationForm").submit();
+        }
+
+        function checkEndTime(startTime,endTime){
+            debugger
+            var startTime=startTime;
+            var start=new Date(startTime.replace("-", "/").replace("-", "/"));
+            var endTime=endTime;
+            var end=new Date(endTime.replace("-", "/").replace("-", "/"));
+            if(end<start){
+                return false;
+            }
+            return true;
+        }
+
+        /*]]>*/
+    </script>
+</div>
+</html>

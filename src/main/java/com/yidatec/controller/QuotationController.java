@@ -1,10 +1,17 @@
 package com.yidatec.controller;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.yidatec.mapper.QuotationMapper;
 import com.yidatec.model.Product;
 import com.yidatec.model.Quotation;
 import com.yidatec.service.ProductService;
+import com.yidatec.service.QuotationService;
+import com.yidatec.util.CustomLocalDateSerializer;
+import com.yidatec.util.DownloadHelper;
 import com.yidatec.vo.ProductVO;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -15,11 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/7/13.
@@ -29,6 +36,10 @@ public class QuotationController extends BaseController{
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    QuotationService quotationService;
+
 
 
     @RequestMapping("/quotationList")
@@ -78,5 +89,30 @@ public class QuotationController extends BaseController{
         map.put("recordsFiltered", count);
         map.put("data", ProductList);
         return map;
+    }
+
+
+    @RequestMapping("/quotationDownLoadIndex")
+    public  String quotationDownLoadIndex(){
+        return  "quotationDownLoad";
+    }
+
+    @RequestMapping(value = "quotationDownLoad")
+    public void quotationDownLoad (
+            HttpServletRequest request, HttpServletResponse response,
+            @DateTimeFormat(pattern="yyyy-MM-dd") Date startTime,
+            @DateTimeFormat(pattern="yyyy-MM-dd") Date endTime
+            ) throws Exception{
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(new Date());
+        String fileName = "报价单"+date+".xlsx";
+        XSSFWorkbook wb = new XSSFWorkbook();
+
+        String beginYear = sdf.format(startTime);
+        String entYear = sdf.format(endTime);
+        quotationService.quotationDownLoad(wb,beginYear,entYear);
+
+        new DownloadHelper().downLoad(wb, response, fileName);
     }
 }

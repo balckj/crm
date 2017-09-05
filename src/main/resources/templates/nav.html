@@ -64,6 +64,12 @@
                     <li id="quotationList" sec:authorize-url="/quotationList"><a href="javascript:loadPage('quotationList')"><i class="fa fa-user-secret"></i>报价单</a></li>
                 </ul>
             </li>
+            <li sec:authorize-url="/systemSetting">
+                <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">报表下载</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li id="quotationDownLoadIndex" sec:authorize-url="/projectList"><a href="javascript:loadPage('quotationDownLoadIndex')"><i class="fa fa-user-secret"></i>报价单</a></li>
+                </ul>
+            </li>
         </ul>
 
     </div>

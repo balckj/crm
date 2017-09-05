@@ -4,13 +4,15 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yidatec.model.Quotation;
 import com.yidatec.util.CustomLocalDateSerializer;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
  * Created by jrw on 2017/8/25.
  */
 public class QuotationVO extends Quotation {
+    private String id;
+    private String DicId;
+
     private String categoryName;// 类别
     private String productName;// 产品名
     private String unitName;// 单位
@@ -67,5 +69,23 @@ public class QuotationVO extends Quotation {
 
     public void setEndTime(LocalDate endTime) {
         this.endTime = endTime;
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getDicId() {
+        return DicId;
+    }
+
+    public void setDicId(String dicId) {
+        DicId = dicId;
     }
 }

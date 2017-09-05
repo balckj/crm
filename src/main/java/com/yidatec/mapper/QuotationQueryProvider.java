@@ -1,8 +1,5 @@
 package com.yidatec.mapper;
 
-import com.yidatec.vo.AudienceVO;
-import org.springframework.util.StringUtils;
-
 /**
  * Created by jrw on 17-7-18.
  */
@@ -13,6 +10,8 @@ public class QuotationQueryProvider {
         StringBuffer sb = new StringBuffer();
         sb.append("");
         sb.append(" SELECT");
+        sb.append("  a.id,");
+        sb.append(" d.id dicId,");
         sb.append(" d.value AS categoryName,");
         sb.append(" b.name AS productName ,");
         sb.append(" c.value AS unitName,");

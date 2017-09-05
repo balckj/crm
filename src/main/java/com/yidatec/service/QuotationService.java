@@ -1,26 +1,21 @@
 package com.yidatec.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yidatec.mapper.QuotationMapper;
-import com.yidatec.mapper.SaleMapper;
-import com.yidatec.model.User;
 import com.yidatec.util.CNNumberFormat;
 import com.yidatec.vo.QuotationVO;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 报价单
@@ -39,8 +34,27 @@ public class QuotationService {
 								  String beginTime,
 								  String endTime) throws Exception {
 
+		HashMap<String,List<QuotationVO>> map = new HashMap<String,List<QuotationVO>>();
 
 		List<QuotationVO> quotationVOList =  quotationMapper.quotationDownLoad();
+
+		List<String> dicIdList =  new ArrayList<String>();
+
+		for (QuotationVO quotationVO : quotationVOList) {
+
+			if(!dicIdList.contains(quotationVO.getDicId())){
+				dicIdList.add(quotationVO.getDicId());
+			}
+
+			List<QuotationVO> quotationVOList1 = map.get(quotationVO.getDicId());
+
+			if (quotationVOList1 == null){
+				quotationVOList1 = new ArrayList<>();
+				map.put(quotationVO.getDicId(),quotationVOList1);
+			}
+
+			quotationVOList1.add(quotationVO);
+		}
 
 		XSSFSheet sheet = wb.createSheet("sheet1");
 		Map<String, XSSFCellStyle> mapStyle = createStyles(wb);
@@ -58,7 +72,6 @@ public class QuotationService {
                 0, 0, 0, 0, 7);
 		sheet.setColumnWidth(0, 32 * 50);
 
-//		row.getCell(0).setCellStyle(mapStyle.get("header_7"));
 		rowNum++;// 从第二行起
 		row = sheet.createRow(rowNum);
 		row.createCell(0).setCellValue("类别");
@@ -94,37 +107,51 @@ public class QuotationService {
 		int num = 1;
 		Double countPrict = new Double(0);
         /*设置数据起始行号，填充数据*/
-		for (QuotationVO quotationVO : quotationVOList) {
-			row = sheet.createRow(++rowNum);
-			// 类别
-			row.createCell(0).setCellValue(quotationVO.getCategoryName());
-			// 编号
-			row.createCell(1).setCellValue(num++);
-			// 产品名称
-			row.createCell(2).setCellValue(quotationVO.getProductName());
-			// 单位
-			row.createCell(3).setCellValue(quotationVO.getUnitName());
-			// 数量
-			row.createCell(4).setCellValue(quotationVO.getCount());
-			// 单价
-			row.createCell(5).setCellValue(Double.valueOf(quotationVO.getUnitPrice()));
-			// 合价
-			row.createCell(6).setCellValue(Double.valueOf(quotationVO.getCountPrice()));
-			countPrict += Double.valueOf(quotationVO.getCountPrice());
-			// 工作内容
-			row.createCell(7).setCellValue(quotationVO.getRemark());
+		for (String s : dicIdList) {
+			List<QuotationVO> quotationVOList2 = map.get(s);
+			for (int i = 0; i< quotationVOList2.size() ; i ++) {
+				QuotationVO quotationVO = quotationVOList2.get(i);
+				row = sheet.createRow(++rowNum);
+				// 类别
+				row.createCell(0);
 
-			row.getCell(0).setCellStyle(mapStyle.get("data_4"));
-			row.getCell(1).setCellStyle(mapStyle.get("data_4"));
-			row.getCell(2).setCellStyle(mapStyle.get("data_1"));
-			row.getCell(3).setCellStyle(mapStyle.get("data_4"));
-			row.getCell(4).setCellStyle(mapStyle.get("data_4"));
-			row.getCell(5).setCellStyle(mapStyle.get("data_5"));
-			row.getCell(6).setCellStyle(mapStyle.get("data_5"));
-			row.getCell(7).setCellStyle(mapStyle.get("data_1"));
-			row.setHeightInPoints(20);
+				row.getCell(0).setCellValue(quotationVO.getCategoryName());
+
+				if(i == quotationVOList2.size()-1){
+					if (quotationVOList2.size() > 1) {
+						// 参数：起始行号，终止行号， 起始列号，终止列号
+						CellRangeAddress region = new CellRangeAddress(rowNum - quotationVOList2.size() + 1, rowNum, 0, 0);
+						sheet.addMergedRegion(region);
+					}
+				}
+
+				// 编号
+				row.createCell(1).setCellValue(num++);
+				// 产品名称
+				row.createCell(2).setCellValue(quotationVO.getProductName());
+				// 单位
+				row.createCell(3).setCellValue(quotationVO.getUnitName());
+				// 数量
+				row.createCell(4).setCellValue(quotationVO.getCount());
+				// 单价
+				row.createCell(5).setCellValue(Double.valueOf(quotationVO.getUnitPrice()));
+				// 合价
+				row.createCell(6).setCellValue(Double.valueOf(quotationVO.getCountPrice()));
+				countPrict += Double.valueOf(quotationVO.getCountPrice());
+				// 工作内容
+				row.createCell(7).setCellValue(quotationVO.getRemark());
+
+				row.getCell(0).setCellStyle(mapStyle.get("data_4"));
+				row.getCell(1).setCellStyle(mapStyle.get("data_4"));
+				row.getCell(2).setCellStyle(mapStyle.get("data_1"));
+				row.getCell(3).setCellStyle(mapStyle.get("data_4"));
+				row.getCell(4).setCellStyle(mapStyle.get("data_4"));
+				row.getCell(5).setCellStyle(mapStyle.get("data_5"));
+				row.getCell(6).setCellStyle(mapStyle.get("data_5"));
+				row.getCell(7).setCellStyle(mapStyle.get("data_1"));
+				row.setHeightInPoints(20);
+			}
 		}
-
 		int lastNumb = rowNum + 1;
 
 		rowNum++;
@@ -354,7 +381,7 @@ public class QuotationService {
 		style.setAlignment(CellStyle.ALIGN_CENTER);
 		style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);//垂直
 		style.setFont(headerFont7);
-		style.setFillPattern(XSSFCellStyle.FINE_DOTS );
+		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND );
 		style.setFillForegroundColor(IndexedColors.DARK_BLUE.getIndex());
 		styles.put("data_6", style);
 

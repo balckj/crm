@@ -22,7 +22,7 @@ public class QuotationQueryProvider {
         sb.append(" a.count *  a.unitPrice as countPrice,");
         sb.append(" a.remark ");
         sb.append(" FROM T_QUOTATION a");
-        sb.append(" LEFT JOIN T_PRODUCTION AS b ON b.id = a.productionId");
+        sb.append(" LEFT JOIN T_QUOTATION_PRODUCTION AS b ON b.productionId = a.id");
         sb.append(" LEFT JOIN T_DICTIONARY AS c ON b.unit = c.id");
         sb.append(" LEFT JOIN T_DICTIONARY AS d ON b.category = d.id");
         sb.append(" ORDER BY d.value");

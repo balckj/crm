@@ -98,9 +98,10 @@
     <script th:src="@{99/js/plugins/datapicker/bootstrap-datetimepicker.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
-    <script type="text/javascript">
+    <script th:inline="javascript">
         /*<![CDATA[*/
-
+        var hasEdit = [[${#authorization.url('/activityEdit')}]];
+        var hasCreate = [[${#authorization.url('/activityCreate')}]];
         var activitytable;
         function activitytableLoad() {
             activitytable = $('#activitytable').DataTable({
@@ -130,11 +131,15 @@
                     {
                         "data": "id", "width": "80px",
                         "render": function (data, type, row) {
-                            var u = "activityEdit?id="+row.id;
-                            u =  '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
-
+                            var u = '';
+                            if(hasEdit) {
+                                u = "activityEdit?id=" + row.id;
+                                u = '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
+                            }
+                            if(u == ''){
+                                return '--'
+                            }
                             return u;
-
                         },
                     },
                     {"data": "name", "width": "100px"},
@@ -275,8 +280,8 @@
         $(document).ready(function () {
             // 提示栏初始化
             activitytableLoad();
-
-            var v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"activityEdit\");'>新&nbsp;&nbsp;建</button>"
+            var v ='';
+            if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"activityEdit\");'>新&nbsp;&nbsp;建</button>"
             $("#activitytable_wrapper div").children().eq(0).append(v);
 
         });

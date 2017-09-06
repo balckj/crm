@@ -101,8 +101,10 @@
 
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
-    <script type="text/javascript">
+    <script th:inline="javascript">
         /*<![CDATA[*/
+        var hasEdit = [[${#authorization.url('/availableSuppliersEdit')}]];
+        var hasCreate = [[${#authorization.url('/availableSuppliersCreate')}]];
 
         $('#startTime').datepicker({
             startView: 1,

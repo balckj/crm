@@ -84,8 +84,10 @@
 
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
-    <script type="text/javascript">
+    <script th:inline="javascript">
         /*<![CDATA[*/
+        var hasEdit = [[${#authorization.url('/quotationEdit')}]];
+        var hasCreate = [[${#authorization.url('/quotationCreate')}]];
 
         var quotationtable;
         function quotationtableLoad() {
@@ -130,9 +132,14 @@
                     {
                         "data": "id", "width": "80px",
                         "render": function (data, type, row) {
-                            var u = "userEdit?id="+row.id;
-                            u =  '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
-
+                            var u = '';
+                            if(hasEdit) {
+                                u = "userEdit?id=" + row.id;
+                                u = '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
+                            }
+                            if(u == ''){
+                                return '--'
+                            }
                             return u;
 
                         },
@@ -249,8 +256,8 @@
         $(document).ready(function () {
             // 提示栏初始化
             quotationtableLoad();
-
-            var v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"quotationEdit\");'>新&nbsp;&nbsp;建</button>"
+            var v ='';
+            if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"quotationEdit\");'>新&nbsp;&nbsp;建</button>"
             $("#quotationtable_wrapper div").children().eq(0).append(v);
 
         });

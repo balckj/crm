@@ -49,9 +49,10 @@
     </div>
 
 
-    <script type="text/javascript">
+    <script th:inline="javascript">
         /*<![CDATA[*/
-
+        var hasEdit = [[${#authorization.url('/roleEidt')}]];
+        var hasCreate = [[${#authorization.url('/roleCreate')}]];
         var roletable;
         function roletableLoad() {
             roletable = $('#roletable').DataTable({
@@ -68,8 +69,15 @@
                     {
                         "data": "id", "width": "80px",
                         "render": function (data, type, row) {
-                            var u = "roleEdit?id="+row.id;
-                            return '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
+                            var u = ''
+                            if(hasEdit){
+                                u = "roleEdit?id="+row.id;
+                                u =  '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
+                            }
+                            if(u == ''){
+                                return '--'
+                            }
+                            return u;
                         },
                     },
                     {"data": "name", "width": "100px"},
@@ -143,7 +151,8 @@
         $(document).ready(function () {
             // 提示栏初始化
             roletableLoad();
-            var v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"roleEdit\");'>新&nbsp;&nbsp;建</button>"
+            var v = '';
+            if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"roleEdit\");'>新&nbsp;&nbsp;建</button>";
             $("#roletable_wrapper div").children().eq(0).append(v)
         });
 

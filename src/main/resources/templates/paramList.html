@@ -106,9 +106,10 @@
     <!-- Select2 -->
     <script th:src="@{99/js/plugins/select2/select2.full.min.js}"></script>
 
-
-    <script type="text/javascript">
+    <script th:inline="javascript">
         /*<![CDATA[*/
+        var hasEdit = [[${#authorization.url('/paramEidt')}]];
+        var hasCreate = [[${#authorization.url('/paramCreate')}]];
 
         $(function () {
             $("#vendorAppointment").select2();

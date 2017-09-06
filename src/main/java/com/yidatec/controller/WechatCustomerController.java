@@ -1,14 +1,21 @@
 package com.yidatec.controller;
 
+import com.yidatec.exception.BusinessException;
+import com.yidatec.exception.ExceptionID;
 import com.yidatec.model.Activity;
 import com.yidatec.model.Customer;
 import com.yidatec.model.Dictionary;
+import com.yidatec.service.AccessTokenService;
 import com.yidatec.service.CustomerService;
 import com.yidatec.service.DictionaryService;
 import com.yidatec.service.WechatService;
 import com.yidatec.util.ConfProperties;
 import com.yidatec.util.Constants;
+import com.yidatec.util.FileUtills;
+import com.yidatec.util.HttpClientHelper;
 import com.yidatec.vo.CustomerVO;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +24,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +39,8 @@ import java.util.UUID;
 @RestController
 
 public class WechatCustomerController extends BaseController{
-
+    protected static final Log logger = LogFactory
+            .getLog(WechatCustomerController.class);
     @Autowired
     CustomerService customerService;
 
@@ -42,6 +52,9 @@ public class WechatCustomerController extends BaseController{
 
     @Autowired
     ConfProperties confProperties;
+
+    @Autowired
+    AccessTokenService accessTokenService;
 
 
 
@@ -109,11 +122,49 @@ public class WechatCustomerController extends BaseController{
         if(errors  != null && errors.size() > 0){
             return errors;
         }
+        String mediaIds = customer.getMediaIds();
+        String images = "";
+        if(mediaIds != null && !mediaIds.trim().isEmpty()){
+            String[] mediaArr = mediaIds.split(",");
+            if(mediaArr != null && mediaArr.length>0){
 
+                for(String one : mediaArr){
+                    if(one != null && !one.trim().isEmpty()){
+                        String url="http://file.api.weixin.qq.com/cgi-bin/media/get?access_token="+accessTokenService.getAccessToken()+"&media_id="+one.trim();
+                        FileOutputStream fos = null;
+                        try {
+                            byte[] imageData = HttpClientHelper.downloadFile(url);
+                            if (imageData != null && imageData.length > 0) {
+                                String tmp = UUID.randomUUID().toString()+".jpg";
+                                images+=tmp+",";
+                                String path = FileUtills.buildFile(confProperties.getImagePath(), true) + File.separator + tmp;
+
+                                fos = new FileOutputStream(path);
+                                fos.write(imageData);
+                                fos.flush();
+                            }
+                        }catch(Exception ex){
+                            logger.error(ex);
+                            throw new BusinessException(ExceptionID.DOWNLOAD_FILE_ERROR);
+                        }finally {
+                            if(fos != null){
+                                try{
+                                    fos.close();
+                                }catch(Exception ex){}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if(images.length()>0){
+            images = images.substring(0, images.length()-1);
+            customer.setPhoto(images);
+        }
         if(customer.getId() == null || customer.getId().trim().length() <= 0)//新建
         {
             customer.setId(UUID.randomUUID().toString());
-            customer.setCreatorId(getWebUser().getId());
+//            customer.setCreatorId(getWebUser().getId());
             customer.setCreateTime(LocalDateTime.now());
             customer.setModifierId(getWebUser().getCreatorId());
             customer.setModifyTime(customer.getCreateTime());

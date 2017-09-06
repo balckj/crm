@@ -36,6 +36,9 @@ public class Customer extends BaseModel{
 
     private Integer state;
 
+    private String mediaIds;
+    private String photo;
+
     @Valid
     private List<Contact> contactList;
 
@@ -125,5 +128,21 @@ public class Customer extends BaseModel{
 
     public void setContactList(List<Contact> contactList) {
         this.contactList = contactList;
+    }
+
+    public String getMediaIds() {
+        return mediaIds;
+    }
+
+    public void setMediaIds(String mediaIds) {
+        this.mediaIds = mediaIds;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

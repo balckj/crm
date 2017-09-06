@@ -3,8 +3,8 @@ package com.yidatec.model;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.*;
-import java.math.BigDecimal;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 
 /**
  * 产品实体类
@@ -44,6 +44,36 @@ public class Product extends BaseModel {
 	@NotNull(message = "必须输入高价", groups = { })
 	@Digits(integer = 18 ,message = "高价价整数位不能超过18位,小数位必须是两位", fraction = 2 /*scale*/)
 	private Float high;
+
+	private Float unitPrice;
+
+	private Integer count;
+
+	private String workContent;
+
+	public Float getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(Float unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	public String getWorkContent() {
+		return workContent;
+	}
+
+	public void setWorkContent(String workContent) {
+		this.workContent = workContent;
+	}
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;

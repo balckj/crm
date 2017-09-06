@@ -18,6 +18,12 @@ public class QuotationVO extends Quotation {
     private String unitName;// 单位
     private String countPrice;// 合价
 
+
+    private Integer draw;
+    private Integer length;
+    private Integer start;
+
+
     @JsonSerialize(using = CustomLocalDateSerializer.class)
     private LocalDate startTime;
     @JsonSerialize(using = CustomLocalDateSerializer.class)
@@ -87,5 +93,29 @@ public class QuotationVO extends Quotation {
 
     public void setDicId(String dicId) {
         DicId = dicId;
+    }
+
+    public Integer getDraw() {
+        return draw;
+    }
+
+    public void setDraw(Integer draw) {
+        this.draw = draw;
+    }
+
+    public Integer getLength() {
+        return length;
+    }
+
+    public void setLength(Integer length) {
+        this.length = length;
+    }
+
+    public Integer getStart() {
+        return start;
+    }
+
+    public void setStart(Integer start) {
+        this.start = start;
     }
 }

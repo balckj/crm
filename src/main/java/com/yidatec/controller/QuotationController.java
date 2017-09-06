@@ -1,14 +1,12 @@
 package com.yidatec.controller;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.yidatec.mapper.QuotationMapper;
 import com.yidatec.model.Product;
 import com.yidatec.model.Quotation;
 import com.yidatec.service.ProductService;
 import com.yidatec.service.QuotationService;
-import com.yidatec.util.CustomLocalDateSerializer;
 import com.yidatec.util.DownloadHelper;
 import com.yidatec.vo.ProductVO;
+import com.yidatec.vo.QuotationVO;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,7 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/7/13.
@@ -63,12 +64,12 @@ public class QuotationController extends BaseController{
         }
         if(quotation.getId() == null || quotation.getId().trim().length() <= 0)//新建
         {
-            quotation.setId(UUID.randomUUID().toString());
+
             quotation.setCreatorId(getWebUser().getId());
             quotation.setCreateTime(LocalDateTime.now());
             quotation.setModifierId(quotation.getCreatorId());
             quotation.setModifyTime(quotation.getCreateTime());
-//            quotationService.createFactory(quotation);
+            quotationService.createQuotation(quotation);
 
         } else {//编辑
             quotation.setModifierId(getWebUser().getCreatorId());
@@ -88,6 +89,19 @@ public class QuotationController extends BaseController{
         map.put("recordsTotal", count);
         map.put("recordsFiltered", count);
         map.put("data", ProductList);
+        return map;
+    }
+
+    @RequestMapping(value = "/findCustomer")
+    @ResponseBody
+    public Object findQuotation(@RequestBody QuotationVO quotationVO)throws Exception{
+        List<Quotation> QuotationList = quotationService.selectQuotationList(quotationVO);
+        int count = quotationService.countQuotationList(quotationVO);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("draw", quotationVO.getDraw());
+        map.put("recordsTotal", count);
+        map.put("recordsFiltered", count);
+        map.put("data", QuotationList);
         return map;
     }
 

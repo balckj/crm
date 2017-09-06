@@ -1,7 +1,10 @@
 package com.yidatec.service;
 
 import com.yidatec.mapper.QuotationMapper;
+import com.yidatec.model.Customer;
+import com.yidatec.model.Quotation;
 import com.yidatec.util.CNNumberFormat;
+import com.yidatec.vo.CustomerVO;
 import com.yidatec.vo.QuotationVO;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -11,11 +14,11 @@ import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 报价单
@@ -66,10 +69,10 @@ public class QuotationService {
 		int rowNum = 0;
 		row = sheet.createRow(rowNum);
 
-        row.createCell(0).setCellValue("总标题");
-        setColspanTitle(sheet,row , mapStyle, wb,
-                "摩拜单车(153㎡)报价单", "header_6",
-                0, 0, 0, 0, 7);
+		row.createCell(0).setCellValue("总标题");
+		setColspanTitle(sheet,row , mapStyle, wb,
+				"摩拜单车(153㎡)报价单", "header_6",
+				0, 0, 0, 0, 7);
 		sheet.setColumnWidth(0, 32 * 50);
 
 		rowNum++;// 从第二行起
@@ -452,6 +455,26 @@ public class QuotationService {
 		style.setFillForegroundColor(IndexedColors.ORANGE.getIndex());
 		styles.put("data_11", style);
 		return styles;
+	}
+
+	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
+	public void createQuotation(Quotation quotation){
+		for (int i=0;i<quotation.getProduct().size();i++){
+			quotation.setId(UUID.randomUUID().toString());
+			quotation.setProductionId(quotation.getProduct().get(i).getId());
+			quotation.setUnitPrice(quotation.getProduct().get(i).getUnitPrice());
+			quotation.setCount(quotation.getProduct().get(i).getCount());
+			quotation.setWorkContent(quotation.getProduct().get(i).getWorkContent());
+			quotationMapper.createQuotation(quotation);
+		}
+	}
+
+	public List<Quotation> selectQuotationList(QuotationVO quotationVO) {
+		return quotationMapper.selectQuotationList(quotationVO);
+	}
+
+	public int countQuotationList(QuotationVO quotationVO) {
+		return quotationMapper.countQuotationList(quotationVO);
 	}
 
 }

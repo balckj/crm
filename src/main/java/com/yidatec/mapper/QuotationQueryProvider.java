@@ -64,7 +64,7 @@ public class QuotationQueryProvider {
 //        sb.append(" ORDER BY D.modifyTime DESC LIMIT #{start},#{length}");
         return sb.toString();
     }
-    public String countCustomer(final QuotationVO quotationVO)
+    public String countQuotationList(final QuotationVO quotationVO)
     {
         StringBuffer sb = new StringBuffer();
 //        sb.append("SELECT count(*) from T_CUSTOMER  as D WHERE 1=1");

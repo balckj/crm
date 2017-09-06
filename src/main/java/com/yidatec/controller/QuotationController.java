@@ -92,7 +92,7 @@ public class QuotationController extends BaseController{
         return map;
     }
 
-    @RequestMapping(value = "/findCustomer")
+    @RequestMapping(value = "/findQuotation")
     @ResponseBody
     public Object findQuotation(@RequestBody QuotationVO quotationVO)throws Exception{
         List<Quotation> QuotationList = quotationService.selectQuotationList(quotationVO);

@@ -142,7 +142,7 @@ public class QuotationService {
 				row.createCell(6).setCellValue(Double.valueOf(quotationVO.getCountPrice()));
 				countPrict += Double.valueOf(quotationVO.getCountPrice());
 				// 工作内容
-				row.createCell(7).setCellValue(quotationVO.getRemark());
+				row.createCell(7).setCellValue(quotationVO.getWorkContent());
 
 				row.getCell(0).setCellStyle(mapStyle.get("data_4"));
 				row.getCell(1).setCellStyle(mapStyle.get("data_4"));
@@ -155,58 +155,74 @@ public class QuotationService {
 				row.setHeightInPoints(20);
 			}
 		}
-		int lastNumb = rowNum + 1;
 
-		rowNum++;
-		row = sheet.createRow(rowNum);
-		// 施工费用合计
-		row.createCell(0).setCellValue("施工费用合计");
-		setColspanTitle(sheet,row , mapStyle, wb,
-				"施工费用合计", "data_6",
-				0, rowNum, rowNum, 0, 5);
+		if(quotationVOList != null && quotationVOList.size() > 0) {
+			int lastNumb = rowNum + 1;
 
-		// 施工费用合计钱数
-		row.createCell(6).setCellFormula("SUM(G3:G"+ lastNumb  +")");
-		row.getCell(6).setCellStyle(mapStyle.get("data_7"));
+			rowNum++;
+			row = sheet.createRow(rowNum);
+			// 施工费用合计
+			row.createCell(0).setCellValue("施工费用合计");
+			setColspanTitle(sheet, row, mapStyle, wb,
+					"施工费用合计", "data_6",
+					0, rowNum, rowNum, 0, 5);
 
-		// 施工费用合计钱数转汉子
-		CNNumberFormat cnFmt = new CNNumberFormat(true);
-		row.createCell(7).setCellValue("RMB"+cnFmt.format(countPrict));
-		row.getCell(7).setCellStyle(mapStyle.get("data_8"));
+			// 施工费用合计钱数
+			row.createCell(6).setCellFormula("SUM(G3:G" + lastNumb + ")");
+			row.getCell(6).setCellStyle(mapStyle.get("data_7"));
 
-		rowNum++;
-		row = sheet.createRow(rowNum);
-		// 税费
-		row.createCell(0).setCellValue("税费(6%,增票专票)");
-		setColspanTitle(sheet,row , mapStyle, wb,
-				"税费(6%,增票专票)", "data_9",
-				0, rowNum, rowNum, 0, 5);
+			// 施工费用合计钱数转汉子
+			CNNumberFormat cnFmt = new CNNumberFormat(true);
+			row.createCell(7).setCellValue("RMB" + cnFmt.format(countPrict));
+			row.getCell(7).setCellStyle(mapStyle.get("data_8"));
 
-		// 税费钱数
-		Double shui = countPrict * 0.06;
-		row.createCell(6).setCellFormula(String.valueOf(shui));
-		row.getCell(6).setCellStyle(mapStyle.get("data_10"));
+			rowNum++;
+			row = sheet.createRow(rowNum);
+			// 税费
+			row.createCell(0).setCellValue("税费(6%,增票专票)");
+			setColspanTitle(sheet, row, mapStyle, wb,
+					"税费(6%,增票专票)", "data_9",
+					0, rowNum, rowNum, 0, 5);
 
-		// 税费钱数转汉子
-		row.createCell(7).setCellValue("RMB"+cnFmt.format(shui));
-		row.getCell(7).setCellStyle(mapStyle.get("data_11"));
+			// 税费钱数
+			Double shui = countPrict * 0.06;
+			row.createCell(6).setCellFormula(String.valueOf(shui));
+			row.getCell(6).setCellStyle(mapStyle.get("data_10"));
 
-		rowNum++;
-		row = sheet.createRow(rowNum);
-		// 项目
-		row.createCell(0).setCellValue("项目金额(含税)合计");
-		setColspanTitle(sheet,row , mapStyle, wb,
-				"项目金额(含税)合计", "data_6",
-				0, rowNum, rowNum, 0, 5);
+			// 税费钱数转汉子
+			row.createCell(7).setCellValue("RMB" + cnFmt.format(shui));
+			row.getCell(7).setCellStyle(mapStyle.get("data_11"));
 
-		// 项目钱数
-		Double projectMoney = shui + countPrict;
-		row.createCell(6).setCellFormula(String.valueOf(projectMoney));
-		row.getCell(6).setCellStyle(mapStyle.get("data_7"));
+			rowNum++;
+			row = sheet.createRow(rowNum);
+			// 项目
+			row.createCell(0).setCellValue("项目金额(含税)合计");
+			setColspanTitle(sheet, row, mapStyle, wb,
+					"项目金额(含税)合计", "data_6",
+					0, rowNum, rowNum, 0, 5);
 
-		// 项目钱数转汉子
-		row.createCell(7).setCellValue("RMB"+cnFmt.format(projectMoney));
-		row.getCell(7).setCellStyle(mapStyle.get("data_8"));
+			// 项目钱数
+			Double projectMoney = shui + countPrict;
+			row.createCell(6).setCellFormula(String.valueOf(projectMoney));
+			row.getCell(6).setCellStyle(mapStyle.get("data_7"));
+
+			// 项目钱数转汉子
+			row.createCell(7).setCellValue("RMB" + cnFmt.format(projectMoney));
+			row.getCell(7).setCellStyle(mapStyle.get("data_8"));
+
+			rowNum++;
+			row = sheet.createRow(rowNum);
+			// 空
+			row.createCell(0).setCellValue("");
+			setColspanTitle(sheet, row, mapStyle, wb,
+					"", "data_6",
+					0, rowNum, rowNum, 0, 5);
+			// 空
+			row.createCell(7).setCellValue("高度按4米计算");
+			setColspanTitle(sheet, row, mapStyle, wb,
+					"", "data_4",
+					0, rowNum, rowNum, 0, 7);
+		}
 	}
 
 	private void setColspanTitle(XSSFSheet sheet,XSSFRow row,

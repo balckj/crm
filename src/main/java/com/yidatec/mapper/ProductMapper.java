@@ -2,9 +2,7 @@ package com.yidatec.mapper;
 
 
 import com.yidatec.model.Product;
-import com.yidatec.model.User;
 import com.yidatec.vo.ProductVO;
-import com.yidatec.vo.UserVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -21,6 +19,9 @@ public interface ProductMapper {
 	 */
 	@Select("SELECT * FROM T_PRODUCTION WHERE id = #{id}")
 	Product selectProduct(String id);
+
+	@Select("SELECT * FROM T_PRODUCTION WHERE id = #{id}")
+	Product selectProductDetail(String id);
 
 
 	@SelectProvider(type=ProductQueryProvider.class,method = "selectProductList")

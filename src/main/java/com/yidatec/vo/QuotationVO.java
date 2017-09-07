@@ -13,6 +13,12 @@ public class QuotationVO extends Quotation {
     private String id;
     private String DicId;
 
+    private String projectName;
+    private String unitPrice;
+    private Integer count;
+    private String workContent;
+
+
     private String categoryName;// 类别
     private String productName;// 产品名
     private String unitName;// 单位
@@ -117,5 +123,37 @@ public class QuotationVO extends Quotation {
 
     public void setStart(Integer start) {
         this.start = start;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public String getWorkContent() {
+        return workContent;
+    }
+
+    public void setWorkContent(String workContent) {
+        this.workContent = workContent;
+    }
+
+    public String getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(String unitPrice) {
+        this.unitPrice = unitPrice;
     }
 }

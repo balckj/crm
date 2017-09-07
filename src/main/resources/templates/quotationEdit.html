@@ -31,11 +31,12 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
-                            <!--<input type="hidden" name="id" id="id" th:value="${user}?${user.id}"/>-->
+                            <input type="hidden" name="id" id="id" th:value="${quotation}?${quotation.id}"/>
+
                             <div class="form-group" id="projectIdForm"><label class="col-sm-2 control-label">项目名称<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <input id="projectId" name="projectId" placeholder="请选择产品名称" readonly="readonly" type="text" th:value="${quotation}?${quotation.projectId}"
+                                    <input id="projectId" name="projectId" placeholder="请选择产品名称" readonly="readonly" type="text" th:value="${quotation}?${quotation.projectName}" th:attr="valueSetID=${quotation}?${quotation.projectId}"
                                            class="form-control" maxlength="200" onclick="projectClick();" style="cursor:pointer;"/>
                                 </div>
                             </div>
@@ -63,7 +64,7 @@
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="remarkForm"><label class="col-sm-2 control-label">备注<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="remark" name="remark" type="text"
+                                <div class="col-sm-4"><input id="remark" name="remark" type="text" th:value="${quotation}?${quotation.remark}"
                                                              class="form-control" maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
@@ -155,11 +156,12 @@
     <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
-    <script th:src="@{99/js/plugins/jqGrid/i18n/grid.locale-en.js}"></script>
+    <script th:src="@{99/js/plugins/jqGrid/i18n/grid.locale-cn.js}"></script>
     <script th:src="@{99/js/plugins/jqGrid/jquery.jqGrid.js}"></script>
     <script th:src="@{99/js/plugins/jqGrid/grid.celledit.js}"></script>
 
     <script th:src="@{me.js}" type="text/javascript"></script>
+
 
     <!--jrw-->
     <script type="text/javascript">
@@ -231,10 +233,10 @@
                         last: "最后一页"
                     },
                     "sSearch": "搜索",
-                    zeroRecords: "没有用户",//table tbody内容为空时，tbody的内容。
+                    zeroRecords: "没有",//table tbody内容为空时，tbody的内容。
                     //下面三者构成了总体的左下角的内容。
-                    info: "当前显示第_START_到第_END_个用户 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
-                    infoEmpty: "0个用户",//筛选为空时左下角的显示。
+                    info: "当前显示第_START_到第_END_个报价单 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    infoEmpty: "0个报价单",//筛选为空时左下角的显示。
                     infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
                 }
                 , "lengthChange": true
@@ -282,30 +284,36 @@
             pageInit();
             $("#priceLevel").change();
         });
+
         var mydata = [
-            {id : "sdfas",name : "test",category : "category",unit : "200",unitPrice : "10",count : "210",workContent:""},
-            {id : "rthh",name : "test2",category : "category2",unit : "300",unitPrice : "20",count : "320",workContent:""},
-            {id : "mmghm",name : "test3",category : "category3",unit : "400",unitPrice : "30",count : "430",workContent:""}
+//            {id : "sdfas",name : "test",category : "category",unit : "200",unitPrice : "10",count : "210",workContent:""},
+//            {id : "rthh",name : "test2",category : "category2",unit : "300",unitPrice : "20",count : "320",workContent:""},
+//            {id : "mmghm",name : "test3",category : "category3",unit : "400",unitPrice : "30",count : "430",workContent:""}
         ];
 
 
         function pageInit(){
-            function mycheck(value) {
-                if(parseFloat(value) >= 1 && parseFloat(value)<=1000) {
+            function mypricecheck(value){
+                alert(value);
+                if(value==1||value==null) {
+                    return [false,"工作内容必填项",""];
+                }else{
                     return [true,"",""];
-                } else {
-                    return [false,"The value should be between 1 and 1000!",""];
                 }
             }
             $("#table").jqGrid({
-                data:mydata,
-                datatype : "local",
+                url:"getProduction",
+                datatype : "json",
+                mtype:"post",
+                postData: {
+                    id: $("#id").val()
+                },
                 width:600,
                 height: "100%",
                 colNames : ['操作','ID','产品名称', '产品分类', '单位', '单价', '数量', '工作内容' ],
                 colModel : [
                     {name:'act',index:'act',width:50,search:false,sortable:false,editable:false},
-                    {name : 'id',index : 'id',width : 60,sorttype : "int",hidden:false},
+                    {name : 'id',index : 'id',width : 60,sorttype : "int",hidden:true},
                     {name : 'name',index : 'name',width : 100,align : "right",editable : true,readonly:true,
                         formatter:function(cellvalue, options, rowObject){
                             if(cellvalue==""||cellvalue==null){
@@ -317,12 +325,12 @@
                     {name : 'category',index : 'category',align : "right",width : 100,  edittype:'text',
                     },
                     {name : 'unit',index : 'unit',width : 80,align : "right",editable : false},
-                    {name : 'unitPrice',index : 'unitPrice',width : 80,align : "right",editable : false},
+                    {name : 'unitPrice',index : 'unitPrice',width :150,align : "right",editable : false},
                     {name : 'count',index : 'count',width : 80,align : "right",editable : true,
-                         editrules: {edithidden:true,required:true,number:true,minValue:10,maxValue:100}
+                         editrules: {edithidden:true,required:true,number:true,minValue:1}
                     },
                     {name : 'workContent',index : 'workContent',width : 80,align : "right",editable : true,
-                        editrules: {edithidden:true,required:true,number:true,minValue:10,maxValue:100}
+                        editrules:{custom:true, custom_func:mypricecheck},
                     }
 //                    {name : 'error',index : 'error',width : 180,align : "right",editable : false,hidden:true}
                 ],
@@ -388,13 +396,9 @@
 
                 },
 //                beforeSaveCell : function(rowid,celname,value,iRow,iCol) {
-//                    debugger;
 //                    if(celname=="count"){
-//                        if(value<0){
-//                            $("#table").jqGrid("restoreCell",iRow,iCol);
-//                            alert("不能为负数");
-//                            return;
-//                        }
+//                        $("#table").jqGrid("saveCell",iRow,iCol);
+//                        return;
 //                    }else if(celname=="workContent"){
 //                        if(value==''){
 //                            $("#table").jqGrid("restoreCell",iRow,iCol);
@@ -411,7 +415,7 @@
 //                    }
 //                },
                 afterInsertRow:function () {
-                    alert("插入");
+//                    alert("插入");
                 }
             });
 
@@ -504,7 +508,7 @@
                     "sSearch": "搜索",
                     zeroRecords: "没有产品",//table tbody内容为空时，tbody的内容。
                     //下面三者构成了总体的左下角的内容。
-                    info: "当前显示第_START_到第_END_个用户 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    info: "当前显示第_START_到第_END_个报价单 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
                     infoEmpty: "0个产品",//筛选为空时左下角的显示。
                     infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
                 }
@@ -525,7 +529,6 @@
             var temp;
             $.each(product, function(i,v) {
                 if(v.checked == true){
-                    debugger;
                     var price;
                     price=$(this).attr("low")+"/"+$(this).attr("middle")+"/"+$(this).attr("high");
                     temp={
@@ -564,11 +567,21 @@
             for(var i=0,j = rowIds.length - i;i < j; i++)
             {
                 var rowData = $("#table").jqGrid('getRowData',rowIds[i]);
-                var name = rowData.name;
-                var price = rowData.unitPrice;
+                if(rowData.id==''||rowData.count==''||rowData.workContent==''){
+                    $("#"+rowIds[i]+ " td").css("background-color","red");
+                    return;
+                }
+                var price = rowData.unitPrice.split("/");
+                if($("#priceLevel").val()==1){
+                    price=price[0];
+                }else if($("#priceLevel").val()==2){
+                    price=price[1]
+                }else if($("#priceLevel").val()==3){
+                    price=price[2]
+                }
                 var param = {
                     id: rowData.id,
-                    unitPrice:rowData.unitPrice,
+                    unitPrice:price,
                     count:rowData.count,
                     workContent:rowData.workContent
                 };
@@ -581,7 +594,6 @@
                 product:paraArr,
                 remark: $("#remark").val(),
             };
-            debugger;
             var a = JSON.stringify(p);
             $.ajax({
                 url: 'saveQuotation',

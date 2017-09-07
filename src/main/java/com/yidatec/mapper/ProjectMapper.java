@@ -52,4 +52,8 @@ public interface ProjectMapper {
     @Select("SELECT factoryId FROM T_PROJECT_FACTORY WHERE projectId = #{id}")
     List<String> selectFactory(String id);
 
+    @Select("SELECT name FROM T_PROJECT WHERE id = #{id}")
+    String getProjectName(String id);
+
+
 }

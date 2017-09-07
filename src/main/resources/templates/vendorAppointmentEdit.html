@@ -118,8 +118,11 @@
     <script th:src="@{99/js/plugins/sweetalert/sweetalert.min.js}"></script>
     <script th:src="@{me.js}" type="text/javascript"></script>
 
-    <script type="text/javascript">
+    <script th:inline="javascript">
         /*<![CDATA[*/
+        var hasEdit = [[${#authorization.url('/vendorAppointmentEdit')}]];
+        var hasCreate = [[${#authorization.url('/vendorAppointmentCreate')}]];
+
         /**
          * Created by jrw on 2017/7/14.
          */

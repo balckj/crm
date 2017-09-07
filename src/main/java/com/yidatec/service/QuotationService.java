@@ -1,12 +1,10 @@
 package com.yidatec.service;
 
-import com.yidatec.mapper.ProductMapper;
-import com.yidatec.mapper.ProjectMapper;
 import com.yidatec.mapper.QuotationMapper;
 import com.yidatec.model.Customer;
-import com.yidatec.model.Product;
 import com.yidatec.model.Quotation;
 import com.yidatec.util.CNNumberFormat;
+import com.yidatec.vo.CustomerVO;
 import com.yidatec.vo.QuotationVO;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -34,34 +32,28 @@ public class QuotationService {
 	@Autowired
 	QuotationMapper quotationMapper;
 
-	@Autowired
-	ProjectMapper projectMapper;
-
-	@Autowired
-	ProductMapper productMapper;
-
 
 	public void quotationDownLoad(XSSFWorkbook wb,
 								  String beginTime,
 								  String endTime) throws Exception {
 
-		HashMap<String, List<QuotationVO>> map = new HashMap<String, List<QuotationVO>>();
+		HashMap<String,List<QuotationVO>> map = new HashMap<String,List<QuotationVO>>();
 
-		List<QuotationVO> quotationVOList = quotationMapper.quotationDownLoad();
+		List<QuotationVO> quotationVOList =  quotationMapper.quotationDownLoad();
 
-		List<String> dicIdList = new ArrayList<String>();
+		List<String> dicIdList =  new ArrayList<String>();
 
 		for (QuotationVO quotationVO : quotationVOList) {
 
-			if (!dicIdList.contains(quotationVO.getDicId())) {
+			if(!dicIdList.contains(quotationVO.getDicId())){
 				dicIdList.add(quotationVO.getDicId());
 			}
 
 			List<QuotationVO> quotationVOList1 = map.get(quotationVO.getDicId());
 
-			if (quotationVOList1 == null) {
+			if (quotationVOList1 == null){
 				quotationVOList1 = new ArrayList<>();
-				map.put(quotationVO.getDicId(), quotationVOList1);
+				map.put(quotationVO.getDicId(),quotationVOList1);
 			}
 
 			quotationVOList1.add(quotationVO);
@@ -78,7 +70,7 @@ public class QuotationService {
 		row = sheet.createRow(rowNum);
 
 		row.createCell(0).setCellValue("总标题");
-		setColspanTitle(sheet, row, mapStyle, wb,
+		setColspanTitle(sheet,row , mapStyle, wb,
 				"摩拜单车(153㎡)报价单", "header_6",
 				0, 0, 0, 0, 7);
 		sheet.setColumnWidth(0, 32 * 50);
@@ -120,7 +112,7 @@ public class QuotationService {
         /*设置数据起始行号，填充数据*/
 		for (String s : dicIdList) {
 			List<QuotationVO> quotationVOList2 = map.get(s);
-			for (int i = 0; i < quotationVOList2.size(); i++) {
+			for (int i = 0; i< quotationVOList2.size() ; i ++) {
 				QuotationVO quotationVO = quotationVOList2.get(i);
 				row = sheet.createRow(++rowNum);
 				// 类别
@@ -128,7 +120,7 @@ public class QuotationService {
 
 				row.getCell(0).setCellValue(quotationVO.getCategoryName());
 
-				if (i == quotationVOList2.size() - 1) {
+				if(i == quotationVOList2.size()-1){
 					if (quotationVOList2.size() > 1) {
 						// 参数：起始行号，终止行号， 起始列号，终止列号
 						CellRangeAddress region = new CellRangeAddress(rowNum - quotationVOList2.size() + 1, rowNum, 0, 0);
@@ -163,61 +155,77 @@ public class QuotationService {
 				row.setHeightInPoints(20);
 			}
 		}
-		int lastNumb = rowNum + 1;
 
-		rowNum++;
-		row = sheet.createRow(rowNum);
-		// 施工费用合计
-		row.createCell(0).setCellValue("施工费用合计");
-		setColspanTitle(sheet, row, mapStyle, wb,
-				"施工费用合计", "data_6",
-				0, rowNum, rowNum, 0, 5);
+		if(quotationVOList != null && quotationVOList.size() > 0) {
+			int lastNumb = rowNum + 1;
 
-		// 施工费用合计钱数
-		row.createCell(6).setCellFormula("SUM(G3:G" + lastNumb + ")");
-		row.getCell(6).setCellStyle(mapStyle.get("data_7"));
+			rowNum++;
+			row = sheet.createRow(rowNum);
+			// 施工费用合计
+			row.createCell(0).setCellValue("施工费用合计");
+			setColspanTitle(sheet, row, mapStyle, wb,
+					"施工费用合计", "data_6",
+					0, rowNum, rowNum, 0, 5);
 
-		// 施工费用合计钱数转汉子
-		CNNumberFormat cnFmt = new CNNumberFormat(true);
-		row.createCell(7).setCellValue("RMB" + cnFmt.format(countPrict));
-		row.getCell(7).setCellStyle(mapStyle.get("data_8"));
+			// 施工费用合计钱数
+			row.createCell(6).setCellFormula("SUM(G3:G" + lastNumb + ")");
+			row.getCell(6).setCellStyle(mapStyle.get("data_7"));
 
-		rowNum++;
-		row = sheet.createRow(rowNum);
-		// 税费
-		row.createCell(0).setCellValue("税费(6%,增票专票)");
-		setColspanTitle(sheet, row, mapStyle, wb,
-				"税费(6%,增票专票)", "data_9",
-				0, rowNum, rowNum, 0, 5);
+			// 施工费用合计钱数转汉子
+			CNNumberFormat cnFmt = new CNNumberFormat(true);
+			row.createCell(7).setCellValue("RMB" + cnFmt.format(countPrict));
+			row.getCell(7).setCellStyle(mapStyle.get("data_8"));
 
-		// 税费钱数
-		Double shui = countPrict * 0.06;
-		row.createCell(6).setCellFormula(String.valueOf(shui));
-		row.getCell(6).setCellStyle(mapStyle.get("data_10"));
+			rowNum++;
+			row = sheet.createRow(rowNum);
+			// 税费
+			row.createCell(0).setCellValue("税费(6%,增票专票)");
+			setColspanTitle(sheet, row, mapStyle, wb,
+					"税费(6%,增票专票)", "data_9",
+					0, rowNum, rowNum, 0, 5);
 
-		// 税费钱数转汉子
-		row.createCell(7).setCellValue("RMB" + cnFmt.format(shui));
-		row.getCell(7).setCellStyle(mapStyle.get("data_11"));
+			// 税费钱数
+			Double shui = countPrict * 0.06;
+			row.createCell(6).setCellFormula(String.valueOf(shui));
+			row.getCell(6).setCellStyle(mapStyle.get("data_10"));
 
-		rowNum++;
-		row = sheet.createRow(rowNum);
-		// 项目
-		row.createCell(0).setCellValue("项目金额(含税)合计");
-		setColspanTitle(sheet, row, mapStyle, wb,
-				"项目金额(含税)合计", "data_6",
-				0, rowNum, rowNum, 0, 5);
+			// 税费钱数转汉子
+			row.createCell(7).setCellValue("RMB" + cnFmt.format(shui));
+			row.getCell(7).setCellStyle(mapStyle.get("data_11"));
 
-		// 项目钱数
-		Double projectMoney = shui + countPrict;
-		row.createCell(6).setCellFormula(String.valueOf(projectMoney));
-		row.getCell(6).setCellStyle(mapStyle.get("data_7"));
+			rowNum++;
+			row = sheet.createRow(rowNum);
+			// 项目
+			row.createCell(0).setCellValue("项目金额(含税)合计");
+			setColspanTitle(sheet, row, mapStyle, wb,
+					"项目金额(含税)合计", "data_6",
+					0, rowNum, rowNum, 0, 5);
 
-		// 项目钱数转汉子
-		row.createCell(7).setCellValue("RMB" + cnFmt.format(projectMoney));
-		row.getCell(7).setCellStyle(mapStyle.get("data_8"));
+			// 项目钱数
+			Double projectMoney = shui + countPrict;
+			row.createCell(6).setCellFormula(String.valueOf(projectMoney));
+			row.getCell(6).setCellStyle(mapStyle.get("data_7"));
+
+			// 项目钱数转汉子
+			row.createCell(7).setCellValue("RMB" + cnFmt.format(projectMoney));
+			row.getCell(7).setCellStyle(mapStyle.get("data_8"));
+
+			rowNum++;
+			row = sheet.createRow(rowNum);
+			// 空
+			row.createCell(0).setCellValue("");
+			setColspanTitle(sheet, row, mapStyle, wb,
+					"", "data_6",
+					0, rowNum, rowNum, 0, 5);
+			// 空
+			row.createCell(7).setCellValue("高度按4米计算");
+			setColspanTitle(sheet, row, mapStyle, wb,
+					"", "data_4",
+					0, rowNum, rowNum, 0, 7);
+		}
 	}
 
-	private void setColspanTitle(XSSFSheet sheet, XSSFRow row,
+	private void setColspanTitle(XSSFSheet sheet,XSSFRow row,
 								 Map<String, XSSFCellStyle> mapStyle,
 								 XSSFWorkbook wb,
 								 String title,
@@ -226,20 +234,19 @@ public class QuotationService {
 								 int StringRow,
 								 int endRow,
 								 int StringCell,
-								 int endCell) {
+								 int endCell){
 		row.createCell(cell).setCellValue(title);
 		// 参数：起始行号，终止行号， 起始列号，终止列号
-		CellRangeAddress region = new CellRangeAddress(StringRow, endRow, StringCell, endCell);
+		CellRangeAddress region = new CellRangeAddress(StringRow,endRow,StringCell,endCell);
 		sheet.addMergedRegion(region);
 		row.getCell(cell).setCellStyle(mapStyle.get(cellStyle));//"data_4"
 		int border = 2;
-		RegionUtil.setBorderBottom(border, region, sheet, wb);
-		RegionUtil.setBorderLeft(border, region, sheet, wb);
-		RegionUtil.setBorderRight(border, region, sheet, wb);
-		RegionUtil.setBorderTop(border, region, sheet, wb);
+		RegionUtil.setBorderBottom(border,region, sheet, wb);
+		RegionUtil.setBorderLeft(border,region, sheet, wb);
+		RegionUtil.setBorderRight(border,region, sheet, wb);
+		RegionUtil.setBorderTop(border,region, sheet, wb);
 		row.setHeightInPoints(30);
 	}
-
 	private XSSFCellStyle createBorderedStyle(XSSFWorkbook wb) {
 		XSSFCellStyle style = wb.createCellStyle();
 		style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
@@ -325,7 +332,7 @@ public class QuotationService {
 		style = createBorderedStyle(wb);
 		style.setAlignment(CellStyle.ALIGN_CENTER);
 		style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);//垂直
-		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND );
 		style.setFillForegroundColor(IndexedColors.BLACK.getIndex());
 		style.setFont(headerFont6);
 		styles.put("header_7", style);
@@ -393,7 +400,7 @@ public class QuotationService {
 		style.setAlignment(CellStyle.ALIGN_CENTER);
 		style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);//垂直
 		style.setFont(headerFont7);
-		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND );
 		style.setFillForegroundColor(IndexedColors.DARK_BLUE.getIndex());
 		styles.put("data_6", style);
 
@@ -406,7 +413,7 @@ public class QuotationService {
 		style.setAlignment(CellStyle.ALIGN_CENTER);
 		style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);//垂直
 		style.setFont(headerFont8);
-		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND );
 		style.setFillForegroundColor(IndexedColors.DARK_BLUE.getIndex());
 		style.setDataFormat(fmt.getFormat("#,##0.00"));
 		styles.put("data_7", style);
@@ -420,7 +427,7 @@ public class QuotationService {
 		style.setAlignment(CellStyle.ALIGN_LEFT);
 		style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);//垂直
 		style.setFont(headerFont9);
-		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND );
 		style.setFillForegroundColor(IndexedColors.DARK_BLUE.getIndex());
 		styles.put("data_8", style);
 
@@ -433,7 +440,7 @@ public class QuotationService {
 		style.setAlignment(CellStyle.ALIGN_CENTER);
 		style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);//垂直
 		style.setFont(headerFont10);
-		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND );
 		style.setFillForegroundColor(IndexedColors.ORANGE.getIndex());
 		styles.put("data_9", style);
 
@@ -446,7 +453,7 @@ public class QuotationService {
 		style.setAlignment(CellStyle.ALIGN_RIGHT);
 		style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);//垂直
 		style.setFont(headerFont11);
-		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND );
 		style.setFillForegroundColor(IndexedColors.ORANGE.getIndex());
 		style.setDataFormat(fmt.getFormat("#,##0.00"));
 		styles.put("data_10", style);
@@ -460,7 +467,7 @@ public class QuotationService {
 		style.setAlignment(CellStyle.ALIGN_LEFT);
 		style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);//垂直
 		style.setFont(headerFont12);
-		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND );
 		style.setFillForegroundColor(IndexedColors.ORANGE.getIndex());
 		styles.put("data_11", style);
 		return styles;
@@ -474,7 +481,7 @@ public class QuotationService {
 			quotation.setUnitPrice(quotation.getProduct().get(i).getUnitPrice());
 			quotation.setCount(quotation.getProduct().get(i).getCount());
 			quotation.setWorkContent(quotation.getProduct().get(i).getWorkContent());
-			quotationMapper.createQuotationProduction(quotation);
+			quotationMapper.createQuotation(quotation);
 		}
 	}
 

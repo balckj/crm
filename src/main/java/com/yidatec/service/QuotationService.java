@@ -1,10 +1,10 @@
 package com.yidatec.service;
 
+import com.yidatec.mapper.ProductMapper;
+import com.yidatec.mapper.ProjectMapper;
 import com.yidatec.mapper.QuotationMapper;
-import com.yidatec.model.Customer;
-import com.yidatec.model.Quotation;
+import com.yidatec.model.Product;
 import com.yidatec.util.CNNumberFormat;
-import com.yidatec.vo.CustomerVO;
 import com.yidatec.vo.QuotationVO;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -18,7 +18,10 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 报价单
@@ -31,6 +34,12 @@ public class QuotationService {
 
 	@Autowired
 	QuotationMapper quotationMapper;
+
+	@Autowired
+	ProjectMapper projectMapper;
+
+	@Autowired
+	ProductMapper productMapper;
 
 
 	public void quotationDownLoad(XSSFWorkbook wb,

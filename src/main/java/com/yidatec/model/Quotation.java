@@ -10,9 +10,6 @@ public class Quotation extends BaseModel {
     private String priceLevel;
     private String productionId;
     private List<Product> product;
-    private Float unitPrice;
-    private Integer count;
-    private String workContent;
     private String remark;
 
     public String getProductionId() {
@@ -45,30 +42,6 @@ public class Quotation extends BaseModel {
 
     public void setProduct(List<Product> product) {
         this.product = product;
-    }
-
-    public Float getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(Float unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
-    public String getWorkContent() {
-        return workContent;
-    }
-
-    public void setWorkContent(String workContent) {
-        this.workContent = workContent;
     }
 
     public String getRemark() {

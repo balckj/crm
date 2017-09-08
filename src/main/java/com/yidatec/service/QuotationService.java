@@ -1,10 +1,10 @@
 package com.yidatec.service;
 
+import com.yidatec.mapper.ProductMapper;
+import com.yidatec.mapper.ProjectMapper;
 import com.yidatec.mapper.QuotationMapper;
-import com.yidatec.model.Customer;
-import com.yidatec.model.Quotation;
+import com.yidatec.model.Product;
 import com.yidatec.util.CNNumberFormat;
-import com.yidatec.vo.CustomerVO;
 import com.yidatec.vo.QuotationVO;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -18,7 +18,10 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 报价单
@@ -31,6 +34,12 @@ public class QuotationService {
 
 	@Autowired
 	QuotationMapper quotationMapper;
+
+	@Autowired
+	ProjectMapper projectMapper;
+
+	@Autowired
+	ProductMapper productMapper;
 
 
 	public void quotationDownLoad(XSSFWorkbook wb,
@@ -142,7 +151,7 @@ public class QuotationService {
 				row.createCell(6).setCellValue(Double.valueOf(quotationVO.getCountPrice()));
 				countPrict += Double.valueOf(quotationVO.getCountPrice());
 				// 工作内容
-				row.createCell(7).setCellValue(quotationVO.getWorkContent());
+				row.createCell(7).setCellValue(quotationVO.getRemark());
 
 				row.getCell(0).setCellStyle(mapStyle.get("data_4"));
 				row.getCell(1).setCellStyle(mapStyle.get("data_4"));
@@ -473,10 +482,10 @@ public class QuotationService {
 		return styles;
 	}
 
-	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
-	public void createQuotation(Quotation quotation){
-		for (int i=0;i<quotation.getProduct().size();i++){
-			quotation.setId(UUID.randomUUID().toString());
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void createQuotation(QuotationVO quotation) {
+		quotationMapper.createQuotation(quotation);
+		for (int i = 0; i < quotation.getProduct().size(); i++) {
 			quotation.setProductionId(quotation.getProduct().get(i).getId());
 			quotation.setUnitPrice(quotation.getProduct().get(i).getUnitPrice());
 			quotation.setCount(quotation.getProduct().get(i).getCount());
@@ -485,7 +494,20 @@ public class QuotationService {
 		}
 	}
 
-	public List<Quotation> selectQuotationList(QuotationVO quotationVO) {
+	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
+	public void updateQuotation(QuotationVO quotation) {
+		quotationMapper.deleteQuotationProduction(quotation.getId());
+		quotationMapper.update(quotation);
+		for (int i = 0; i < quotation.getProduct().size(); i++) {
+			quotation.setProductionId(quotation.getProduct().get(i).getId());
+			quotation.setUnitPrice(quotation.getProduct().get(i).getUnitPrice());
+			quotation.setCount(quotation.getProduct().get(i).getCount());
+			quotation.setWorkContent(quotation.getProduct().get(i).getWorkContent());
+			quotationMapper.createQuotationProduction(quotation);
+		}
+	}
+
+	public List<QuotationVO> selectQuotationList(QuotationVO quotationVO) {
 		return quotationMapper.selectQuotationList(quotationVO);
 	}
 
@@ -493,4 +515,22 @@ public class QuotationService {
 		return quotationMapper.countQuotationList(quotationVO);
 	}
 
+
+	public QuotationVO selectQuotation(String id) {
+		QuotationVO quotationVO = quotationMapper.selectQuotation(id);
+		ArrayList arrayList = new ArrayList();
+		if (quotationVO != null) {
+			quotationVO.setProjectName(projectMapper.getProjectName(quotationVO.getProjectId()));
+			List<QuotationVO> list=quotationMapper.selectProduction(id);
+			for(int i=0;i<list.size();i++){
+				Product product = productMapper.selectProduct(list.get(i).getProductionId());
+				product.setCount(list.get(i).getCount());
+				product.setWorkContent(list.get(i).getWorkContent());
+				arrayList.add(product);
+			}
+
+			quotationVO.setProduct(arrayList);
+		}
+		return quotationVO;
+	}
 }

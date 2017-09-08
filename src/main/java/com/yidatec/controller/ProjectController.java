@@ -111,51 +111,6 @@ public class ProjectController extends BaseController {
         List<ProjectEntity> ProjectEntityList = projectService.selectProjectList(project);
         if (ProjectEntityList != null){
             for(ProjectEntity project1 : ProjectEntityList){
-//                String designparams = project1.getDesignProgress();
-//                if (!StringUtils.isEmpty(designparams)){
-//                    String[] paramsList = designparams.split(",");
-//                    String temp = "";
-//                    for(int i = 0 ; i < paramsList.length; i++){
-//                        Dictionary dictionary = dictionaryService.selectDictionary(paramsList[i]);
-//                        if(i != paramsList.length -1){
-//                            temp = temp + dictionary.getValue()  +",";
-//                        }else{
-//                            temp = temp + dictionary.getValue();
-//                        }
-//                    }
-//                    project1.setDesignProgress(temp);
-//                }
-//
-//                String projectparams = project1.getProjectProgress();
-//                if (!StringUtils.isEmpty(projectparams)){
-//                    String[] paramsList = projectparams.split(",");
-//                    String temp = "";
-//                    for(int i = 0 ; i < paramsList.length; i++){
-//                        Dictionary dictionary = dictionaryService.selectDictionary(paramsList[i]);
-//                        if(i != paramsList.length -1){
-//                            temp = temp + dictionary.getValue()  +",";
-//                        }else{
-//                            temp = temp + dictionary.getValue();
-//                        }
-//                    }
-//                    project1.setProjectProgress(temp);
-//                }
-//
-//                String factoryparams = project1.getFactoryProgress();
-//                if (!StringUtils.isEmpty(factoryparams)){
-//                    String[] paramsList = factoryparams.split(",");
-//                    String temp = "";
-//                    for(int i = 0 ; i < paramsList.length; i++){
-//                        Dictionary dictionary = dictionaryService.selectDictionary(paramsList[i]);
-//                        if(i != paramsList.length -1){
-//                            temp = temp + dictionary.getValue()  +",";
-//                        }else{
-//                            temp = temp + dictionary.getValue();
-//                        }
-//                    }
-//                    project1.setFactoryProgress(temp);
-//                }
-
                 String importantparams = project1.getDegreeOfImportance();
                 if (!StringUtils.isEmpty(importantparams)){
                     String[] paramsList = importantparams.split(",");

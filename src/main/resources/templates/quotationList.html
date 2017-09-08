@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<div th:fragment="userList">
+<div th:fragment="quotationList">
     <link th:href="@{99/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
     <style type="text/css">
         #quotationtable_length  select {
@@ -17,7 +17,7 @@
                     <a href="index.html">首页</a>
                 </li>
                 <li>
-                    <a>业务数据管理</a>
+                    <a>业务数据处理</a>
                 </li>
                 <li class="active">
                     <strong>报价单</strong>
@@ -66,10 +66,11 @@
                             <thead>
                             <tr>
                                 <th>操作</th>
-                                <th>类型</th>
                                 <th>项目名称</th>
-                                <th>价格档次</th>
+                                <th>价格等级</th>
                                 <th>备注</th>
+                                <th>创建时间</th>
+                                <th>修改时间</th>
                             </tr>
                             </thead>
                         </table>
@@ -84,10 +85,8 @@
 
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
-    <script th:inline="javascript">
+    <script type="text/javascript">
         /*<![CDATA[*/
-        var hasEdit = [[${#authorization.url('/quotationEdit')}]];
-        var hasCreate = [[${#authorization.url('/quotationCreate')}]];
 
         var quotationtable;
         function quotationtableLoad() {
@@ -132,64 +131,32 @@
                     {
                         "data": "id", "width": "80px",
                         "render": function (data, type, row) {
-                            var u = '';
-                            if(hasEdit) {
-                                u = "userEdit?id=" + row.id;
-                                u = '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
-                            }
-                            if(u == ''){
-                                return '--'
-                            }
+                            var u = "quotationEdit?id="+row.id;
+                            u =  '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
+
                             return u;
 
                         },
                     },
 
-                    {"data": "name", "width": "100px"},
-                    {"data": "roleNames", "width": "100px"},
-                    {"data": "mobilePhone", "width": "100px"},
-                    {"data": "password", "width": "100px"},
-                    {"data": "openId", "width": "100px"},
+                    {"data": "projectName", "width": "100px"},
                     {
-                        "data": "state", "width": "40px",
+                        "data": "priceLevel", "width": "80px",
                         "render": function (data, type, full, meta) {
                             if (data == 1) {
-                                return '可用';
+                                return '低价';
                             }
                             else if (data == 2) {
-                                return '锁定';
+                                return '中价';
                             }
-                            else if (data == 3) {
-                                return '禁用';
-                            } else {
-                                return '';
+                            else if(data == 3){
+                                return '高价';
                             }
                         }
                     },
-                    {
-                        "data": "gender", "width": "40px",
-                        "render": function (data, type, full, meta) {
-                            if (data == 1) {
-                                return '男';
-                            }
-                            else if (data == 2) {
-                                return '女';
-                            }
-                            else {
-                                return '';
-                            }
-                        }
-                    },
-
-                    {"data": "email", "width": "140px"},
-
-
-                    {
-                        "data": "createTime", "width": "140px"
-                    },
-                    {
-                        "data": "modifyTime", "width": "140px"
-                    }
+                    {"data": "remark", "width": "150px"},
+                    {"data": "createTime", "width": "200px"},
+                    {"data": "modifyTime", "width": "200px"}
                 ]
                 , language: {
                     lengthMenu: '每页显示 <select class="form-control input-sm">'
@@ -256,8 +223,8 @@
         $(document).ready(function () {
             // 提示栏初始化
             quotationtableLoad();
-            var v ='';
-            if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"quotationEdit\");'>新&nbsp;&nbsp;建</button>"
+
+            var v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"quotationEdit\");'>新&nbsp;&nbsp;建</button>"
             $("#quotationtable_wrapper div").children().eq(0).append(v);
 
         });

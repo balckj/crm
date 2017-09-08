@@ -45,17 +45,17 @@ public class Product extends BaseModel {
 	@Digits(integer = 18 ,message = "高价价整数位不能超过18位,小数位必须是两位", fraction = 2 /*scale*/)
 	private Float high;
 
-	private Float unitPrice;
+	private String unitPrice;
 
 	private Integer count;
 
 	private String workContent;
 
-	public Float getUnitPrice() {
+	public String getUnitPrice() {
 		return unitPrice;
 	}
 
-	public void setUnitPrice(Float unitPrice) {
+	public void setUnitPrice(String unitPrice) {
 		this.unitPrice = unitPrice;
 	}
 

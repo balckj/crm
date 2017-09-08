@@ -1,8 +1,10 @@
 package com.yidatec.controller;
 
+import com.yidatec.model.Dictionary;
 import com.yidatec.model.Product;
-import com.yidatec.model.Quotation;
+import com.yidatec.service.DictionaryService;
 import com.yidatec.service.ProductService;
+import com.yidatec.service.ProjectService;
 import com.yidatec.service.QuotationService;
 import com.yidatec.util.DownloadHelper;
 import com.yidatec.vo.ProductVO;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -24,10 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/7/13.
@@ -41,6 +41,12 @@ public class QuotationController extends BaseController{
     @Autowired
     QuotationService quotationService;
 
+    @Autowired
+    ProjectService projectService;
+
+    @Autowired
+    DictionaryService dictionaryService;
+
 
 
     @RequestMapping("/quotationList")
@@ -51,12 +57,13 @@ public class QuotationController extends BaseController{
     @RequestMapping("/quotationEdit")
     public String quotationEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建报价单":"编辑报价单");
+        model.put("quotation",quotationService.selectQuotation(id));
         return "quotationEdit";
     }
 
     @RequestMapping("/saveQuotation")
     @ResponseBody
-    public Object saveQuotation(@Validated @RequestBody Quotation quotation,
+    public Object saveQuotation(@Validated @RequestBody QuotationVO quotation,
                               BindingResult result)throws Exception{
         List<FieldError> errors = result.getFieldErrors();
         if(errors  != null && errors.size() > 0){
@@ -64,7 +71,7 @@ public class QuotationController extends BaseController{
         }
         if(quotation.getId() == null || quotation.getId().trim().length() <= 0)//新建
         {
-
+            quotation.setId(UUID.randomUUID().toString());
             quotation.setCreatorId(getWebUser().getId());
             quotation.setCreateTime(LocalDateTime.now());
             quotation.setModifierId(quotation.getCreatorId());
@@ -74,7 +81,7 @@ public class QuotationController extends BaseController{
         } else {//编辑
             quotation.setModifierId(getWebUser().getCreatorId());
             quotation.setModifyTime(LocalDateTime.now());
-//            quotationService.updateFactory(quotation);
+            quotationService.updateQuotation(quotation);
         }
         return getSuccessJson(null);
     }
@@ -95,7 +102,7 @@ public class QuotationController extends BaseController{
     @RequestMapping(value = "/findQuotation")
     @ResponseBody
     public Object findQuotation(@RequestBody QuotationVO quotationVO)throws Exception{
-        List<Quotation> QuotationList = quotationService.selectQuotationList(quotationVO);
+        List<QuotationVO> QuotationList = quotationService.selectQuotationList(quotationVO);
         int count = quotationService.countQuotationList(quotationVO);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("draw", quotationVO.getDraw());
@@ -103,6 +110,29 @@ public class QuotationController extends BaseController{
         map.put("recordsFiltered", count);
         map.put("data", QuotationList);
         return map;
+    }
+
+    @RequestMapping("/getProduction")
+    @ResponseBody
+    public Object getProduction(@RequestParam(value="id",required = false) String id)throws Exception{
+        QuotationVO quotation = quotationService.selectQuotation(id);
+        if(quotation!=null){
+            for (Product product:quotation.getProduct()){
+                String category = product.getCategory();
+                String unit = product.getUnit();
+                if (!StringUtils.isEmpty(category)){
+                    Dictionary dictionary = dictionaryService.selectDictionary(product.getCategory());
+                    product.setCategory(dictionary.getValue());
+                }
+                if (!StringUtils.isEmpty(unit)){
+                    Dictionary dictionary = dictionaryService.selectDictionary(unit);
+                    product.setUnit(dictionary.getValue());
+                }
+                product.setUnitPrice(product.getLow()+"/"+ product.getMiddle()+"/"+ product.getHigh());
+            }
+            return quotation.getProduct();
+        }
+        return  quotation;
     }
 
 

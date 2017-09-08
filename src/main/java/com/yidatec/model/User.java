@@ -32,14 +32,14 @@ public class User extends BaseModel implements UserDetails {
     private String name;
     private String avatar;
     //用户以电话号码标识，如果没有注册电话号码就无法约课，电话号码是必须的
-    @NotBlank(message = "必须输入手机号码", groups = {UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class ,UserValidate.class })
-    @Pattern(regexp="^1[3|4|5|7|8][0-9]\\d{4,8}$",message="手机号码格式不正确", groups = {UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class ,UserValidate.class })
+    @NotBlank(message = "必须输入手机号码", groups = {UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class ,UserValidate.class,UserValidateBind.class })
+    @Pattern(regexp="^1[3|4|5|7|8][0-9]\\d{4,8}$",message="手机号码格式不正确", groups = {UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class ,UserValidate.class,UserValidateBind.class })
     private String mobilePhone;
     @NotBlank(message = "必须输入邮箱", groups = {UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class,UserValidate.class })
     @Email(message="邮箱格式不正确", groups = {UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class ,UserValidate.class })
     private String email;
     private String openId;
-    @NotBlank(message = "必须输入密码", groups = {UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class ,UserValidate.class })
+    @NotBlank(message = "必须输入密码", groups = {UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class ,UserValidate.class,UserValidateBind.class })
     @Pattern(regexp="(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{5,10}",message="密码必须是5~10位数字和字母的组合", groups = { UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class ,UserValidate.class})
     private String password;
 

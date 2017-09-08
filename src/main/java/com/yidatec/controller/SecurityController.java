@@ -137,35 +137,23 @@ public class SecurityController extends BaseController {
 
     }
 
-    @RequestMapping("/updateUserIngoreRole")
-    @ResponseBody
-    public Object updateUserIngoreRole(@Valid @RequestBody User userParam,
-                           BindingResult result)throws Exception{
-        List<FieldError> errors = result.getFieldErrors();
-        if(errors  != null && errors.size() > 0){
-            return errors;
-        }
-
-//        User user = getWebUser();
-        User user = new User();
-        user.setId("creatorId");
-
-//        if(userParam.getId() == null || userParam.getId().trim().length() <= 0)//新建
-//        {
-//            userParam.setId(UUID.randomUUID().toString().toLowerCase());
-//            userParam.setCreatorId(user.getId());
-//            userParam.setCreateTime(new Date());
-//            userParam.setModifierId(userParam.getCreatorId());
-//            userParam.setModifyTime(userParam.getCreateTime());
-//            securityService.createUser(userParam);
-//        } else {
-            userParam.setModifierId(user.getId());
-            userParam.setModifyTime(LocalDateTime.now());
-            securityService.updateUser(userParam,true);
+//    @RequestMapping("/updateUserIngoreRole")
+//    @ResponseBody
+//    public Object updateUserIngoreRole(@Valid @RequestBody User userParam,
+//                           BindingResult result)throws Exception{
+//        List<FieldError> errors = result.getFieldErrors();
+//        if(errors  != null && errors.size() > 0){
+//            return errors;
 //        }
-        return getSuccessJson(null);
-
-    }
+//
+//        User user = getWebUser();
+//
+//        userParam.setModifierId(user.getId());
+//        userParam.setModifyTime(LocalDateTime.now());
+//        securityService.updateUser(userParam,true);
+//        return getSuccessJson(null);
+//
+//    }
 
 
     @RequestMapping(value = "/findUser")
@@ -283,6 +271,74 @@ public class SecurityController extends BaseController {
         map.put("recordsFiltered", roleList.size());
         map.put("data", roleList);
         return map;
+    }
+
+    @RequestMapping(value = "/retriveOpenId")
+    public String retriveOpenId(HttpServletRequest request,ModelMap model,
+                                @RequestParam(value = "code", required = false) String code,
+                                @RequestParam(value = "state", required = false) String state) throws Exception{
+        // 1,retrieve openId from qq, then retrieve userName(mobileNumber) by
+        // openId,put openId and userName to model.
+        // 2,retrieve openId from qq,put openId to model.
+
+        // 授权取得OPENID
+        String codestr = "https://api.weixin.qq.com/sns/oauth2/access_token?"
+                + "appid=" + WeixinHelper.appId
+                + "&secret=" +WeixinHelper.appSecret
+                + "&code=" + code + "&grant_type=authorization_code";
+        String jsonstr = HttpClientHelper
+                .callTrustHttps(codestr);
+
+        JsonNode node = new ObjectMapper().readTree(jsonstr);
+        JsonNode openIdNode = node == null ? null : node.findValue("openid");
+        String openId = openIdNode == null? null:openIdNode.asText();
+
+
+        User dbUser = userMapper.findByOpenId(openId);
+
+        if(dbUser == null){
+            String queryString = "?openId="+openId;//+"&avatar="+headimgurl;
+            String url = "/module/" + state + ".html#/list"  /*+state*/ + queryString;
+            return "redirect:"+url;//将被路由到绑定画面
+        }else{
+
+            String queryString = "?id="+dbUser.getId();//+"&gender="+dbUser.getGender()/*+"&nick="+URLEncoder.encode(dbUser.getNick(),"UTF-8")*/+"&name="+((dbUser.getName() == null || dbUser.getName().isEmpty()) ? "":URLEncoder.encode(dbUser.getName(),"UTF-8"))+"&day="+LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+"&avatar="+dbUser.getAvatar();
+            String url = "/module/" + state + ".html#/list" /*+state*/ + queryString;
+
+            try {
+                authUtil.decide(dbUser, url);
+            }catch(Exception ex){
+                url = "/module/" + state + ".html#/accessDenial";
+            }
+            return "redirect:"+url;
+        }
+    }
+
+    @RequestMapping("/registry/{module}")
+    @CrossOrigin(origins = "*")
+    @ResponseBody
+    public Object registryUser(@PathVariable("module") String module,@Validated({UserValidateBind.class }) @RequestBody User userParam,
+                               BindingResult result)throws Exception{
+        List<FieldError> errors = result.getFieldErrors();
+        if(errors  != null && errors.size() > 0){
+            return errors;
+        }
+        int res = userMapper.bind(userParam);
+        if(res ==0){
+            return getErrorJson("手机号码或密码错误");
+        }
+        User dbUser = userMapper.findByMobilePhone(userParam.getMobilePhone());
+        String url = "/module/" + module + ".html";
+        try {
+            authUtil.decide(dbUser, url);
+        }catch(Exception ex){
+            return getResultJson(2,null);
+        }
+        Map<String,Object> oo = new HashMap<String,Object>();
+        oo.put("res",1);
+        oo.put("data",dbUser);
+        return oo;
+
     }
 
 }

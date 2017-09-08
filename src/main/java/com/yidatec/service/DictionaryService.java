@@ -48,7 +48,7 @@ public class DictionaryService {
 	}
 
 	public Dictionary selectDictionary(String id){
-		refreshDictionary();
+		loadAllDictionary();
 		return ALL_DICTIONARY_CACHE.get(id);
 //		return dictionaryMapper.selectDictionary(id);
 	}

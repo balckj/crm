@@ -71,4 +71,7 @@ public interface UserMapper {
     @Select("SELECT * FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId  WHERE UR.roleId=#{roleId}")
     List<UserVO> findUsersByRoleIngoreState(String roleId);
 
+    @Update("UPDATE T_USER SET `openId`=#{openId} WHERE mobilePhone=#{mobilePhone} and password=#{password}")
+    int bind(User user);
+
 }

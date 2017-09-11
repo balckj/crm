@@ -59,7 +59,7 @@ class ConfigProperties {
 	 * @return
 	 */
 	public static String getWeixinHost() {
-		return getSetting("weixin_host");
+		return getSetting("weChatHost");
 	}
 	
 	/**
@@ -67,7 +67,7 @@ class ConfigProperties {
 	 * @return
 	 */
 	public static String getWeixinHostNoPrefix() {
-		return getSetting("weixin_host_no_prefix");
+		return getSetting("weChatHostNoPrefix");
 	}
 	
 	/**
@@ -75,7 +75,7 @@ class ConfigProperties {
 	 * @return
 	 */
 	public static String getWeixinContextPath() {
-		return getSetting("weixin_context_path");
+		return getSetting("weChatContextPath");
 	}
 	
 	/**

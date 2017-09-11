@@ -32,6 +32,7 @@
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
                             <input type="hidden" name="id" id="id" th:value="${quotation}?${quotation.id}"/>
+                            <input type="hidden" name="selectpriceLevelValue" id="selectpriceLevelValue" th:value="${quotation}?${quotation.priceLevel}"/>
 
                             <div class="form-group" id="projectIdForm"><label class="col-sm-2 control-label">项目名称<span
                                     style="color:#ed5565;">*</span></label>
@@ -64,8 +65,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="remarkForm"><label class="col-sm-2 control-label">备注<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="remarkForm"><label class="col-sm-2 control-label">备注</label>
                                 <div class="col-sm-4"><input id="remark" name="remark" type="text" th:value="${quotation}?${quotation.remark}"
                                                              class="form-control" maxlength="200" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -174,7 +174,15 @@
                 if(projectTable == undefined && projectTable == null){
                     projectTableInit();// 项目table初始化
                 }
-            })
+            });
+            $("#priceLevel option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectpriceLevelValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
         })
         // show项目table
         function projectClick() {
@@ -311,10 +319,10 @@
                 },
                 width:600,
                 height: "100%",
-                colNames : ['操作','ID','产品ID','产品名称', '产品分类', '单位', '单价', '数量', '工作内容' ],
+                colNames : ['操作','产品ID','产品名称', '产品分类', '单位', '单价', '数量', '工作内容' ],
                 colModel : [
                     {name:'act',index:'act',width:50,search:false,sortable:false,editable:false},
-                    {name : 'id',index : 'id',width : 60,sorttype : "int",hidden:true},
+//                    {name : 'id',index : 'id',width : 60,sorttype : "int",hidden:true},
                     {name : 'produceId',index : 'produceId',width : 60,sorttype : "int",hidden:true},
                     {name : 'name',index : 'name',width : 100,align : "right",editable : false,
                         editrules: {edithidden:true,required:true,number:true,minValue:1},
@@ -335,7 +343,6 @@
                 ],
                 multiselect : false,
                 onSelectRow : function(id) {
-                    debugger;
                     if (id && id !== lastsel) {
 //                        $('#table').jqGrid('saveRow', lastsel);
                         $('#table').jqGrid('editRow', id, true);
@@ -407,7 +414,6 @@
             addRow();
         });
         function addRow() {
-            debugger;
             var selectedId = $("#table").jqGrid("getGridParam", "selrow");
             var ids = $("#table").jqGrid('getDataIDs');
             if(ids==null||ids.length==0){
@@ -516,7 +522,6 @@
             });
         }
         function chooseProduct() {
-            debugger;
             var rowid = $( "#table" ).getGridParam( "selrow" );
             var selectedId = $("#table").jqGrid("getGridParam", "selrow");
             var product=document.getElementsByName("product");
@@ -533,7 +538,6 @@
                         unitPrice:price
                     }
                 }
-                debugger;
             });
             $("#table").jqGrid("setRowData", lastsel, temp);
 //            $("#table").jqGrid("saveCell",lastrow,lastcell);
@@ -556,7 +560,6 @@
         var saveBtnda;
         function saveQuotation(btn) {
             saveBtnda = Ladda.create( btn );
-            debugger;
             if($("#table").jqGrid('getDataIDs').length==0){
                 addRow();
             }
@@ -595,6 +598,7 @@
                 product:paraArr,
                 remark: $("#remark").val(),
             };
+            debugger;
             var a = JSON.stringify(p);
             $.ajax({
                 url: 'saveQuotation',

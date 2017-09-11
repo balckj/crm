@@ -269,11 +269,12 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="photoForm"><label class="col-sm-2 control-label">项目图片<span
+                            <div class="form-group" id="photoForm">
+                                <label class="col-sm-2 control-label">项目图片<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4 dropzone">
-                                    <div class="am-text-success dz-message row" id="photo">
-                                        点此打开文件管理器选择文件
+                                <div class="col-sm-4 dropzone" id="photo">
+                                    <div class="am-text-success dz-message row" >
+                                        <!--点此打开文件管理器选择文件-->
                                     </div>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -854,7 +855,7 @@
         validateSelect('pmId', 'pmId', 'validatemId');
         validateMultipleSelect('factoryId', 'factoryId', 'validateFactoryId');
         validateSelect('developSaleId', 'developSaleId', 'validateDevelopSaleId');
-        validate('photo', 'photo', 'validatePhoto');
+        validateDiv('photo', 'photo', 'validatePhoto');
 
         var designerlist=[];
         var factorylist=[];
@@ -946,11 +947,20 @@
                     if (data.res == undefined) {
                         saveBtnda.stop();
                         for (var p in data) {
-                            var tmp = $("#" + data[p].field).parent().next();
+//                            var tmp = $("#" + data[p].field).parent().next();
+                            if(data[p].field=='photo'){
+                                var tmp = $("#" + data[p].field).next();
+                            }else{
+                                var tmp = $("#" + data[p].field).parent().next();
+                            }
 
                             if (tmp.text() == '') {
                                 $("#" + data[p].field + "Form").addClass("has-error")
-                                var tmp = $("#" + data[p].field).parent().next();
+                                if(data[p].field=='photo'){
+                                    var tmp = $("#" + data[p].field).next();
+                                }else{
+                                    var tmp = $("#" + data[p].field).parent().next();
+                                }
                                 tmp.html(data[p].defaultMessage);
                             }
                         }

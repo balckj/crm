@@ -28,12 +28,12 @@ public interface QuotationMapper {
 	//新建报价单
 	@Insert("INSERT INTO T_QUOTATION_PRODUCTION (qoutationId,productionId,unitPrice,count,workContent) VALUES (#{id},#{productionId},#{unitPrice},#{count}," +
 			"#{workContent})")
-	int createQuotationProduction(Quotation quotation);
+	int createQuotationProduction(QuotationVO quotation);
 
 	@Update("UPDATE T_QUOTATION SET projectId=#{projectId},priceLevel=#{priceLevel},remark=#{remark}," +
 			"modifierId=#{modifierId}," +
 			"modifyTime=#{modifyTime} WHERE id=#{id}")
-	int update(Quotation quotation);
+	int update(QuotationVO quotation);
 
 
 	@SelectProvider(type=com.yidatec.mapper.QuotationQueryProvider.class,method = "selectQuotationList")

@@ -544,6 +544,8 @@ public class QuotationService {
 			List<QuotationVO> list=quotationMapper.selectProduction(id);
 			for(int i=0;i<list.size();i++){
 				Product product = productMapper.selectProduct(list.get(i).getProductionId());
+				product.setId(String.valueOf(i+1));
+				product.setProduceId(list.get(i).getProductionId());
 				product.setCount(list.get(i).getCount());
 				product.setWorkContent(list.get(i).getWorkContent());
 				arrayList.add(product);

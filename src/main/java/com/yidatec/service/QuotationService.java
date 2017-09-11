@@ -151,7 +151,7 @@ public class QuotationService {
 				row.createCell(6).setCellValue(Double.valueOf(quotationVO.getCountPrice()));
 				countPrict += Double.valueOf(quotationVO.getCountPrice());
 				// 工作内容
-				row.createCell(7).setCellValue(quotationVO.getRemark());
+				row.createCell(7).setCellValue(quotationVO.getWorkContent());
 
 				row.getCell(0).setCellStyle(mapStyle.get("data_4"));
 				row.getCell(1).setCellStyle(mapStyle.get("data_4"));
@@ -223,14 +223,21 @@ public class QuotationService {
 			row = sheet.createRow(rowNum);
 			// 空
 			row.createCell(0).setCellValue("");
+			row.createCell(1).setCellValue("");
+			row.createCell(2).setCellValue("");
+			row.createCell(3).setCellValue("");
+			row.createCell(4).setCellValue("");
+			row.createCell(5).setCellValue("");
 			setColspanTitle(sheet, row, mapStyle, wb,
-					"", "data_6",
+					"", "data_12",
 					0, rowNum, rowNum, 0, 5);
-			// 空
-			row.createCell(7).setCellValue("高度按4米计算");
+			row.createCell(6).setCellValue("高度按4米计算");
+			row.getCell(6).setCellStyle(mapStyle.get("data_12"));
+			row.createCell(7).setCellValue("");
+			row.getCell(7).setCellStyle(mapStyle.get("data_12"));
 			setColspanTitle(sheet, row, mapStyle, wb,
-					"", "data_4",
-					0, rowNum, rowNum, 0, 7);
+					"", "data_12",
+					0, rowNum, rowNum, 6, 7);
 		}
 	}
 
@@ -479,6 +486,20 @@ public class QuotationService {
 		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND );
 		style.setFillForegroundColor(IndexedColors.ORANGE.getIndex());
 		styles.put("data_11", style);
+
+
+		// 白色背景标题 10号黑字 水平 垂直居中
+		Font dataFont13 = wb.createFont();
+		dataFont13.setBoldweight(Font.BOLDWEIGHT_BOLD);
+		dataFont13.setFontHeightInPoints((short) 10);
+		style = createBorderedStyle(wb);
+		// 设置单元格内容垂直居中
+		style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);
+		style.setFont(dataFont13);
+		// 设置单元格内容水平剧中
+		style.setAlignment(CellStyle.ALIGN_CENTER);
+		styles.put("data_12", style);
+
 		return styles;
 	}
 

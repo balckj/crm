@@ -36,9 +36,10 @@
                             <div class="form-group" id="projectIdForm"><label class="col-sm-2 control-label">项目名称<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <input id="projectId" name="projectId" placeholder="请选择产品名称" readonly="readonly" type="text" th:value="${quotation}?${quotation.projectName}" th:attr="valueSetID=${quotation}?${quotation.projectId}"
+                                    <input id="projectId" name="projectId" placeholder="请选择项目名称" readonly="readonly" type="text" th:value="${quotation}?${quotation.projectName}" th:attr="valueSetID=${quotation}?${quotation.projectId}"
                                            class="form-control" maxlength="200" onclick="projectClick();" style="cursor:pointer;"/>
                                 </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="priceLevelForm"><label class="col-sm-2 control-label">价格档次<span
@@ -50,6 +51,7 @@
                                         <option value="3">高价</option>
                                     </select>
                                 </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
                             <div class="hr-line-dashed"></div>
@@ -286,15 +288,14 @@
         });
 
         var mydata = [
-//            {id : "sdfas",name : "test",category : "category",unit : "200",unitPrice : "10",count : "210",workContent:""},
-//            {id : "rthh",name : "test2",category : "category2",unit : "300",unitPrice : "20",count : "320",workContent:""},
-//            {id : "mmghm",name : "test3",category : "category3",unit : "400",unitPrice : "30",count : "430",workContent:""}
+//            {id : "1",produceId:"sdaad",name : "test",category : "category",unit : "200",unitPrice : "10",count : "210",workContent:""},
+//            {id : "2",produceId:"sasdsdd",name : "test2",category : "category2",unit : "300",unitPrice : "20",count : "320",workContent:""},
+//            {id : "3",produceId:"sda2132ad",name : "test3",category : "category3",unit : "400",unitPrice : "30",count : "430",workContent:""}
         ];
 
 
         function pageInit(){
             function mypricecheck(value){
-                alert(value);
                 if(value==1||value==null) {
                     return [false,"工作内容必填项",""];
                 }else{
@@ -310,70 +311,69 @@
                 },
                 width:600,
                 height: "100%",
-                colNames : ['操作','ID','产品名称', '产品分类', '单位', '单价', '数量', '工作内容' ],
+                colNames : ['操作','ID','产品ID','产品名称', '产品分类', '单位', '单价', '数量', '工作内容' ],
                 colModel : [
                     {name:'act',index:'act',width:50,search:false,sortable:false,editable:false},
                     {name : 'id',index : 'id',width : 60,sorttype : "int",hidden:true},
-                    {name : 'name',index : 'name',width : 100,align : "right",editable : true,readonly:true,
+                    {name : 'produceId',index : 'produceId',width : 60,sorttype : "int",hidden:true},
+                    {name : 'name',index : 'name',width : 100,align : "right",editable : false,
+                        editrules: {edithidden:true,required:true,number:true,minValue:1},
                         formatter:function(cellvalue, options, rowObject){
-                            if(cellvalue==""||cellvalue==null){
-                                cellvalue="请选择产品";
-                            }
-                            return cellvalue;
+                            return '<a href="javascript:void(0)" onclick="campaignClick('+options.rowId+')">'+(cellvalue==""?"请选择产品名称":cellvalue)+'</a>';
                          }
                     },
-                    {name : 'category',index : 'category',align : "right",width : 100,  edittype:'text',
-                    },
+                    {name : 'category',index : 'category',align : "right",width : 100,  edittype:'text',},
                     {name : 'unit',index : 'unit',width : 80,align : "right",editable : false},
                     {name : 'unitPrice',index : 'unitPrice',width :150,align : "right",editable : false},
                     {name : 'count',index : 'count',width : 80,align : "right",editable : true,
                          editrules: {edithidden:true,required:true,number:true,minValue:1}
                     },
                     {name : 'workContent',index : 'workContent',width : 80,align : "right",editable : true,
-                        editrules:{custom:true, custom_func:mypricecheck},
+                        editrules:{custom:true, custom_func:mypricecheck}
                     }
 //                    {name : 'error',index : 'error',width : 180,align : "right",editable : false,hidden:true}
                 ],
                 multiselect : false,
-//                onSelectRow : function(id) {
-//                    if (id && id !== lastsel) {
-//                        $('#table').jqGrid('restoreRow', lastsel);
-//                        $('#table').jqGrid('editRow', id, true);
-//                        lastsel = id;
-//                    }
-//                },
-                onCellSelect:function (rowid,iCol,cellcontent,e) {
-
+                onSelectRow : function(id) {
+                    debugger;
+                    if (id && id !== lastsel) {
+//                        $('#table').jqGrid('saveRow', lastsel);
+                        $('#table').jqGrid('editRow', id, true);
+                        lastsel = id;
+                    }
                 },
+//                onCellSelect:function (rowid,iCol,cellcontent,e) {
+//                    alert();
+//                },
                 gridComplete: function(){
                     var ids = $("#table").getDataIDs();//jqGrid('getDataIDs');
                     for(var i=0;i<ids.length;i++){
                         var cl = ids[i];
-                        de = "<input style='height:22px;width:40px;' type='button' value='删除' onclick=\"$('#table').jqGrid('delRowData','"+cl+"');\"  />";
+                        de = "<input style='height:22px;width:40px;' type='button' value='删除' onclick=\"delRow("+cl+")\"/>";
+//                        ce = "<input style='height:22px;width:40px;' type='button' value='保存' onclick=\"saveRow("+cl+")\"/>";
                         $("#table").jqGrid('setRowData',ids[i],{act:de});
                     }
                 },
 //                caption : "产品信息",
                 autowidth:true,
                 viewrecords: true,
-                jsonReader: { repeatitems : false},
-                cellsubmit:"clientArray",
-                cellEdit:true,
-                beforeEditCell:function(rowid,cellname,value,iRow,iCol){
-                    if(iCol==2){
-                        lastrow = iRow;
-                        lastcell = iCol;
-                        lastsel = rowid;
-                        campaignClick();
-                    }
-                },
-                afterEditCell:function(rowid,colname,val,iRow,iCol) {
-                        var entity = $("#table").jqGrid("getRowData")[iRow - 1];
-                        var id = rowid + "_" + colname;
-                        $("#" + id).blur(function (e) {
-                            var val = $(this).val();
-                            if(colname=="count"){
-                                var re = /^[1-9]+[0-9]*]*$/;
+//                jsonReader: { repeatitems : false},
+//                cellsubmit:"clientArray",
+//                cellEdit:true,
+//                beforeEditCell:function(rowid,cellname,value,iRow,iCol){
+//                    if(iCol==2){
+//                        lastrow = iRow;
+//                        lastcell = iCol;
+//                        lastsel = rowid;
+//                    }
+//                },
+//                afterEditCell:function(rowid,colname,val,iRow,iCol) {
+//                        var entity = $("#table").jqGrid("getRowData")[iRow - 1];
+//                        var id = rowid + "_" + colname;
+//                        $("#" + id).blur(function (e) {
+//                            var val = $(this).val();
+//                            if(colname=="count"){
+//                                var re = /^[1-9]+[0-9]*]*$/;
 //                                if (!re.test(val)) {
 //                                    debugger;
 //                                    entity.error="请输入数字且为正整数";
@@ -384,35 +384,16 @@
 //                                }else{
 ////                                    var data = {'id': rowid,'name':entity.name,'category':entity.category,'unit':entity.unit,'unitPrice':entity.unitPrice,'count':val};
 ////                                    $("#table").jqGrid("setRowData", rowid, data, "");
-                                    $("#table").jqGrid("saveCell",iRow,iCol);
+//                                    $("#table").jqGrid("saveCell",iRow,iCol);
 ////                                    $("#table").setGridParam().hideCol("error").trigger("reloadGrid");
 //                                }
-                            }else if(colname=="workContent"){
-                                $("#table").jqGrid("saveCell",iRow,iCol);
-                            }else if(colname=="name"){
-                            }
+//                            }else if(colname=="workContent"){
+//                                $("#table").jqGrid("saveCell",iRow,iCol);
+//                            }else if(colname=="name"){
+//                            }
 //                            countTotal();
-                        });
-
-                },
-//                beforeSaveCell : function(rowid,celname,value,iRow,iCol) {
-//                    if(celname=="count"){
-//                        $("#table").jqGrid("saveCell",iRow,iCol);
-//                        return;
-//                    }else if(celname=="workContent"){
-//                        if(value==''){
-//                            $("#table").jqGrid("restoreCell",iRow,iCol);
-//                            alert("工作内容必填");
-//                            return;
-//                        }
-//                    }else if(celname=="name"){
-//                        var recs=$("#table").jqGrid("getRowData",rowid);
-//                        if(recs==''){
-//                            $("#table").jqGrid("restoreCell",iRow,iCol);
-//                            alert("产品名称必填");
-//                            return;
-//                        }
-//                    }
+//                        });
+//
 //                },
                 afterInsertRow:function () {
 //                    alert("插入");
@@ -426,14 +407,18 @@
             addRow();
         });
         function addRow() {
+            debugger;
             var selectedId = $("#table").jqGrid("getGridParam", "selrow");
             var ids = $("#table").jqGrid('getDataIDs');
+            if(ids==null||ids.length==0){
+                ids.push(0);
+            }
+            console.info(ids);
             //获得当前最大行号（数据编号）
             var rowid = Math.max.apply(Math,ids);
             //获得新添加行的行号（数据编号）
             newrowid = rowid+1;
             var dataRow = {
-                id: "",
                 name:"",
                 category:'',
                 unit:'',
@@ -444,13 +429,20 @@
             //将新添加的行插入到第一列
             $("#table").jqGrid("addRowData", newrowid, dataRow, "last");
             //设置grid单元格不可编辑
-            $("#table").setGridParam({cellEdit:true});
+//            $("#table").setGridParam({cellEdit:false});
             //设置grid单元格可编辑
-//            $('#table').jqGrid('editRow', newrowid, false);
+            $('#table').jqGrid('editRow', newrowid, true);
+        }
+        function delRow(rowid){
+            $('#table').jqGrid('delRowData',rowid);
+            var rowIds = $("#table").jqGrid('getDataIDs');
+        }
+        function  saveRow(rowid){
+            $('#table').jqGrid('saveRow',rowid);
         }
 
-
-        function campaignClick() {
+        function campaignClick(rowid) {
+            lastsel=rowid;
             $('#quotationTableModal').modal('show');
         }
         var quotationTable = null;
@@ -524,7 +516,9 @@
             });
         }
         function chooseProduct() {
-            $("#table").jqGrid("saveCell",lastrow,lastcell);
+            debugger;
+            var rowid = $( "#table" ).getGridParam( "selrow" );
+            var selectedId = $("#table").jqGrid("getGridParam", "selrow");
             var product=document.getElementsByName("product");
             var temp;
             $.each(product, function(i,v) {
@@ -532,17 +526,17 @@
                     var price;
                     price=$(this).attr("low")+"/"+$(this).attr("middle")+"/"+$(this).attr("high");
                     temp={
-                        id: $(this).val(),
+                        produceId: $(this).val(),
                         name:$(this).attr("productname"),
                         category:$(this).attr("category"),
                         unit:$(this).attr("unit"),
-                        unitPrice:price,
-                        workContent:''
+                        unitPrice:price
                     }
                 }
+                debugger;
             });
             $("#table").jqGrid("setRowData", lastsel, temp);
-            $("#table").jqGrid("saveCell",lastrow,lastcell);
+//            $("#table").jqGrid("saveCell",lastrow,lastcell);
 
             $('#quotationTableModal').modal('hide');
         }
@@ -550,7 +544,7 @@
 
 
 
-
+        validate('projectId', 'projectId', 'validateProjectId');
 //        validate('name', 'name', 'validateUserName');
 //        validate2('mobilePhone', 'mobile', {isEdit: false}, 'validateMobile');
 //        validate('password', 'password', 'validatePassword');
@@ -562,14 +556,21 @@
         var saveBtnda;
         function saveQuotation(btn) {
             saveBtnda = Ladda.create( btn );
-            var rowIds = $("#table").jqGrid('getDataIDs');
+            debugger;
+            if($("#table").jqGrid('getDataIDs').length==0){
+                addRow();
+            }
+            var rowIds=$("#table").jqGrid('getDataIDs');
             var paraArr = [];
-            for(var i=0,j = rowIds.length - i;i < j; i++)
-            {
+            for(var i=0,j = rowIds.length - i;i < j; i++){
+                $("#table").jqGrid('saveRow',rowIds[i]);
                 var rowData = $("#table").jqGrid('getRowData',rowIds[i]);
-                if(rowData.id==''||rowData.count==''||rowData.workContent==''){
+                debugger;
+                if(rowData.category==''||rowData.count==''||rowData.workContent==''){
                     $("#"+rowIds[i]+ " td").css("background-color","red");
                     return;
+                }else{
+                    $("#"+rowIds[i]+ " td").css("background-color","white");
                 }
                 var price = rowData.unitPrice.split("/");
                 if($("#priceLevel").val()==1){
@@ -580,7 +581,7 @@
                     price=price[2]
                 }
                 var param = {
-                    id: rowData.id,
+                    id: rowData.produceId,
                     unitPrice:price,
                     count:rowData.count,
                     workContent:rowData.workContent

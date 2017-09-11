@@ -486,6 +486,8 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
+
+
     @RequestMapping(value = "/validateCampaignId")
     public String validateCampaignId(@RequestParam(value="campaignId") String campaignId){
         if(campaignId == null || campaignId.trim().isEmpty()){

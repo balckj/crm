@@ -37,44 +37,12 @@ public class QuotationQueryProvider {
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT B.name as projectName,D.* FROM T_QUOTATION  as D LEFT JOIN T_PROJECT B ON D.projectId = B.id" );
 
-//        if(!StringUtils.isEmpty(quotationVO.getCategoryName())){
-//            sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
-//        }
-//
-//        if(!StringUtils.isEmpty(quotationVO.getProductName())){
-//            sb.append(" AND D.nature = #{nature}");
-//        }
-//        if(!StringUtils.isEmpty(quotationVO.getUnitName())){
-//            sb.append(" AND D.address LIKE CONCAT('%',#{address},'%')");
-//        }
-//        sb.append(" ORDER BY D.modifyTime DESC LIMIT #{start},#{length}");
         return sb.toString();
     }
     public String countQuotationList(final QuotationVO quotationVO)
     {
         StringBuffer sb = new StringBuffer();
-//        sb.append("SELECT count(*) from T_CUSTOMER  as D WHERE 1=1");
         sb.append("SELECT count(*) FROM T_QUOTATION  as D  LEFT JOIN T_PROJECT B ON D.projectId = B.id" );
-//        sb.append("");
-//        sb.append(" SELECT count(*)");
-//        sb.append(" FROM T_QUOTATION a");
-//        sb.append(" LEFT JOIN T_PRODUCTION AS b ON b.id = a.productionId");
-//        sb.append(" LEFT JOIN T_DICTIONARY AS c ON b.unit = c.id");
-//        sb.append(" LEFT JOIN T_DICTIONARY AS d ON b.category = d.id");
-//        sb.append(" ORDER BY d.value");
-
-//        if(!StringUtils.isEmpty(quotationVO.getCategoryName())){
-//            sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
-//        }
-//        if(!StringUtils.isEmpty(quotationVO.getProductName())){
-//            sb.append(" AND D.nature = #{nature}");
-//        }
-//        if(!StringUtils.isEmpty(quotationVO.getUnitName())){
-//            sb.append(" AND D.address = #{address}");
-//        }
-//        if(!StringUtils.isEmpty(quotationVO.getCreatorId())){
-//            sb.append(" AND D.creatorId = #{creatorId}");
-//        }
         return sb.toString();
     }
 

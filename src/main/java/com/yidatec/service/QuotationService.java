@@ -490,7 +490,7 @@ public class QuotationService {
 			quotation.setUnitPrice(quotation.getProduct().get(i).getUnitPrice());
 			quotation.setCount(quotation.getProduct().get(i).getCount());
 			quotation.setWorkContent(quotation.getProduct().get(i).getWorkContent());
-			quotationMapper.createQuotation(quotation);
+			quotationMapper.createQuotationProduction(quotation);
 		}
 	}
 

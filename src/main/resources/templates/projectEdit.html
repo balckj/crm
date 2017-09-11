@@ -399,8 +399,14 @@
     <!--<script th:src="@{inspinia_admin/js/plugins/chosen/chosen.jquery.js}"></script>-->
     <script th:src="@{me.js}" type="text/javascript"></script>
 
-    <script type="text/javascript">
+    <script th:inline="javascript">
         /*<![CDATA[*/
+        var hasProjectScore = [[${#authorization.url('/projectScore')}]];
+        var hasDesScore = [[${#authorization.url('/desScore')}]];
+        var hasPmScore = [[${#authorization.url('/pmScore')}]];
+        if(!hasProjectScore) $("#projectScore").attr("readonly",'true');
+        if(!hasDesScore) $("#designScore").attr("readonly",'true');
+        if(!hasPmScore) $("#pmScore").attr("readonly",'true');
 
         var photolist=[];
         var delPhotoList=[];

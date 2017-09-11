@@ -7,7 +7,7 @@ import com.yidatec.vo.QuotationVO;
  */
 public class QuotationQueryProvider {
 
-    public String quotationDownLoad()
+    public String quotationDownLoad(String id)
     {
         StringBuffer sb = new StringBuffer();
         sb.append("");
@@ -26,8 +26,9 @@ public class QuotationQueryProvider {
         sb.append(" LEFT JOIN T_PRODUCTION AS b ON b.id = pr.productionId");
         sb.append(" LEFT JOIN T_DICTIONARY AS c ON b.unit = c.id");
         sb.append(" LEFT JOIN T_DICTIONARY AS d ON b.category = d.id");
+        sb.append(" LEFT JOIN T_PROJECT as p ON  p.id = a.projectId");
+        sb.append(" where 1=1 and a.id = #{id}");
         sb.append(" ORDER BY d.value");
-
         return sb.toString();
     }
 

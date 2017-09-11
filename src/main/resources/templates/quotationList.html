@@ -79,15 +79,17 @@
             </div>
         </div>
     </div>
-
-
-
+    <form method="POST" class="form-horizontal form-inline" id='quotationForm'>
+        <input hidden="hidden" value="" id="quotationID" name="id"/>
+    </form>
 
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
-    <script type="text/javascript">
+    <script th:inline="javascript">
         /*<![CDATA[*/
-
+        var hasEdit = [[${#authorization.url('/userEidt')}]];
+        var hasCreate = [[${#authorization.url('/userCreate')}]];
+        var hasDown = [[${#authorization.url('/quotationDownLoad')}]];
         var quotationtable;
         function quotationtableLoad() {
             quotationtable = $('#quotationtable').DataTable({
@@ -129,13 +131,19 @@
 
                 "columns": [
                     {
-                        "data": "id", "width": "80px",
+                        "data": "id", "width": "150px",
                         "render": function (data, type, row) {
-                            var u = "quotationEdit?id="+row.id;
-                            u =  '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
-
-                            return u;
-
+                            var u = '';
+                            if(hasEdit){
+                                u = "quotationEdit?id="+row.id;
+                                u =  '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
+                            }
+                            var d = '';
+                            if(hasDown) {
+                                d = row.id;
+                                d = '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:quotationDownLoad(\'' + d + '\')" >&nbsp;&nbsp;报价单下载</a>';
+                            }
+                            return u + d;
                         },
                     },
 
@@ -188,43 +196,27 @@
                 , "processing": true
                 , "serverSide": true
                 , "iDisplayLength": 20 //默认显示的记录数
-//            ,"dom": '<"top"i>rt<"bottom"flp>'
-//            ,"dom": '<"toolbar">frtip'
-//            ,"dom": 'lBfrtip',
             });
-        }
-
-        // 时间格式化
-        function timeStamp2String(time,hasHour) {
-            var datetime = new Date();
-            datetime.setTime(time);
-            var year = datetime.getFullYear();
-            var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-            var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-            if(hasHour) {
-                var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-                var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-//            var milliseconds = datetime.getMilliseconds()< 10 ? "0" + datetime.getMilliseconds() : datetime.getMilliseconds();
-                return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second/*+" "+milliseconds*/;
-            }else{
-                return year + "-" + month + "-" + date;
-            }
         }
 
         function query(){
             quotationtable.ajax.reload( null, true ); // user paging is not reset on reload
         }
 
-
+        function quotationDownLoad(id){
+            $("#quotationID").val(id);
+            $('#quotationForm').attr('action', "/quotationDownLoad");
+            $("#quotationForm").submit();
+        }
 
         var a = 0;
         var saveBtnda;
         $(document).ready(function () {
             // 提示栏初始化
             quotationtableLoad();
+            var v = '';
+            if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"quotationEdit\");'>新&nbsp;&nbsp;建</button>"
 
-            var v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"quotationEdit\");'>新&nbsp;&nbsp;建</button>"
             $("#quotationtable_wrapper div").children().eq(0).append(v);
 
         });

@@ -18,7 +18,7 @@ public interface QuotationMapper {
 	 * @return
 	 */
 	@SelectProvider(type=QuotationQueryProvider.class,method = "quotationDownLoad")
-	List<QuotationVO> quotationDownLoad();
+	List<QuotationVO> quotationDownLoad(String id);
 
 	//新建报价单
 	@Insert("INSERT INTO T_QUOTATION (id,projectId,priceLevel,remark,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{projectId},#{priceLevel}," +

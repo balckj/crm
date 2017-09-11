@@ -51,6 +51,16 @@ public class Product extends BaseModel {
 
 	private String workContent;
 
+	private String produceId;
+
+	public String getProduceId() {
+		return produceId;
+	}
+
+	public void setProduceId(String produceId) {
+		this.produceId = produceId;
+	}
+
 	public String getUnitPrice() {
 		return unitPrice;
 	}

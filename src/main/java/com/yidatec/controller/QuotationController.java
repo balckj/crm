@@ -144,8 +144,9 @@ public class QuotationController extends BaseController{
     @RequestMapping(value = "quotationDownLoad")
     public void quotationDownLoad (
             HttpServletRequest request, HttpServletResponse response,
-            @DateTimeFormat(pattern="yyyy-MM-dd") Date startTime,
-            @DateTimeFormat(pattern="yyyy-MM-dd") Date endTime
+//            @DateTimeFormat(pattern="yyyy-MM-dd") Date startTime,
+//            @DateTimeFormat(pattern="yyyy-MM-dd") Date endTime
+            @RequestParam(value="id",required = false) String id
             ) throws Exception{
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -153,9 +154,9 @@ public class QuotationController extends BaseController{
         String fileName = "报价单"+date+".xlsx";
         XSSFWorkbook wb = new XSSFWorkbook();
 
-        String beginYear = sdf.format(startTime);
-        String entYear = sdf.format(endTime);
-        quotationService.quotationDownLoad(wb,beginYear,entYear);
+//        String beginYear = sdf.format(startTime);
+//        String entYear = sdf.format(endTime);
+        quotationService.quotationDownLoad(wb,id);
 
         new DownloadHelper().downLoad(wb, response, fileName);
     }

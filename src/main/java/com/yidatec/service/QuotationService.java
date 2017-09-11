@@ -43,12 +43,11 @@ public class QuotationService {
 
 
 	public void quotationDownLoad(XSSFWorkbook wb,
-								  String beginTime,
-								  String endTime) throws Exception {
+								  String id) throws Exception {
 
 		HashMap<String,List<QuotationVO>> map = new HashMap<String,List<QuotationVO>>();
 
-		List<QuotationVO> quotationVOList =  quotationMapper.quotationDownLoad();
+		List<QuotationVO> quotationVOList =  quotationMapper.quotationDownLoad(id);
 
 		List<String> dicIdList =  new ArrayList<String>();
 
@@ -80,7 +79,7 @@ public class QuotationService {
 
 		row.createCell(0).setCellValue("总标题");
 		setColspanTitle(sheet,row , mapStyle, wb,
-				"摩拜单车(153㎡)报价单", "header_6",
+				quotationVOList.get(0).getProductName()+"报价单", "header_6",
 				0, 0, 0, 0, 7);
 		sheet.setColumnWidth(0, 32 * 50);
 

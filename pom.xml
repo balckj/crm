@@ -25,10 +25,10 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
+		<!--<dependency>如果打开　授权有问题 auth-url 无效了
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>

@@ -1,6 +1,7 @@
 package com.yidatec.mapper;
 
 import com.yidatec.vo.QuotationVO;
+import org.springframework.util.StringUtils;
 
 /**
  * Created by jrw on 17-7-18.
@@ -36,14 +37,25 @@ public class QuotationQueryProvider {
     public String selectQuotationList(final QuotationVO quotationVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT B.name as projectName,D.* FROM T_QUOTATION  as D LEFT JOIN T_PROJECT B ON D.projectId = B.id" );
-
+        sb.append("SELECT B.name as projectName,D.* FROM T_QUOTATION  as D LEFT JOIN T_PROJECT B ON D.projectId = B.id WHERE 1=1");
+        if(!StringUtils.isEmpty(quotationVO.getProjectName())){
+            sb.append(" AND B.name LIKE CONCAT('%',#{projectName},'%')");
+        }
+        if(!StringUtils.isEmpty(quotationVO.getPriceLevel())){
+            sb.append(" AND D.priceLevel=#{priceLevel}");
+        }
         return sb.toString();
     }
     public String countQuotationList(final QuotationVO quotationVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT count(*) FROM T_QUOTATION  as D  LEFT JOIN T_PROJECT B ON D.projectId = B.id" );
+        sb.append("SELECT count(*) FROM T_QUOTATION  as D  LEFT JOIN T_PROJECT B ON D.projectId = B.id WHERE 1=1" );
+        if(!StringUtils.isEmpty(quotationVO.getProjectName())){
+            sb.append(" AND B.name LIKE CONCAT('%',#{projectName},'%')");
+        }
+        if(!StringUtils.isEmpty(quotationVO.getPriceLevel())){
+            sb.append(" AND D.priceLevel=#{priceLevel}");
+        }
         return sb.toString();
     }
 

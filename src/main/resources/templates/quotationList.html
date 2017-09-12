@@ -32,20 +32,19 @@
 
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="productType" class="control-label">产品分类</label>
-                        <input type="text" placeholder="包含您的输入值的类型" id="productType" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="projectName" class="control-label">项目名称</label>
+                        <input type="text" placeholder="包含您的输入值的项目名称" id="projectName" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="productName" class="control-label">产品名称</label>
-                        <input type="text" placeholder="包含您的输入值的活动名称" id="productName" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label for="company" class="control-label">单位</label>
-                        <input type="text" placeholder="包含您的输入值的活动地址" id="company" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="priceLevel" class="control-label">价格等级</label>
+                        <select class="form-control m-b" name="priceLevel" id="priceLevel" onchange="query();">
+                            <option value="" selected="selected">不限</option>
+                            <option value="1">低价</option>
+                            <option value="2">中价</option>
+                            <option value="3">高价</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -101,29 +100,17 @@
                     contentType: 'application/json; charset=utf-8',
 
                     "data": function (d) {
-                        var roles =[];
+
+                        var p = {};  var roles =[];
 //                    $('input[name="role"]:checked').each(function(){
                         if($('#role').val() != '')
                             roles.push({id:$('#role').val()});
 //                    });
-                        var p = {};
                         p.draw = d.draw;
                         p.length = d.length;
                         p.start = d.start;
-
-//                    p.nick = $('#nick').val();
-                        p.name = $('#name').val();
-                        p.mobilePhone = $('#mobilePhone').val();
-//                    p.totalLessons = $('#totalLessons').val();
-//                    p.height = $('#height').val();
-//                    p.weight = $('#weight').val();
-//                    p.target = $('#target').val();
-//                    p.experience = $('#experience').val();
-
-                        p.state = $('#state').val();
-
-                        p.gender = $('#gender').val();
-                        p.roleList = roles;
+                        p.projectName = $('#projectName').val();
+                        p.priceLevel= $('#priceLevel').val();
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -171,7 +158,7 @@
                     + '<option value="20">20</option>'
                     + '<option value="40">40</option>'
                     + '<option value="100">100</option>'
-                    + '</select> 个用户'
+                    + '</select> 个报价单'
                     ,
                     processing: "载入中 ...",//处理页面数据的时候的显示
                     paginate: {//分页的样式文本内容。
@@ -181,10 +168,10 @@
                         last: "最后一页"
                     },
                     "sSearch": "搜索",
-                    zeroRecords: "没有用户",//table tbody内容为空时，tbody的内容。
+                    zeroRecords: "没有报价单",//table tbody内容为空时，tbody的内容。
                     //下面三者构成了总体的左下角的内容。
-                    info: "当前显示第_START_到第_END_个用户 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
-                    infoEmpty: "0个用户",//筛选为空时左下角的显示。
+                    info: "当前显示第_START_到第_END_个报价单 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    infoEmpty: "0个报价单",//筛选为空时左下角的显示。
                     infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
                 }
                 , "lengthChange": true

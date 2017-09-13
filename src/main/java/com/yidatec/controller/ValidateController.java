@@ -208,7 +208,7 @@ public class ValidateController extends BaseController{
 
     @RequestMapping(value = "/validateCountry")
     public String validateCountry(@RequestParam(value="country") String country){
-        if(country == null || country.trim().isEmpty()){
+        if(country == "未选择"){
             return getErrorJson("必须选择国家");
         }
         return getSuccessJson(null);
@@ -216,7 +216,7 @@ public class ValidateController extends BaseController{
 
     @RequestMapping(value = "/validateProvince")
     public String validateProvince(@RequestParam(value="province") String province){
-        if(province == null || province.trim().isEmpty()){
+        if(province == "未选择" ){
             return getErrorJson("必须选择省份");
         }
         return getSuccessJson(null);
@@ -224,7 +224,7 @@ public class ValidateController extends BaseController{
 
     @RequestMapping(value = "/validateCity")
     public String validateCity(@RequestParam(value="city") String city){
-        if(city == null || city.trim().isEmpty()){
+        if(city == "未选择"){
             return getErrorJson("必须选择城市");
         }
         return getSuccessJson(null);
@@ -232,7 +232,7 @@ public class ValidateController extends BaseController{
 
     @RequestMapping(value = "/validateRegion")
     public String validateRegion(@RequestParam(value="region") String region){
-        if(region == null || region.trim().isEmpty()){
+        if(region == "未选择"){
             return getErrorJson("必须选择区域");
         }
         return getSuccessJson(null);
@@ -793,6 +793,30 @@ public class ValidateController extends BaseController{
     public String validateTaxpayerType(@RequestParam(value = "taxpayerType") String taxpayerType) {
         if (taxpayerType == null || taxpayerType.trim().isEmpty()) {
             return getErrorJson("必须选择纳税人身份");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateActivityName")
+    public String validateActivityName(@RequestParam(value = "name") String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return getErrorJson("必须输入活动名称");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateChooseExhibition")
+    public String validateChooseExhibition(@RequestParam(value="exhibitioHall") String exhibitioHall){
+        if(exhibitioHall == null || exhibitioHall.trim().isEmpty()){
+            return getErrorJson("必须选择展馆名称");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateSponsor")
+    public String validateSponsor(@RequestParam(value="sponsor") String sponsor){
+        if(sponsor == null || sponsor.trim().isEmpty()){
+            return getErrorJson("必须选择主办方");
         }
         return getSuccessJson(null);
     }

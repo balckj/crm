@@ -79,7 +79,7 @@ public class QuotationService {
 
 		row.createCell(0).setCellValue("总标题");
 		setColspanTitle(sheet,row , mapStyle, wb,
-				quotationVOList.get(0).getProductName()+"报价单", "header_6",
+				quotationVOList!=null && quotationVOList.size() > 0   ? quotationVOList.get(0).getProjectName()+"报价单":"报价单", "header_6",
 				0, 0, 0, 0, 7);
 		sheet.setColumnWidth(0, 32 * 50);
 

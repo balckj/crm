@@ -73,7 +73,6 @@ function v2(id,param,url){
 //                            alert("通信错误！");
         },
         success : function(data) {
-            debugger;
             if(data.res == 0){
                 $("#"+id+"Form").addClass("has-error")
                 $("#"+id).next().html(data.txt);

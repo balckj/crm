@@ -33,20 +33,20 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="startTime" class="control-label">开始时间</label>
-                        <input type="text" placeholder="包含您的输入值的开始时间" id="startTime" readonly="readonly" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <input type="text"  id="startTime" readonly="readonly" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="endTime" class="control-label">结束时间</label>
-                        <input type="text" placeholder="包含您的输入值的结束时间" id="endTime" readonly="readonly" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <input type="text"  id="endTime" readonly="readonly" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
 
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="name" class="control-label">供应商名称</label>
-                        <input type="text" placeholder="包含您的输入值的名称" id="name" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <input type="text"  id="name" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <!--<div class="col-sm-2">-->
@@ -241,7 +241,7 @@
             availableSupplierstableLoad();
         });
         function checkEndTime(startTime,endTime){
-            debugger
+
             var startTime=startTime;
             var start=new Date(startTime.replace("-", "/").replace("-", "/"));
             var endTime=endTime;

@@ -42,7 +42,7 @@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label for="startTime" class="control-label">开始时间</label>
-                                <input type="text" placeholder="包含您的输入值的开始时间" id="startTime" name="startTime" readonly="readonly" class="form-control input-sm"/>
+                                <input type="text"  id="startTime" name="startTime" readonly="readonly" class="form-control input-sm"/>
                             </div>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label for="endTime" class="control-label">结束时间</label>
-                                <input type="text" placeholder="包含您的输入值的结束时间" id="endTime" name="endTime" readonly="readonly" class="form-control input-sm"/>
+                                <input type="text"  id="endTime" name="endTime" readonly="readonly" class="form-control input-sm"/>
                             </div>
                         </div>
                     </div>
@@ -131,7 +131,6 @@
         }
 
         function checkEndTime(startTime,endTime){
-            debugger
             var startTime=startTime;
             var start=new Date(startTime.replace("-", "/").replace("-", "/"));
             var endTime=endTime;

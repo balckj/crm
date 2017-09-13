@@ -569,7 +569,7 @@
             for(var i=0,j = rowIds.length - i;i < j; i++){
                 $("#table").jqGrid('saveRow',rowIds[i]);
                 var rowData = $("#table").jqGrid('getRowData',rowIds[i]);
-                debugger;
+
                 if(rowData.category==''||rowData.count==''||rowData.workContent==''){
                     $("#"+rowIds[i]+ " td").css("background-color","red");
                     return;
@@ -599,7 +599,7 @@
                 product:paraArr,
                 remark: $("#remark").val(),
             };
-            debugger;
+
             var a = JSON.stringify(p);
             $.ajax({
                 url: 'saveQuotation',
@@ -613,8 +613,8 @@
                     saveBtnda.start();
                 },
                 error: function (result) {
-                    saveBtnda.stop();
                     swal("操作失败", "通信错误!", "error");
+                    saveBtnda.stop();
                 },
                 success: function (data) {
                     if (data.res == undefined) {

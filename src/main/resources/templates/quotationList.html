@@ -123,12 +123,12 @@
                             var u = '';
                             if(hasEdit){
                                 u = "quotationEdit?id="+row.id;
-                                u =  '<a type="button"  style="padding:0px 5px;line-height:1.4; padding-top:2px;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
+                                u =  '<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
                             }
                             var d = '';
                             if(hasDown) {
                                 d = row.id;
-                                d = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4; padding-top:2px;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:quotationDownLoad(\'' + d + '\')" >报价单下载</a>';
+                                d = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:quotationDownLoad(\'' + d + '\')" >报价单下载</a>';
                             }
                             return u + d;
                         },

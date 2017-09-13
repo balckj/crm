@@ -221,7 +221,7 @@
                     saveBtnda.start();
                 },
                 error: function (result) {
-                    alert("通信错误！");
+                    swal("操作失败", "通信错误!", "error");
                     saveBtnda.stop();
                 },
                 success: function (data) {

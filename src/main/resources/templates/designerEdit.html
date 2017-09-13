@@ -818,7 +818,7 @@
                     saveBtnda.start();
                 },
                 error: function (result) {
-                    alert("通信错误！");
+                    swal("操作失败", "通信错误!", "error");
                     caseList = [];
                     saveBtnda.stop();
                 },

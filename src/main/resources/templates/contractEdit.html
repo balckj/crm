@@ -668,8 +668,6 @@
             $("#amount").koala( {
                 delay: 300,
                 keyup: function(event){
-                    debugger
-//                    var amount = $("#amount").val();
                     var param = {};
                     param["amount"] = $("#amount").val();
                     vAmount("amount",param,"validatAemount");
@@ -694,6 +692,8 @@
                         if(data.res == 0){
                             $("#"+id+"Form").addClass("has-error")
                             $("#"+id).parent().next().html(data.txt);
+                            $("#taxForm").addClass("has-error")
+                            $("#tax").parent().next().html(data.txt);
                             $("#tax").val("");
                         }else{
                             $("#"+id+"Form").removeClass("has-error")
@@ -701,7 +701,8 @@
                             var amoutval = $("#"+id).val();
                             var res = Math.round(amoutval * 0.06 *100)/100;
                             $("#tax").val(res);
-                            $("#code").change();
+                            $("#taxForm").removeClass("has-error")
+                            $("#tax").parent().next().html("<i class='fa fa-check' style='color:#21b384;'/>");
                         }
                     }
                 });

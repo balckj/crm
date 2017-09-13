@@ -36,7 +36,6 @@ function validateSelect(id,key,url){
 }
 
 function validateDiv(id,key,url){
-    debugger;
     $("#"+id).bind('DOMNodeInserted', function(e) {
         var param = {};
         param[key] = $("#"+id).children.length==2?"a":"";

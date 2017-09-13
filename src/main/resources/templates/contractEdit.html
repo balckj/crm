@@ -36,27 +36,83 @@
                             <input type="hidden" name="hiddenFirstPartyValue" id="hiddenFirstPartyValue" th:value="${contract}?${contract.firstParty}"/>
                             <input type="hidden" name="hiddenSecondPartyValue" id="hiddenSecondPartyValue" th:value="${contract}?${contract.secondParty}"/>
                             <input type="hidden" name="hiddenProjectIdValue" id="hiddenProjectIdValue" th:value="${contract}?${contract.projectId}"/>
+
+                            <!--暂时注释-->
+                            <!--<div class="hr-line-dashed"></div>-->
+                            <!--<div class="form-group" id="nameForm">-->
+                                <!--<label class="col-sm-2 control-label">合同名称<span-->
+                                    <!--style="color:#ed5565;">*</span></label>-->
+                                <!--<div class="col-sm-4">-->
+                                    <!--<input id="name" name="name" type="text" th:value="${contract}?${contract.name}"-->
+                                                             <!--class="form-control" maxlength="200" />-->
+                                <!--</div>-->
+                                <!--<label class="col-sm-4 control-label" style="text-align: left"></label>-->
+                            <!--</div>-->
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="categoryForm">
+                                <label class="col-sm-2 control-label">合同分类<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="category" id="category" onchange="categoryClick();">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option value="C">销售合同</option>
+                                        <option value="S">供应商合同-主办方</option>
+                                        <option value="D">供应商合同-设计师</option>
+                                        <option value="F">供应商合同-工厂</option>
+                                        <option value="P">供应商合同-项目经理</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="firstPartyForm">
+                                <label class="col-sm-2 control-label">合同甲方<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="firstParty" id="firstParty">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option th:value="${firstParty.id}" th:text="${firstParty.name}" th:each="firstParty:${firstPartyList}"></option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="secondPartyForm">
+                                <label class="col-sm-2 control-label">合同乙方<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="secondParty" id="secondParty">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option th:value="${secondParty.id}" th:text="${secondParty.name}" th:each="secondParty:${secondPartyList}"></option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
                             <div class="form-group" id="signDayForm">
                                 <label class="col-sm-2 control-label">合同签署日期<span
-                                    style="color:#ed5565;">*</span></label>
+                                        style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
                                     <input id="signDay" name="signDay" type="text" readonly="readonly" th:value="${contract}?${contract.signDay}"
-                                                             class="form-control" maxlength="200" />
+                                           class="form-control" maxlength="200" style="cursor:pointer;"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            
+
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="nameForm">
-                                <label class="col-sm-2 control-label">合同名称<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="projectNameForm">
+                                <label class="col-sm-2 control-label">项目名称<span
+                                        style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <input id="name" name="name" type="text" th:value="${contract}?${contract.name}"
-                                                             class="form-control" maxlength="200" />
+                                    <input id="projectName" name="projectName" placeholder="请选择项目名称" readonly="readonly" type="text" th:value="${contract}?${contract.projectName}"
+                                           class="form-control" maxlength="200" onclick="projectClick();" style="cursor:pointer;"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            
+
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="codeForm">
                                 <label class="col-sm-2 control-label">合同编号<span
@@ -79,16 +135,7 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="projectNameForm">
-                                <label class="col-sm-2 control-label">项目名称<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4">
-                                    <input id="projectName" name="projectName" placeholder="请选择项目名称" readonly="readonly" type="text" th:value="${contract}?${contract.projectName}"
-                                                             class="form-control" maxlength="200" onclick="projectClick();" style="cursor:pointer;"/>
-                                </div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
+
                             
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="campaignIdForm">
@@ -106,7 +153,7 @@
                                 <label class="col-sm-2 control-label">展位号<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <input id="exhibitionNumber" name="exhibitionNumber" type="number" th:value="${contract}?${contract.exhibitionNumber}"
+                                    <input id="exhibitionNumber" name="exhibitionNumber" type="text" th:value="${contract}?${contract.exhibitionNumber}"
                                                              class="form-control"  oninput="if(value.length>30)value=value.slice(0,0)"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -133,23 +180,7 @@
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="categoryForm">
-                                <label class="col-sm-2 control-label">合同分类<span
-                                        style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4">
-                                    <select class="form-control m-b" name="category" id="category" onchange="categoryClick();">
-                                        <option value="" selected="selected">未选择</option>
-                                        <option value="C">销售合同</option>
-                                        <option value="S">供应商合同-主办方</option>
-                                        <option value="D">供应商合同-设计师</option>
-                                        <option value="F">供应商合同-工厂</option>
-                                        <option value="P">供应商合同-项目经理</option>
-                                    </select>
-                                </div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
+
                             
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="taxForm">
@@ -157,7 +188,7 @@
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
                                     <input id="tax" name="tax" type="text" th:value="${contract}?${contract.tax}"
-                                                             class="form-control" maxlength="200" />
+                                                             class="form-control" maxlength="200" readonly="readonly" />
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
@@ -221,35 +252,12 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="firstPartyForm">
-                                <label class="col-sm-2 control-label">合同甲方<span
-                                        style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4">
-                                    <select class="form-control m-b" name="firstParty" id="firstParty">
-                                        <option value="" selected="selected">未选择</option>
-                                        <option th:value="${firstParty.id}" th:text="${firstParty.name}" th:each="firstParty:${firstPartyList}"></option>
-                                    </select>
-                                </div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
-                            
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="secondPartyForm">
-                                <label class="col-sm-2 control-label">合同乙方<span
-                                        style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4">
-                                    <select class="form-control m-b" name="secondParty" id="secondParty">
-                                        <option value="" selected="selected">未选择</option>
-                                        <option th:value="${secondParty.id}" th:text="${secondParty.name}" th:each="secondParty:${secondPartyList}"></option>
-                                    </select>
-                                </div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
+
 
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="ledgerInputForm">
-                                <label class="col-sm-2 control-label">台账</label>
+                                <label class="col-sm-2 control-label">台账<span
+                                        style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
                                     <input id="ledgerInput" name="ledgerInput" type="text" th:value="${contract}?${contract.ledgerListInput}"
                                            class="form-control"  onclick="ledgerClick()" readonly="readonly" placeholder="请填写台账" style="cursor:pointer;"/>
@@ -612,7 +620,7 @@
             validateSelect('campaignId', 'campaignId', 'validateCampaignId');
             validate('exhibitionNumber', 'exhibitionNumber', 'validateExhibitionNumber');
             validate('area', 'area', 'validateArea');
-            validate('amount', 'amount', 'validatAemount');
+//            validate('amount', 'amount', 'validatAemount');
             validateSelect('category', 'category', 'validatCategory');
             validate('tax', 'tax', 'validatTax');
             validateSelect('contractPaymentMethod', 'contractPaymentMethod', 'validatContractPaymentMethod');
@@ -656,7 +664,48 @@
                     $(this).attr("selected",true);
                 }
             });
-
+            // 根据合同总价计算税
+            $("#amount").koala( {
+                delay: 300,
+                keyup: function(event){
+                    debugger
+//                    var amount = $("#amount").val();
+                    var param = {};
+                    param["amount"] = $("#amount").val();
+                    vAmount("amount",param,"validatAemount");
+                }
+            });
+            function vAmount(id,param,url){
+                $.ajax({
+                    url : url,
+                    async : true,
+                    type : 'GET',
+                    data : param,
+                    contentType: 'application/json; charset=utf-8',
+                    dataType : 'json',
+                    timeout : 300000,
+                    beforeSend: function () {
+                        //spinner.spin(target);
+                    },
+                    error : function(result) {
+//                            alert("通信错误！");
+                    },
+                    success : function(data) {
+                        if(data.res == 0){
+                            $("#"+id+"Form").addClass("has-error")
+                            $("#"+id).parent().next().html(data.txt);
+                            $("#tax").val("");
+                        }else{
+                            $("#"+id+"Form").removeClass("has-error")
+                            $("#"+id).parent().next().html("<i class='fa fa-check' style='color:#21b384;'/>");
+                            var amoutval = $("#"+id).val();
+                            var res = Math.round(amoutval * 0.06 *100)/100;
+                            $("#tax").val(res);
+                            $("#code").change();
+                        }
+                    }
+                });
+            }
         })
 
         function datepickerInit(id,format) {
@@ -1142,7 +1191,7 @@
             var p = {
                 id: $("#id").val().trim(),
                 signDay: $("#signDay").val().trim(),
-                name: $("#name").val().trim(),
+//                name: $("#name").val().trim(),
                 code: $("#code").val().trim(),
                 projectId: $("#projectId").attr("valueSetID"),
                 projectName:$("#projectName").val(),

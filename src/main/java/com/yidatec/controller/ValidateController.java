@@ -516,7 +516,7 @@ public class ValidateController extends BaseController{
     @RequestMapping(value = "/validatAemount")
     public String validatAemount(@RequestParam(value="amount") String amount){
         if(amount == null || amount.trim().isEmpty()){
-            return getErrorJson("必须输入合同工总价");
+            return getErrorJson("必须输入合同总价");
         }
         boolean res2 = amount.matches("^[0-9]+(.[0-9]{2})?$");
         if(!res2)

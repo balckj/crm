@@ -125,8 +125,8 @@
                     saveBtnda.start();
                 },
                 error: function (result) {
-                    saveBtnda.stop();
                     swal("操作失败", "通信错误!", "error");
+                    saveBtnda.stop();
                 },
                 success: function (data) {
                     if (data.res == undefined) {

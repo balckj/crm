@@ -367,7 +367,6 @@
                 +" </div>"
                 +" <div class='col-sm-1'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div></div>";
             $("#contactList").append(row)
-            debugger;
             validate("name"+total,"name","validateUsername");
             validate2('mobilePhone'+total, 'mobile', {isEdit: false}, 'validateMobile');
             validate('email'+total, 'email', 'validateEmail');
@@ -483,7 +482,7 @@
                     $(this).attr("selected",true);
                 }
             });
-            debugger;
+
             var total = $("#contactList").children().length;
             for (var i=0;i<total;i++)
             {
@@ -547,7 +546,7 @@
                 state: $("input[name='state']:checked").val()
 //                state: $("input[name='state']:checked").val(),
             };
-            debugger;
+
             var a = JSON.stringify(p);
             $.ajax({
                 url: 'saveCustomer',
@@ -561,8 +560,8 @@
                     saveBtnda.start();
                 },
                 error: function (result) {
-                    saveBtnda.stop();
                     swal("操作失败", "通信错误!", "error");
+                    saveBtnda.stop();
                 },
                 success: function (data) {
                     if (data.res == undefined) {

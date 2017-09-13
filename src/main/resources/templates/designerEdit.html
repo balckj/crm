@@ -688,7 +688,7 @@
                         //上传文件时触发的事件
                     });
                     this.on("success", function (file, response) {
-                        debugger
+
 
                         //单个上传完成后触发的方法
                         file.serverName = response.url;
@@ -705,7 +705,7 @@
 //                        $("#caseCount").val(casephoto.length);
                     });
                     this.on("removedfile", function (file) {
-                        debugger
+
                         if(file.serverName==undefined){
                             file.serverName=file.name;
                         }
@@ -762,10 +762,10 @@
         function savedesigner(btn) {
             saveBtnda = Ladda.create(btn);
 
-            debugger
+
             $("#caseList").children().each(function(index){
                 caseName = $(this).find("input[name='caseName']").val();
-                debugger
+
                 if(casephoto[index] && casephoto[index] != undefined){
                     casePhoto = casephoto[index].toString();
                     caseList.push({

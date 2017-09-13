@@ -67,7 +67,7 @@
                                 <label class="col-sm-2 control-label">国家<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="country" id="country">
+                                    <select class="form-control " name="country" id="country">
                                         <option value="" selected="selected">未选择</option>
                                         <option>option 1</option>
                                         <option>option 2</option>
@@ -82,7 +82,7 @@
                                 <label class="col-sm-2 control-label">省<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="province" id="province" disabled="disabled">
+                                    <select class="form-control " name="province" id="province" disabled="disabled">
                                         <option value="" selected="selected">未选择</option>
                                     </select>
                                 </div>
@@ -93,7 +93,7 @@
                                 <label class="col-sm-2 control-label">城市<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="city" id="city" disabled="disabled">
+                                    <select class="form-control " name="city" id="city" disabled="disabled">
                                         <option value="" selected="selected">未选择</option>
                                     </select>
                                 </div>
@@ -104,7 +104,7 @@
                                 <label class="col-sm-2 control-label">区域<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="region" id="region" disabled="disabled">
+                                    <select class="form-control " name="region" id="region" disabled="disabled">
                                         <option value="" selected="selected">未选择</option>
                                     </select>
                                 </div>
@@ -122,7 +122,7 @@
                                 <label class="col-sm-2 control-label">展馆<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="exhibitioHall" id="exhibitioHall">
+                                    <select class="form-control " name="exhibitioHall" id="exhibitioHall">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${exhibitioHall.id}" th:text="${exhibitioHall.name}" th:each="exhibitioHall:${exhibitioHallList}"></option>
                                     </select>
@@ -134,7 +134,7 @@
                                 <label class="col-sm-2 control-label">主办方<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="sponsor" id="sponsor">
+                                    <select class="form-control " name="sponsor" id="sponsor">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${customerList.id}" th:text="${customerList.name}" th:each="customerList:${customerList}"></option>
                                     </select>

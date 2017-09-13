@@ -79,7 +79,7 @@
                                 <label class="col-sm-2 control-label">国家<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b location" name="country" id="country">
+                                    <select class="form-control  location" name="country" id="country">
 
                                     </select>
                                 </div>
@@ -89,7 +89,7 @@
                             <div class="form-group" id="provinceForm">
                                 <label class="col-sm-2 control-label">省</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b location" name="province" id="province" disabled="disabled">
+                                    <select class="form-control  location" name="province" id="province" disabled="disabled">
 
                                     </select>
                                 </div>
@@ -99,7 +99,7 @@
                             <div class="form-group" id="cityForm">
                                 <label class="col-sm-2 control-label">城市</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b location" name="city" id="city" disabled="disabled">
+                                    <select class="form-control  location" name="city" id="city" disabled="disabled">
 
                                     </select>
                                 </div>
@@ -109,7 +109,7 @@
                             <div class="form-group" id="regionForm">
                                 <label class="col-sm-2 control-label">区域</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="region" id="region" disabled="disabled">
+                                    <select class="form-control " name="region" id="region" disabled="disabled">
 
                                     </select>
                                 </div>
@@ -120,7 +120,7 @@
                             <div class="form-group" id="hobbyForm">
                                 <label class="col-sm-2 control-label">兴趣爱好</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="hobby" id="hobby" multiple="multiple">
+                                    <select class="form-control " name="hobby" id="hobby" multiple="multiple">
                                         <option th:value="${hobby.id}" th:text="${hobby.value}" th:each="hobby:${hobbyList}"></option>
                                     </select>
                                 </div>
@@ -131,7 +131,7 @@
                             <div class="form-group" id="campaignNameForm">
                                 <label class="col-sm-2 control-label">参加的活动</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="campaignName" id="campaignName" multiple="multiple">
+                                    <select class="form-control " name="campaignName" id="campaignName" multiple="multiple">
                                         <option th:value="${campaign.id}" th:text="${campaign.name}" th:each="campaign:${campaignList}"></option>
                                     </select>
                                 </div>

@@ -50,7 +50,7 @@
                                 <label class="col-sm-2 control-label">推荐人<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="referrer" id="referrer">
+                                    <select class="form-control " name="referrer" id="referrer">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${sale.id}" th:text="${sale.name}" th:each="sale:${saleList}"></option>
                                     </select>
@@ -113,7 +113,7 @@
                                 <label class="col-sm-2 control-label">英文水平<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="englishAbility" id="englishAbility">
+                                    <select class="form-control " name="englishAbility" id="englishAbility">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${englishAbility.id}" th:text="${englishAbility.value}" th:each="englishAbility:${englishAbilityList}"></option>
                                     </select>
@@ -125,7 +125,7 @@
                                 <label class="col-sm-2 control-label">国家<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b location" name="country" id="country">
+                                    <select class="form-control  location" name="country" id="country">
 
                                     </select>
                                 </div>
@@ -135,7 +135,7 @@
                             <div class="form-group" id="provinceForm">
                                 <label class="col-sm-2 control-label">省</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b location" name="province" id="province" disabled="disabled">
+                                    <select class="form-control  location" name="province" id="province" disabled="disabled">
 
                                     </select>
                                 </div>
@@ -145,7 +145,7 @@
                             <div class="form-group" id="cityForm">
                                 <label class="col-sm-2 control-label">城市</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b location" name="city" id="city" disabled="disabled">
+                                    <select class="form-control  location" name="city" id="city" disabled="disabled">
 
                                     </select>
                                 </div>
@@ -155,12 +155,13 @@
                             <div class="form-group" id="regionForm">
                                 <label class="col-sm-2 control-label">区域</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="region" id="region" disabled="disabled">
+                                    <select class="form-control " name="region" id="region" disabled="disabled">
 
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+                            <div class="hr-line-dashed"></div>
                             <div class="form-group" id="addressForm">
                                 <label class="col-sm-2 control-label">地址</label>
                                 <div class="col-sm-4"><input id="address" name="address" type="text"
@@ -197,7 +198,7 @@
                                 <label class="col-sm-2 control-label">擅长行业<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="goodAtIndustry" id="goodAtIndustry" multiple="multiple">
+                                    <select class="form-control " name="goodAtIndustry" id="goodAtIndustry" multiple="multiple">
                                         <option th:value="${goodAtIndustry.id}" th:text="${goodAtIndustry.value}" th:each="goodAtIndustry:${goodAtIndustryList}"></option>
                                     </select>
                                 </div>
@@ -208,7 +209,7 @@
                                 <label class="col-sm-2 control-label">擅长面积<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="goodAtArea" id="goodAtArea">
+                                    <select class="form-control " name="goodAtArea" id="goodAtArea">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${goodAtArea.id}" th:text="${goodAtArea.value}" th:each="goodAtArea:${goodAtAreaList}"></option>
                                     </select>

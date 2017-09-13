@@ -62,7 +62,7 @@
                             <div class="form-group" id="referrerForm"><label class="col-sm-2 control-label">推荐人<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="referrer" id="referrer">
+                                    <select class="form-control " name="referrer" id="referrer">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${sale.id}" th:text="${sale.name}" th:each="sale:${saleList}"></option>
                                     </select>
@@ -204,7 +204,7 @@
                                 <label class="col-sm-2 control-label">国家<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="country" id="country">
+                                    <select class="form-control " name="country" id="country">
                                         <option value="" selected="selected">未选择</option>
                                     </select>
                                 </div>
@@ -215,7 +215,7 @@
                                 <label class="col-sm-2 control-label">省<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="province" id="province">
+                                    <select class="form-control " name="province" id="province">
                                         <option value="" selected="selected">未选择</option>
                                     </select>
                                 </div>
@@ -226,7 +226,7 @@
                                 <label class="col-sm-2 control-label">城市<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="city" id="city">
+                                    <select class="form-control " name="city" id="city">
                                         <option value="" selected="selected">未选择</option>
                                     </select>
                                 </div>
@@ -237,7 +237,7 @@
                                 <label class="col-sm-2 control-label">区域<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="region" id="region">
+                                    <select class="form-control " name="region" id="region">
                                         <option value="" selected="selected">未选择</option>
                                     </select>
                                 </div>
@@ -282,7 +282,7 @@
                             <div class="form-group" id="taxpayerTypeForm"><label class="col-sm-2 control-label">纳税人身份<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="taxpayerType" id="taxpayerType">
+                                    <select class="form-control " name="taxpayerType" id="taxpayerType">
                                         <option value="" selected="selected">未选择</option>
                                         <option>一般纳税人</option>
                                         <option>小规模纳税人</option>
@@ -304,7 +304,7 @@
                                 <label class="col-sm-2 control-label">擅长行业<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b select2_demo_2" name="goodAtIndustry" id="goodAtIndustry"  multiple="multiple">
+                                    <select class="form-control  select2_demo_2" name="goodAtIndustry" id="goodAtIndustry"  multiple="multiple">
                                         <option th:value="${goodAtIndustry.id}" th:text="${goodAtIndustry.value}" th:each="goodAtIndustry:${goodAtIndustryList}"></option>
                                     </select>
                                 </div>
@@ -315,7 +315,7 @@
                                 <label class="col-sm-2 control-label">擅长材料<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b select2_demo_2" name="goodAtMaterial" id="goodAtMaterial"  multiple="multiple">
+                                    <select class="form-control  select2_demo_2" name="goodAtMaterial" id="goodAtMaterial"  multiple="multiple">
                                         <option th:value="${goodAtMaterial.id}" th:text="${goodAtMaterial.value}" th:each="goodAtMaterial:${goodAtMaterialList}"></option>
                                     </select>
                                 </div>
@@ -326,7 +326,7 @@
                                 <label class="col-sm-2 control-label">擅长面积<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="goodAtArea" id="goodAtArea">
+                                    <select class="form-control " name="goodAtArea" id="goodAtArea">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${goodAtArea.id}" th:text="${goodAtArea.value}" th:each="goodAtArea:${goodAtAreaList}"></option>
                                     </select>
@@ -338,7 +338,7 @@
                                 <label class="col-sm-2 control-label">平台等级<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="platformLevel" id="platformLevel">
+                                    <select class="form-control " name="platformLevel" id="platformLevel">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${levelList.value}" th:text="${levelList.value}" th:each="levelList:${levelList}"></option>
                                     </select>

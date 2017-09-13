@@ -374,7 +374,7 @@
                 +" </div>"
                 +" <div class='col-sm-1'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div></div>";
             $("#contactList").append(row)
-            debugger;
+
             validate("name"+total,"name","validateUsername");
             validate2('mobilePhone'+total, 'mobile', {isEdit: false}, 'validateMobile');
             validate('email'+total, 'email', 'validateEmail');

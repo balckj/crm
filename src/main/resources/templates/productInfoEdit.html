@@ -41,7 +41,7 @@
                                 <label class="col-sm-2 control-label">产品分类<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="category" id="category">
+                                    <select class="form-control " name="category" id="category">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${category.id}" th:text="${category.value}" th:each="category:${categoryList}"></option>
                                     </select>
@@ -76,7 +76,7 @@
                                 <label class="col-sm-2 control-label">单位<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="unit" id="unit">
+                                    <select class="form-control " name="unit" id="unit">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${unit.id}" th:text="${unit.value}" th:each="unit:${unitList}"></option>
                                     </select>
@@ -89,7 +89,7 @@
                                 <label class="col-sm-2 control-label">方式<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="way" id="way">
+                                    <select class="form-control " name="way" id="way">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${way.id}" th:text="${way.value}" th:each="way:${wayList}"></option>
                                     </select>

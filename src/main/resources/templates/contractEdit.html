@@ -54,7 +54,7 @@
                                 <label class="col-sm-2 control-label">合同分类<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="category" id="category" onchange="categoryClick();">
+                                    <select class="form-control " name="category" id="category" onchange="categoryClick();">
                                         <option value="" selected="selected">未选择</option>
                                         <option value="C">销售合同</option>
                                         <option value="S">供应商合同-主办方</option>
@@ -71,7 +71,7 @@
                                 <label class="col-sm-2 control-label">合同甲方<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="firstParty" id="firstParty">
+                                    <select class="form-control " name="firstParty" id="firstParty">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${firstParty.id}" th:text="${firstParty.name}" th:each="firstParty:${firstPartyList}"></option>
                                     </select>
@@ -84,7 +84,7 @@
                                 <label class="col-sm-2 control-label">合同乙方<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="secondParty" id="secondParty">
+                                    <select class="form-control " name="secondParty" id="secondParty">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${secondParty.id}" th:text="${secondParty.name}" th:each="secondParty:${secondPartyList}"></option>
                                     </select>
@@ -198,7 +198,7 @@
                                 <label class="col-sm-2 control-label">付款方式
                                     <span style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="contractPaymentMethod" id="contractPaymentMethod">
+                                    <select class="form-control " name="contractPaymentMethod" id="contractPaymentMethod">
                                         <option value="" selected="selected">未选择</option>
                                         <option value="5.5">5.5</option>
                                         <option value="7.3">7.3</option>

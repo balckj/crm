@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yidatec.util.CustomLocalDateTime2Serializer;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -20,11 +21,11 @@ public class Activity extends BaseModel{
     private String name;
     @NotNull(message = "必须输入开始时间", groups = { })
     @JsonSerialize(using = CustomLocalDateTime2Serializer.class)
-//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startDate;
     @NotNull(message = "必须输入结束时间", groups = { })
     @JsonSerialize(using = CustomLocalDateTime2Serializer.class)
-//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endDate;
     @NotBlank(message = "必须选择国家", groups = { })
     private String country;

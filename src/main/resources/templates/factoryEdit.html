@@ -265,7 +265,7 @@
                             <div class="form-group" id="photoForm">
                                 <label class="col-sm-2 control-label">厂房照片<span
                                         style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4 dropzone" id="photo">
+                                <div class="col-sm-6 dropzone" id="photo">
                                     <div class="am-text-success dz-message row" >
                                     <!--将文件拖拽到此处或点此打开文件管理器选择文件-->
                                     </div>
@@ -423,19 +423,19 @@
                             <div class="form-group"><label class="col-sm-2 control-label">状态</label>
                                 <div class="col-sm-4">
                                     <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s1" value="1" th:checked="${factory}?${factory.state eq 1}:'true'"/>
+                                        <input type="radio" name="state" id="s1" value="1" th:checked="${factory.state}?${factory.state eq 1}:'true'"/>
                                         <label for="s1">
                                             可用
                                         </label>
                                     </div>
                                     <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s2" value="2" th:checked="${factory}?${factory.state eq 2}"/>
+                                        <input type="radio" name="state" id="s2" value="2" th:checked="${factory.state}?${factory.state eq 2}"/>
                                         <label for="s2">
                                             锁定
                                         </label>
                                     </div>
                                     <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s3" value="3" th:checked="${factory}?${factory.state eq 3}"/>
+                                        <input type="radio" name="state" id="s3" value="3" th:checked="${factory.state}?${factory.state eq 3}"/>
                                         <label for="s3">
                                             禁用
                                         </label>
@@ -888,15 +888,36 @@
             for (var i=0;i<total;i++){
                 loadCasePhoto(i);
             }
+
+            var contacttotal = $("#contactList").children().length;
+            for (var i=0;i<contacttotal;i++)
+            {
+                validate("name"+i,"name","validateUsername");
+                validate2('mobilePhone'+i, 'mobile', {isEdit: false}, 'validateMobile');
+                validate('email'+i, 'email', 'validateEmail');
+            }
+
+            validateSelect('referrer', 'referrer', 'validateReferrer');
+            validate('name', 'name', 'validateCompanyName');
+            validate('director', 'director', 'validateDirector');
+            validateSelect('country', 'country', 'validateCountry');
+            validateSelect('province', 'province', 'validateProvince');
+            validateSelect('city', 'city', 'validateCity');
+            validateSelect('region', 'region', 'validateRegion');
+            validate('address', 'address', 'validateAddress');
+            validate('factoryArea', 'area', 'validateArea');
+            validateSelect('taxpayerType', 'taxpayerType', 'validateTaxpayerType');
+            validateMultipleSelect('goodAtIndustry', 'goodAtIndustry', 'validateGoodAtIndustry');
+            validateSelect('goodAtArea', 'goodAtArea', 'validateGoodAtArea');
+            validateMultipleSelect('goodAtMaterial', 'goodAtMaterial', 'validateGoodAtMaterial');
+            validateSelect('platformLevel', 'platformLevel', 'validatePlatformLevel');
+            validate('caseName0', 'caseName', 'validateCaseName');
+
+            validateDiv('photo','photo','validatePhoto');
+            validateDiv('casePhoto0','casePhoto','validateCasePhoto');
         });
 
-        var contacttotal = $("#contactList").children().length;
-        for (var i=0;i<contacttotal;i++)
-        {
-            validate("name"+i,"name","validateUsername");
-            validate2('mobilePhone'+i, 'mobile', {isEdit: false}, 'validateMobile');
-            validate('email'+i, 'email', 'validateEmail');
-        }
+
 
 
         function loadCasePhoto(index){
@@ -1118,24 +1139,7 @@
             format: "yyyy-mm-dd",
             language: 'cn',
         });
-        validateSelect('referrer', 'referrer', 'validateReferrer');
-        validate('name', 'name', 'validateCompanyName');
-        validate('director', 'director', 'validateDirector');
-        validateSelect('country', 'country', 'validateCountry');
-        validateSelect('province', 'province', 'validateProvince');
-        validateSelect('city', 'city', 'validateCity');
-        validateSelect('region', 'region', 'validateRegion');
-        validate('address', 'address', 'validateAddress');
-        validate('factoryArea', 'area', 'validateArea');
-        validateSelect('taxpayerType', 'taxpayerType', 'validateTaxpayerType');
-        validateMultipleSelect('goodAtIndustry', 'goodAtIndustry', 'validateGoodAtIndustry');
-        validateMultipleSelect('goodAtArea', 'goodAtArea', 'validateGoodAtArea');
-        validateMultipleSelect('goodAtMaterial', 'goodAtMaterial', 'validateGoodAtMaterial');
-        validateSelect('platformLevel', 'platformLevel', 'validatePlatformLevel');
-        validate('caseName0', 'caseName', 'validateCaseName');
 
-        validateDiv('photo','photo','validatePhoto');
-        validateDiv('casePhoto0','casePhoto','validateCasePhoto');
 
         var saveBtnda;
         function saveUser(btn) {

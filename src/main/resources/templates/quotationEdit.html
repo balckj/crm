@@ -305,7 +305,7 @@
         function pageInit(){
             function mypricecheck(value){
                 if(value==""||value==null) {
-                    return [false,"工作内容必填项",""];
+                    return [false,"描述必填项",""];
                 }else{
                     return [true,"",""];
                 }
@@ -319,7 +319,7 @@
                 },
                 width:600,
                 height: "100%",
-                colNames : ['操作','产品ID','产品名称', '产品分类', '单位', '单价', '数量', '工作内容' ],
+                colNames : ['操作','产品ID','产品名称', '产品分类', '单位','数量','单价', '描述' ],
                 colModel : [
                     {name:'act',index:'act',width:50,search:false,sortable:false,editable:false},
 //                    {name : 'id',index : 'id',width : 60,sorttype : "int",hidden:true},
@@ -332,10 +332,10 @@
                     },
                     {name : 'category',index : 'category',align : "right",width : 100,  edittype:'text',},
                     {name : 'unit',index : 'unit',width : 80,align : "right",editable : false},
-                    {name : 'unitPrice',index : 'unitPrice',width :150,align : "right",editable : false},
                     {name : 'count',index : 'count',width : 80,align : "right",editable : true,
-                         editrules: {edithidden:true,required:true,number:true,minValue:1}
+                        editrules: {edithidden:true,required:true,number:true,minValue:1}
                     },
+                    {name : 'unitPrice',index : 'unitPrice',width :150,align : "right",editable : false},
                     {name : 'workContent',index : 'workContent',width : 80,align : "right",editable : true,
 //                        editrules:{custom:true, custom_func:mypricecheck}
                         editrules: {edithidden:true,required:true}

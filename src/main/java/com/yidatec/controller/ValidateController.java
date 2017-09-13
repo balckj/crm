@@ -208,7 +208,7 @@ public class ValidateController extends BaseController{
 
     @RequestMapping(value = "/validateCountry")
     public String validateCountry(@RequestParam(value="country") String country){
-        if(country == "未选择"){
+        if("未选择".equals(country)){
             return getErrorJson("必须选择国家");
         }
         return getSuccessJson(null);
@@ -216,7 +216,7 @@ public class ValidateController extends BaseController{
 
     @RequestMapping(value = "/validateProvince")
     public String validateProvince(@RequestParam(value="province") String province){
-        if(province == "未选择" ){
+        if("未选择".equals(province) ){
             return getErrorJson("必须选择省份");
         }
         return getSuccessJson(null);
@@ -224,7 +224,7 @@ public class ValidateController extends BaseController{
 
     @RequestMapping(value = "/validateCity")
     public String validateCity(@RequestParam(value="city") String city){
-        if(city == "未选择"){
+        if("未选择".equals(city)){
             return getErrorJson("必须选择城市");
         }
         return getSuccessJson(null);
@@ -232,7 +232,7 @@ public class ValidateController extends BaseController{
 
     @RequestMapping(value = "/validateRegion")
     public String validateRegion(@RequestParam(value="region") String region){
-        if(region == "未选择"){
+        if("未选择".equals(region)){
             return getErrorJson("必须选择区域");
         }
         return getSuccessJson(null);

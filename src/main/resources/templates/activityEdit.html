@@ -68,7 +68,7 @@
                                 <label class="col-sm-2 control-label">国家<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="country" id="country">
+                                    <select class="form-control " name="country" id="country">
                                         <option value="" selected="selected">未选择</option>
                                         <option>option 1</option>
                                         <option>option 2</option>
@@ -135,7 +135,7 @@
                                 <label class="col-sm-2 control-label">主办方<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="sponsor" id="sponsor">
+                                    <select class="form-control " name="sponsor" id="sponsor">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${customerList.id}" th:text="${customerList.name}" th:each="customerList:${customerList}"></option>
                                     </select>

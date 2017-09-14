@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,14 +29,24 @@ public class DictionaryService {
 
 	public Map<String,Dictionary> ALL_DICTIONARY_CACHE = null;
 
+	public Map<String,List<Dictionary>> CODE_MAP = null;
+
 //	@PostConstruct
 	private void loadAllDictionary(){
 		if (ALL_DICTIONARY_CACHE == null){
 			ALL_DICTIONARY_CACHE = new HashMap<>();
+			CODE_MAP = new HashMap<String,List<Dictionary>>();
 			List<Dictionary> dictionaryList = dictionaryMapper.findDictionaryAll();
 			for (Dictionary d: dictionaryList) {
 				ALL_DICTIONARY_CACHE.put(d.getId(),d);
+				List<Dictionary> dicList = CODE_MAP.get(d.getCode());
+				if(dicList == null){
+					dicList = new ArrayList<Dictionary>();
+					CODE_MAP.put(d.getCode(),dicList);
+				}
+				dicList.add(d);
 			}
+
 		}
 	}
 
@@ -43,6 +54,8 @@ public class DictionaryService {
 		if(ALL_DICTIONARY_CACHE != null){
 			ALL_DICTIONARY_CACHE.clear();
 			ALL_DICTIONARY_CACHE = null;
+			CODE_MAP.clear();
+			CODE_MAP = null;
 		}
 		loadAllDictionary();
 	}
@@ -54,7 +67,8 @@ public class DictionaryService {
 	}
 
 	public List<Dictionary> selectDictionaryListByCodeCommon(String code){
-		return  dictionaryMapper.selectDictionaryListByCodeCommon(code);
+		loadAllDictionary();
+		return  CODE_MAP.get(code);
 	}
 
 	/**

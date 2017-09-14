@@ -568,28 +568,24 @@
                     }
                 }
             }
-            var selectdesignersValue = $("#selectdesignersValue").val();
+            var selectdesignersValue = $("#selectdesignersValue").val().replace(/\s+/g,"");
             if(selectdesignersValue !=""||selectdesignersValue !=null){
-                var list = selectdesignersValue.substring(1,selectdesignersValue.length-1).replace(" ","").split(',');
+                var list = selectdesignersValue.substring(1,selectdesignersValue.length-1).split(',');
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){
                     setkey.push(list[i]);
                 }
                 $("#designerId").val(setkey).select2();
-            }else{
-//                $("#designerId").val(selectdesignersValue.substring(1,selectfactoriesValue.length-1)).trigger('change')
             }
 
-            var selectfactoriesValue = $("#selectfactoriesValue").val();
+            var selectfactoriesValue = $("#selectfactoriesValue").val().replace(/\s+/g,"");
             if(selectfactoriesValue !=""||selectfactoriesValue !=null){
-                var list = selectfactoriesValue.substring(1,selectfactoriesValue.length-1).replace(" ","").split(',');
+                var list = (selectfactoriesValue.substring(1,selectfactoriesValue.length-1)).split(',');
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){
                     setkey.push(list[i]);
                 }
                 $("#factoryId").val(setkey).trigger('change')
-            }else{
-//                $("#factoryId").val(selectfactoriesValue.substring(1,selectfactoriesValue.length-1)).trigger('change')
             }
 
             validate('name', 'projectName', 'validateProjectName');

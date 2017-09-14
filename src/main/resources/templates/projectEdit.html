@@ -575,7 +575,7 @@
                 for(var i= 0;i< list.length; i++){
                     setkey.push(list[i]);
                 }
-                $("#designerId").val(setkey).select2();
+                $("#designerId").val(setkey).trigger('change')
             }
 
             var selectfactoriesValue = $("#selectfactoriesValue").val().replace(/\s+/g,"");

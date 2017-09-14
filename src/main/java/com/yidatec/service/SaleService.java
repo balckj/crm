@@ -55,7 +55,7 @@ public class SaleService {
 	}
 
 	public List<User> selectSaleListforProject(UserVO userVO) {
-		Param param = paramService.findParam(Constants.DESIGNER_PARAM_ID);
+		Param param = paramService.findParam(Constants.SALE_PARAM_ID);
 		userVO.setParaRoleIDS(param.getValue());
 		return  roleMapper.selectSaleListALL(userVO);
 	}

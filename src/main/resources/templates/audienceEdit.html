@@ -261,29 +261,25 @@
             $("#hobby").select2({ maximumInputLength: 3 });
 
             var selectHobbyValue = $("#selectHobbyValue").val();
-            if(selectHobbyValue && selectHobbyValue.indexOf(",") > 0){
+            if(selectHobbyValue){
                 var list = selectHobbyValue.split(",");
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){
                     setkey.push(list[i]);
                 }
                 $("#hobby").val(setkey).trigger('change')
-            }else{
-                $("#hobby").val(selectHobbyValue)//.trigger('change')
             }
 
             $("#campaignName").select2({ maximumInputLength: 3 });
 
             var selectCampaignNameValue = $("#selectCampaignNameValue").val();
-            if(selectCampaignNameValue && selectCampaignNameValue.indexOf(",") > 0){
+            if(selectCampaignNameValue){
                 var list = selectCampaignNameValue.split(",");
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){
                     setkey.push(list[i]);
                 }
                 $("#campaignName").val(setkey).trigger('change')
-            }else{
-                $("#campaignName").val(selectCampaignNameValue)//.trigger('change')
             }
         })
         /*]]>*/

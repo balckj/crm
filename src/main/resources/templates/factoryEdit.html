@@ -857,27 +857,23 @@
 
 //            $("#goodAtIndustry").select2({ maximumInputLength: 3 });
             var selectGoodAtIndustryValue = $("#selectGoodAtIndustryValue").val();
-            if(selectGoodAtIndustryValue && selectGoodAtIndustryValue.indexOf(",") > 0){
+            if(selectGoodAtIndustryValue){
                 var list = selectGoodAtIndustryValue.split(",");
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){
                     setkey.push(list[i]);
                 }
                 $("#goodAtIndustry").val(setkey).trigger('change')
-            }else{
-                $("#goodAtIndustry").val(selectGoodAtIndustryValue).trigger('change')
             }
 
             var selectGoodAtMaterialValue = $("#selectGoodAtMaterialValue").val();
-            if(selectGoodAtMaterialValue && selectGoodAtMaterialValue.indexOf(",") > 0){
+            if(selectGoodAtMaterialValue){
                 var list = selectGoodAtMaterialValue.split(",");
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){
                     setkey.push(list[i]);
                 }
                 $("#goodAtMaterial").val(setkey).trigger('change')
-            }else{
-                $("#goodAtMaterial").val(selectGoodAtMaterialValue).trigger('change')
             }
 
 

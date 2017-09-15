@@ -13,6 +13,8 @@ public class ContractVO extends Contract{
     private String projectCode;
     private String campaignName;
 
+    private int ledgerCount;
+
     public Integer getDraw() {
         return draw;
     }
@@ -51,5 +53,13 @@ public class ContractVO extends Contract{
 
     public void setCampaignName(String campaignName) {
         this.campaignName = campaignName;
+    }
+
+    public int getLedgerCount() {
+        return ledgerCount;
+    }
+
+    public void setLedgerCount(int ledgerCount) {
+        this.ledgerCount = ledgerCount;
     }
 }

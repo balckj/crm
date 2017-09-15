@@ -638,7 +638,7 @@ public class ValidateController extends BaseController{
         if(paymentAmount == null || paymentAmount.trim().isEmpty()){
             return getErrorJson("必须输入付款金额");
         }
-        boolean res2 = paymentAmount.matches("^[0-9]+(.[0-9]{2})?$");
+        boolean res2 = paymentAmount.matches("^-?[0-9]+(.[0-9]{2})?$");
         if(!res2)
             if(!res2)
                 return getErrorJson("付款金额整数位不能超过18位,小数位必须是两位");

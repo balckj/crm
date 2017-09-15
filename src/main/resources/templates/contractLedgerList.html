@@ -1,0 +1,213 @@
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="ledgerModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog " style="width:95%;"  role="document">
+        <input type="hidden" name="updateFlg" id="updateFlg" th:value="${ledgerListFlg}"/>
+        <input type="hidden" name="ledgerListSize" id="ledgerListSize" th:value="${ledgerListSize}"/>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 >台账填写</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="form-group" style="overflow-y:scroll;height:300px;">
+
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <!--创建-->
+                                        <table th:unless="${ledgerListFlg}" class="table table-condensed" id="ledgerList">
+                                            <tr>
+                                                <td>
+                                                    <div id="moneyType0Form">
+                                                        <label class="control-label">款项类型<span
+                                                                style="color:#ed5565;">*</span></label>
+                                                        <div >
+                                                            <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="moneyType" id="moneyType0">
+                                                                <option value="" selected="selected">未选择</option>
+                                                                <option th:value="${moneyType.id}" th:text="${moneyType.value}" th:each="moneyType:${moneyTypeList}"></option>
+                                                            </select>
+                                                        </div>
+                                                        <label class=" control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div id="paymentMethod0Form">
+                                                        <label class="control-label">支付方式<span
+                                                                style="color:#ed5565;">*</span></label>
+                                                        <div>
+                                                            <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="paymentMethod" id="paymentMethod0">
+                                                                <option value="" selected="selected">未选择</option>
+                                                                <option th:value="${paymentMethod.id}" th:text="${paymentMethod.value}" th:each="paymentMethod:${paymentMethodList}"></option>
+                                                            </select>
+                                                        </div>
+                                                        <label class=" control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div id="costCenter0Form">
+                                                        <label class="control-label">成本中心<span
+                                                                style="color:#ed5565;">*</span></label>
+                                                        <div>
+                                                            <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="costCenter" id="costCenter0">
+                                                                <option value="" selected="selected">未选择</option>
+                                                                <option th:value="${costCenter.id}" th:text="${costCenter.value}" th:each="costCenter:${costCenterList}"></option>
+                                                            </select>
+                                                        </div>
+                                                        <label class=" control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div id="paymentTime0Form">
+                                                        <label class="control-label">付款时间<span
+                                                                style="color:#ed5565;">*</span></label>
+                                                        <div>
+                                                            <input type="text" name="paymentTime" id="paymentTime0" class="form-control input-sm" maxlength="50" readonly="readonly"/>
+                                                        </div>
+                                                        <label class="control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div id="paymentAmount0Form">
+                                                        <label class="control-label">付款金额<span
+                                                                style="color:#ed5565;">*</span></label>
+                                                        <div>
+                                                            <input type="text"  name="paymentAmount" id="paymentAmount0" class="form-control input-sm" oninput="if(value.length>18)value=value.slice(0,18)"/>
+                                                        </div>
+                                                        <label class="control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div id="operator0Form">
+                                                        <label class="control-label">经办人<span
+                                                                style="color:#ed5565;">*</span></label>
+                                                        <div>
+                                                            <input type="text" name="operator" id="operator0" class="form-control input-sm" maxlength="30"/>
+                                                        </div>
+                                                        <label class="control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div id="reasonForChange0Form">
+                                                        <label class="control-label">变更原因</label>
+                                                        <div>
+                                                            <input type="text" name="reasonForChange" id="reasonForChange0" class="form-control input-sm" maxlength="50"/>
+                                                        </div>
+                                                        <label class=" control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td >
+                                                    <button class="btn btn-primary btn-sm" type="button" style="width: 100%;margin-top: 23px;" onclick="add();">增&nbsp;&nbsp;加</button>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                        <!--编辑-->
+                                        <table th:if="${ledgerListFlg}" class="table table-condensed" id="ledgerList">
+                                            <tr th:each="ledger,ledgerListStat : ${ledgerList}">
+                                                <td>
+                                                    <div  th:attr="id='moneyType'+${ledgerListStat.index}+'Form'">
+                                                        <label class="control-label" th:if="${ledgerListStat.index == 0}">款项类型<span
+                                                                style="color:#ed5565;">*</span></label>
+                                                        <div >
+                                                            <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="moneyType" th:attr="id='moneyType'+${ledgerListStat.index}" >
+                                                                <option value="" th:if="${contract}?${contract.id}" selected="selected">未选择</option>
+                                                                <option value="" th:unless="${contract}?${contract.id}" >未选择</option>
+                                                                <option th:value="${moneyType.id}" th:text="${moneyType.value}" th:each="moneyType:${moneyTypeList}" th:selected="${moneyType.id==ledger.moneyType?'selected':'false'}"></option>
+                                                            </select>
+                                                        </div>
+                                                        <label class=" control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div th:attr="id='paymentMethod'+${ledgerListStat.index}+'Form'">
+                                                        <label class="control-label" th:if="${ledgerListStat.index == 0}">支付方式<span
+                                                                style="color:#ed5565;">*</span></label>
+                                                        <div>
+                                                            <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="paymentMethod" th:attr="id='paymentMethod'+${ledgerListStat.index}">
+                                                                <option value="" th:if="${contract}?${contract.id}" selected="selected">未选择</option>
+                                                                <option value="" th:unless="${contract}?${contract.id}" >未选择</option>
+                                                                <option th:value="${paymentMethod.id}" th:text="${paymentMethod.value}" th:each="paymentMethod:${paymentMethodList}" th:selected="${paymentMethod.id==ledger.paymentMethod?'selected':'false'}"></option>
+                                                            </select>
+                                                        </div>
+                                                        <label class=" control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div th:attr="id='costCenter'+${ledgerListStat.index}+'Form'">
+                                                        <label class="control-label" th:if="${ledgerListStat.index == 0}">成本中心<span
+                                                                style="color:#ed5565;">*</span></label>
+                                                        <div>
+                                                            <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="costCenter" th:attr="id='costCenter'+${ledgerListStat.index}">
+                                                                <option value="" th:if="${contract}?${contract.id}" selected="selected">未选择</option>
+                                                                <option value="" th:unless="${contract}?${contract.id}" >未选择</option>
+                                                                <option th:value="${costCenter.id}" th:text="${costCenter.value}" th:each="costCenter:${costCenterList}" th:selected="${costCenter.id==ledger.costCenter?'selected':'false'}"></option>
+                                                            </select>
+                                                        </div>
+                                                        <label class=" control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div th:attr="id='paymentTime'+${ledgerListStat.index}+'Form'">
+                                                        <label class="control-label" th:if="${ledgerListStat.index == 0}">付款时间<span
+                                                                style="color:#ed5565;">*</span></label>
+                                                        <div>
+                                                            <input type="text" name="paymentTime" th:attr="id='paymentTime'+${ledgerListStat.index}" th:value="${ledger}?${ledger.paymentTime}"
+                                                                   class="form-control input-sm" maxlength="50" readonly="readonly"/>
+                                                        </div>
+                                                        <label class="control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div th:attr="id='paymentAmount'+${ledgerListStat.index}+'Form'">
+                                                        <label class="control-label" th:if="${ledgerListStat.index == 0}">付款金额<span
+                                                                style="color:#ed5565;">*</span></label>
+                                                        <div>
+                                                            <input type="text"  name="paymentAmount" th:attr="id='paymentAmount'+${ledgerListStat.index}" th:value="${ledger}?${ledger.paymentAmount}"
+                                                                   class="form-control input-sm" oninput="if(value.length>18)value=value.slice(0,18)"/>
+                                                        </div>
+                                                        <label class="control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div th:attr="id='operator'+${ledgerListStat.index}+'Form'">
+                                                        <label class="control-label" th:if="${ledgerListStat.index == 0}">经办人<span
+                                                                style="color:#ed5565;">*</span></label>
+                                                        <div>
+                                                            <input type="text" name="operator" th:attr="id='operator'+${ledgerListStat.index}" th:value="${ledger}?${ledger.operator}"
+                                                                   class="form-control input-sm" maxlength="30"/>
+                                                        </div>
+                                                        <label class="control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div th:attr="id='reasonForChange'+${ledgerListStat.index}+'Form'">
+                                                        <label class="control-label" th:if="${ledgerListStat.index == 0}">变更原因</label>
+                                                        <div>
+                                                            <input type="text" name="reasonForChange" th:attr="id='reasonForChange'+${ledgerListStat.index}" th:value="${ledger}?${ledger.reasonForChange}"
+                                                                   class="form-control input-sm" maxlength="50"/>
+                                                        </div>
+                                                        <label class=" control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td >
+                                                    <button class="btn btn-primary btn-sm" th:if="${ledgerListStat.index == 0}" type="button" style="width: 100%;margin-top: 23px;" onclick="add();">增&nbsp;&nbsp;加</button>
+                                                    <button class="btn btn-primary btn-sm" th:unless="${ledgerListStat.index == 0}"  th:attr="onclick='delBtnData(this)'" type="button" style="width: 100%;">删&nbsp;&nbsp;除</button>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="removeLedgerInfo();">取消</button>
+                <button type="button" class="btn ladda-button btn-primary" onclick="saveLedger(this);"><span class="ladda-label">确定</span></button>
+            </div>
+        </div>
+    </div>
+</div>

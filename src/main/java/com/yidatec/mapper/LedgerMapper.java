@@ -25,10 +25,10 @@ public interface LedgerMapper {
     int deleteLedger(String contractId);
 
 
-    @Select("\tSELECT *,category as moneyType\n" +
-            "\tFROM T_LEDGER\n" +
-            "\tWHERE id\n" +
-            "\tIN (SELECT ledgerId FROM T_CONTRACT_LEDGER\n" +
-            "\tWHERE contractId = #{contractId})")
+    @Select("SELECT *,category as moneyType" +
+            " FROM T_LEDGER" +
+            " WHERE id" +
+            " IN (SELECT ledgerId FROM T_CONTRACT_LEDGER" +
+            " WHERE contractId = #{contractId}) order by modifyTime desc")
     List<LedgerVO> getLedgerList(String contractId);
 }

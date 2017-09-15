@@ -131,4 +131,5 @@ public class LedgerVO extends BaseModel {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+
 }

@@ -21,8 +21,8 @@ public class Contract extends BaseModel {
     @JsonSerialize(using = CustomLocalDateSerializer.class)
     private LocalDate signDay;
 
-    @NotBlank(message = "必须输入合同名称", groups = { })
-    @Length(max = 200, message = "合同名称最大不能超过200个字符", groups = { })
+//    @NotBlank(message = "必须输入合同名称", groups = { })
+//    @Length(max = 200, message = "合同名称最大不能超过200个字符", groups = { })
     private String name;
 
     @NotBlank(message = "必须输入合同编号", groups = { })
@@ -74,12 +74,12 @@ public class Contract extends BaseModel {
 
     private String remarks;
 
-    @NotNull(message = "必须输入台账", groups = {})
-    @Size(min=1,message = "必须输入台账")
-    private List<Ledger> ledgerListInput;
+//    @NotNull(message = "必须输入台账", groups = {})
+//    @Size(min=1,message = "必须输入台账")
+//    private List<Ledger> ledgerListInput;
 
-    @NotBlank(message = "必须输入台账", groups = { })
-    private String ledgerInput;
+//    @NotBlank(message = "必须输入台账", groups = { })
+//    private String ledgerInput;
 
     public LocalDate getSignDay() {
         return signDay;
@@ -233,19 +233,19 @@ public class Contract extends BaseModel {
         this.remarks = remarks;
     }
 
-    public List<Ledger> getLedgerListInput() {
-        return ledgerListInput;
-    }
-
-    public void setLedgerListInput(List<Ledger> ledgerListInput) {
-        this.ledgerListInput = ledgerListInput;
-    }
-
-    public String getLedgerInput() {
-        return ledgerInput;
-    }
-
-    public void setLedgerInput(String ledgerInput) {
-        this.ledgerInput = ledgerInput;
-    }
+//    public List<Ledger> getLedgerListInput() {
+//        return ledgerListInput;
+//    }
+//
+//    public void setLedgerListInput(List<Ledger> ledgerListInput) {
+//        this.ledgerListInput = ledgerListInput;
+//    }
+//
+//    public String getLedgerInput() {
+//        return ledgerInput;
+//    }
+//
+//    public void setLedgerInput(String ledgerInput) {
+//        this.ledgerInput = ledgerInput;
+//    }
 }

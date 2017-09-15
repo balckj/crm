@@ -29,13 +29,12 @@
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
         <div class="ibox-content m-b-sm border-bottom">
             <div class="row">
-
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label for="name" class="control-label">合同名称</label>
-                        <input type="text"  id="name" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
-                    </div>
-                </div>
+                <!--<div class="col-sm-2">-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="name" class="control-label">合同名称</label>-->
+                        <!--<input type="text"  id="name" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="code" class="control-label">合同编码</label>
@@ -172,14 +171,35 @@
             </div>
         </div>
     </div>
-    
+
+    <!--台账Modal-->
+    <input type="hidden" name="id" id="id"/>
+    <!-- Data picker -->
+    <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
+
+    <script th:src="@{jquery.koala.js}" type="text/javascript"></script>
+    <script th:src="@{me.js}" type="text/javascript"></script>
+
     <script th:inline="javascript">
         /*<![CDATA[*/
-        var hasEdit = [[${#authorization.url('/contractEdit')}]];
-        var hasCreate = [[${#authorization.url('/contractCreate')}]];
+        var hasCreate = [[${#authorization.url('/contractCreate')}]]; // 合同新建
 
+        var hasSeniorManagerEdit = [[${#authorization.url('/contractSeniorManagerEdit')}]];// 合同高级经理编辑权限
+        var hasSalesman = [[${#authorization.url('/contractSalesmanEdit')}]];// 合同业务编辑权限
+        var hasContractView = [[${#authorization.url('/contractContractView')}]];// 合同查看权限
+
+        var hasLedgerEdit = [[${#authorization.url('/ledgerEdit')}]];// 台账编辑权限
+        var hasLedgerView = [[${#authorization.url('/ledgerView')}]];// 台账查看权限
+
+        var hasLedgerDonwLoad = [[${#authorization.url('/ledgerDonwLoadEdit')}]]; // 台账下载
+
+        /***
+         *
+         * 检索相关
+         *
+         **/
         var ABTable = null;
         function ABTableInit() {
 
@@ -293,7 +313,7 @@
                         p.draw = d.draw;
                         p.length = d.length;
                         p.start = d.start;
-                        p.name = $('#name').val();
+//                        p.name = $('#name').val();
                         p.code = $('#code').val();
                         p.exhibitionNumber = $('#exhibitionNumber').val();
                         p.category = $('#category').val();
@@ -306,17 +326,51 @@
 
                 "columns": [
                     {
-                        "data": "id", "width": "80px",
+                        "data": "id", "width": "270px",
                         "render": function (data, type, row) {
-                            var u = '';
-                            if(hasEdit) {
-                                u = "contractEdit?id=" + row.id;
-                                u = '<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
+                            // 以下是合同相关
+                            var e = '';// 编辑（高级经理）
+                            if(hasSeniorManagerEdit) {
+                                e = "contractEdit?id=" + row.id;
+                                e = '<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + e + '\')" >编辑合同(高级经理)</a>';
                             }
-                            if(u == ''){
+                            var e2 = ''; // 编辑（业务员）
+                            if(hasSalesman) {
+                                e2 = "contractEdit?id=" + row.id;
+                                e2= '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + e2 + '\')" >编辑合同(业务员)</a>';
+                            }
+                            var v = '';// 查看合同
+                            if(hasContractView) {
+                                v = "contractView?id=" + row.id;
+                                v = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + v + '\')" >查看合同</a>';
+                            }
+                            // 以下是台账相关
+                            var el = '';// 编辑台账
+                            if(hasLedgerEdit) {
+                                var ledgerCount = row.ledgerCount;
+                                el =  row.id;
+                                if(ledgerCount == 0){
+                                    el = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + el + '\' ,\'ledgerEdit\',this)" >新建台账</a>';
+                                }else {
+                                    el = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + el + '\' ,\'ledgerEdit\',this)" >编辑台账</a>';
+                                }
+
+                            }
+
+                            var vl = '';// 查看台账
+                            if(hasLedgerView) {
+                                vl =  row.id;
+                                vl = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + vl + '\' ,\'ledgerView\',this)" >查看台账</a>';
+                            }
+                            var dl = '';// 台账下载
+                            if(hasLedgerDonwLoad) {
+                                dl =  row.id;
+                                dl = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:ledgerDonwLoad(\'' + dl + '\')" >台账下载</a>';
+                            }
+                            if(e == '' && v== '' && e2== ''&& el== ''&& vl== ''&& dl== ''){
                                 return '--'
                             }
-                            return u;
+                            return e + e2 + v + el+ vl+ dl;
 
                         },
                     },
@@ -418,6 +472,331 @@
                 }
             })
         });
+
+        /***
+         *
+         * 台账相关
+         *
+         **/
+        var format = "yyyy-mm-dd";
+        var updateFlg;
+        var ledgerListSize = $("#ledgerListSize").val();
+
+        var moneyTypeStr = "<option value=\"\" selected=\"selected\">未选择</option>";
+        var paymentMethodStr = "<option value=\"\" selected=\"selected\">未选择</option>";
+        var costCenterStr = "<option value=\"\" selected=\"selected\">未选择</option>";
+        var moneyTypeList = /*[[${moneyTypeList}]]*/;
+        if (moneyTypeList) {
+            for (var a= 0;a < moneyTypeList.length;a++) {
+                var moneyType = moneyTypeList[a];
+                moneyTypeStr += '<option value="'+moneyType.id+'">'+moneyType.value+'</option>';
+            }
+        }
+
+        var paymentMethodList = /*[[${paymentMethodList}]]*/;
+        if (paymentMethodList) {
+            for (var a= 0;a < paymentMethodList.length;a++) {
+                var paymentMethod = paymentMethodList[a];
+                paymentMethodStr += '<option value="'+paymentMethod.id+'">'+paymentMethod.value+'</option>';
+            }
+        }
+
+        var costCenterList = /*[[${costCenterList}]]*/;
+        if (costCenterList) {
+            for (var a= 0;a < costCenterList.length;a++) {
+                var costCenter = costCenterList[a];
+                costCenterStr += '<option value="'+costCenter.id+'">'+costCenter.value+'</option>';
+            }
+        }
+
+        function ledgerCheck(ledgerListSize) {
+            debugger
+            // create ledger check
+            if(ledgerListSize == 0) {
+                validateSelect('moneyType0', 'moneyType', 'validatMoneyType');
+                validateSelect('paymentMethod0' + i, 'paymentMethod', 'validatPaymentMethod');
+                validateSelect('costCenter0', 'costCenter', 'validatCostCenter');
+                validateSelect('paymentTime0', 'paymentTime', 'validatPaymentTime');
+                validate('paymentAmount0', 'paymentAmount', 'validatPaymentAmount');
+                datepickerInit('paymentTime0', format);
+                validate('operator0', 'operator', 'validatPerator');
+                if (updateFlg == "true") validate('reasonForChange0', 'reasonForChange', 'validatReasonForChange');
+            }else{
+                for (var i = 0; i < ledgerListSize; i++) {
+                    validateSelect('moneyType' + i, 'moneyType', 'validatMoneyType');
+                    validateSelect('paymentMethod' + i, 'paymentMethod', 'validatPaymentMethod');
+                    validateSelect('costCenter' + i, 'costCenter', 'validatCostCenter');
+                    validateSelect('paymentTime' + i, 'paymentTime', 'validatPaymentTime');
+                    validate('paymentAmount' + i, 'paymentAmount', 'validatPaymentAmount');
+                    datepickerInit('paymentTime' + i, format);
+                    validate('operator' + i, 'operator', 'validatPerator');
+                    if (updateFlg == "true") validate('reasonForChange' + i, 'reasonForChange', 'validatReasonForChange');
+                }
+            }
+        }
+
+        function datepickerInit(id,format) {
+            $('#'+id).datepicker({
+                startView: 1,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: format,
+                language: 'cn',
+            });
+        }
+        // 添加台账
+        function add() {
+            var number = $("#ledgerList tr").length;
+            var row ="<tr>\n" +
+                "      <td>\n" +
+                "          <div id=\"moneyType"+number+"Form\">\n" +
+                "              <div >\n" +
+                "                  <select class=\"form-control input-sm\" style=\"padding-top: 4px;width:95px;\" name=\"moneyType\" id=\"moneyType"+number+"\">\n" +
+                "                      "+ moneyTypeStr +
+                "                  </select>\n" +
+                "              </div>\n" +
+                "              <label class=\" control-label\" style=\"text-align: left\"></label>\n" +
+                "          </div>\n" +
+                "      </td>\n" +
+                "      <td>\n" +
+                "          <div id=\"paymentMethod"+number+"Form\">\n" +
+                "              <div>\n" +
+                "                  <select class=\"form-control input-sm\" style=\"padding-top: 4px;width:95px;\" name=\"paymentMethod\" id=\"paymentMethod"+number+"\">\n" +
+                "                      "+ paymentMethodStr +
+                "                  </select>\n" +
+                "              </div>\n" +
+                "              <label class=\" control-label\" style=\"text-align: left\"></label>\n" +
+                "          </div>\n" +
+                "      </td>\n" +
+                "      <td>\n" +
+                "          <div id=\"costCenter"+number+"Form\">\n" +
+                "              <div>\n" +
+                "                  <select class=\"form-control input-sm\" style=\"padding-top: 4px;width:95px;\" name=\"costCenter\" id=\"costCenter"+number+"\">\n" +
+                "                      "+ costCenterStr +
+                "                  </select>\n" +
+                "              </div>\n" +
+                "              <label class=\" control-label\" style=\"text-align: left\"></label>\n" +
+                "          </div>\n" +
+                "      </td>\n" +
+                "      <td>\n" +
+                "          <div id=\"paymentTime"+number+"Form\">\n" +
+                "              <div>\n" +
+                "                  <input type=\"text\" name=\"paymentTime\" id=\"paymentTime"+number+"\" class=\"form-control input-sm\" maxlength=\"50\" readonly=\"readonly\"/>\n" +
+                "              </div>\n" +
+                "              <label class=\"control-label\" style=\"text-align: left\"></label>\n" +
+                "          </div>\n" +
+                "      </td>\n" +
+                "      <td>\n" +
+                "          <div id=\"paymentAmount"+number+"Form\">\n" +
+                "              <div>\n" +
+                "                  <input type=\"text\"  name=\"paymentAmount\" id=\"paymentAmount"+number+"\" class=\"form-control input-sm\" oninput=\"if(value.length>18)value=value.slice(0,18)\"/>\n" +
+                "              </div>\n" +
+                "              <label class=\"control-label\" style=\"text-align: left\"></label>\n" +
+                "          </div>\n" +
+                "      </td>\n" +
+                "      <td>\n" +
+                "          <div id=\"operator"+number+"Form\">\n" +
+                "              <div>\n" +
+                "                  <input type=\"text\" name=\"operator\" id=\"operator"+number+"\" class=\"form-control input-sm\" maxlength=\"30\"/>\n" +
+                "              </div>\n" +
+                "              <label class=\"control-label\" style=\"text-align: left\"></label>\n" +
+                "          </div>\n" +
+                "      </td>\n" +
+                "      <td>\n" +
+                "          <div id=\"reasonForChange"+number+"Form\">\n" +
+                "              <div>\n" +
+                "                  <input type=\"text\" name=\"reasonForChange\" id=\"reasonForChange"+number+"\" class=\"form-control input-sm\" maxlength=\"50\"/>\n" +
+                "              </div>\n" +
+                "              <label class=\" control-label\" style=\"text-align: left\"></label>\n" +
+                "          </div>\n" +
+                "      </td>\n" +
+                "      <td >\n" +
+                "          <button class=\"btn btn-primary btn-sm\" onclick=\"delBtnData(this)\" type=\"button\" style=\"width: 100%;\" >删&nbsp;&nbsp;除</button>\n" +
+                "      </td>\n" +
+                "  </tr>";
+            $("#ledgerList").append(row);
+
+            validateSelect('moneyType'+number, 'moneyType', 'validatMoneyType');
+            validateSelect('paymentMethod'+number, 'paymentMethod', 'validatPaymentMethod');
+            validateSelect('costCenter'+number, 'costCenter', 'validatCostCenter');
+            validateSelect('paymentTime'+number, 'paymentTime', 'validatPaymentTime');
+            validate('paymentAmount'+number, 'paymentAmount', 'validatPaymentAmount');
+            datepickerInit('paymentTime'+number,format);
+            validate('operator'+number, 'operator', 'validatPerator');
+
+            if(updateFlg == "true") validate('reasonForChange'+number, 'reasonForChange', 'validatReasonForChange');
+            number++;
+
+        }
+
+        // 删除添加行
+        function delBtnData(obj){
+            $(obj).parent().parent().remove();
+            updateId();
+        }
+
+        // 更新添加台账Form和input的Id
+        function updateId() {
+            $("#ledgerList tr").each(function(index){
+                $(this).find($("div[id^='moneyType']")).attr("id","moneyType"+index+"Form");
+                $(this).find($("select[id^='moneyType']")).attr("id","moneyType"+index);
+
+                $(this).find($("div[id^='paymentMethod']")).attr("id","paymentMethod"+index+"Form");
+                $(this).find($("select[id^='paymentMethod']")).attr("id","paymentMethod"+index);
+
+                $(this).find($("div[id^='costCenter']")).attr("id","costCenter"+index+"Form");
+                $(this).find($("select[id^='costCenter']")).attr("id","costCenter"+index);
+
+                $(this).find($("div[id^='paymentTime']")).attr("id","paymentTime"+index+"Form");
+                $(this).find($("input[id^='paymentTime']")).attr("id","paymentTime"+index);
+                $(this).find($("div[id^='paymentAmount']")).attr("id","paymentAmount"+index+"Form");
+                $(this).find($("input[id^='paymentAmount']")).attr("id","paymentAmount"+index);
+                $(this).find($("div[id^='operator']")).attr("id","operator"+index+"Form");
+                $(this).find($("input[id^='operator']")).attr("id","operator"+index);
+
+                $(this).find($("div[id^='reasonForChange']")).attr("id","reasonForChange"+index+"Form");
+                $(this).find($("input[id^='reasonForChange']")).attr("id","reasonForChange"+index);
+
+            })
+        }
+
+        function ledgerDonwLoad(id) {
+            // todo
+        }
+
+        var showLedgerbtn;
+        function showLedger(id,url,btn) {
+            showLedgerbtn = Ladda.create(btn);
+            $.ajax({
+                url: url,
+                async: true,
+                type: 'POST',
+                data: {
+                    id: id
+                },
+//                contentType: 'application/json; charset=utf-8',
+                dataType: 'html',
+                timeout: 300000,
+                beforeSend: function () {
+                    showLedgerbtn.start();
+                },
+                error: function (result) {
+                    swal("操作失败", "通信错误!", "error");
+                    showLedgerbtn.stop();
+                },
+                success: function (data) {
+                    $('#ABTableModal').after(data)
+                    $('#ledgerModal').on('hidden.bs.modal', function (e) {
+                        var n = $('#ledgerModal');
+                        n.remove();
+                        $("#id").val("");
+                    })
+                    $('#ledgerModal').modal('show');
+                    $("#id").val(id);
+                    updateFlg = $("#updateFlg").val();
+                    // 编辑时添加每行验证
+                    ledgerCheck($("#ledgerListSize").val());
+                    showLedgerbtn.stop();
+                }
+            });
+        }
+
+        // 台账隐藏
+        function removeLedgerInfo(){
+            $('#ledgerModal').modal('hide');
+        }
+        var saveBtnda;
+        // 保存台账
+        function saveLedger(btn) {
+            saveBtnda = Ladda.create( btn );
+            var ledgerList = [];
+            $("#ledgerList tr").each(function(index){
+                moneyType = $(this).find("select[name=moneyType]").val();
+                paymentMethod = $(this).find("select[name=paymentMethod]").val();
+                costCenter = $(this).find("select[name=costCenter]").val();
+                paymentTime = $(this).find("input[name=paymentTime]").val();
+                paymentAmount = $(this).find("input[name=paymentAmount]").val();
+                operator = $(this).find("input[name=operator]").val();
+                reasonForChange = $(this).find("input[name=reasonForChange]").val();
+                ledgerList.push({
+                    "moneyType":moneyType,
+                    "paymentMethod":paymentMethod,
+                    "costCenter":costCenter,
+                    "paymentTime":paymentTime,
+                    "paymentAmount":paymentAmount,
+                    "operator":operator,
+                    "reasonForChange":reasonForChange
+                })
+            })
+            var p = {
+                id: $("#id").val().trim(),
+                ledgerList: ledgerList
+            };
+
+            var url = "saveLedger";
+            if(updateFlg == "true"){
+                var led = ledgerList;
+                if(led.length > 0){
+                    var rFlag = false;
+                    for (var i = 0;i<led.length;i++){
+                        var reasonForChange = led[i].reasonForChange;
+                        if (reasonForChange == "" || reasonForChange == undefined || reasonForChange == null){
+                            rFlag = true;
+                            break;
+                        }
+                    }
+                    if(rFlag){
+                        url = "checkLedgerInfo2";
+                    }
+                }
+            }
+
+            var a = JSON.stringify(p);
+            $.ajax({
+                url: url, // 如果是更新的话‘变更原因’必须
+                async: true,
+                type: 'POST',
+                data: a,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                timeout: 300000,
+                beforeSend: function () {
+                    saveBtnda.start();
+                },
+                error: function (result) {
+                    swal("操作失败", "通信错误!", "error");
+                    saveBtnda.stop();
+                },
+                success: function (data) {
+                    if (data.res == undefined) {
+                        saveBtnda.stop();
+                        for (var p in data) {
+                            for (var p in data) {
+                                var tempField = data[p].field;
+                                if(tempField.startsWith("ledgerList[")){
+                                    data[p].field= tempField.split(".")[1]+tempField.substring(tempField.indexOf("[")+1,tempField.indexOf("]"));
+                                }
+                                var tmp = $("#" + data[p].field).parent().next();
+
+                                if (tmp.text() == '') {
+                                    $("#" + data[p].field + "Form").addClass("has-error")
+                                    var tmp = $("#" + data[p].field).parent().next();
+                                    tmp.html(data[p].defaultMessage);
+                                }
+                            }
+                        }
+                        ledgerList = [];
+                    }else{
+                        saveBtnda.stop();
+                        $('#ledgerModal').modal('hide');
+                    }
+                }
+            });
+            return ledgerList;
+        }
+
 
         /*]]>*/
     </script>

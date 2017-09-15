@@ -50,10 +50,12 @@ public class ContractQueryProvider {
     public String selectContractList(final ContractVO contractVO){
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT * FROM ( ");
-        sb.append(" SELECT A.*,B.code AS projectCode ,B.name AS projectName,C.name AS campaignName")
+        sb.append(" SELECT A.*,B.code AS projectCode ,B.name AS projectName,C.name AS campaignName,count(cl.contractId) AS ledgerCount")
         .append(" FROM T_CONTRACT A")
         .append(" LEFT JOIN T_PROJECT B ON A.projectId = B.id")
-        .append(" LEFT JOIN T_CAMPAIGN AS C ON A.campaignId = C.id");
+        .append(" LEFT JOIN T_CAMPAIGN AS C ON A.campaignId = C.id")
+        .append(" LEFT JOIN T_CONTRACT_LEDGER AS cl ON A.id = cl.contractId")
+        .append(" GROUP BY cl.contractId");
 
         sb.append(" ) A ");
         sb.append(" WHERE 1=1 ");
@@ -83,10 +85,12 @@ public class ContractQueryProvider {
     public String countContractList(final ContractVO contractVO){
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT count(*) FROM (");
-        sb.append(" SELECT A.*,B.code AS projectCode ,B.name AS projectName,C.name AS campaignName")
+        sb.append(" SELECT A.*,B.code AS projectCode ,B.name AS projectName,C.name AS campaignName,count(cl.contractId) AS ledgerCount")
                 .append(" FROM T_CONTRACT A")
                 .append(" LEFT JOIN T_PROJECT B ON A.projectId = B.id")
-                .append(" LEFT JOIN T_CAMPAIGN AS C ON A.campaignId = C.id");
+                .append(" LEFT JOIN T_CAMPAIGN AS C ON A.campaignId = C.id")
+                .append(" LEFT JOIN T_CONTRACT_LEDGER AS cl ON A.id = cl.contractId")
+                .append(" GROUP BY cl.contractId");
 
         if(!StringUtils.isEmpty(contractVO.getName())){
             sb.append(" AND A.name LIKE CONCAT('%',#{name},'%')");

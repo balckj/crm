@@ -5,6 +5,7 @@ import com.yidatec.model.*;
 import com.yidatec.util.Constants;
 import com.yidatec.vo.ABVO;
 import com.yidatec.vo.ContractVO;
+import com.yidatec.vo.LedgerVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -71,7 +72,7 @@ public class ContractService {
 
 
 	/**
-	 * 创建一个合同
+	 * 创建合同
 	 *
 	 * @param contract
 	 * @return
@@ -79,34 +80,52 @@ public class ContractService {
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
 	public void createContract(Contract contract) {
 		contractMapper.create(contract);
-		createContractAndLedger(contract);
 	}
 
+	/**
+	 * 更新合同
+	 *
+	 * @param contract
+	 * @return
+	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
 	public void updateContract(Contract contract) {
 		contractMapper.update(contract);
-		ledgerMapper.deleteLedger(contract.getId());// 删除台账表
-		contractLedgerMapper.deleteContarctLedger(contract.getId());// 删除关系表
-
-		createContractAndLedger(contract);
-
 	}
 
-	private void createContractAndLedger(Contract contract){
-		if (contract.getLedgerListInput() != null){
-			List<Ledger> ledgerList = contract.getLedgerListInput();
+
+	/**
+	 * 创建台账
+	 *
+	 * @param
+	 * @return
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
+	public void createLedger(LedgerVO ledgerVO) {
+		ledgerMapper.deleteLedger(ledgerVO.getId());// 删除台账表
+		contractLedgerMapper.deleteContarctLedger(ledgerVO.getId());// 删除关系表
+		ledgerC(ledgerVO);
+	}
+
+	/**
+	 * 台账create
+	 * @param ledgerVO
+	 */
+	private void ledgerC(LedgerVO ledgerVO) {
+		if (ledgerVO.getLedgerList() != null){
+			List<Ledger> ledgerList = ledgerVO.getLedgerList();
 			for (Ledger ledger : ledgerList) {
 				String ledgerId = UUID.randomUUID().toString().toLowerCase();
 				ContractLedger contractLedger = new ContractLedger();
-				contractLedger.setContractId(contract.getId());
+				contractLedger.setContractId(ledgerVO.getId());
 				contractLedger.setLedgerId(ledgerId);
 				contractLedgerMapper.createContarctLedger(contractLedger);// 插入关系表
 
 				ledger.setId(ledgerId);
-				ledger.setCreatorId(contract.getId());
+				ledger.setCreatorId(ledgerVO.getId());
 				ledger.setCreateTime(LocalDateTime.now());
-				ledger.setModifierId(contract.getId());
-				ledger.setModifyTime(contract.getModifyTime());
+				ledger.setModifierId(ledgerVO.getId());
+				ledger.setModifyTime(ledgerVO.getModifyTime());
 				ledgerMapper.createLedger(ledger);// 插入台账
 			}
 		}

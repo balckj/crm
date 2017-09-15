@@ -568,29 +568,45 @@
                     }
                 }
             }
-            var selectdesignersValue = $("#selectdesignersValue").val();
+            var selectdesignersValue = $("#selectdesignersValue").val().replace(/\s+/g,"");
             if(selectdesignersValue !=""||selectdesignersValue !=null){
-                var list = selectdesignersValue.substring(1,selectdesignersValue.length-1).replace(" ","").split(',');
+                var list = selectdesignersValue.substring(1,selectdesignersValue.length-1).split(',');
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){
                     setkey.push(list[i]);
                 }
-                $("#designerId").val(setkey).select2();
-            }else{
-//                $("#designerId").val(selectdesignersValue.substring(1,selectfactoriesValue.length-1)).trigger('change')
+                $("#designerId").val(setkey).trigger('change')
             }
 
-            var selectfactoriesValue = $("#selectfactoriesValue").val();
+            var selectfactoriesValue = $("#selectfactoriesValue").val().replace(/\s+/g,"");
             if(selectfactoriesValue !=""||selectfactoriesValue !=null){
-                var list = selectfactoriesValue.substring(1,selectfactoriesValue.length-1).replace(" ","").split(',');
+                var list = (selectfactoriesValue.substring(1,selectfactoriesValue.length-1)).split(',');
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){
                     setkey.push(list[i]);
                 }
                 $("#factoryId").val(setkey).trigger('change')
-            }else{
-//                $("#factoryId").val(selectfactoriesValue.substring(1,selectfactoriesValue.length-1)).trigger('change')
             }
+
+            validate('name', 'projectName', 'validateProjectName');
+            validateSelect('type','type','validateType');
+            validateSelect('customerId', 'customerId', 'validateCustomerId');
+            validateSelect('campaignId', 'campaignId', 'validateCampaignId');
+            validate('budget', 'budget', 'validateBudget');
+            validate('exhibitionNumber', 'exhibitionNumber', 'validateExhibitionNumber');
+            validate('area', 'area', 'validateArea');
+            validateSelect('setupTime', 'setupTime', 'validateSetupTime');
+            validateSelect('tearDownTime', 'tearDownTime', 'validateTearDownTime');
+//        validate('cost', 'cost', 'validateCost');
+            validateSelect('degreeOfImportance', 'degreeOfImportance', 'validateDegreeOfImportance');
+            validateSelect('potential', 'potential', 'validatePotential');
+            validateSelect('potential', 'potential', 'validatePotential');
+
+            validateMultipleSelect('designerId', 'designerId', 'validateDesignerId');
+            validateSelect('pmId', 'pmId', 'validatemId');
+            validateMultipleSelect('factoryId', 'factoryId', 'validateFactoryId');
+            validateSelect('developSaleId', 'developSaleId', 'validateDevelopSaleId');
+            validateDiv('photo', 'photo', 'validatePhoto');
 
         });
 
@@ -840,25 +856,7 @@
 //            $("#code").val("");
         }
 
-        validate('name', 'projectName', 'validateProjectName');
-        validateSelect('type','type','validateType');
-        validateSelect('customerId', 'customerId', 'validateCustomerId');
-        validateSelect('campaignId', 'campaignId', 'validateCampaignId');
-        validate('budget', 'budget', 'validateBudget');
-        validate('exhibitionNumber', 'exhibitionNumber', 'validateExhibitionNumber');
-        validate('area', 'area', 'validateArea');
-        validateSelect('setupTime', 'setupTime', 'validateSetupTime');
-        validateSelect('tearDownTime', 'tearDownTime', 'validateTearDownTime');
-//        validate('cost', 'cost', 'validateCost');
-        validateSelect('degreeOfImportance', 'degreeOfImportance', 'validateDegreeOfImportance');
-        validateSelect('potential', 'potential', 'validatePotential');
-        validateSelect('potential', 'potential', 'validatePotential');
 
-        validateMultipleSelect('designerId', 'designerId', 'validateDesignerId');
-        validateSelect('pmId', 'pmId', 'validatemId');
-        validateMultipleSelect('factoryId', 'factoryId', 'validateFactoryId');
-        validateSelect('developSaleId', 'developSaleId', 'validateDevelopSaleId');
-        validateDiv('photo', 'photo', 'validatePhoto');
 
         var designerlist=[];
         var factorylist=[];

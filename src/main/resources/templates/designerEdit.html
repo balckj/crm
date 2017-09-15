@@ -569,27 +569,23 @@
             $("#designStyle").select2({ maximumInputLength: 3 });
 
             var selectGoodAtIndustryValue = $("#selectGoodAtIndustryValue").val();
-            if(selectGoodAtIndustryValue && selectGoodAtIndustryValue.indexOf(",") > 0){
+            if(selectGoodAtIndustryValue){
                 var list = selectGoodAtIndustryValue.split(",");
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){
                     setkey.push(list[i]);
                 }
                 $("#goodAtIndustry").val(setkey).trigger('change')
-            }else{
-                $("#goodAtIndustry").val(selectGoodAtIndustryValue).trigger('change')
             }
 
             var selectDesignStyleValue = $("#selectDesignStyleValue").val();
-            if(selectDesignStyleValue && selectDesignStyleValue.indexOf(",") > 0){
+            if(selectDesignStyleValue){
                 var list = selectDesignStyleValue.split(",");
                 var setkey = [];
                 for(var i= 0;i< list.length; i++){
                     setkey.push(list[i]);
                 }
                 $("#designStyle").val(setkey).trigger('change')
-            }else{
-                $("#designStyle").val(selectDesignStyleValue).trigger('change')
             }
 
             //循环遍历案例照片

@@ -56,7 +56,7 @@
                             <input type="hidden" name="selectProvinceValue" id="selectProvinceValue" th:value="${designer}?${designer.province}"/>
                             <input type="hidden" name="selectCityValue" id="selectCityValue" th:value="${designer}?${designer.city}"/>
                             <input type="hidden" name="selectRegionValue" id="selectRegionValue" th:value="${designer}?${designer.region}"/>
-
+                            <input type="hidden" name="selectDesignerCategoryValue" id="selectDesignerCategoryValue" th:value="${designer}?${designer.designerCategory}"/>
 
                             <input type="hidden" name="selectDesignStyleValue" id="selectDesignStyleValue" th:value="${designer}?${designer.designStyle}"/>
                             <input type="hidden" name="selectPlatformLevelValue" id="selectPlatformLevelValue" th:value="${designer}?${designer.platformLevel}"/>
@@ -86,6 +86,19 @@
                                 <label class="col-sm-2 control-label">设计师英文名</label>
                                 <div class="col-sm-4"><input id="nameEN" name="nameEN" type="text"
                                                              class="form-control" maxlength="30" th:value="${designer}?${designer.nameEN}"/></div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="designerCategoryForm">
+                                <label class="col-sm-2 control-label">设计分类</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control " name="designerCategory" id="designerCategory">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option th:value="${designerCategory.id}" th:text="${designerCategory.value}" th:each="designerCategory:${designerCategoryList}"></option>
+                                    </select>
+                                </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
@@ -122,8 +135,6 @@
                                                              class="form-control" maxlength="50" th:value="${designer}?${designer.email}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-
-
 
 
                             <div class="hr-line-dashed"></div>
@@ -267,7 +278,7 @@
                                 <label class="col-sm-2 control-label">出生日期</label>
                                 <div class="col-sm-4" th:if="${designer}" >
                                     <input id="birthday" name="birthday" type="text" readonly="readonly"
-                                                             class="form-control" maxlength="200" th:value="${designer}?${designer.birthday}"/>
+                                           class="form-control" maxlength="200" th:value="${designer}?${designer.birthday}"/>
                                 </div>
                                 <div class="col-sm-4" th:unless="${designer}" >
                                     <input id="birthday" name="birthday" type="text"
@@ -300,13 +311,13 @@
 
                             <div class="hr-line-dashed"></div>
                             <!--编辑-->
-                            <div id="caseList" th:if="${designer}?${designer.id}" style="background-color: #f8f7f6;border-radius: 4px;padding-top: 15px;padding-bottom: 15px;" >
+                            <div id="caseList" th:if="${designerCaseListFlg}" style="background-color: #f8f7f6;border-radius: 4px;padding-top: 15px;padding-bottom: 15px;" >
                                 <div th:each="designerCase,designerCaseStat : ${designerCaseList}">
                                     <div class="form-group "  th:attr="id='caseName'+${designerCaseStat.index}+'Form'"><label
                                             class="col-sm-2 control-label">案例名称</label>
                                         <div class="col-sm-4">
                                             <input  th:attr="id='caseName'+${designerCaseStat.index}" name="caseName" type="text"
-                                                                     class="form-control" maxlength="10" th:value="${designerCase}?${designerCase.name}"/>
+                                                    class="form-control" maxlength="10" th:value="${designerCase}?${designerCase.name}"/>
                                         </div>
                                         <label class="col-sm-4 control-label" style="text-align: left;color: red;">*【案例名称】和【案例图片】同时输入才会被保存</label>
                                         <div class="col-sm-1">
@@ -352,13 +363,13 @@
 
                             </div>
                             <!--创建-->
-                            <div id="caseList" th:unless="${designer}?${designer.id}" style="background-color: #f8f7f6;border-radius: 4px;padding-top: 15px;padding-bottom: 15px;" >
+                            <div id="caseList" th:unless="${designerCaseListFlg}" style="background-color: #f8f7f6;border-radius: 4px;padding-top: 15px;padding-bottom: 15px;" >
                                 <div>
                                     <div class="form-group " id="caseName0Form"><label
                                             class="col-sm-2 control-label">案例名称</label>
                                         <div class="col-sm-4">
                                             <input id="caseName0" name="caseName" type="text"
-                                                                     class="form-control" maxlength="10"/>
+                                                   class="form-control" maxlength="10"/>
                                         </div>
                                         <label class="col-sm-4 control-label" style="text-align: left;color:red; ">*【案例名称】和【案例图片】同时输入才会被保存</label>
                                         <div class="col-sm-1">
@@ -565,6 +576,16 @@
                 }
             });
 
+            $("#designerCategory option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectDesignerCategoryValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
+
             $("#goodAtIndustry").select2({ maximumInputLength: 3 });
             $("#designStyle").select2({ maximumInputLength: 3 });
 
@@ -602,9 +623,9 @@
         /*<![CDATA[*/
 
         var previewTemplate = "<div class=\"dz-preview dz-file-preview\">\n  " +
-//            "  <div class=\"dz-details\">\n" +
-//            "    <img data-dz-thumbnail style='width: 300px;height: 300px;'/>\n" +
-//            "  </div>\n" +
+            //            "  <div class=\"dz-details\">\n" +
+            //            "    <img data-dz-thumbnail style='width: 300px;height: 300px;'/>\n" +
+            //            "  </div>\n" +
             "<div class=\"dz-image\"><img data-dz-thumbnail style='width: 120px;height: 120px;'/></div>\n  " +
             "<div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  " +
             "<div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  " +
@@ -631,7 +652,7 @@
                 +"<label class='col-sm-2 control-label'>案例照片</label>"
                 +"<div class='col-sm-6 dropzone' id='casePhoto"+total+ "' name='casePhoto'>"
                 +"<div class='am-text-success dz-message'>"
-//                +"将文件拖拽到此处或点此,打开文件管理器选择文件"
+                //                +"将文件拖拽到此处或点此,打开文件管理器选择文件"
                 +"</div>"
                 +"</div>"
                 +"<label class='col-sm-4 control-label' style='text-align: left'></label>"
@@ -660,7 +681,7 @@
 //                thumbnailWidth:120,
 //                thumbnailHeight:120,
                 init: function () {
-                     
+
                     if(casephoto[index] == undefined){
                         var tempArray = [];
                         casephoto[index] = tempArray;
@@ -775,6 +796,7 @@
                 referrer: $("#referrer").val().trim(),
                 name: $("#name").val().trim(),
                 nameEN: $("#nameEN").val().trim(),
+                designerCategory: $("#designerCategory").val().trim(),
                 mobilePhone: $("#mobilePhone").val().trim(),
                 password: $("#password").val(),
                 wechat: $("#wechat").val().trim(),

@@ -134,4 +134,9 @@ public interface Constants {
      * 项目类型
      */
     public static final String DING_SHI_NAME = "鼎世";
+
+    /**
+     * 设计师分类
+     */
+    public static final String DESIGNER_CATEGORY = "designerCategory";
 }

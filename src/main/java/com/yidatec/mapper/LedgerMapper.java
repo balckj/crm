@@ -29,6 +29,6 @@ public interface LedgerMapper {
             " FROM T_LEDGER" +
             " WHERE id" +
             " IN (SELECT ledgerId FROM T_CONTRACT_LEDGER" +
-            " WHERE contractId = #{contractId}) order by modifyTime desc")
+            " WHERE contractId = #{contractId}) order by modifyTime asc")
     List<LedgerVO> getLedgerList(String contractId);
 }

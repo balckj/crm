@@ -46,6 +46,7 @@ public class ContractController extends BaseController{
         model.put("moneyTypeList",dictionaryService.selectDictionaryListByCodeCommon(Constants.MONEY_TYPE)); // 款项类型
         model.put("paymentMethodList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PAYMENT_METHOD)); // 支付方式
         model.put("costCenterList",dictionaryService.selectDictionaryListByCodeCommon(Constants.COST_CENTER)); // 成本中心
+        model.put("reasonForChangeList",dictionaryService.selectDictionaryListByCodeCommon(Constants.REASON_FORCHANGE)); // 变更原因
         return "contractList";
     }
 
@@ -164,6 +165,7 @@ public class ContractController extends BaseController{
         model.put("moneyTypeList",dictionaryService.selectDictionaryListByCodeCommon(Constants.MONEY_TYPE)); // 款项类型
         model.put("paymentMethodList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PAYMENT_METHOD)); // 支付方式
         model.put("costCenterList",dictionaryService.selectDictionaryListByCodeCommon(Constants.COST_CENTER)); // 成本中心
+        model.put("reasonForChangeList",dictionaryService.selectDictionaryListByCodeCommon(Constants.REASON_FORCHANGE)); // 变更原因
         model.put("ledgerList",ledgerMapper.getLedgerList(id));
         model.put("ledgerListFlg",ledgerMapper.getLedgerList(id) != null && ledgerMapper.getLedgerList(id).size() > 0 ? true :false);
         return "contractLedgerListView";// 返回台账html只读模式
@@ -181,6 +183,7 @@ public class ContractController extends BaseController{
         model.put("moneyTypeList",dictionaryService.selectDictionaryListByCodeCommon(Constants.MONEY_TYPE)); // 款项类型
         model.put("paymentMethodList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PAYMENT_METHOD)); // 支付方式
         model.put("costCenterList",dictionaryService.selectDictionaryListByCodeCommon(Constants.COST_CENTER)); // 成本中心
+        model.put("reasonForChangeList",dictionaryService.selectDictionaryListByCodeCommon(Constants.REASON_FORCHANGE)); // 变更原因
         model.put("ledgerList",ledgerMapper.getLedgerList(id));
         model.put("ledgerListSize",
                 ledgerMapper.getLedgerList(id) != null && ledgerMapper.getLedgerList(id).size() > 0

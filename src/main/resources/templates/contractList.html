@@ -483,6 +483,7 @@
         var moneyTypeStr = "<option value=\"\" selected=\"selected\">未选择</option>";
         var paymentMethodStr = "<option value=\"\" selected=\"selected\">未选择</option>";
         var costCenterStr = "<option value=\"\" selected=\"selected\">未选择</option>";
+        var reasonForChangeStr  = "<option value=\"\" selected=\"selected\">未选择</option>";
         var moneyTypeList = /*[[${moneyTypeList}]]*/;
         if (moneyTypeList) {
             for (var a= 0;a < moneyTypeList.length;a++) {
@@ -507,8 +508,15 @@
             }
         }
 
+        var reasonForChangeList = /*[[${reasonForChangeList}]]*/;
+        if (reasonForChangeList) {
+            for (var a= 0;a < reasonForChangeList.length;a++) {
+                var reasonForChange = reasonForChangeList[a];
+                reasonForChangeStr += '<option value="'+reasonForChange.id+'">'+reasonForChange.value+'</option>';
+            }
+        }
+
         function ledgerCheck(ledgerListSize) {
-            debugger
             // create ledger check
             if(ledgerListSize == 0) {
                 validateSelect('moneyType0', 'moneyType', 'validatMoneyType');
@@ -518,7 +526,7 @@
                 validate('paymentAmount0', 'paymentAmount', 'validatPaymentAmount');
                 datepickerInit('paymentTime0', format);
                 validate('operator0', 'operator', 'validatPerator');
-                if (updateFlg == "true") validate('reasonForChange0', 'reasonForChange', 'validatReasonForChange');
+                if (updateFlg == "true") validateSelect('reasonForChange0', 'reasonForChange', 'validatReasonForChange');
             }else{
                 for (var i = 0; i < ledgerListSize; i++) {
                     validateSelect('moneyType' + i, 'moneyType', 'validatMoneyType');
@@ -528,7 +536,7 @@
                     validate('paymentAmount' + i, 'paymentAmount', 'validatPaymentAmount');
                     datepickerInit('paymentTime' + i, format);
                     validate('operator' + i, 'operator', 'validatPerator');
-                    if (updateFlg == "true") validate('reasonForChange' + i, 'reasonForChange', 'validatReasonForChange');
+                    if (updateFlg == "true") validateSelect('reasonForChange' + i, 'reasonForChange', 'validatReasonForChange');
                 }
             }
         }
@@ -605,7 +613,9 @@
                 "      <td>\n" +
                 "          <div id=\"reasonForChange"+number+"Form\">\n" +
                 "              <div>\n" +
-                "                  <input type=\"text\" name=\"reasonForChange\" id=\"reasonForChange"+number+"\" class=\"form-control input-sm\" maxlength=\"50\"/>\n" +
+                "                  <select class=\"form-control input-sm\" style=\"padding-top: 4px;width:95px;\" name=\"reasonForChange\" id=\"reasonForChange"+number+"\">\n" +
+                "                      "+ reasonForChangeStr +
+                "                  </select>\n" +
                 "              </div>\n" +
                 "              <label class=\" control-label\" style=\"text-align: left\"></label>\n" +
                 "          </div>\n" +
@@ -624,7 +634,7 @@
             datepickerInit('paymentTime'+number,format);
             validate('operator'+number, 'operator', 'validatPerator');
 
-            if(updateFlg == "true") validate('reasonForChange'+number, 'reasonForChange', 'validatReasonForChange');
+            if(updateFlg == "true") validateSelect('reasonForChange'+number, 'reasonForChange', 'validatReasonForChange');
             number++;
 
         }
@@ -655,7 +665,7 @@
                 $(this).find($("input[id^='operator']")).attr("id","operator"+index);
 
                 $(this).find($("div[id^='reasonForChange']")).attr("id","reasonForChange"+index+"Form");
-                $(this).find($("input[id^='reasonForChange']")).attr("id","reasonForChange"+index);
+                $(this).find($("select[id^='reasonForChange']")).attr("id","reasonForChange"+index);
 
             })
         }
@@ -717,7 +727,7 @@
                 paymentTime = $(this).find("input[name=paymentTime]").val();
                 paymentAmount = $(this).find("input[name=paymentAmount]").val();
                 operator = $(this).find("input[name=operator]").val();
-                reasonForChange = $(this).find("input[name=reasonForChange]").val();
+                reasonForChange = $(this).find("select[name=reasonForChange]").val();
                 ledgerList.push({
                     "moneyType":moneyType,
                     "paymentMethod":paymentMethod,

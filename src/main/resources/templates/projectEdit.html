@@ -403,7 +403,7 @@
         var hasDesignerOption = [[${#authorization.url('/designerOption')}]];
         var hasPmOption = [[${#authorization.url('/pmOption')}]];
         var hasFactoryOption = [[${#authorization.url('/factoryOption')}]];
-        if(hasDesignerOption){
+        if(!hasDesignerOption){
             $("#designerIdForm").hide();
             $("#designerIdForm").next().hide();
             $("#designProgressForm").hide();
@@ -890,24 +890,43 @@
         var saveBtnda;
         function saveProject(btn) {
             saveBtnda = Ladda.create( btn );
-//            var roles = [];
-//            $('input[name="role"]:checked').each(function () {
-//                roles.push({id: $(this).val().trim()});
-//            });
+            debugger;
+            if(hasDesignerOption){
+                if($("#designerId").val() == ""){
+                    $("#designerIdForm").addClass("has-error")
+                    $("#designerId").parent().next().html("必须选择设计师");
+                    return;
+                }
+            }
+            if(hasPmOption){
+                if($("#pmId").val() == ""){
+                    $("#pmIdForm").addClass("has-error")
+                    $("#pmId").parent().next().html("必须选择项目经理");
+                    return;
+                }
+            }
+            if(hasFactoryOption){
+                if($("#factoryId").val() == ""){
+                    $("#factoryIdForm").addClass("has-error")
+                    $("#factoryId").parent().next().html("必须选择工厂");
+                    return;
+                }
+            }
+            if(hasDevelopSale){
+                if($("#developSaleId").val() == ""){
+                    $("#developSaleIdForm").addClass("has-error")
+                    $("#developSaleId").parent().next().html("必须选择开发销售");
+                    return;
+                }
+            }
+            if(hasProjectPhoto){
+                if(photolist == ""){
+                    $("#photoForm").addClass("has-error")
+                    $("#photo").next().html("必须上传项目图片");
+                    return;
+                }
+            }
 
-//            if($("#designerId").val()!=""){
-//                var designer=$("#designerId").val();
-//                for(var j= 0;j< designer.length; j++){
-//                    designerlist.push(designer[j]);
-//                }
-//            }
-//
-//            if($("#factoryId").val()!=""){
-//                var factory=$("#factoryId").val();
-//                for(var j= 0;j< factory.length; j++){
-//                    factorylist.push(factory[j]);
-//                }
-//            }
             var designProgress="";
             $("input[name='designProgress']:checked").each(function() {
                     designProgress += $(this).val()+",";

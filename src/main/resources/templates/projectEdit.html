@@ -172,7 +172,7 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="designProgressForm">
                                 <label class="col-sm-2 control-label">设计进度</label>
                                 <div class="col-sm-4">
                                     <div class="checkbox checkbox-inline checkbox-info" th:each="designer:${designerProgress}">
@@ -195,7 +195,7 @@
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="projectProgressForm">
                                 <label class="col-sm-2 control-label">项目进度</label>
                                 <div class="col-sm-4">
                                     <div class="checkbox checkbox-inline checkbox-info" th:each="project:${projectProgress}">
@@ -217,7 +217,7 @@
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="form-group" id="factoryProgressForm">
                                 <label class="col-sm-2 control-label">工厂进度</label>
                                 <div class="col-sm-4">
                                     <div class="checkbox checkbox-inline checkbox-info" th:each="factory:${factoryProgress}">
@@ -305,11 +305,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="hr-line-dashed"></div>
-
-
-
                             <div class="hr-line-dashed"/>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
@@ -405,12 +400,44 @@
 
     <script th:inline="javascript">
         /*<![CDATA[*/
+        var hasDesignerOption = [[${#authorization.url('/designerOption')}]];
+        var hasPmOption = [[${#authorization.url('/pmOption')}]];
+        var hasFactoryOption = [[${#authorization.url('/factoryOption')}]];
+        if(hasDesignerOption){
+            $("#designerIdForm").hide();
+            $("#designerIdForm").next().hide();
+            $("#designProgressForm").hide();
+            $("#designProgressForm").next().hide();
+        }
+        if(!hasPmOption){
+            $("#pmIdForm").hide();
+            $("#pmIdForm").next().hide();
+            $("#projectProgressForm").hide();
+            $("#projectProgressForm").next().hide();
+        }
+        if(!hasFactoryOption){
+            $("#factoryIdForm").hide();
+            $("#factoryIdForm").next().hide();
+            $("#factoryProgressForm").hide();
+            $("#factoryProgressForm").next().hide();
+        }
+
         var hasProjectScore = [[${#authorization.url('/projectScore')}]];
         var hasDesScore = [[${#authorization.url('/desScore')}]];
         var hasPmScore = [[${#authorization.url('/pmScore')}]];
-        if(!hasProjectScore) $("#projectScore").attr("readonly",'true');
-        if(!hasDesScore) $("#designScore").attr("readonly",'true');
-        if(!hasPmScore) $("#pmScore").attr("readonly",'true');
+
+        if(!hasProjectScore) {$("#projectScoreForm").hide();$("#projectScoreForm").next().hide();}
+        if(!hasDesScore) {$("#designScoreForm").hide();$("#designScoreForm").next().hide();}
+        if(!hasPmScore) {$("#pmScoreForm").hide();$("#pmScoreForm").next().hide();}
+
+        var hasDevelopSale = [[${#authorization.url('/developSale')}]];
+        var hasTraceSale = [[${#authorization.url('/traceSale')}]];
+        var hasProjectPhoto = [[${#authorization.url('/projectPhoto')}]];
+
+        if(!hasDevelopSale) {$("#developSaleIdForm").hide();$("#developSaleIdForm").next().hide();}
+        if(!hasTraceSale) {$("#traceSaleIdForm").hide();$("#traceSaleIdForm").next().hide();}
+        if(!hasProjectPhoto) {$("#photoForm").hide();$("#photoForm").next().hide();}
+
 
         var photolist=[];
         var delPhotoList=[];

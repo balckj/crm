@@ -76,7 +76,7 @@ public class SecurityData {
             for(RolePermission rp : rolePermissionList){
                 Permission p = allPermissionMap.get(rp.getPermissionId());
                 Role tmp = allRoleMap.get(rp.getRoleId());
-                if(tmp != null) {//如果角色非可用状态，将是null，用户将不再具有相应角色的权限
+                if(p != null && tmp != null) {//如果角色非可用状态，将是null，用户将不再具有相应角色的权限
                     p.addRole(tmp);
                 }
             }

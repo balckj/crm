@@ -41,11 +41,11 @@ public interface ContractMapper {
 
 	@Insert("INSERT INTO T_CONTRACT (id,`signDay`,`name`,`code`,projectId,campaignId," +
 			"exhibitionNumber,area,amount,category,tax,paymentMethod,initialPaymentTime,middlePaymentTime,finalPaymentTime," +
-			"billingInfo,firstParty,secondParty,remarks," +
+			"company,taxNumber,addressTelephone,bankAccount,firstParty,secondParty,remarks," +
 			"creatorId,createTime,modifierId,modifyTime) VALUES (" +
 			"#{id},#{signDay},#{name},#{code},#{projectId},#{campaignId}," +
 			"#{exhibitionNumber},#{area},#{amount},#{category},#{tax},#{contractPaymentMethod},#{initialPaymentTime},#{middlePaymentTime},#{finalPaymentTime}," +
-			"#{billingInfo},#{firstParty},#{secondParty},#{remarks}," +
+			"#{company},#{taxNumber},#{addressTelephone},#{bankAccount},#{firstParty},#{secondParty},#{remarks}," +
 			"#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
 	int create(Contract contract);
 
@@ -53,7 +53,7 @@ public interface ContractMapper {
 			"`signDay`=#{signDay},`name`=#{name},`code`=#{code},projectId=#{projectId},campaignId=#{campaignId},exhibitionNumber=#{exhibitionNumber}," +
 			"area=#{area},amount=#{amount},category=#{category},tax=#{tax},paymentMethod=#{contractPaymentMethod}," +
 			"initialPaymentTime=#{initialPaymentTime},middlePaymentTime=#{middlePaymentTime},finalPaymentTime=#{finalPaymentTime}," +
-			"billingInfo=#{billingInfo},firstParty=#{firstParty},secondParty=#{secondParty},remarks=#{remarks}," +
+			"company=#{company},taxNumber=#{taxNumber},addressTelephone=#{addressTelephone},bankAccount=#{bankAccount},firstParty=#{firstParty},secondParty=#{secondParty},remarks=#{remarks}," +
 			"modifierId=#{modifierId}," +
 			"modifyTime=#{modifyTime} WHERE id=#{id}")
 	int update(Contract contract);

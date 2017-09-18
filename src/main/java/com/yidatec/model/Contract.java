@@ -55,16 +55,12 @@ public class Contract extends BaseModel {
     @NotBlank(message = "必须输入付款方式", groups = { })
     @Length(max = 36, message = "付款方式最大不能超过36个字符", groups = { })
     private String contractPaymentMethod;
-
     @NotNull(message = "必须输入首付时间", groups = { })
     private LocalDate initialPaymentTime;
     @NotNull(message = "必须输入中款时间", groups = { })
     private LocalDate middlePaymentTime;
     @NotNull(message = "必须输入尾款时间", groups = { })
     private LocalDate finalPaymentTime;
-    @NotBlank(message = "必须输入开票信息", groups = { })
-    @Length(max = 255, message = "开票信息最大不能超过255个字符", groups = { })
-    private String billingInfo;
     @NotBlank(message = "必须输入合同甲方", groups = { })
     @Length(max = 36, message = "合同甲方最大不能超过36个字符", groups = { })
     private String firstParty;
@@ -73,6 +69,11 @@ public class Contract extends BaseModel {
     private String secondParty;
 
     private String remarks;
+
+    private String company;
+    private String taxNumber;
+    private String addressTelephone;
+    private String bankAccount;
 
 //    @NotNull(message = "必须输入台账", groups = {})
 //    @Size(min=1,message = "必须输入台账")
@@ -201,14 +202,6 @@ public class Contract extends BaseModel {
         this.finalPaymentTime = finalPaymentTime;
     }
 
-    public String getBillingInfo() {
-        return billingInfo;
-    }
-
-    public void setBillingInfo(String billingInfo) {
-        this.billingInfo = billingInfo;
-    }
-
     public String getFirstParty() {
         return firstParty;
     }
@@ -248,4 +241,37 @@ public class Contract extends BaseModel {
 //    public void setLedgerInput(String ledgerInput) {
 //        this.ledgerInput = ledgerInput;
 //    }
+
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getTaxNumber() {
+        return taxNumber;
+    }
+
+    public void setTaxNumber(String taxNumber) {
+        this.taxNumber = taxNumber;
+    }
+
+    public String getAddressTelephone() {
+        return addressTelephone;
+    }
+
+    public void setAddressTelephone(String addressTelephone) {
+        this.addressTelephone = addressTelephone;
+    }
+
+    public String getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
+    }
 }

@@ -186,14 +186,13 @@
         /*<![CDATA[*/
         var hasCreate = [[${#authorization.url('/contractCreate')}]]; // 合同新建
 
-        var hasSeniorManagerEdit = [[${#authorization.url('/contractSeniorManagerEdit')}]];// 合同高级经理编辑权限
-        var hasSalesman = [[${#authorization.url('/contractSalesmanEdit')}]];// 合同业务编辑权限
+        var hasEdit = [[${#authorization.url('/edit')}]];// 合同编辑权限
         var hasContractView = [[${#authorization.url('/contractContractView')}]];// 合同查看权限
+
+        var contractDonwLoad = [[${#authorization.url('/contractDonwLoad')}]]; // 合同下载
 
         var hasLedgerEdit = [[${#authorization.url('/ledgerEdit')}]];// 台账编辑权限
         var hasLedgerView = [[${#authorization.url('/ledgerView')}]];// 台账查看权限
-
-        var hasLedgerDonwLoad = [[${#authorization.url('/ledgerDonwLoadEdit')}]]; // 台账下载
 
         /***
          *
@@ -330,20 +329,22 @@
                         "render": function (data, type, row) {
                             // 以下是合同相关
                             var e = '';// 编辑（高级经理）
-                            if(hasSeniorManagerEdit) {
+                            if(hasEdit) {
                                 e = "contractEdit?id=" + row.id;
-                                e = '<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + e + '\')" >编辑合同(高级经理)</a>';
-                            }
-                            var e2 = ''; // 编辑（业务员）
-                            if(hasSalesman) {
-                                e2 = "contractEdit?id=" + row.id;
-                                e2= '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + e2 + '\')" >编辑合同(业务员)</a>';
+                                e = '<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + e + '\')" >编辑</a>';
                             }
                             var v = '';// 查看合同
                             if(hasContractView) {
                                 v = "contractView?id=" + row.id;
                                 v = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + v + '\')" >查看合同</a>';
                             }
+
+                            var dl = '';// 合同下载
+                            if(contractDonwLoad) {
+                                dl =  row.id;
+                                dl = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:ledgerDonwLoad(\'' + dl + '\')" >合同下载</a>';
+                            }
+
                             // 以下是台账相关
                             var el = '';// 编辑台账
                             if(hasLedgerEdit) {
@@ -362,15 +363,12 @@
                                 vl =  row.id;
                                 vl = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + vl + '\' ,\'ledgerView\',this)" >查看台账</a>';
                             }
-                            var dl = '';// 台账下载
-                            if(hasLedgerDonwLoad) {
-                                dl =  row.id;
-                                dl = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:ledgerDonwLoad(\'' + dl + '\')" >台账下载</a>';
-                            }
-                            if(e == '' && v== '' && e2== ''&& el== ''&& vl== ''&& dl== ''){
+
+
+                            if(e == '' && v== '' && el== ''&& vl== ''&& dl== ''){
                                 return '--'
                             }
-                            return e + e2 + v + el+ vl+ dl;
+                            return e  + v + el+ vl+ dl;
 
                         },
                     },

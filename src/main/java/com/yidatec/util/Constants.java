@@ -96,6 +96,11 @@ public interface Constants {
     public static final String COST_CENTER = "costCenter";
 
     /**
+     * 台账变更原因
+     */
+    public static final String REASON_FORCHANGE = "reasonForChange";
+
+    /**
      * 设计进度
      */
     public static final String DESIGN_PROGRESS = "designProgress";

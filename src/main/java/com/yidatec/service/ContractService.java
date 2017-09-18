@@ -114,6 +114,7 @@ public class ContractService {
 	private void ledgerC(LedgerVO ledgerVO) {
 		if (ledgerVO.getLedgerList() != null){
 			List<Ledger> ledgerList = ledgerVO.getLedgerList();
+			LocalDateTime t = LocalDateTime.now();
 			for (Ledger ledger : ledgerList) {
 				String ledgerId = UUID.randomUUID().toString().toLowerCase();
 				ContractLedger contractLedger = new ContractLedger();
@@ -123,11 +124,12 @@ public class ContractService {
 
 				ledger.setId(ledgerId);
 				ledger.setCreatorId(ledgerVO.getId());
-				ledger.setCreateTime(LocalDateTime.now());
+				ledger.setCreateTime(t);
 				ledger.setModifierId(ledgerVO.getId());
-				ledger.setModifyTime(ledgerVO.getModifyTime());
+				ledger.setModifyTime(t);
 				ledgerMapper.createLedger(ledger);// 插入台账
 			}
+			ledgerList.get(ledgerList.size()-1).setModifyTime(t.plusSeconds(1));
 		}
 	}
 }

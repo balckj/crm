@@ -47,7 +47,7 @@
                                                         <label class="control-label">成本中心<span
                                                                 style="color:#ed5565;">*</span></label>
                                                         <div>
-                                                            <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="costCenter" id="costCenter0" disabled="disabled">
+                                                            <select class="form-control input-sm" style="padding-top: 4px;width:100px;" name="costCenter" id="costCenter0" disabled="disabled">
                                                                 <option value="" selected="selected">未选择</option>
                                                                 <option th:value="${costCenter.id}" th:text="${costCenter.value}" th:each="costCenter:${costCenterList}"></option>
                                                             </select>
@@ -89,7 +89,10 @@
                                                     <div id="reasonForChange0Form">
                                                         <label class="control-label">变更原因</label>
                                                         <div>
-                                                            <input type="text" name="reasonForChange" id="reasonForChange0" class="form-control input-sm" maxlength="50" disabled="disabled"/>
+                                                            <select class="form-control input-sm" style="padding-top: 4px;width:110px;" name="reasonForChange" id="reasonForChange0" disabled="disabled">
+                                                                <option value="" selected="selected">未选择</option>
+                                                                <option th:value="${reasonForChange.id}" th:text="${reasonForChange.value}" th:each="reasonForChange:${reasonForChangeList}"></option>
+                                                            </select>
                                                         </div>
                                                         <label class=" control-label" style="text-align: left"></label>
                                                     </div>
@@ -136,7 +139,7 @@
                                                         <label class="control-label" th:if="${ledgerListStat.index == 0}">成本中心<span
                                                                 style="color:#ed5565;">*</span></label>
                                                         <div>
-                                                            <select class="form-control input-sm" style="padding-top: 4px;width:95px;" name="costCenter" th:attr="id='costCenter'+${ledgerListStat.index}" disabled="disabled">
+                                                            <select class="form-control input-sm" style="padding-top: 4px;width:110px;" name="costCenter" th:attr="id='costCenter'+${ledgerListStat.index}" disabled="disabled">
                                                                 <option value="" th:if="${contract}?${contract.id}" selected="selected">未选择</option>
                                                                 <option value="" th:unless="${contract}?${contract.id}" >未选择</option>
                                                                 <option th:value="${costCenter.id}" th:text="${costCenter.value}" th:each="costCenter:${costCenterList}" th:selected="${costCenter.id==ledger.costCenter?'selected':'false'}"></option>
@@ -180,10 +183,14 @@
                                                 </td>
                                                 <td>
                                                     <div th:attr="id='reasonForChange'+${ledgerListStat.index}+'Form'">
-                                                        <label class="control-label" th:if="${ledgerListStat.index == 0}">变更原因</label>
+                                                        <label class="control-label" th:if="${ledgerListStat.index == 0}">变更原因<span
+                                                                style="color:#ed5565;">*</span></label>
                                                         <div>
-                                                            <input type="text" name="reasonForChange" th:attr="id='reasonForChange'+${ledgerListStat.index}" th:value="${ledger}?${ledger.reasonForChange}"
-                                                                   class="form-control input-sm" maxlength="50" disabled="disabled"/>
+                                                            <select class="form-control input-sm" style="padding-top: 4px;width:110px;" name="reasonForChange" th:attr="id='reasonForChange'+${ledgerListStat.index}" disabled="disabled">
+                                                                <option value="" th:if="${contract}?${contract.id}" selected="selected">未选择</option>
+                                                                <option value="" th:unless="${contract}?${contract.id}" >未选择</option>
+                                                                <option th:value="${reasonForChange.id}" th:text="${reasonForChange.value}" th:each="reasonForChange:${reasonForChangeList}" th:selected="${reasonForChange.id==ledger.reasonForChange?'selected':'false'}"></option>
+                                                            </select>
                                                         </div>
                                                         <label class=" control-label" style="text-align: left"></label>
                                                     </div>

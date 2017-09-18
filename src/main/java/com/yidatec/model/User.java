@@ -106,6 +106,8 @@ public class User extends BaseModel implements UserDetails {
 
     private int caseNumb;
 
+    private String designerCategory;
+
     public String getName() {
         return name;
     }
@@ -403,5 +405,13 @@ public class User extends BaseModel implements UserDetails {
 
     public void setCaseNumb(int caseNumb) {
         this.caseNumb = caseNumb;
+    }
+
+    public String getDesignerCategory() {
+        return designerCategory;
+    }
+
+    public void setDesignerCategory(String designerCategory) {
+        this.designerCategory = designerCategory;
     }
 }

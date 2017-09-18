@@ -117,7 +117,8 @@ public class SecurityService {
         if (rolePermissionList != null) {
             selectedPermission = new ArrayList<String>();
             for (Permission perm : rolePermissionList) {
-                selectedPermission.add(perm.getId());
+                if(perm != null)
+                    selectedPermission.add(perm.getId());
             }
         }
         if (list != null && list.size() > 0) {

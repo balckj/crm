@@ -35,6 +35,7 @@ public class LedgerVO extends BaseModel {
 	private String operator;
 	private String reasonForChange;
 
+	private String updateFlg;
 
 	public List<Ledger> getLedgerList() {
 		return ledgerList;
@@ -132,4 +133,11 @@ public class LedgerVO extends BaseModel {
 		this.category = category;
 	}
 
+	public String getUpdateFlg() {
+		return updateFlg;
+	}
+
+	public void setUpdateFlg(String updateFlg) {
+		this.updateFlg = updateFlg;
+	}
 }

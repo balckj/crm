@@ -115,7 +115,9 @@ public class ContractService {
 		if (ledgerVO.getLedgerList() != null){
 			List<Ledger> ledgerList = ledgerVO.getLedgerList();
 			LocalDateTime t = LocalDateTime.now();
-			for (Ledger ledger : ledgerList) {
+
+			for (int i = 0 ; i < ledgerList.size(); i ++) {
+				Ledger ledger = ledgerList.get(i);
 				String ledgerId = UUID.randomUUID().toString().toLowerCase();
 				ContractLedger contractLedger = new ContractLedger();
 				contractLedger.setContractId(ledgerVO.getId());
@@ -124,12 +126,29 @@ public class ContractService {
 
 				ledger.setId(ledgerId);
 				ledger.setCreatorId(ledgerVO.getId());
-				ledger.setCreateTime(t);
+
 				ledger.setModifierId(ledgerVO.getId());
-				ledger.setModifyTime(t);
+				int numb = i + 1;
+				if("true".equals(ledgerVO.getUpdateFlg())){
+					// 新加一行
+					if(ledger.getModifyTime() == null){
+						ledger.setCreateTime(t.plusSeconds(numb));
+						ledger.setModifyTime(t.plusSeconds(numb));
+						if(i == ledgerList.size()-1){
+							ledger.setModifyTime(ledger.getModifyTime().plusSeconds(1));
+						}
+					}else{
+						ledger.setCreateTime(ledger.getCreateTime());
+						ledger.setModifyTime(ledger.getModifyTime());
+					}
+
+				}else {
+					ledger.setCreateTime(t.plusSeconds(numb));
+					ledger.setModifyTime(t.plusSeconds(numb));
+				}
+
 				ledgerMapper.createLedger(ledger);// 插入台账
 			}
-			ledgerList.get(ledgerList.size()-1).setModifyTime(t.plusSeconds(1));
 		}
 	}
 }

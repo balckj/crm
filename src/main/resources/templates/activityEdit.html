@@ -33,6 +33,7 @@
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
                             <input type="hidden" name="id" id="id" th:value="${activity}?${activity.id}"/>
+                            <input type="hidden" name="selecttypeValue" id="selecttypeValue" th:value="${activity}?${activity.type}"/>
                             <input type="hidden" name="selectCountryValue" id="selectCountryValue" th:value="${activity}?${activity.country}"/>
                             <input type="hidden" name="selectProvinceValue" id="selectProvinceValue" th:value="${activity}?${activity.province}"/>
                             <input type="hidden" name="selectCityValue" id="selectCityValue" th:value="${activity}?${activity.city}"/>
@@ -40,7 +41,6 @@
                             <input type="hidden" name="selectExhibitioHallValue" id="selectExhibitioHallValue" th:value="${activity}?${activity.exhibitioHall}"/>
                             <input type="hidden" name="selectSponsorValue" id="selectSponsorValue" th:value="${activity}?${activity.sponsor}"/>
                             <input type="hidden" name="selectphotoValue" id="selectphotoValue" th:value="${activity}?${activity.photo}"/>
-
                             <div class="form-group" id="nameForm"><label class="col-sm-2 control-label">活动名称<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="name" name="name" type="text"
@@ -48,6 +48,18 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="typeForm"><label class="col-sm-2 control-label">类型<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control " name="type" id="type">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option th:value="${type.id}" th:text="${type.value}" th:each="type : ${type}"></option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
                             <div class="form-group" id="startDateForm">
                                 <label class="col-sm-2 control-label">开始日期<span
                                         style="color:#ed5565;">*</span></label>
@@ -260,6 +272,15 @@
                 }
             });
 
+            $("#type option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selecttypeValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
             $("#country option").each(function(){
                 if($(this).val() == ""){
                     $(this).attr("selected",false);
@@ -452,6 +473,7 @@
             var p = {
                 id: $("#id").val().trim(),
                 name: $("#name").val().trim(),
+                type: $("#type").val().trim(),
                 startDate: $("#startDate").val().replace(' ','T')+":00",
                 endDate:$("#endDate").val().replace(' ','T')+":00",
                 country:$("#country").val(),

@@ -46,6 +46,8 @@ public class CustomerController extends BaseController{
     public String customerEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建客户":"编辑客户");
         model.put("customer",customerService.selectCustomer(id));
+        model.put("source",dictionaryService.selectDictionaryListByCodeCommon(Constants.SOURCE));// 客户来源
+        model.put("position",dictionaryService.selectDictionaryListByCodeCommon(Constants.POSITION));// 职位
         model.put("industryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 所属行业
         model.put("natureList",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));// 企业性质
         model.put("levelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL));// 平台等级

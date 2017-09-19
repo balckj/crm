@@ -37,6 +37,15 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
+                        <label for="type" class="control-label">活动类型</label>
+                        <select name="type" id="type" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
+                            <option value="" selected="selected">不限</option>
+                            <option th:value="${type.id}" th:text="${type.value}" th:each="type : ${type}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
                         <label for="address" class="control-label">活动地址</label>
                         <input type="text"  id="address" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
@@ -119,6 +128,7 @@
                         p.start = d.start;
 
                         p.name = $('#name').val();
+                        p.type = $('#type').val();
                         p.address = $('#address').val();
                         p.startDate = $('#startDate').val();
                         p.endDate = $('#endDate').val();

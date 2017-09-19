@@ -1,17 +1,18 @@
 package com.yidatec.model;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/7/11.
  */
 public class Customer extends BaseModel{
+    @NotBlank(message = "必须选择客户来源", groups = { })
+    private String source;
+
     @NotBlank(message = "必须输入企业名称", groups = { })
     @Length(min = 1, max = 200, message = "企业名称必须由1到200个字符组成", groups = { })
     private String name;
@@ -144,5 +145,13 @@ public class Customer extends BaseModel{
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 }

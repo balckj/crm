@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 /**
@@ -17,7 +18,7 @@ public class Contact extends BaseModel{
     @NotBlank(message = "必须输入联系人电话", groups = { })
     @Pattern(regexp="^1[3|4|5|7|8][0-9]\\d{4,8}$",message="手机号码格式不正确", groups = { })
     private String mobilePhone;
-    @NotBlank(message = "必须输入联系人职位", groups = { })
+    @NotNull(message = "必须输入联系人职位", groups = { })
     private String position;
     @Email(message="邮箱格式不正确", groups = { })
     private String email;

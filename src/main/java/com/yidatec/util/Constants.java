@@ -144,4 +144,14 @@ public interface Constants {
      * 设计师分类
      */
     public static final String DESIGNER_CATEGORY = "designerCategory";
+
+    /**
+     * 职位
+     */
+    public static final String POSITION = "position";
+
+    /**
+     * 客户来源
+     */
+    public static final String SOURCE = "customerSource";
 }

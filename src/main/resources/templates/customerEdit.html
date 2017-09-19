@@ -44,7 +44,7 @@
                             <input type="hidden" name="selectRegionValue" id="selectRegionValue" th:value="${customer}?${customer.region}"/>
                             <input type="hidden" name="selectphotoValue" id="selectphotoValue" th:value="${customer}?${customer.photo}"/>
 
-                            <div class="form-group" id="customerSourceForm"><label class="col-sm-2 control-label">客户来源<span
+                            <div class="form-group" id="sourceForm"><label class="col-sm-2 control-label">客户来源<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
                                     <select class="form-control" name="source" id="source">
@@ -405,6 +405,7 @@
 
             validate("name"+total,"name","validateUsername");
             validate2('mobilePhone'+total, 'mobile', {isEdit: false}, 'validateMobile');
+            validateSelect('position'+total,'position','validatePosition');
             validate('email'+total, 'email', 'validateEmail');
         }
 
@@ -620,10 +621,11 @@
             for (var i=0;i<total;i++)
             {
                 validate("name"+i,"name","validateUsername");
-                validate2('mobilePhone'+i, 'mobile', {isEdit: false}, 'validateMobile');
+                validate2('mobilePhone'+i, 'mobile', {isEdit: false}, 'validateMobile')
+                validateSelect('position'+i, 'position', 'validatePosition');
                 validate('email'+i, 'email', 'validateEmail');
             }
-
+            validateSelect('source', 'source', 'validateSource');
             validate('name', 'name', 'validateCompanyName');
             validateSelect('industry', 'industry', 'validateIndustry');
             validateSelect('nature', 'nature', 'validateNature');
@@ -675,7 +677,6 @@
                 photo:photolist.toString(),
                 state: $("input[name='state']:checked").val()
             };
-            debugger;
             var a = JSON.stringify(p);
             $.ajax({
                 url: 'saveCustomer',
@@ -693,6 +694,7 @@
                     swal("操作失败", "通信错误!", "error");
                 },
                 success: function (data) {
+                    debugger;
                     if (data.res == undefined) {
                         saveBtnda.stop();
                         for (var p in data) {

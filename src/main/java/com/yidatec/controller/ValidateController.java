@@ -5,7 +5,6 @@ import com.yidatec.mapper.UserMapper;
 import com.yidatec.model.Role;
 import com.yidatec.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -820,4 +819,21 @@ public class ValidateController extends BaseController{
         }
         return getSuccessJson(null);
     }
+
+    @RequestMapping(value = "/validateSource")
+    public String validateSource(@RequestParam(value="source") String source){
+        if(source == null || source.trim().isEmpty()){
+            return getErrorJson("必须选择客户来源");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatePosition")
+    public String validatePosition(@RequestParam(value="position") String position){
+        if(position == null || position.trim().isEmpty()){
+            return getErrorJson("必须选择职位");
+        }
+        return getSuccessJson(null);
+    }
+
 }

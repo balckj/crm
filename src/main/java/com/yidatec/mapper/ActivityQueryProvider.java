@@ -15,6 +15,9 @@ public class ActivityQueryProvider {
         if(!StringUtils.isEmpty(activityVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
         }
+        if(!StringUtils.isEmpty(activityVO.getType())){
+            sb.append(" AND D.type = #{type}");
+        }
         if(!StringUtils.isEmpty(activityVO.getAddress())){
             sb.append(" AND D.address LIKE CONCAT('%',#{address},'%')");
         }

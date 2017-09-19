@@ -19,6 +19,10 @@ public class Activity extends BaseModel{
     @NotBlank(message = "必须输入活动名称", groups = { })
     @Length( max = 200, message = "名称最多由200个字符组成", groups = { })
     private String name;
+
+    @NotBlank(message = "必须选择类型", groups = { })
+    private String type;
+
     @NotNull(message = "必须输入开始时间", groups = { })
     @JsonSerialize(using = CustomLocalDateTime2Serializer.class)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
@@ -37,7 +41,7 @@ public class Activity extends BaseModel{
     private String region;
     @Length( max = 200, message = "地址最多由200个字符组成", groups = { })
     private String address;
-    private String state;
+    private Integer state;
     //展馆
     @NotBlank(message = "必须选择展馆", groups = { })
     private String exhibitioHall;
@@ -131,11 +135,11 @@ public class Activity extends BaseModel{
         this.address = address;
     }
 
-    public String getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
@@ -179,5 +183,13 @@ public class Activity extends BaseModel{
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -3,7 +3,9 @@ package com.yidatec.controller;
 import com.yidatec.model.Activity;
 import com.yidatec.service.ActivityService;
 import com.yidatec.service.CustomerService;
+import com.yidatec.service.DictionaryService;
 import com.yidatec.service.ExhibitionService;
+import com.yidatec.util.Constants;
 import com.yidatec.vo.ActivityVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,14 +38,19 @@ public class ActivityController extends BaseController{
     @Autowired
     CustomerService customerService;
 
+    @Autowired
+    DictionaryService dictionaryService;
+
     @RequestMapping("/activityList")
     public String activities(ModelMap model){
+        model.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.PROJECT_TYPE));
         return "activityList";
     }
 
     @RequestMapping("/activityEdit")
     public String activityEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建活动":"编辑活动");
+        model.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.PROJECT_TYPE));
         model.put("activity",activityService.selectActivity(id));
         model.put("exhibitioHallList",exhibitionService.selectExhibitionAll());// 展馆列表
         model.put("customerList",customerService.selectCustomerAll());// 主办方列表

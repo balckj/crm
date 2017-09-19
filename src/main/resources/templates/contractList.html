@@ -579,7 +579,7 @@
                 "      <td>\n" +
                 "          <div id=\"costCenter"+number+"Form\">\n" +
                 "              <div>\n" +
-                "                  <select class=\"form-control input-sm\" style=\"padding-top: 4px;width:95px;\" name=\"costCenter\" id=\"costCenter"+number+"\">\n" +
+                "                  <select class=\"form-control input-sm\" style=\"padding-top: 4px;width:110px;\" name=\"costCenter\" id=\"costCenter"+number+"\">\n" +
                 "                      "+ costCenterStr +
                 "                  </select>\n" +
                 "              </div>\n" +
@@ -613,7 +613,9 @@
                 "      <td>\n" +
                 "          <div id=\"reasonForChange"+number+"Form\">\n" +
                 "              <div>\n" +
-                "                  <select class=\"form-control input-sm\" style=\"padding-top: 4px;width:95px;\" name=\"reasonForChange\" id=\"reasonForChange"+number+"\">\n" +
+                "                  <input type=\"hidden\" name=\"createTime\"/>\n" +
+                "                  <input type=\"hidden\" name=\"modifyTime\"/>\n" +
+                "                  <select class=\"form-control input-sm\" style=\"padding-top: 4px;width:110px;\" name=\"reasonForChange\" id=\"reasonForChange"+number+"\">\n" +
                 "                      "+ reasonForChangeStr +
                 "                  </select>\n" +
                 "              </div>\n" +
@@ -728,6 +730,8 @@
                 paymentAmount = $(this).find("input[name=paymentAmount]").val();
                 operator = $(this).find("input[name=operator]").val();
                 reasonForChange = $(this).find("select[name=reasonForChange]").val();
+                createTime = $(this).find("input[name=createTime]").val();
+                modifyTime = $(this).find("input[name=modifyTime]").val();
                 ledgerList.push({
                     "moneyType":moneyType,
                     "paymentMethod":paymentMethod,
@@ -735,10 +739,13 @@
                     "paymentTime":paymentTime,
                     "paymentAmount":paymentAmount,
                     "operator":operator,
-                    "reasonForChange":reasonForChange
+                    "reasonForChange":reasonForChange,
+                    "createTime":createTime,
+                    "modifyTime":modifyTime
                 })
             })
             var p = {
+                updateFlg:updateFlg,
                 id: $("#id").val().trim(),
                 ledgerList: ledgerList
             };

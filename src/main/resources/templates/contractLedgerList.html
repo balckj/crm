@@ -90,6 +90,8 @@
                                                     <div id="reasonForChange0Form">
                                                         <label class="control-label">变更原因</label>
                                                         <div>
+                                                            <input type="hidden" name="createTime" value=""/>
+                                                            <input type="hidden" name="modifyTime" value=""/>
                                                             <select class="form-control input-sm" style="padding-top: 4px;width:110px;" name="reasonForChange" id="reasonForChange0">
                                                                 <option value="" selected="selected">未选择</option>
                                                                 <option th:value="${reasonForChange.id}" th:text="${reasonForChange.value}" th:each="reasonForChange:${reasonForChangeList}"></option>
@@ -187,6 +189,8 @@
                                                         <label class="control-label" th:if="${ledgerListStat.index == 0}">变更原因<span
                                                                 style="color:#ed5565;">*</span></label>
                                                         <div>
+                                                            <input type="hidden" name="createTime" th:value="${ledger}?${ledger.createTime}"/>
+                                                            <input type="hidden" name="modifyTime" th:value="${ledger}?${ledger.modifyTime}"/>
                                                             <select class="form-control input-sm" style="padding-top: 4px;width:110px;" name="reasonForChange" th:attr="id='reasonForChange'+${ledgerListStat.index}">
                                                                 <option value="" th:if="${contract}?${contract.id}" selected="selected">未选择</option>
                                                                 <option value="" th:unless="${contract}?${contract.id}" >未选择</option>

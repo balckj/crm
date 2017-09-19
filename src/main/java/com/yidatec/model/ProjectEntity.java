@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yidatec.util.CustomLocalDateSerializer;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -64,30 +63,30 @@ public class ProjectEntity extends BaseModel {
     @NotBlank(message = "必须选择项目潜力", groups = { })
     private String potential;
 
-    @NotEmpty(message = "必须选择设计师", groups = { })
+//    @NotEmpty(message = "必须选择设计师", groups = { })
     private List<String> designerId;
 
 
     private String designProgress;
 
-    @NotBlank(message = "必须选择项目经理", groups = { })
+//    @NotBlank(message = "必须选择项目经理", groups = { })
     private String pmId;
 
     private String projectProgress;
 
 
-    @NotEmpty(message = "必须选择工厂", groups = { })
+//    @NotEmpty(message = "必须选择工厂", groups = { })
     private List<String> factoryId;
 
     private String factoryProgress;
     private Float projectScore;
     private Float designScore;
     private Float pmScore;
-    @NotBlank(message = "必须选择开发销售", groups = { })
+//    @NotBlank(message = "必须选择开发销售", groups = { })
     private String developSaleId;
     private String traceSaleId;
 
-    @NotBlank(message = "必须上传照片", groups = { })
+//    @NotBlank(message = "必须上传照片", groups = { })
     private String photo;
     private Integer state;
 

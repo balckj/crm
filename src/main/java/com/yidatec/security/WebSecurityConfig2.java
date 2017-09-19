@@ -44,13 +44,17 @@ public class WebSecurityConfig2 extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .mvcMatchers("/skin-config.html","/validateUserName","/validatePassword",
-                        "/validateMobile","/validateInteger","/validateFloat","/validateEmail",
-                        "/validateRoleName").permitAll();
+//        http.authorizeRequests()
+//                .mvcMatchers("/skin-config.html","/validateUserName","/validatePassword",
+//                        "/validateMobile","/validateInteger","/validateFloat","/validateEmail",
+//                        "/validateRoleName")
+//                .permitAll();
         http.addFilterAt(myUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         http.exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"))
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").deleteCookies("remember-me") .invalidateHttpSession(true).permitAll();
+
+        http.sessionManagement().invalidSessionUrl("/invalidateSession");
+        http.sessionManagement().maximumSessions(1).expiredUrl("/invalidateSession");
         // 开启默认登录页面
         http
                 .authorizeRequests().anyRequest().authenticated()

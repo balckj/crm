@@ -33,8 +33,7 @@
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
                             <input type="hidden" name="id" id="id" th:value="${customer}?${customer.id}"/>
-                            <!--<input type="hidden" name="selectSourceValue" id="selectSourceValue" th:value="${customer}?${customer.source}"/>-->
-                            <!--<input type="hidden" name="selectositionValue" id="selectPositionValue" th:value="${position}?${customer.position}"/>-->
+                            <input type="hidden" name="selectSourceValue" id="selectSourceValue" th:value="${customer}?${customer.source}"/>
                             <input type="hidden" name="selectIndustryValue" id="selectIndustryValue" th:value="${customer}?${customer.industry}"/>
                             <input type="hidden" name="selectNatureValue" id="selectNatureValue" th:value="${customer}?${customer.nature}"/>
                             <input type="hidden" name="selectLevelValue" id="selectLevelValue" th:value="${customer}?${customer.level}"/>
@@ -480,6 +479,14 @@
                 }
             });
 
+            $("#source option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectSourceValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
             $("#country option").each(function(){
                 if($(this).val() == ""){
                     $(this).attr("selected",false);

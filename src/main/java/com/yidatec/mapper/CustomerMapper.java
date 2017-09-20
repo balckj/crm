@@ -28,11 +28,11 @@ public interface CustomerMapper {
     @SelectProvider(type=com.yidatec.mapper.CustomerQueryProvider.class,method = "countCustomer")
     int countCustomerList(CustomerVO customerVO);
 
-    @Insert("INSERT INTO T_CUSTOMER (id,name,industry,nature,country,province,city,region,address,level,state,photo,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{name}," +
+    @Insert("INSERT INTO T_CUSTOMER (id,source,name,industry,nature,country,province,city,region,address,level,state,photo,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{source},#{name}," +
             "#{industry},#{nature},#{country},#{province},#{city},#{region},#{address},#{level},#{state},#{photo},#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
     int create(Customer customer);
 
-    @Update("UPDATE T_CUSTOMER SET `name`=#{name},industry=#{industry},nature=#{nature}," +
+    @Update("UPDATE T_CUSTOMER SET `name`=#{name},source=#{source},industry=#{industry},nature=#{nature}," +
             "country=#{country},province=#{province},city=#{city},region=#{region},address=#{address},level=#{level},state=#{state},photo=#{photo}," +
             "modifierId=#{modifierId}," +
             "modifyTime=#{modifyTime} WHERE id=#{id}")

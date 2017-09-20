@@ -836,4 +836,36 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
+    @RequestMapping(value = "/validateVendorAppointment")
+    public String validateVendorAppointment(@RequestParam(value = "vendorAppointment") String vendorAppointment) {
+        if (vendorAppointment == null || vendorAppointment.trim().isEmpty()) {
+            return getErrorJson("必须选择空闲时间供应商");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateDesigner")
+    public String validateDesigner(@RequestParam(value = "designer") String designer) {
+        if (designer == null || designer.trim().isEmpty()) {
+            return getErrorJson("必须选择设计师");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validatePm")
+    public String validatePm(@RequestParam(value = "pm") String pm) {
+        if (pm == null || pm.trim().isEmpty()) {
+            return getErrorJson("必须选择项目经理");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateSale")
+    public String validateSale(@RequestParam(value = "sale") String sale) {
+        if (sale == null || sale.trim().isEmpty()) {
+            return getErrorJson("必须选择销售");
+        }
+        return getSuccessJson(null);
+    }
+
 }

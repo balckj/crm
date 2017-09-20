@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class Role extends BaseModel{
     @NotBlank(message = "必须输入角色名称")
-    @Length(min = 2, max = 20, message = "角色名称必须由小于20个字符组成")
+    @Length(min = 1, max = 20, message = "角色名称必须由1到20个字符组成")
     private String name;
     private String desc;
     private Integer state;

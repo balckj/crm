@@ -890,7 +890,6 @@
         var saveBtnda;
         function saveProject(btn) {
             saveBtnda = Ladda.create( btn );
-            debugger;
             if(hasDesignerOption){
                 if($("#designerId").val() == ""){
                     $("#designerIdForm").addClass("has-error")
@@ -1011,7 +1010,6 @@
                             }
                         }
                     }else{
-
                         loadPage("projectList",function(){
                             saveBtnda.stop();
                         });

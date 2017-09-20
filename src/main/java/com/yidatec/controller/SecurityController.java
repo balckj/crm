@@ -341,4 +341,9 @@ public class SecurityController extends BaseController {
 
     }
 
+    @RequestMapping("/invalidateSession")
+    public String invalidateSession(){
+        return "invalidateSession";
+    }
+
 }

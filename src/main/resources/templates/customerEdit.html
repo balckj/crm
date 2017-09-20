@@ -33,6 +33,8 @@
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal">
                             <input type="hidden" name="id" id="id" th:value="${customer}?${customer.id}"/>
+                            <!--<input type="hidden" name="selectSourceValue" id="selectSourceValue" th:value="${customer}?${customer.source}"/>-->
+                            <!--<input type="hidden" name="selectositionValue" id="selectPositionValue" th:value="${position}?${customer.position}"/>-->
                             <input type="hidden" name="selectIndustryValue" id="selectIndustryValue" th:value="${customer}?${customer.industry}"/>
                             <input type="hidden" name="selectNatureValue" id="selectNatureValue" th:value="${customer}?${customer.nature}"/>
                             <input type="hidden" name="selectLevelValue" id="selectLevelValue" th:value="${customer}?${customer.level}"/>
@@ -42,6 +44,17 @@
                             <input type="hidden" name="selectRegionValue" id="selectRegionValue" th:value="${customer}?${customer.region}"/>
                             <input type="hidden" name="selectphotoValue" id="selectphotoValue" th:value="${customer}?${customer.photo}"/>
 
+                            <div class="form-group" id="sourceForm"><label class="col-sm-2 control-label">客户来源<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="source" id="source">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option th:value="${source.id}" th:text="${source.value}" th:each="source:${source}"></option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
                             <div class="form-group" id="nameForm"><label class="col-sm-2 control-label">企业名称<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="name" name="name" type="text" class="form-control"
@@ -183,7 +196,10 @@
                                                 <label class="control-label">职位<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <input type="text" name="position" id="position0" class="form-control input-sm" maxlength="20"/>
+                                                    <select class="form-control location" name="position" id="position0" >
+                                                        <option value="" selected="selected">未选择</option>
+                                                        <option th:value="${position.id}" th:text="${position.value}" th:each="position : ${position}"></option>
+                                                    </select>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -228,7 +244,10 @@
                                                 <label class="control-label">职位<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <input type="text" th:attr="id='position'+${terStat.index}, name='position'" class="form-control input-sm" maxlength="20" th:value="${contact.position}"/>
+                                                    <select class="form-control location" th:attr="id='position'+${terStat.index}, name='position'" >
+                                                        <option value="" selected="selected">未选择</option>
+                                                        <option th:value="${position.id}" th:text="${position.value}" th:each="position : ${position}" th:selected="${position.id==contact.position?'selected':'false'}"></option>
+                                                    </select>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -335,6 +354,11 @@
         /*]]>*/
     </script>
     <script th:src="@{99/js/plugins/area/location_chs.js}"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var position =[[${position }]];
+        /*]]>*/
+    </script>
 
     <script type="text/javascript">
         /*<![CDATA[*/
@@ -360,7 +384,9 @@
                 +" <div class='col-sm-2'>"
                 +" <div id='position"+total+ "Form'>"
                 +" <div>"
-                +" <input type='text' name='position' id='position"+total+ "' class='form-control input-sm' maxlength='20'/>"
+                +" <select class='form-control location' name='position' id='position"+total+ "' >"
+//                +" <option th:value='${position.id}' th:text='${position.value}' th:each='position : ${position}'></option>"
+                +" </select>"
                 +" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
@@ -374,12 +400,23 @@
                 +" </div>"
                 +" </div>"
                 +" <div class='col-sm-1'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div></div>";
-            $("#contactList").append(row)
+            $("#contactList").append(row);
+            addTagListOption("position"+total);
 
             validate("name"+total,"name","validateUsername");
             validate2('mobilePhone'+total, 'mobile', {isEdit: false}, 'validateMobile');
+            validateSelect('position'+total,'position','validatePosition');
             validate('email'+total, 'email', 'validateEmail');
         }
+
+        function addTagListOption(id){
+            var obj = $('#'+id);
+            obj.append("<option value='' selected='selected'>未选择</option>");
+            for(var i= 0; i < position.length; i++){
+                obj.append("<option value='"+position[i].id+"'>"+position[i].value+"</option>");
+            }
+        }
+
         //为姓名或邮箱等添加span标签，好设置样式
         function addSpan(li,text){
             var span_1=document.createElement("span");
@@ -584,10 +621,11 @@
             for (var i=0;i<total;i++)
             {
                 validate("name"+i,"name","validateUsername");
-                validate2('mobilePhone'+i, 'mobile', {isEdit: false}, 'validateMobile');
+                validate2('mobilePhone'+i, 'mobile', {isEdit: false}, 'validateMobile')
+                validateSelect('position'+i, 'position', 'validatePosition');
                 validate('email'+i, 'email', 'validateEmail');
             }
-
+            validateSelect('source', 'source', 'validateSource');
             validate('name', 'name', 'validateCompanyName');
             validateSelect('industry', 'industry', 'validateIndustry');
             validateSelect('nature', 'nature', 'validateNature');
@@ -612,7 +650,7 @@
 //            });
             $("#contactList").children().each(function(index){
                 userName = $(this).find("input[name='name']").val();
-                userPosition = $(this).find("input[name='position']").val();
+                userPosition = $(this).find("select[name='position']").val();
                 userPhone = $(this).find("input[name='mobilePhone']").val();
                 userEmail = $(this).find("input[name='email']").val();
                 userList.push({
@@ -624,6 +662,7 @@
             })
             var p = {
                 id: $("#id").val().trim(),
+                source: $("#source").val().trim(),
                 name: $("#name").val().trim(),
 //                companyId: $("#companyId").val().trim(),
                 industry: $("#industry").val(),
@@ -638,7 +677,6 @@
                 photo:photolist.toString(),
                 state: $("input[name='state']:checked").val()
             };
-            debugger;
             var a = JSON.stringify(p);
             $.ajax({
                 url: 'saveCustomer',
@@ -656,6 +694,7 @@
                     swal("操作失败", "通信错误!", "error");
                 },
                 success: function (data) {
+                    debugger;
                     if (data.res == undefined) {
                         saveBtnda.stop();
                         for (var p in data) {

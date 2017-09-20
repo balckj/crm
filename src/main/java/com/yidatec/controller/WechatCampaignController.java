@@ -8,6 +8,7 @@ import com.yidatec.model.Customer;
 import com.yidatec.service.*;
 import com.yidatec.util.ConfProperties;
 
+import com.yidatec.util.Constants;
 import com.yidatec.util.FileUtills;
 import com.yidatec.util.HttpClientHelper;
 import com.yidatec.vo.ActivityVO;
@@ -57,6 +58,9 @@ public class WechatCampaignController extends BaseController{
     @Autowired
     AccessTokenService accessTokenService;
 
+    @Autowired
+    DictionaryService dictionaryService;
+
 
     /**
      * 新建或编辑
@@ -70,6 +74,7 @@ public class WechatCampaignController extends BaseController{
         if(id == null){//新建
             res = new HashMap<String,Object>();
             res.put("res",1);
+            model.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.ACTIVITY_TYPE));
             res.put("exhibitioHallList",exhibitionService.selectExhibitionAll());
             res.put("customerList",customerService.selectCustomerAll());
         }else{//编辑
@@ -82,6 +87,7 @@ public class WechatCampaignController extends BaseController{
                 res.put("exhibitioHallList",exhibitionService.selectExhibitionAll());
                 res.put("customerList",customerService.selectCustomerAll());
                 res.put("campaign",campaign);
+                model.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.ACTIVITY_TYPE));
             }
         }
         Map<String,String> signure = wechatService.generateJSAPISignature(confProperties.getWeChatHost()+confProperties.getWeChatContextPath()+url);

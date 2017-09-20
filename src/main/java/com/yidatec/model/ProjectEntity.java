@@ -88,6 +88,7 @@ public class ProjectEntity extends BaseModel {
 
 //    @NotBlank(message = "必须上传照片", groups = { })
     private String photo;
+    private String remark;
     private Integer state;
 
     public String getName() {
@@ -312,5 +313,13 @@ public class ProjectEntity extends BaseModel {
 
     public void setCampaignName(String campaignName) {
         this.campaignName = campaignName;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

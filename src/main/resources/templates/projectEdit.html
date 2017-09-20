@@ -50,7 +50,6 @@
                             <input type="hidden" name="selecttraceSaleIdValue" id="selecttraceSaleIdValue" th:value="${project}?${project.traceSaleId}"/>
                             <input type="hidden" name="selectdegreeOfImportanceValue" id="selectdegreeOfImportanceValue" th:value="${project}?${project.degreeOfImportance}"/>
                             <input type="hidden" name="selectpotentialValue" id="selectpotentialValue" th:value="${project}?${project.potential}"/>
-
                             <input type="hidden" selectphotoValue="id" id="selectphotoValue" th:value="${project}?${project.photo}"/>
 
                             <div class="form-group" id="nameForm"><label class="col-sm-2 control-label">项目名称<span
@@ -261,7 +260,6 @@
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="traceSaleIdForm" ><label class="col-sm-2 control-label">跟进销售</label>
                                 <div class="col-sm-4">
@@ -283,22 +281,30 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="remarkForm"><label class="col-sm-2 control-label">沟通备注</label>
+                                <div class="col-sm-4">
+                                    <textarea id="remark" name="remark" class="form-control" rows="5" cols="30" th:text="${project}?${project.remark}"> </textarea>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
                             <div class="form-group"><label class="col-sm-2 control-label">状态</label>
                                 <div class="col-sm-4">
                                     <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s1" value="1" th:checked="${factory}?${factory.state eq 1}:'true'"/>
+                                        <input type="radio" name="state" id="s1" value="1" th:checked="${project}?${project.state eq 1}:'true'"/>
                                         <label for="s1">
                                             可用
                                         </label>
                                     </div>
                                     <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s2" value="2" th:checked="${factory}?${factory.state eq 2}"/>
+                                        <input type="radio" name="state" id="s2" value="2" th:checked="${project}?${project.state eq 2}"/>
                                         <label for="s2">
                                             锁定
                                         </label>
                                     </div>
                                     <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s3" value="3" th:checked="${factory}?${factory.state eq 3}"/>
+                                        <input type="radio" name="state" id="s3" value="3" th:checked="${project}?${project.state eq 3}"/>
                                         <label for="s3">
                                             禁用
                                         </label>
@@ -969,6 +975,7 @@
                 developSaleId: $("#developSaleId").val(),
                 traceSaleId: $("#traceSaleId").val(),
                 photo: photolist.toString(),
+                remark:$("#remark").val().trim(),
                 state: $("input[name='state']:checked").val(),
             };
             var a = JSON.stringify(p);

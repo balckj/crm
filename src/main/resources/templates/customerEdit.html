@@ -385,7 +385,6 @@
                 +" <div id='position"+total+ "Form'>"
                 +" <div>"
                 +" <select class='form-control location' name='position' id='position"+total+ "' >"
-//                +" <option th:value='${position.id}' th:text='${position.value}' th:each='position : ${position}'></option>"
                 +" </select>"
                 +" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
@@ -427,6 +426,23 @@
         //为删除按钮添加删除节点功能
         function delBtnData(obj){
             $(obj).parent().parent().remove();
+            updateId();
+        }
+
+        function updateId() {
+            $("#contactList > div").each(function(index){
+                $(this).find($("div[id^='name']")).attr("id","name"+index+"Form");
+                $(this).find($("input[id^='name']")).attr("id","name"+index);
+
+                $(this).find($("div[id^='mobilePhone']")).attr("id","mobilePhone"+index+"Form");
+                $(this).find($("input[id^='mobilePhone']")).attr("id","mobilePhone"+index);
+
+                $(this).find($("div[id^='position']")).attr("id","position"+index+"Form");
+                $(this).find($("select[id^='position']")).attr("id","position"+index);
+
+                $(this).find($("div[id^='email']")).attr("id","email"+index+"Form");
+                $(this).find($("input[id^='email']")).attr("id","email"+index);
+            })
         }
 
         var country = '<option value="" selected="selected">未选择</option>';

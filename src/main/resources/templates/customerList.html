@@ -46,7 +46,7 @@
                     <div class="form-group">
                         <label for="nature" class="control-label">企业性质</label>
                         <select name="nature" id="nature" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
-                            <option value="" selected="selected"></option>
+                            <option value="" selected="selected">不限</option>
                             <option th:value="${natures.id}" th:text="${natures.value}" th:each="natures : ${nature}"></option>
                         </select>
                     </div>

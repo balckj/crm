@@ -154,4 +154,9 @@ public interface Constants {
      * 客户来源
      */
     public static final String SOURCE = "customerSource";
+
+    /**
+     * 活动类型
+     */
+    public static final String ACTIVITY_TYPE="activityType";
 }

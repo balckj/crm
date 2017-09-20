@@ -114,17 +114,19 @@
 
                                         <div class="col-sm-2">
                                             <div id="position0Form">
-                                                <label class="control-label">职位</label>
+                                                <label class="control-label">职位<span
+                                                        style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <input type="text" name="position" id="position0" class="form-control input-sm" maxlength="20"/>
-                                                </div>
+                                                    <select class="form-control location" name="position" id="position0" >
+                                                        <option value="" selected="selected">未选择</option>
+                                                        <option th:value="${position.id}" th:text="${position.value}" th:each="position : ${position}"></option>
+                                                    </select></div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div id="email0Form">
-                                                <label class="control-label">QQ邮箱<span
-                                                        style="color:#ed5565;">*</span></label>
+                                                <label class="control-label">QQ邮箱</label>
                                                 <div>
                                                     <input type="text" name="email" id="email0" class="form-control input-sm" maxlength="50"/>
                                                 </div>
@@ -159,17 +161,20 @@
 
                                         <div class="col-sm-2">
                                             <div th:attr="id='position'+${terStat.index}+'Form'">
-                                                <label class="control-label">职位</label>
+                                                <label class="control-label">职位<span
+                                                        style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <input type="text" th:attr="id='position'+${terStat.index}, name='position'" class="form-control input-sm" maxlength="20" th:value="${contact.position}"/>
+                                                    <select class="form-control location" th:attr="id='position'+${terStat.index}, name='position'" >
+                                                        <option value="" selected="selected">未选择</option>
+                                                        <option th:value="${position.id}" th:text="${position.value}" th:each="position : ${position}" th:selected="${position.id==contact.position?'selected':'false'}"></option>
+                                                    </select>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div th:attr="id='email'+${terStat.index}+'Form'">
-                                                <label class="control-label">QQ邮箱<span
-                                                        style="color:#ed5565;">*</span></label>
+                                                <label class="control-label">QQ邮箱</label>
                                                 <div>
                                                     <input type="text" th:attr="id='email'+${terStat.index}, name='email'" class="form-control input-sm" maxlength="50" th:value="${contact.email}"/>
                                                 </div>
@@ -485,7 +490,11 @@
         /*]]>*/
     </script>
     <script th:src="@{99/js/plugins/area/location_chs.js}"></script>
-
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var position =[[${position }]];
+        /*]]>*/
+    </script>
     <script type="text/javascript">
         /*<![CDATA[*/
         //创建li标签，包含显示姓名，邮箱，电话号码及删除按钮
@@ -510,8 +519,8 @@
                 +" <div class='col-sm-2'>"
                 +" <div id='position"+total+ "Form'>"
                 +" <div>"
-                +" <input type='text' name='position' id='position"+total+ "' class='form-control input-sm' maxlength='20'/>"
-                +" </div>"
+                +" <select class='form-control location' name='position' id='position"+total+ "' >"
+                +" </select>"+" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
@@ -524,10 +533,21 @@
                 +" </div>"
                 +" </div>"
                 +" <div class='col-sm-1'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div></div>";
-            $("#contactList").append(row)
+            $("#contactList").append(row);
+            addTagListOption("position"+total);
+
             validate("name"+total,"name","validateUsername");
             validate2('mobilePhone'+total, 'mobile', {isEdit: false}, 'validateMobile');
+            validateSelect('position'+total,'position','validatePosition');
             validate('email'+total, 'email', 'validateEmail');
+        }
+
+        function addTagListOption(id){
+            var obj = $('#'+id);
+            obj.append("<option value='' selected='selected'>未选择</option>");
+            for(var i= 0; i < position.length; i++){
+                obj.append("<option value='"+position[i].id+"'>"+position[i].value+"</option>");
+            }
         }
 
         var casephoto=[];
@@ -637,106 +657,49 @@
                                 break;
                             }
                         }
-//                        $.ajax({
-//                            type: 'POST',
-//                            url: 'filedelete',
-//                            data: {name: file.serverName},
-//                            dataType: 'html',
-//                            success: function(data){
-//                                var rep = JSON.parse(data);
-//                                if(rep.code == 200)
-//                                {
-//                                    $("#caseCount").val(total+1);
-//                                }
-//                            }
-//                        });
                     });
                 }
             });
         }
 
 
-//        $("#casePhoto0").dropzone({
-//            url: "fileupload",
-//            paramName: "files",
-//            addRemoveLinks: true,
-//            uploadMultiple:false,
-//            dictRemoveLinks: "x",
-//            dictCancelUpload: "x",
-//            maxFiles: 10,
-//            maxFilesize: 5,
-//            previewTemplate:previewTemplate ,
-////            autoProcessQueue:false,
-//            acceptedFiles: ".jpg,.gif,.png", //上传的类型
-//            init:function(){
-//                var mockFile = { name: "Filename",
-//                    size: 10000
-//                };
-////                this.emit("addedfile", mockFile);
-////                mockFile._viewLink.href = "rest/components/"+$scope.component.name+"/"+$scope.component.version +"/"+$scope.component.image;
-////                mockFile._viewLink.name = $scope.component.image;
-////                this.emit("thumbnail", mockFile, "rest/components/"+$scope.component.name+"/"+$scope.component.version +"/"+$scope.component.image);
-////                this.emit("complete", mockFile);
-////                var submitButton = document.querySelector("#saveBtn")
-////                submitButton.addEventListener("click", function () {
-////                    myDropzone.processQueue();
-////                });
-//                this.on("addedfile", function(file) {
-//                    console.info(file);
-//                    //上传文件时触发的事件
-////                    $("#saveBtn").removeAttr("disabled");
-//                });
-//                this.on("success",function(file,response) {
-//                    //单个上传完成后触发的方法
-//                    debugger;
-//                    file.serverName = response.url;
-//                    if(casephoto[0] == undefined){
-//                        var tempArray = [];
-//                        casephoto[0] = tempArray;
-//
-//                    }
-//                    casephoto[0].push(file.serverName );
-//
-//                });
-//                this.on("queuecomplete",function(file) {
-//                    //上传完成后触发的方法
-//                    $("#caseCount").val(casephoto.length);
-//                });
-//                this.on("removedfile",function(file){
-//                    debugger;
-//                    //删除文件时触发的方法
-//                    for(var i=0;i<casephoto[0].length;i++){
-//                        if(casephoto[0][i]==file.serverName){
-//                            casephoto[0].splice(i,1);
-//                            break;
-//                        }
-//                    }
-//                    $.ajax({
-//                        type: 'POST',
-//                        url: 'filedelete',
-//                        data: {name: file.serverName},
-//                        dataType: 'html',
-//                        success: function(data){
-//                            var rep = JSON.parse(data);
-//                            if(rep.code == 200)
-//                            {
-//                                $("#caseCount").val(casephoto.length);
-//                            }
-//                        }
-//                    });
-//                });
-//            }
-//        });
-
-
-        //为删除按钮添加删除节点功能
+        //删除联系人按钮
         function delBtnData(obj){
             $(obj).parent().parent().remove();
+            updateContactId();
         }
 
+        //更新联系人ID
+        function updateContactId() {
+            $("#contactList > div").each(function(index){
+                $(this).find($("div[id^='name']")).attr("id","name"+index+"Form");
+                $(this).find($("input[id^='name']")).attr("id","name"+index);
+
+                $(this).find($("div[id^='mobilePhone']")).attr("id","mobilePhone"+index+"Form");
+                $(this).find($("input[id^='mobilePhone']")).attr("id","mobilePhone"+index);
+
+                $(this).find($("div[id^='position']")).attr("id","position"+index+"Form");
+                $(this).find($("select[id^='position']")).attr("id","position"+index);
+
+                $(this).find($("div[id^='email']")).attr("id","email"+index+"Form");
+                $(this).find($("input[id^='email']")).attr("id","email"+index);
+            })
+        }
+
+        //  删除案例按钮
         function delCase(obj){
             $(obj).parent().parent().parent().remove();
             $("#caseCount").val($("#caseList").children().length);
+            updateId();
+        }
+        //更新案例ID
+        function updateId() {
+            $("#caseList > div").each(function(index){
+                $(this).find($("div[id^='caseName']")).attr("id","caseName"+index+"Form");
+                $(this).find($("input[id^='caseName']")).attr("id","caseName"+index);
+                $(this).find($("div[id^='casePhoto']")).attr("id","casePhoto"+index+"Form");
+                $(this).find($(".dropzone")).attr("id","casePhoto"+index);
+            })
         }
 
 

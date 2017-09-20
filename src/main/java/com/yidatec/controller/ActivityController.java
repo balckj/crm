@@ -43,14 +43,14 @@ public class ActivityController extends BaseController{
 
     @RequestMapping("/activityList")
     public String activities(ModelMap model){
-        model.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.PROJECT_TYPE));
+        model.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.ACTIVITY_TYPE));
         return "activityList";
     }
 
     @RequestMapping("/activityEdit")
     public String activityEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建活动":"编辑活动");
-        model.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.PROJECT_TYPE));
+        model.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.ACTIVITY_TYPE));
         model.put("activity",activityService.selectActivity(id));
         model.put("exhibitioHallList",exhibitionService.selectExhibitionAll());// 展馆列表
         model.put("customerList",customerService.selectCustomerAll());// 主办方列表

@@ -69,6 +69,8 @@ public class WechatCustomerController extends BaseController{
             res.put("industryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 所属行业
             res.put("natureList",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));// 企业性质
             res.put("levelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL));// 平台等级
+            model.put("position",dictionaryService.selectDictionaryListByCodeCommon(Constants.POSITION));// 职位
+            model.put("source",dictionaryService.selectDictionaryListByCodeCommon(Constants.SOURCE));// 客户来源
 
         }else{//编辑
             Customer customer = customerService.selectCustomer(id);
@@ -81,6 +83,8 @@ public class WechatCustomerController extends BaseController{
                 res.put("industryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 所属行业
                 res.put("natureList",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));// 企业性质
                 res.put("levelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL));// 平台等级
+                model.put("position",dictionaryService.selectDictionaryListByCodeCommon(Constants.POSITION));// 职位
+                model.put("source",dictionaryService.selectDictionaryListByCodeCommon(Constants.SOURCE));// 客户来源
             }
         }
         Map<String,String> signure = wechatService.generateJSAPISignature(confProperties.getWeChatHost()+confProperties.getWeChatContextPath()+url);

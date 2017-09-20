@@ -25,6 +25,14 @@ public interface ContractMapper {
 			" WHERE A.id = #{id}")
 	ContractVO selectContract(String id);
 
+	/**
+	 * 查找一个合同
+	 * @return
+	 */
+	@Select("SELECT A.*,A.paymentMethod as contractPaymentMethod from T_CONTRACT A" +
+			" WHERE A.id = #{id}")
+	Contract findContract(String id);
+
 	@SelectProvider(type=ContractQueryProvider.class,method = "selectContractList")
 	List<ContractVO> selectContractList(ContractVO contractVO);
 	@SelectProvider(type=ContractQueryProvider.class,method = "countContractList")
@@ -48,6 +56,16 @@ public interface ContractMapper {
 			"#{company},#{taxNumber},#{addressTelephone},#{bankAccount},#{firstParty},#{secondParty},#{remarks}," +
 			"#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
 	int create(Contract contract);
+
+	@Insert("INSERT INTO T_CONTRACT_HISTORY (id,`signDay`,`name`,`code`,projectId,campaignId," +
+			"exhibitionNumber,area,amount,category,tax,paymentMethod,initialPaymentTime,middlePaymentTime,finalPaymentTime," +
+			"company,taxNumber,addressTelephone,bankAccount,firstParty,secondParty,remarks," +
+			"creatorId,createTime,modifierId,modifyTime) VALUES (" +
+			"#{id},#{signDay},#{name},#{code},#{projectId},#{campaignId}," +
+			"#{exhibitionNumber},#{area},#{amount},#{category},#{tax},#{contractPaymentMethod},#{initialPaymentTime},#{middlePaymentTime},#{finalPaymentTime}," +
+			"#{company},#{taxNumber},#{addressTelephone},#{bankAccount},#{firstParty},#{secondParty},#{remarks}," +
+			"#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
+	int createHistory(Contract contract);
 
 	@Update("UPDATE T_CONTRACT SET " +
 			"`signDay`=#{signDay},`name`=#{name},`code`=#{code},projectId=#{projectId},campaignId=#{campaignId},exhibitionNumber=#{exhibitionNumber}," +

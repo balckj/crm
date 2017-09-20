@@ -82,6 +82,8 @@ public class ContractService {
 		contractMapper.create(contract);
 	}
 
+
+
 	/**
 	 * 更新合同
 	 *
@@ -93,6 +95,17 @@ public class ContractService {
 		contractMapper.update(contract);
 	}
 
+	/**
+	 * 创建合同历史
+	 *
+	 * @param contract
+	 * @return
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
+	public void createContractHistory(Contract contract) {
+		Contract contract1 = contractMapper.findContract(contract.getId());
+		contractMapper.createHistory(contract1);
+	}
 
 	/**
 	 * 创建台账

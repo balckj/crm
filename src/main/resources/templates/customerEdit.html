@@ -146,7 +146,7 @@
                             <div class="form-group" id="addressForm">
                                 <label class="col-sm-2 control-label">地址</label>
                                 <div class="col-sm-4"><input id="address" name="address" type="text"
-                                                             class="form-control" maxlength="200" th:value="${customer}?${customer.address}" /></div>
+                                                             class="form-control" maxlength="100" th:value="${customer}?${customer.address}" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -195,7 +195,7 @@
                                                 <label class="control-label">职位<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <select class="form-control location" name="position" id="position0" >
+                                                    <select class="form-control input-sm" name="position" id="position0" >
                                                         <option value="" selected="selected">未选择</option>
                                                         <option th:value="${position.id}" th:text="${position.value}" th:each="position : ${position}"></option>
                                                     </select>

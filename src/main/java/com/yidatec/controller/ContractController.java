@@ -80,6 +80,7 @@ public class ContractController extends BaseController{
             contract.setModifierId(getWebUser().getId());
             contract.setModifyTime(LocalDateTime.now());
             contractService.updateContract(contract);
+            contractService.createContractHistory(contract);
         }
         return getSuccessJson(null);
     }

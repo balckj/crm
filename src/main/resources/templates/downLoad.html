@@ -11,16 +11,13 @@
     </style>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2 >可用供应商列表</h2>
+            <h2 >报表下载</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="index.html">首页</a>
                 </li>
                 <li>
                     <a>报表下载</a>
-                </li>
-                <li class="active">
-                    <strong>报价单</strong>
                 </li>
             </ol>
         </div>
@@ -30,11 +27,11 @@
         <div class="ibox-content m-b-sm border-bottom">
             <div class="row">
                 <div class="col-sm-12">
-                <form method="POST" class="form-horizontal form-inline" id='quotationForm'>
+                <form method="POST" class="form-horizontal form-inline" id='acReportForm'>
                     <div class="form-group">
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">报价单<span style="color:#ed5565;"></span></label>
+                                <label class="col-sm-2 control-label">业绩管理<span style="color:#ed5565;"></span></label>
                             </div>
                         </div>
                     </div>
@@ -64,6 +61,7 @@
                 </form>
                 </div>
             </div>
+
         </div>
 
     </div>
@@ -126,8 +124,8 @@
 //                return;
 //            }
 
-            $('#quotationForm').attr('action', "/quotationDownLoad");
-            $("#quotationForm").submit();
+            $('#acReportForm').attr('action', "/achievementReportDownLoad");
+            $("#acReportForm").submit();
         }
 
         function checkEndTime(startTime,endTime){

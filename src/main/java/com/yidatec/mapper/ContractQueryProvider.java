@@ -8,7 +8,7 @@ import org.springframework.util.StringUtils;
 public class ContractQueryProvider {
 
     /**
-     * 查询根据项目甲方乙方
+     * 查询根据项目甲方乙方select
      * @param projectEntity
      * @return
      */
@@ -24,9 +24,16 @@ public class ContractQueryProvider {
 
         sb.append(" UNION");
 
-        sb.append(" SELECT A.id,C.name FROM T_PROJECT  A LEFT JOIN T_PROJECT_FACTORY B ON A.id=B.projectId");
+        sb.append(" SELECT C.id,C.name FROM T_PROJECT  A LEFT JOIN T_PROJECT_FACTORY B ON A.id=B.projectId");
         sb.append(" LEFT JOIN T_FACTORY C ON B.factoryId = C.id");
         sb.append(" WHERE A.id =#{id}"); // 工厂
+
+        sb.append(" UNION");
+
+        sb.append(" SELECT C.id,C.name FROM T_PROJECT  A ");
+        sb.append(" LEFT JOIN T_PROJECT_DESIGNER B ON A.id=B.projectId ");
+        sb.append(" LEFT JOIN T_USER C ON B.designerId = C.id ");
+        sb.append(" WHERE A.id =#{id}"); // 设计师
 
         sb.append(" UNION");
 
@@ -47,6 +54,11 @@ public class ContractQueryProvider {
         return sb.toString();
     }
 
+    /**
+     * 合同列表页table
+     * @param contractVO
+     * @return
+     */
     public String selectContractList(final ContractVO contractVO){
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT * FROM ( ");
@@ -81,7 +93,11 @@ public class ContractQueryProvider {
         sb.append(" ORDER BY A.modifyTime DESC LIMIT #{start},#{length}");
         return sb.toString();
     }
-
+    /**
+     * 合同列表页table
+     * @param contractVO
+     * @return
+     */
     public String countContractList(final ContractVO contractVO){
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT count(*) FROM (");
@@ -114,6 +130,11 @@ public class ContractQueryProvider {
         return sb.toString();
     }
 
+    /**
+     * 合同列表页甲乙合同查询条件table
+     * @param abvo
+     * @return
+     */
     public String selectABVOTable(final ABVO abvo){
         StringBuffer sb = new StringBuffer();
         if ("C".equals(abvo.getType())){

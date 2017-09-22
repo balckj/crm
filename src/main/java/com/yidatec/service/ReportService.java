@@ -199,105 +199,150 @@ public class ReportService {
 
 		row1.createCell(colIndex++).setCellValue("合同编号");
 		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
 		row1.createCell(colIndex++).setCellValue("项目名称");
 		sheet.setColumnWidth(colIndex, 32 * 100);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
 		row1.createCell(colIndex++).setCellValue("市场活动名称");
 		sheet.setColumnWidth(colIndex, 32 * 100);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
 		row1.createCell(colIndex++).setCellValue("开展日期");
 		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
 		row1.createCell(colIndex++).setCellValue("展位号");
 		sheet.setColumnWidth(colIndex, 32 * 50);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
 		row1.createCell(colIndex++).setCellValue("合同价");
 		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
 		row1.createCell(colIndex++).setCellValue("合同变更");
 		sheet.setColumnWidth(colIndex, 32 * 150);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
 		row1.createCell(colIndex++).setCellValue("客户扣款");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
 		row1.createCell(colIndex++).setCellValue("扣款理由");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
 		row1.createCell(colIndex++).setCellValue("执行地");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
 		row1.createCell(colIndex++).setCellValue("成本中心");
-		sheet.setColumnWidth(colIndex, 32 * 100);
-		row1.createCell(colIndex++).setCellValue("实际业绩");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
 		row1.createCell(colIndex++).setCellValue("实际业绩");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
+		row1.createCell(colIndex++).setCellValue("实际业绩");
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
 		row1.createCell(colIndex++).setCellValue("毛利润");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
 		row1.createCell(colIndex++).setCellValue("百分比");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
 		row1.createCell(colIndex++).setCellValue("供应商");
-		sheet.setColumnWidth(colIndex, 32 * 100);
-
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
 		row1.createCell(colIndex++).setCellValue("供应商合同额及变动");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
 		row1.createCell(colIndex++).setCellValue("供应商扣款");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
 		row1.createCell(colIndex++).setCellValue("最终供应商价格");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
 		row1.createCell(colIndex++).setCellValue("供应商合同编号");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
 		row1.createCell(colIndex++).setCellValue("实际业绩");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
 		row1.createCell(colIndex++).setCellValue("实际业绩");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
 		row1.createCell(colIndex++).setCellValue("实际业绩");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
 		row1.createCell(colIndex++).setCellValue("实际业绩");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 80);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
 		List<Dictionary> ledgerItemDefineList = dictionaryService.selectDictionaryListByCodeCommon(Constants.MONEY_TYPE);
 		if(ledgerItemDefineList != null){
 			for(int i = 0;i < ledgerItemDefineList.size();i++){
 				colIndex +=i;
 				row1.createCell(colIndex).setCellValue(ledgerItemDefineList.get(i).getValue());
-				sheet.setColumnWidth(colIndex, 32 * 80);
+				sheet.setColumnWidth(colIndex, 32 * 50);
+				row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 			}
 		}
 		row1.createCell(colIndex++).setCellValue("签单部门");
 		sheet.setColumnWidth(colIndex, 32 * 100);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
 		row1.createCell(colIndex++).setCellValue("业务员");
 		sheet.setColumnWidth(colIndex, 32 * 100);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
 		List<Dictionary> designerItemDefineList = dictionaryService.selectDictionaryListByCodeCommon(Constants.DESIGNER_CATEGORY);
 		if(designerItemDefineList != null){
 			for(int i = 0;i < designerItemDefineList.size();i++){
 				colIndex +=i;
 				row1.createCell(colIndex).setCellValue(designerItemDefineList.get(i).getValue());
-				sheet.setColumnWidth(colIndex, 32 * 80);
+				sheet.setColumnWidth(colIndex, 32 * 50);
+				row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 			}
 		}
 		row1.createCell(colIndex++).setCellValue("客户来源");
-		sheet.setColumnWidth(colIndex, 32 * 100);
-		row1.createCell(colIndex++).setCellValue("客户的创建者");
-		sheet.setColumnWidth(colIndex, 32 * 100);
-		row1.createCell(colIndex++).setCellValue("面积/㎡");
-		sheet.setColumnWidth(colIndex, 32 * 100);
+		sheet.setColumnWidth(colIndex, 32 * 50);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
+		row1.createCell(colIndex++).setCellValue("客户的创建者");
+		sheet.setColumnWidth(colIndex, 32 * 50);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
+		row1.createCell(colIndex++).setCellValue("面积/㎡");
+		sheet.setColumnWidth(colIndex, 32 * 50);
+		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
 		// 第2行以上冻结
 //		sheet.createFreezePane(0, 2, 0, 2);
 
-		row1.getCell(0).setCellStyle(mapStyle.get("header_1"));
-		row1.getCell(1).setCellStyle(mapStyle.get("header_1"));
-		row1.getCell(2).setCellStyle(mapStyle.get("header_1"));
-		row1.getCell(3).setCellStyle(mapStyle.get("header_1"));
-		row1.getCell(4).setCellStyle(mapStyle.get("header_1"));
-		row1.getCell(5).setCellStyle(mapStyle.get("header_1"));
-		row1.getCell(6).setCellStyle(mapStyle.get("header_1"));
-		row1.getCell(7).setCellStyle(mapStyle.get("header_1"));
+
+//		row1.getCell(1).setCellStyle(mapStyle.get("header_6"));
+//		row1.getCell(2).setCellStyle(mapStyle.get("header_6"));
+//		row1.getCell(3).setCellStyle(mapStyle.get("header_6"));
+//		row1.getCell(4).setCellStyle(mapStyle.get("header_6"));
+//		row1.getCell(5).setCellStyle(mapStyle.get("header_6"));
+//		row1.getCell(6).setCellStyle(mapStyle.get("header_6"));
+//		row1.getCell(7).setCellStyle(mapStyle.get("header_6"));
+
 		row1.setHeightInPoints(30);
 
 

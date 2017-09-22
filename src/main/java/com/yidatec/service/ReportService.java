@@ -316,16 +316,21 @@ public class ReportService {
 			}
 			if(sample.getDevelopSaleId() != null && !sample.getDevelopSaleId().trim().isEmpty()){
 //				supplierCount++;
-				supplierList.add(sample.getDevelopSaleId());
+				if(!supplierList.contains(sample.getDevelopSaleId()))
+					supplierList.add(sample.getDevelopSaleId());
 			}
 			if(sample.getTraceSaleId() != null && !sample.getTraceSaleId().trim().isEmpty()){
 //				supplierCount++;
-				supplierList.add(sample.getTraceSaleId());
+				if(!supplierList.contains(sample.getTraceSaleId()))
+					supplierList.add(sample.getTraceSaleId());
 			}
 			List<DesignerReportVO> oneProjectDesignerList = projectToDesignerMap.get(projectId);
 //			supplierCount += oneProjectDesignerList == null ? 0 : oneProjectDesignerList.size();
 			if(oneProjectDesignerList != null){
-				supplierList.addAll(oneProjectDesignerList);
+				for(DesignerReportVO dr : oneProjectDesignerList) {
+					if (!supplierList.contains(dr.getId()))
+						supplierList.add(dr);
+				}
 			}
 
 			List<FactoryReportVO> oneProjectFactoryList = projectToFactoryMap.get(projectId);
@@ -386,7 +391,25 @@ public class ReportService {
 				colIndex +=3;
 
 				//输出供应商相关
-				row.createCell(colIndex++).setCellValue(userMap.get(one.getPmId()).getName());
+//				PerformanceReportVO one = null;
+				Object obj = null;
+				if(i < supplierCount){
+					obj = supplierList.get(i);
+					String res = "-";
+					if(obj instanceof String){
+						User user = userMap.get(obj);
+						if(user != null){
+							res = user.getName();
+						}
+					}else if(obj instanceof DesignerReportVO){
+						res = ((DesignerReportVO)obj).getName();
+					}else if(obj instanceof FactoryReportVO){
+						res = ((FactoryReportVO)obj).getName();
+					}
+					row.createCell(colIndex++).setCellValue(res);
+				}else{
+					row.createCell(colIndex++).setCellValue("-");
+				}
 
 
 				for(int m = 0 ; m < colIndex ; m++){

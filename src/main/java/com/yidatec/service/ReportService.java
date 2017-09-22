@@ -1,7 +1,9 @@
 package com.yidatec.service;
 
 import com.yidatec.mapper.ReportMapper;
+import com.yidatec.mapper.UserMapper;
 import com.yidatec.model.Dictionary;
+import com.yidatec.model.User;
 import com.yidatec.util.Constants;
 import com.yidatec.vo.DesignerReportVO;
 import com.yidatec.vo.FactoryReportVO;
@@ -33,6 +35,9 @@ public class ReportService {
 
 	@Autowired
     ReportMapper reportMapper;
+
+	@Autowired
+	UserMapper userMapper;
 
 	@Autowired
 	DictionaryService dictionaryService;
@@ -152,6 +157,12 @@ public class ReportService {
 				}
 				oneContractLedgerList.add(one);
 			}
+		}
+
+		List<User> userList = userMapper.findAll();
+		Map<String,User> userMap = new HashMap<String,User>((userList.size() * 4 / 3) +1);
+		for(User one : userList){
+			userMap.put(one.getId(),one);
 		}
 
 
@@ -296,22 +307,33 @@ public class ReportService {
 					supplierContractCount++;
 				}
 			}
-			int supplierCount = 0;
+			List<Object> supplierList = new ArrayList<Object>();
+
 			PerformanceReportVO sample = projectIdToProjectMap.get(projectId);
 			if(sample.getPmId() != null && !sample.getPmId().trim().isEmpty()){
-				supplierCount++;
+//				supplierCount++;
+				supplierList.add(sample.getPmId());
 			}
 			if(sample.getDevelopSaleId() != null && !sample.getDevelopSaleId().trim().isEmpty()){
-				supplierCount++;
+//				supplierCount++;
+				supplierList.add(sample.getDevelopSaleId());
 			}
 			if(sample.getTraceSaleId() != null && !sample.getTraceSaleId().trim().isEmpty()){
-				supplierCount++;
+//				supplierCount++;
+				supplierList.add(sample.getTraceSaleId());
 			}
 			List<DesignerReportVO> oneProjectDesignerList = projectToDesignerMap.get(projectId);
-			supplierCount += oneProjectDesignerList == null ? 0 : oneProjectDesignerList.size();
+//			supplierCount += oneProjectDesignerList == null ? 0 : oneProjectDesignerList.size();
+			if(oneProjectDesignerList != null){
+				supplierList.addAll(oneProjectDesignerList);
+			}
 
 			List<FactoryReportVO> oneProjectFactoryList = projectToFactoryMap.get(projectId);
-			supplierCount += oneProjectFactoryList == null ? 0 : oneProjectFactoryList.size();
+//			supplierCount += oneProjectFactoryList == null ? 0 : oneProjectFactoryList.size();
+			if(oneProjectFactoryList != null){
+				supplierList.addAll(oneProjectFactoryList);
+			}
+			int supplierCount = supplierList.size();
 
 			int max = saleContractCount > supplierContractCount ? (saleContractCount > supplierCount ? saleContractCount : supplierCount ) : ( supplierContractCount > supplierCount ? supplierContractCount : supplierCount );
 
@@ -361,10 +383,16 @@ public class ReportService {
 //				}else{
 //
 //				}
+				colIndex +=3;
+
+				//输出供应商相关
+				row.createCell(colIndex++).setCellValue(userMap.get(one.getPmId()).getName());
 
 
 				for(int m = 0 ; m < colIndex ; m++){
-					row.getCell(m).setCellStyle(mapStyle.get("data_4"));
+					XSSFCell cell = row.getCell(m);
+					if(cell != null)
+						cell.setCellStyle(mapStyle.get("data_4"));
 				}
 
 			}

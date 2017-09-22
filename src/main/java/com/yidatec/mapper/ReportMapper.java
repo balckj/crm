@@ -49,7 +49,7 @@ public interface ReportMapper {
             "    ORDER BY modifyTime ASC LIMIT 1) HIS_TOP ON c.id = HIS_TOP.id\n" +
             "WHERE p.createTime BETWEEN DATE(#{startTime}) AND DATE(#{endTime})\n" +
             "ORDER BY\n" +
-            "\tp.modifyTime DESC")
+            "\tp.modifyTime DESC,c.createTime DESC")
     List<PerformanceReportVO> selectPerformanceReportVOBaseList(@Param(value = "startTime") String startTime, @Param(value = "endTime")String endTime);
 
     @Select("SELECT * FROM T_LEDGER L LEFT JOIN T_CONTRACT_LEDGER CL ON L.id = CL.ledgerId ORDER BY CL.contractId,L.modifyTime DESC")

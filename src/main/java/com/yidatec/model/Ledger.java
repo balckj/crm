@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * 台账实体类
@@ -30,7 +31,7 @@ public class Ledger extends BaseModel {
 
 	@NotNull(message = "必须输入付款金额", groups = { })
 	@Digits(integer = 18 ,message = "付款金额价整数位不能超过18位,小数位必须是两位", fraction = 2 )
-	private Float paymentAmount;
+	private BigDecimal paymentAmount;
 
 	@NotBlank(message = "必须输入经办人", groups = { })
 	@Length(max = 30, message = "经办人最大不能超过30个字符", groups = { })
@@ -70,11 +71,11 @@ public class Ledger extends BaseModel {
 		this.paymentTime = paymentTime;
 	}
 
-	public Float getPaymentAmount() {
+	public BigDecimal getPaymentAmount() {
 		return paymentAmount;
 	}
 
-	public void setPaymentAmount(Float paymentAmount) {
+	public void setPaymentAmount(BigDecimal paymentAmount) {
 		this.paymentAmount = paymentAmount;
 	}
 

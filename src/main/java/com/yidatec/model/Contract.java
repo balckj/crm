@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class Contract extends BaseModel {
     private String area;
     @NotNull(message = "必须输入总价", groups = { })
     @Digits(integer = 18 ,message = "总价整数位不能超过18位,小数位必须是两位", fraction = 2 )
-    private Float amount;
+    private BigDecimal amount;
     @NotBlank(message = "必须输合同分类", groups = { })
     @Length(max = 36, message = "合同分类最大不能超过36个字符", groups = { })
     private String category;
@@ -146,11 +147,11 @@ public class Contract extends BaseModel {
         this.area = area;
     }
 
-    public Float getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Float amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

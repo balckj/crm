@@ -16,6 +16,7 @@ import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,7 @@ public class ReportService {
 		int size = performanceReportVOList == null?0:(performanceReportVOList.size() *4/3)+1;
 		Map<String,Map<String,List<PerformanceReportVO>>> map = new HashMap<String,Map<String,List<PerformanceReportVO>>>(size);
 		List<String> projectIdList = new ArrayList<String>(performanceReportVOList == null?0:performanceReportVOList.size());//记录顺序
+		Map<String,PerformanceReportVO> projectIdToProjectMap = new HashMap<String,PerformanceReportVO>(size);
 
 		if(performanceReportVOList != null) {
 			for (PerformanceReportVO one : performanceReportVOList) {
@@ -55,15 +57,20 @@ public class ReportService {
 					categoryAndSupplierToContractMap = new HashMap<String, List<PerformanceReportVO>>(8);
 					map.put(one.getProjectId(), categoryAndSupplierToContractMap);
 					projectIdList.add(one.getProjectId());
+					projectIdToProjectMap.put(one.getProjectId(),one);
 				}
 
 				//合同分类
-				List<PerformanceReportVO> oneCategoryList = categoryAndSupplierToContractMap.get(one.getContractCategory());
-				if (oneCategoryList == null) {
-					oneCategoryList = new ArrayList<PerformanceReportVO>(10);
-					categoryAndSupplierToContractMap.put(one.getContractCategory(), oneCategoryList);
+				if(one.getContractCategory() != null ) {//有合同
+					List<PerformanceReportVO> oneCategoryList = categoryAndSupplierToContractMap.get(one.getContractCategory());
+					if (oneCategoryList == null) {
+						oneCategoryList = new ArrayList<PerformanceReportVO>(10);
+						categoryAndSupplierToContractMap.put(one.getContractCategory(), oneCategoryList);
+					}
+					if (one.getContractId() != null) {
+						oneCategoryList.add(one);
+					}
 				}
-				oneCategoryList.add(one);
 
 				//供应商到合同映射，兼容同一项母同一供应商有多个合同的情况
 				//项目经理
@@ -91,12 +98,14 @@ public class ReportService {
 //				oneTraceSaleList.add(one);
 
 				//乙方到合同映射，兼容一个乙方多个合同
-				List<PerformanceReportVO> oneSecondList = categoryAndSupplierToContractMap.get(one.getContractSecondParty());
-				if (oneSecondList == null) {
-					oneSecondList = new ArrayList<PerformanceReportVO>(10);
-					categoryAndSupplierToContractMap.put(one.getContractSecondParty(), oneSecondList);
+				if(one.getContractSecondParty() != null) {//有合同
+					List<PerformanceReportVO> oneSecondList = categoryAndSupplierToContractMap.get(one.getContractSecondParty());
+					if (oneSecondList == null) {
+						oneSecondList = new ArrayList<PerformanceReportVO>(10);
+						categoryAndSupplierToContractMap.put(one.getContractSecondParty(), oneSecondList);
+					}
+					oneSecondList.add(one);
 				}
-				oneSecondList.add(one);
 
 
 			}
@@ -119,13 +128,13 @@ public class ReportService {
 
 		//项目到工厂的映射
 		List<FactoryReportVO> factoryList = reportMapper.selectProjectFactory(starTime, endTime);
-		Map<String,List<FactoryReportVO>> factoryToDesignerMap = new HashMap<String,List<FactoryReportVO>>(factoryList==null?0:(factoryList.size()*4/3)+1);
+		Map<String,List<FactoryReportVO>> projectToFactoryMap = new HashMap<String,List<FactoryReportVO>>(factoryList==null?0:(factoryList.size()*4/3)+1);
 		if(factoryList != null){
 			for(FactoryReportVO one : factoryList){
-				List<FactoryReportVO> oneProjectFactoryLst = factoryToDesignerMap.get(one.getProjectId());
+				List<FactoryReportVO> oneProjectFactoryLst = projectToFactoryMap.get(one.getProjectId());
 				if(oneProjectFactoryLst == null){
 					oneProjectFactoryLst = new ArrayList<FactoryReportVO>();
-					factoryToDesignerMap.put(one.getProjectId(),oneProjectFactoryLst);
+					projectToFactoryMap.put(one.getProjectId(),oneProjectFactoryLst);
 				}
 				oneProjectFactoryLst.add(one);
 			}
@@ -155,197 +164,248 @@ public class ReportService {
 		XSSFRow row0 = null;
 		// 设定标题行号，生成标题
 		int rowNum = 0;
-		row0 = sheet.createRow(rowNum);
+		row0 = sheet.createRow(rowNum++);
 
 
 
-
-
-//		row0.createCell(0).setCellValue("类别");
-//		sheet.setColumnWidth(0, 32 * 80);
-//		row0.createCell(1).setCellValue("编号");
-//		sheet.setColumnWidth(1, 32 * 50);
-//		row0.createCell(2).setCellValue("产品名称");
-//		sheet.setColumnWidth(2, 32 * 150);
-//		row0.createCell(3).setCellValue("单位");
-//		sheet.setColumnWidth(3, 32 * 50);
-//		row0.createCell(4).setCellValue("数量");
-//		sheet.setColumnWidth(4, 32 * 50);
-//		row0.createCell(5).setCellValue("单价(元)");
-//		sheet.setColumnWidth(5, 32 * 80);
-//		row0.createCell(6).setCellValue("合价(元)");
-//		sheet.setColumnWidth(6, 32 * 150);
-//		row0.createCell(7).setCellValue("工作内容");
-//		sheet.setColumnWidth(7, 32 * 500);
-
-		// 第2行以上冻结
-//		sheet.createFreezePane(0, 2, 0, 2);
-
-//		row0.getCell(0).setCellStyle(mapStyle.get("header_7"));
-//		row0.getCell(1).setCellStyle(mapStyle.get("header_7"));
-//		row0.getCell(2).setCellStyle(mapStyle.get("header_7"));
-//		row0.getCell(3).setCellStyle(mapStyle.get("header_7"));
-//		row0.getCell(4).setCellStyle(mapStyle.get("header_7"));
-//		row0.getCell(5).setCellStyle(mapStyle.get("header_7"));
-//		row0.getCell(6).setCellStyle(mapStyle.get("header_7"));
-//		row0.getCell(7).setCellStyle(mapStyle.get("header_7"));
-//		row0.setHeightInPoints(30);
-
-
-
-		XSSFRow row1 = sheet.createRow(++rowNum);
+		XSSFRow row1 = sheet.createRow(rowNum++);
 
 		int colIndex = 0;
 
-		row1.createCell(colIndex++).setCellValue("合同编号");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("合同编号");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
-		row1.createCell(colIndex++).setCellValue("项目名称");
-		sheet.setColumnWidth(colIndex, 32 * 100);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("项目名称");
+		sheet.setColumnWidth(colIndex++, 32 * 100);
 
-		row1.createCell(colIndex++).setCellValue("市场活动名称");
-		sheet.setColumnWidth(colIndex, 32 * 100);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("市场活动名称");
+		sheet.setColumnWidth(colIndex++, 32 * 100);
 
-		row1.createCell(colIndex++).setCellValue("开展日期");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("活动类型");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
-		row1.createCell(colIndex++).setCellValue("展位号");
-		sheet.setColumnWidth(colIndex, 32 * 50);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("开展日期");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
-		row1.createCell(colIndex++).setCellValue("合同价");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("展位号");
+		sheet.setColumnWidth(colIndex++, 32 * 50);
 
-		row1.createCell(colIndex++).setCellValue("合同变更");
-		sheet.setColumnWidth(colIndex, 32 * 150);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("合同价");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
-		row1.createCell(colIndex++).setCellValue("客户扣款");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("合同变更");
+		sheet.setColumnWidth(colIndex++, 32 * 150);
 
-		row1.createCell(colIndex++).setCellValue("扣款理由");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("客户扣款");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
-		row1.createCell(colIndex++).setCellValue("执行地");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("扣款理由");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
-		row1.createCell(colIndex++).setCellValue("成本中心");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("执行地");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
-		row1.createCell(colIndex++).setCellValue("实际业绩");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
-		row1.createCell(colIndex++).setCellValue("实际业绩");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("成本中心");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
-		row1.createCell(colIndex++).setCellValue("毛利润");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
-		row1.createCell(colIndex++).setCellValue("百分比");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("实际业绩");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
-		row1.createCell(colIndex++).setCellValue("供应商");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
-		row1.createCell(colIndex++).setCellValue("供应商合同额及变动");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("毛利润");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
-		row1.createCell(colIndex++).setCellValue("供应商扣款");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
-		row1.createCell(colIndex++).setCellValue("最终供应商价格");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("百分比");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
-		row1.createCell(colIndex++).setCellValue("供应商合同编号");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
-		row1.createCell(colIndex++).setCellValue("实际业绩");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("供应商");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
-		row1.createCell(colIndex++).setCellValue("实际业绩");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
 
-		row1.createCell(colIndex++).setCellValue("实际业绩");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("供应商合同额及变动");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
-		row1.createCell(colIndex++).setCellValue("实际业绩");
-		sheet.setColumnWidth(colIndex, 32 * 80);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
+		row1.createCell(colIndex).setCellValue("供应商扣款");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
+
+
+		row1.createCell(colIndex).setCellValue("最终供应商价格");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
+
+
+		row1.createCell(colIndex).setCellValue("供应商合同编号");
+		sheet.setColumnWidth(colIndex++, 32 * 80);
+
+
 
 		List<Dictionary> ledgerItemDefineList = dictionaryService.selectDictionaryListByCodeCommon(Constants.MONEY_TYPE);
 		if(ledgerItemDefineList != null){
 			for(int i = 0;i < ledgerItemDefineList.size();i++){
-				colIndex +=i;
 				row1.createCell(colIndex).setCellValue(ledgerItemDefineList.get(i).getValue());
-				sheet.setColumnWidth(colIndex, 32 * 50);
-				row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+				sheet.setColumnWidth(colIndex++, 32 * 50);
 			}
 		}
-		row1.createCell(colIndex++).setCellValue("签单部门");
-		sheet.setColumnWidth(colIndex, 32 * 100);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("签单部门");
+		sheet.setColumnWidth(colIndex++, 32 * 100);
 
-		row1.createCell(colIndex++).setCellValue("业务员");
-		sheet.setColumnWidth(colIndex, 32 * 100);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+
+		row1.createCell(colIndex).setCellValue("业务员");
+		sheet.setColumnWidth(colIndex++, 32 * 100);
+
 
 		List<Dictionary> designerItemDefineList = dictionaryService.selectDictionaryListByCodeCommon(Constants.DESIGNER_CATEGORY);
 		if(designerItemDefineList != null){
 			for(int i = 0;i < designerItemDefineList.size();i++){
-				colIndex +=i;
 				row1.createCell(colIndex).setCellValue(designerItemDefineList.get(i).getValue());
-				sheet.setColumnWidth(colIndex, 32 * 50);
-				row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
+				sheet.setColumnWidth(colIndex++, 32 * 50);
 			}
 		}
-		row1.createCell(colIndex++).setCellValue("客户来源");
-		sheet.setColumnWidth(colIndex, 32 * 50);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
-
-		row1.createCell(colIndex++).setCellValue("客户的创建者");
-		sheet.setColumnWidth(colIndex, 32 * 50);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
-
-		row1.createCell(colIndex++).setCellValue("面积/㎡");
-		sheet.setColumnWidth(colIndex, 32 * 50);
-		row1.getCell(colIndex).setCellStyle(mapStyle.get("header_6"));
-
-		// 第2行以上冻结
-//		sheet.createFreezePane(0, 2, 0, 2);
+		row1.createCell(colIndex).setCellValue("客户来源");
+		sheet.setColumnWidth(colIndex++, 32 * 50);
 
 
-//		row1.getCell(1).setCellStyle(mapStyle.get("header_6"));
-//		row1.getCell(2).setCellStyle(mapStyle.get("header_6"));
-//		row1.getCell(3).setCellStyle(mapStyle.get("header_6"));
-//		row1.getCell(4).setCellStyle(mapStyle.get("header_6"));
-//		row1.getCell(5).setCellStyle(mapStyle.get("header_6"));
-//		row1.getCell(6).setCellStyle(mapStyle.get("header_6"));
-//		row1.getCell(7).setCellStyle(mapStyle.get("header_6"));
+		row1.createCell(colIndex).setCellValue("客户的创建者");
+		sheet.setColumnWidth(colIndex++, 32 * 50);
+
+
+		row1.createCell(colIndex).setCellValue("面积/㎡");
+		sheet.setColumnWidth(colIndex++, 32 * 50);
+
+
 
 		row1.setHeightInPoints(30);
 
+		for(int i = 0 ; i < colIndex ; i++){
+			row1.getCell(i).setCellStyle(mapStyle.get("header_6"));
+		}
 
+
+
+		for(String projectId : projectIdList){
+			Map<String, List<PerformanceReportVO>> casMap = map.get(projectId);//当项目没有合同时，casMap.size()为0
+			List<PerformanceReportVO> saleContractList = casMap.get("S");
+			int saleContractCount = saleContractList == null ? 0:saleContractList.size();
+			int supplierContractCount = 0;//一个项目所有供应商合同数量
+			for(String key : casMap.keySet()){
+				if(key.length()>1){
+					supplierContractCount++;
+				}
+			}
+			int supplierCount = 0;
+			PerformanceReportVO sample = projectIdToProjectMap.get(projectId);
+			if(sample.getPmId() != null && !sample.getPmId().trim().isEmpty()){
+				supplierCount++;
+			}
+			if(sample.getDevelopSaleId() != null && !sample.getDevelopSaleId().trim().isEmpty()){
+				supplierCount++;
+			}
+			if(sample.getTraceSaleId() != null && !sample.getTraceSaleId().trim().isEmpty()){
+				supplierCount++;
+			}
+			List<DesignerReportVO> oneProjectDesignerList = projectToDesignerMap.get(projectId);
+			supplierCount += oneProjectDesignerList == null ? 0 : oneProjectDesignerList.size();
+
+			List<FactoryReportVO> oneProjectFactoryList = projectToFactoryMap.get(projectId);
+			supplierCount += oneProjectFactoryList == null ? 0 : oneProjectFactoryList.size();
+
+			int max = saleContractCount > supplierContractCount ? (saleContractCount > supplierCount ? saleContractCount : supplierCount ) : ( supplierContractCount > supplierCount ? supplierContractCount : supplierCount );
+
+			for(int i = 0 ; i < max ; i++){
+				colIndex = 0;
+				XSSFRow row = sheet.createRow(rowNum++);
+				//销售合同编号打印
+				PerformanceReportVO one = null;
+				if(i < saleContractCount){
+					one = saleContractList.get(i);
+					row.createCell(colIndex++).setCellValue(one.getContractCode());
+				}else{
+					row.createCell(colIndex++).setCellValue("-");
+				}
+				row.createCell(colIndex++).setCellValue(sample.getProjectName());
+				row.createCell(colIndex++).setCellValue(sample.getCampaignName());
+				row.createCell(colIndex++).setCellValue(sample.getCampaignType() == null ? "":dictionaryService.selectDictionary(sample.getCampaignType()).getValue());
+				row.createCell(colIndex++).setCellValue(sample.getCampaignStartEndTime());
+				row.createCell(colIndex++).setCellValue(sample.getExhibitionNumber());
+				row.createCell(colIndex++).setCellValue(sample.getContractCountAmount());
+				row.createCell(colIndex++).setCellValue(sample.getContractCountAmountChange());
+				if(one != null) {
+					BigDecimal ledgerAmount = compulateLedgerAmount(contractToLedgerMap, one.getContractId());
+					String contractCountAmount = one.getContractCountAmount();
+					if(ledgerAmount == null){
+						row.createCell(colIndex++).setCellValue("-");//若台账总额为空（没有台账），打印"-",表示不存在差额
+					}else {
+						if (contractCountAmount != null && !contractCountAmount.trim().isEmpty()) {
+							row.createCell(colIndex++).setCellValue(ledgerAmount.subtract(new BigDecimal(contractCountAmount)).toString());
+						} else {
+							row.createCell(colIndex++).setCellValue("-");//这种情况不应该发生，合同总额是必填项
+						}
+					}
+					String reason = retrieveLastLedgerReasonForChange(contractToLedgerMap, one.getContractId());
+					row.createCell(colIndex++).setCellValue(reason);//这种情况不应该发生，合同总额是必填项
+					row.createCell(colIndex+1).setCellValue(retrieveLastLedgerCostCenter(contractToLedgerMap, one.getContractId()));
+				}else{
+					row.createCell(colIndex++).setCellValue("-");//没有合同
+					row.createCell(colIndex++).setCellValue("-");//这种情况不应该发生，合同总额是必填项
+					row.createCell(colIndex+1).setCellValue("-");
+				}
+
+				row.createCell(colIndex++).setCellValue(sample.getAddress());
+				colIndex++;
+//				if(one != null) {
+//
+//				}else{
+//
+//				}
+
+
+				for(int m = 0 ; m < colIndex ; m++){
+					row.getCell(m).setCellStyle(mapStyle.get("data_4"));
+				}
+
+			}
+
+		}
+	}
+
+	private BigDecimal compulateLedgerAmount(Map<String,List<LedgerReportVO>> contractToLedgerMap, String contractId){
+		List<LedgerReportVO> ledgerList = contractToLedgerMap.get(contractId);
+
+		if(ledgerList != null){
+			BigDecimal total = new BigDecimal(0);
+			for(LedgerReportVO one : ledgerList){
+				BigDecimal amo = one.getPaymentAmount();
+				total.add(amo);
+			}
+			return total;
+		}
+		return null;
+	}
+
+	private String retrieveLastLedgerReasonForChange(Map<String,List<LedgerReportVO>> contractToLedgerMap, String contractId){
+		List<LedgerReportVO> ledgerList = contractToLedgerMap.get(contractId);
+
+		if(ledgerList != null){
+			String reason = ledgerList.get(0).getReasonForChange();
+			if(reason != null && !reason.trim().isEmpty()){
+				return dictionaryService.selectDictionary(reason).getValue();
+			}
+			return "-";
+		}
+		return "-";
+	}
+
+	private String retrieveLastLedgerCostCenter(Map<String,List<LedgerReportVO>> contractToLedgerMap, String contractId){
+		List<LedgerReportVO> ledgerList = contractToLedgerMap.get(contractId);
+
+		if(ledgerList != null){
+			return dictionaryService.selectDictionary(ledgerList.get(0).getCostCenter()).getValue();
+		}
+		return "-";
 	}
 
 //	private void setColspanTitle(XSSFSheet sheet,XSSFRow row,

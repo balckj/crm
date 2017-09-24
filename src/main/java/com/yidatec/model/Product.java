@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * 产品实体类
@@ -35,15 +36,15 @@ public class Product extends BaseModel {
 
 	@NotNull(message = "必须输入低价", groups = { })
 	@Digits(integer = 18 ,message = "低价整数位不能超过18位,小数位必须是两位", fraction = 2 /*scale*/)
-	private Float low;
+	private BigDecimal low;
 
 	@NotNull(message = "必须输入中价", groups = { })
 	@Digits(integer = 18 ,message = "中价整数位不能超过18位,小数位必须是两位", fraction = 2 /*scale*/)
-	private Float middle;
+	private BigDecimal middle;
 
 	@NotNull(message = "必须输入高价", groups = { })
 	@Digits(integer = 18 ,message = "高价价整数位不能超过18位,小数位必须是两位", fraction = 2 /*scale*/)
-	private Float high;
+	private BigDecimal high;
 
 	private String unitPrice;
 
@@ -129,27 +130,27 @@ public class Product extends BaseModel {
 		this.way = way;
 	}
 
-	public Float getLow() {
+	public BigDecimal getLow() {
 		return low;
 	}
 
-	public void setLow(Float low) {
+	public void setLow(BigDecimal low) {
 		this.low = low;
 	}
 
-	public Float getMiddle() {
+	public BigDecimal getMiddle() {
 		return middle;
 	}
 
-	public void setMiddle(Float middle) {
+	public void setMiddle(BigDecimal middle) {
 		this.middle = middle;
 	}
 
-	public Float getHigh() {
+	public BigDecimal getHigh() {
 		return high;
 	}
 
-	public void setHigh(Float high) {
+	public void setHigh(BigDecimal high) {
 		this.high = high;
 	}
 }

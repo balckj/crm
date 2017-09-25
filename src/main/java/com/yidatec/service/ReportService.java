@@ -307,44 +307,103 @@ public class ReportService {
 					supplierContractCount++;
 				}
 			}
+
+
 			List<Object> supplierList = new ArrayList<Object>();
+			List<PerformanceReportVO> contractList = new ArrayList<PerformanceReportVO>();
+
+			int needTotalRowNumber = 0;
 
 			PerformanceReportVO sample = projectIdToProjectMap.get(projectId);
 			if(sample.getPmId() != null && !sample.getPmId().trim().isEmpty()){
 //				supplierCount++;
 				supplierList.add(sample.getPmId());
+				List<PerformanceReportVO> sl = casMap.get(sample.getPmId());
+				if(sl != null) {
+					contractList.addAll(sl);
+					needTotalRowNumber += sl.size();
+				}else {
+					needTotalRowNumber++;
+				}
 			}
 			if(sample.getDevelopSaleId() != null && !sample.getDevelopSaleId().trim().isEmpty()){
 //				supplierCount++;
-				if(!supplierList.contains(sample.getDevelopSaleId()))
+				if(!supplierList.contains(sample.getDevelopSaleId())) {
 					supplierList.add(sample.getDevelopSaleId());
+					List<PerformanceReportVO> sl = casMap.get(sample.getDevelopSaleId());
+					if(sl != null) {
+						contractList.addAll(sl);
+						needTotalRowNumber += sl.size();
+					}else {
+						needTotalRowNumber++;
+					}
+				}
 			}
 			if(sample.getTraceSaleId() != null && !sample.getTraceSaleId().trim().isEmpty()){
 //				supplierCount++;
-				if(!supplierList.contains(sample.getTraceSaleId()))
+				if(!supplierList.contains(sample.getTraceSaleId())) {
 					supplierList.add(sample.getTraceSaleId());
+					List<PerformanceReportVO> sl = casMap.get(sample.getTraceSaleId());
+					if(sl != null) {
+						contractList.addAll(sl);
+						needTotalRowNumber += sl.size();
+					}else {
+						needTotalRowNumber++;
+					}
+				}
 			}
 			List<DesignerReportVO> oneProjectDesignerList = projectToDesignerMap.get(projectId);
 //			supplierCount += oneProjectDesignerList == null ? 0 : oneProjectDesignerList.size();
 			if(oneProjectDesignerList != null){
 				for(DesignerReportVO dr : oneProjectDesignerList) {
-					if (!supplierList.contains(dr.getId()))
+					if (!supplierList.contains(dr.getId())) {
 						supplierList.add(dr);
+//						contractList.addAll(casMap.get(dr.getId()));
+						List<PerformanceReportVO> sl = casMap.get(dr.getId());
+						if(sl != null) {
+							contractList.addAll(sl);
+							needTotalRowNumber += sl.size();
+						}else {
+							needTotalRowNumber++;
+						}
+					}
 				}
 			}
 
 			List<FactoryReportVO> oneProjectFactoryList = projectToFactoryMap.get(projectId);
 //			supplierCount += oneProjectFactoryList == null ? 0 : oneProjectFactoryList.size();
 			if(oneProjectFactoryList != null){
-				supplierList.addAll(oneProjectFactoryList);
+//				supplierList.addAll(oneProjectFactoryList);
+				for(FactoryReportVO fr : oneProjectFactoryList) {
+					if (!supplierList.contains(fr.getId())) {
+						supplierList.add(fr);
+//						contractList.addAll(casMap.get(fr.getId()));
+						List<PerformanceReportVO> sl = casMap.get(fr.getId());
+						if(sl != null) {
+							contractList.addAll(sl);
+							needTotalRowNumber += sl.size();
+						}else {
+							needTotalRowNumber++;
+						}
+					}
+				}
 			}
 			int supplierCount = supplierList.size();
 
 			int max = saleContractCount > supplierContractCount ? (saleContractCount > supplierCount ? saleContractCount : supplierCount ) : ( supplierContractCount > supplierCount ? supplierContractCount : supplierCount );
 
-			for(int i = 0 ; i < max ; i++){
+			//获取总行数
+
+			int k = 0;
+			for(int i = 0 ; i < needTotalRowNumber ; i++){
+//				int k = 0;
 				colIndex = 0;
-				XSSFRow row = sheet.createRow(rowNum++);
+				XSSFRow row = null;
+				row = sheet.getRow(rowNum);
+				if(row == null) {
+					row = sheet.createRow(rowNum);
+				}
+//				rowNum++;
 				//销售合同编号打印
 				PerformanceReportVO one = null;
 				if(i < saleContractCount){
@@ -396,30 +455,105 @@ public class ReportService {
 				if(i < supplierCount){
 					obj = supplierList.get(i);
 					String res = "-";
+					String secondId = null;
 					if(obj instanceof String){
 						User user = userMap.get(obj);
 						if(user != null){
 							res = user.getName();
+							secondId = user.getId();
 						}
 					}else if(obj instanceof DesignerReportVO){
 						res = ((DesignerReportVO)obj).getName();
+						secondId = ((DesignerReportVO)obj).getId();
 					}else if(obj instanceof FactoryReportVO){
 						res = ((FactoryReportVO)obj).getName();
+						secondId = ((FactoryReportVO)obj).getId();
 					}
-					row.createCell(colIndex++).setCellValue(res);
+//					row.createCell(colIndex++).setCellValue(res);
+					if(secondId != null){
+
+						List<PerformanceReportVO> oneSupplierContractList = casMap.get(secondId);
+						if(oneSupplierContractList != null && oneSupplierContractList.size() > 0){
+							for(int j = 0 ; j < oneSupplierContractList.size() ; j++){
+
+
+								if(j == 0 && i == k){
+									row.createCell(colIndex).setCellValue(res);
+								}else{
+									setCellStyle(row,colIndex,mapStyle);
+									row = sheet.createRow(rowNum+k);
+									row.createCell(colIndex);
+								}
+								PerformanceReportVO oneContract = oneSupplierContractList.get(j);
+								row.createCell(colIndex+1).setCellValue(oneContract.getContractCountAmount());
+								k++;
+							}
+
+							colIndex += 2;
+						}else{
+//							for(int m = 0 ; m < colIndex ; m++){
+//								XSSFCell cell = row.getCell(m);
+//								if(cell != null)
+//									cell.setCellStyle(mapStyle.get("data_4"));
+//							}
+							setCellStyle(row,colIndex,mapStyle);
+							row = sheet.createRow(rowNum + k );
+							row.createCell(colIndex++).setCellValue(res);
+							row.createCell(colIndex++).setCellValue("-");
+						}
+					}else{//不应该发生这种情况
+//						for(int m = 0 ; m < colIndex ; m++){
+//							XSSFCell cell = row.getCell(m);
+//							if(cell != null)
+//								cell.setCellStyle(mapStyle.get("data_4"));
+//						}
+						setCellStyle(row,colIndex,mapStyle);
+						row = sheet.createRow(rowNum+k);
+						row.createCell(colIndex++).setCellValue(res);
+						row.createCell(colIndex++).setCellValue("-");
+					}
 				}else{
+//					for(int m = 0 ; m < colIndex ; m++){
+//						XSSFCell cell = row.getCell(m);
+//						if(cell != null)
+//							cell.setCellStyle(mapStyle.get("data_4"));
+//					}
+					setCellStyle(row,colIndex,mapStyle);
+					row = sheet.createRow(rowNum+k);
+					row.createCell(colIndex++).setCellValue("-");
 					row.createCell(colIndex++).setCellValue("-");
 				}
 
+				//打印供应商合同，顺序打印，一个项目结束处理供应商等合并
 
-				for(int m = 0 ; m < colIndex ; m++){
-					XSSFCell cell = row.getCell(m);
-					if(cell != null)
-						cell.setCellStyle(mapStyle.get("data_4"));
-				}
+//				if(contractList != null && i < contractList.size()){
+//					PerformanceReportVO oneContract = contractList.get(i);
+//
+//					row.createCell(colIndex++).setCellValue(oneContract.get);
+//				}else{
+//					row.createCell(colIndex++).setCellValue("-");
+//				}
+
+
+//				for(int m = 0 ; m < colIndex ; m++){
+//					XSSFCell cell = row.getCell(m);
+//					if(cell != null)
+//						cell.setCellStyle(mapStyle.get("data_4"));
+//				}
+
+				setCellStyle(row,colIndex,mapStyle);
+				rowNum++;
 
 			}
 
+		}
+	}
+
+	private void setCellStyle(XSSFRow row,int colIndex,Map<String, XSSFCellStyle> mapStyle){
+		for(int m = 0 ; m < colIndex ; m++){
+			XSSFCell cell = row.getCell(m);
+			if(cell != null)
+				cell.setCellStyle(mapStyle.get("data_4"));
 		}
 	}
 

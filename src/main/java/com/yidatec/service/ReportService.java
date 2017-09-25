@@ -451,6 +451,7 @@ public class ReportService {
 
 				//输出供应商相关
 //				PerformanceReportVO one = null;
+				XSSFRow oldRow = null;
 				Object obj = null;
 				if(i < supplierCount){
 					obj = supplierList.get(i);
@@ -469,60 +470,54 @@ public class ReportService {
 						res = ((FactoryReportVO)obj).getName();
 						secondId = ((FactoryReportVO)obj).getId();
 					}
-//					row.createCell(colIndex++).setCellValue(res);
 					if(secondId != null){
-
+						oldRow = row;
+						row = sheet.getRow(rowNum > 0 ? rowNum + k - i : rowNum + k);
+						if(row == null){
+							row = sheet.createRow(rowNum > 0 ? rowNum + k - i : rowNum + k);
+						}
 						List<PerformanceReportVO> oneSupplierContractList = casMap.get(secondId);
 						if(oneSupplierContractList != null && oneSupplierContractList.size() > 0){
 							for(int j = 0 ; j < oneSupplierContractList.size() ; j++){
-
-
-								if(j == 0 && i == k){
+								if(j == 0){
 									row.createCell(colIndex).setCellValue(res);
 								}else{
-									setCellStyle(row,colIndex,mapStyle);
 									row = sheet.createRow(rowNum+k);
 									row.createCell(colIndex);
 								}
+								setOneCellStyle(row,colIndex,mapStyle);
 								PerformanceReportVO oneContract = oneSupplierContractList.get(j);
 								row.createCell(colIndex+1).setCellValue(oneContract.getContractCountAmount());
+								setOneCellStyle(row,colIndex+1,mapStyle);
 								k++;
 							}
 
 							colIndex += 2;
 						}else{
-//							for(int m = 0 ; m < colIndex ; m++){
-//								XSSFCell cell = row.getCell(m);
-//								if(cell != null)
-//									cell.setCellStyle(mapStyle.get("data_4"));
-//							}
-							setCellStyle(row,colIndex,mapStyle);
-							row = sheet.createRow(rowNum + k );
 							row.createCell(colIndex++).setCellValue(res);
+							setOneCellStyle(row,colIndex-1,mapStyle);
 							row.createCell(colIndex++).setCellValue("-");
+							setOneCellStyle(row,colIndex-1,mapStyle);
+							k++;
 						}
-					}else{//不应该发生这种情况
-//						for(int m = 0 ; m < colIndex ; m++){
-//							XSSFCell cell = row.getCell(m);
-//							if(cell != null)
-//								cell.setCellStyle(mapStyle.get("data_4"));
-//						}
-						setCellStyle(row,colIndex,mapStyle);
-						row = sheet.createRow(rowNum+k);
-						row.createCell(colIndex++).setCellValue(res);
-						row.createCell(colIndex++).setCellValue("-");
+					} else{//不应该发生这种情况
+//						oldRow = row;
+//						setCellStyle(row,colIndex,mapStyle);
+//						row = sheet.createRow(rowNum + k);
+//						row.createCell(colIndex++).setCellValue(res);
+////						setOneCellStyle(row,colIndex-1,mapStyle);
+//						row.createCell(colIndex++).setCellValue("-");
+////						setOneCellStyle(row,colIndex-1,mapStyle);
 					}
-				}else{
-//					for(int m = 0 ; m < colIndex ; m++){
-//						XSSFCell cell = row.getCell(m);
-//						if(cell != null)
-//							cell.setCellStyle(mapStyle.get("data_4"));
-//					}
-					setCellStyle(row,colIndex,mapStyle);
-					row = sheet.createRow(rowNum+k);
-					row.createCell(colIndex++).setCellValue("-");
-					row.createCell(colIndex++).setCellValue("-");
 				}
+//				else{
+//					setCellStyle(row,colIndex,mapStyle);
+//					row = sheet.createRow(rowNum+k - 1);
+//					row.createCell(colIndex++).setCellValue("-");
+//					setOneCellStyle(row,colIndex-1,mapStyle);
+//					row.createCell(colIndex++).setCellValue("-");
+//					setOneCellStyle(row,colIndex-1,mapStyle);
+//				}
 
 				//打印供应商合同，顺序打印，一个项目结束处理供应商等合并
 
@@ -534,13 +529,8 @@ public class ReportService {
 //					row.createCell(colIndex++).setCellValue("-");
 //				}
 
-
-//				for(int m = 0 ; m < colIndex ; m++){
-//					XSSFCell cell = row.getCell(m);
-//					if(cell != null)
-//						cell.setCellStyle(mapStyle.get("data_4"));
-//				}
-
+				if(oldRow!= null)
+					row = oldRow;
 				setCellStyle(row,colIndex,mapStyle);
 				rowNum++;
 
@@ -555,6 +545,12 @@ public class ReportService {
 			if(cell != null)
 				cell.setCellStyle(mapStyle.get("data_4"));
 		}
+	}
+
+	private void setOneCellStyle(XSSFRow row,int colIndex,Map<String, XSSFCellStyle> mapStyle){
+		XSSFCell cell = row.getCell(colIndex);
+		if(cell != null)
+			cell.setCellStyle(mapStyle.get("data_4"));
 	}
 
 	private BigDecimal compulateLedgerAmount(Map<String,List<LedgerReportVO>> contractToLedgerMap, String contractId){

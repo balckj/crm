@@ -30,7 +30,7 @@ public interface ReportMapper {
             "\tca.`name` AS campaignName,\n" +
             "\tca.`type` AS campaignType,\n" +
             "\tCONCAT( ca.startDate, '~', ca.endDate ) AS campaignStartEndTime,\n" +
-            "\tp.exhibitionNumber AS exhibitionNumber,\n" +
+            "\tc.exhibitionNumber AS exhibitionNumber,\n" +
             "\tc.`amount` AS contractCountAmount,\n" +
             "\tc.`area` AS contractArea,\n" +
             "\tCONCAT( IF(ca.`city` = '未选择','',ca.`city`) , '', ca.`address`  ) AS address,\n" +

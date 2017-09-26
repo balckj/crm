@@ -299,6 +299,7 @@ public class ReportService {
 			List<PerformanceReportVO> saleContractList = casMap.get("S");
 			int saleContractCount = saleContractList == null ? 0:saleContractList.size();
 			int supplierContractCount = 0;//一个项目所有供应商合同数量
+			BigDecimal supplierLedgerAmount = new BigDecimal(0);
 			for(String key : casMap.keySet()){
 				if(key.length()>1){
 					supplierContractCount++;
@@ -404,42 +405,106 @@ public class ReportService {
 //				rowNum++;
 				//销售合同编号打印
 				PerformanceReportVO one = null;
-				if(i < saleContractCount){
-					one = saleContractList.get(i);
-					row.createCell(colIndex++).setCellValue(one.getContractCode());
-				}else{
-					row.createCell(colIndex++).setCellValue("");
-				}
-				row.createCell(colIndex++).setCellValue(sample.getProjectName());
-				row.createCell(colIndex++).setCellValue(sample.getCampaignName());
-				row.createCell(colIndex++).setCellValue(sample.getCampaignType() == null ? "":dictionaryService.selectDictionary(sample.getCampaignType()).getValue());
-				row.createCell(colIndex++).setCellValue(sample.getCampaignStartEndTime());
-				row.createCell(colIndex++).setCellValue(sample.getExhibitionNumber());
-				row.createCell(colIndex++).setCellValue(sample.getContractCountAmount());
-				row.createCell(colIndex++).setCellValue(sample.getContractCountAmountChange());
-				if(one != null) {
-					Map<String,Object> ledgerMap = doledgerMap(contractToLedgerMap, one.getContractId());
-					Object ledgerAmount = ledgerMap.get("total");
-					String contractCountAmount = one.getContractCountAmount();
-					if(ledgerAmount == null){
-						row.createCell(colIndex++).setCellValue("");//若台账总额为空（没有台账），打印"-",表示不存在差额
-					}else {
-						if (contractCountAmount != null && !contractCountAmount.trim().isEmpty()) {
-							row.createCell(colIndex++).setCellValue(((BigDecimal)ledgerAmount).subtract(new BigDecimal(contractCountAmount)).toString());
-						} else {
-							row.createCell(colIndex++).setCellValue("");//这种情况不应该发生，合同总额是必填项
+				if(saleContractCount > 0) {//有销售合同的
+					if (i < saleContractCount) {//打印销售合同
+						one = saleContractList.get(i);
+						row.createCell(colIndex++).setCellValue(one.getContractCode());
+
+						row.createCell(colIndex++).setCellValue(one.getProjectName());
+						row.createCell(colIndex++).setCellValue(one.getCampaignName());
+						row.createCell(colIndex++).setCellValue(one.getCampaignType() == null ? "" : dictionaryService.selectDictionary(one.getCampaignType()).getValue());
+						row.createCell(colIndex++).setCellValue(one.getCampaignStartEndTime());
+						row.createCell(colIndex++).setCellValue(one.getExhibitionNumber());
+						row.createCell(colIndex++).setCellValue(one.getContractCountAmount());
+						row.createCell(colIndex++).setCellValue(one.getContractCountAmountChange());
+
+						Map<String,Object> ledgerMap = doledgerMap(contractToLedgerMap, one.getContractId());
+						Object ledgerAmount = ledgerMap.get("total");
+						String contractCountAmount = one.getContractCountAmount();
+						if(ledgerAmount == null){
+							row.createCell(colIndex++).setCellValue("");//若台账总额为空（没有台账），打印"-",表示不存在差额
+						}else {
+							if (contractCountAmount != null && !contractCountAmount.trim().isEmpty()) {
+								row.createCell(colIndex++).setCellValue(((BigDecimal)ledgerAmount).subtract(new BigDecimal(contractCountAmount)).toString());
+							} else {
+								row.createCell(colIndex++).setCellValue("");//这种情况不应该发生，合同总额是必填项
+							}
 						}
+						String reason = retrieveLastLedgerReasonForChange(contractToLedgerMap, one.getContractId());
+						row.createCell(colIndex++).setCellValue(reason);//这种情况不应该发生，合同总额是必填项
+						row.createCell(colIndex+1).setCellValue(retrieveLastLedgerCostCenter(contractToLedgerMap, one.getContractId()));
+						row.createCell(colIndex++).setCellValue(one.getAddress());
+
+
+					} else {//打印剩下行单元格 用于合并
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex+1);
+						row.createCell(colIndex++);
 					}
-					String reason = retrieveLastLedgerReasonForChange(contractToLedgerMap, one.getContractId());
-					row.createCell(colIndex++).setCellValue(reason);//这种情况不应该发生，合同总额是必填项
-					row.createCell(colIndex+1).setCellValue(retrieveLastLedgerCostCenter(contractToLedgerMap, one.getContractId()));
-				}else{
-					row.createCell(colIndex++).setCellValue("");//没有合同
-					row.createCell(colIndex++).setCellValue("");//这种情况不应该发生，合同总额是必填项
-					row.createCell(colIndex+1).setCellValue("");
+				}else{//无销售合同的
+					row.createCell(colIndex++);
+					if(i == 0) {//打印项目信息
+						row.createCell(colIndex++).setCellValue(sample.getProjectName());
+						row.createCell(colIndex++).setCellValue(sample.getCampaignName());
+						row.createCell(colIndex++).setCellValue(sample.getCampaignType() == null ? "" : dictionaryService.selectDictionary(sample.getCampaignType()).getValue());
+						row.createCell(colIndex++).setCellValue(sample.getCampaignStartEndTime());
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex+1);
+						row.createCell(colIndex++).setCellValue(sample.getAddress());
+					}else{//仅打印空单元格 用于合并
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex++);
+						row.createCell(colIndex+1);
+						row.createCell(colIndex++);
+					}
 				}
 
-				row.createCell(colIndex++).setCellValue(sample.getAddress());
+//				if(one != null) {
+//					Map<String,Object> ledgerMap = doledgerMap(contractToLedgerMap, one.getContractId());
+//					Object ledgerAmount = ledgerMap.get("total");
+//					String contractCountAmount = one.getContractCountAmount();
+//					if(ledgerAmount == null){
+//						row.createCell(colIndex++).setCellValue("");//若台账总额为空（没有台账），打印"-",表示不存在差额
+//					}else {
+//						if (contractCountAmount != null && !contractCountAmount.trim().isEmpty()) {
+//							row.createCell(colIndex++).setCellValue(((BigDecimal)ledgerAmount).subtract(new BigDecimal(contractCountAmount)).toString());
+//						} else {
+//							row.createCell(colIndex++).setCellValue("");//这种情况不应该发生，合同总额是必填项
+//						}
+//					}
+//					String reason = retrieveLastLedgerReasonForChange(contractToLedgerMap, one.getContractId());
+//					row.createCell(colIndex++).setCellValue(reason);//这种情况不应该发生，合同总额是必填项
+//					row.createCell(colIndex+1).setCellValue(retrieveLastLedgerCostCenter(contractToLedgerMap, one.getContractId()));
+//					row.createCell(colIndex++).setCellValue(one.getAddress());
+//				}else{
+//					row.createCell(colIndex++);
+//					row.createCell(colIndex++);
+//					row.createCell(colIndex+1);
+//					row.createCell(colIndex++);
+//
+//				}
+
+//				row.createCell(colIndex++).setCellValue(sample.getAddress());
 				colIndex++;
 
 				colIndex +=3;
@@ -496,6 +561,7 @@ public class ReportService {
 										} else {
 											row.createCell(colIndex+2).setCellValue("");//这种情况不应该发生，合同总额是必填项
 										}
+										supplierLedgerAmount = supplierLedgerAmount.add(((BigDecimal)ledgerAmount));
 									}
 									setOneCellStyle(row,colIndex+2,mapStyle);
 									row.createCell(colIndex+3).setCellValue(ledgerAmount == null ? "":ledgerAmount.toString());//这种情况不应该发生，合同总额是必填项
@@ -591,6 +657,7 @@ public class ReportService {
 				rowNum++;
 
 			}
+
 
 		}
 	}

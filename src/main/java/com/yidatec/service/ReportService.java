@@ -5,10 +5,7 @@ import com.yidatec.mapper.UserMapper;
 import com.yidatec.model.Dictionary;
 import com.yidatec.model.User;
 import com.yidatec.util.Constants;
-import com.yidatec.vo.DesignerReportVO;
-import com.yidatec.vo.FactoryReportVO;
-import com.yidatec.vo.LedgerReportVO;
-import com.yidatec.vo.PerformanceReportVO;
+import com.yidatec.vo.*;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
@@ -159,9 +156,9 @@ public class ReportService {
 			}
 		}
 
-		List<User> userList = userMapper.findAll();
-		Map<String,User> userMap = new HashMap<String,User>((userList.size() * 4 / 3) +1);
-		for(User one : userList){
+		List<UserVO> userList = userMapper.findAllUser();
+		Map<String,UserVO> userMap = new HashMap<String,UserVO>((userList.size() * 4 / 3) +1);
+		for(UserVO one : userList){
 			userMap.put(one.getId(),one);
 		}
 
@@ -354,6 +351,7 @@ public class ReportService {
 			}
 			List<DesignerReportVO> oneProjectDesignerList = projectToDesignerMap.get(projectId);
 //			supplierCount += oneProjectDesignerList == null ? 0 : oneProjectDesignerList.size();
+			Map<String,DesignerReportVO> designerReportVOMap = new HashMap<String,DesignerReportVO>(oneProjectDesignerList.size());
 			if(oneProjectDesignerList != null){
 				for(DesignerReportVO dr : oneProjectDesignerList) {
 					if (!supplierList.contains(dr.getId())) {
@@ -367,6 +365,7 @@ public class ReportService {
 							needTotalRowNumber++;
 						}
 					}
+					designerReportVOMap.put(dr.getDesignerCategory(),dr);
 				}
 			}
 
@@ -390,13 +389,12 @@ public class ReportService {
 			}
 			int supplierCount = supplierList.size();
 
-			int max = saleContractCount > supplierContractCount ? (saleContractCount > supplierCount ? saleContractCount : supplierCount ) : ( supplierContractCount > supplierCount ? supplierContractCount : supplierCount );
+//			int max = saleContractCount > supplierContractCount ? (saleContractCount > supplierCount ? saleContractCount : supplierCount ) : ( supplierContractCount > supplierCount ? supplierContractCount : supplierCount );
 
 			//获取总行数
 
 			int k = 0;
 			for(int i = 0 ; i < needTotalRowNumber ; i++){
-//				int k = 0;
 				colIndex = 0;
 				XSSFRow row = null;
 				row = sheet.getRow(rowNum);
@@ -410,7 +408,7 @@ public class ReportService {
 					one = saleContractList.get(i);
 					row.createCell(colIndex++).setCellValue(one.getContractCode());
 				}else{
-					row.createCell(colIndex++).setCellValue("-");
+					row.createCell(colIndex++).setCellValue("");
 				}
 				row.createCell(colIndex++).setCellValue(sample.getProjectName());
 				row.createCell(colIndex++).setCellValue(sample.getCampaignName());
@@ -420,42 +418,38 @@ public class ReportService {
 				row.createCell(colIndex++).setCellValue(sample.getContractCountAmount());
 				row.createCell(colIndex++).setCellValue(sample.getContractCountAmountChange());
 				if(one != null) {
-					BigDecimal ledgerAmount = compulateLedgerAmount(contractToLedgerMap, one.getContractId());
+					Map<String,Object> ledgerMap = doledgerMap(contractToLedgerMap, one.getContractId());
+					Object ledgerAmount = ledgerMap.get("total");
 					String contractCountAmount = one.getContractCountAmount();
 					if(ledgerAmount == null){
-						row.createCell(colIndex++).setCellValue("-");//若台账总额为空（没有台账），打印"-",表示不存在差额
+						row.createCell(colIndex++).setCellValue("");//若台账总额为空（没有台账），打印"-",表示不存在差额
 					}else {
 						if (contractCountAmount != null && !contractCountAmount.trim().isEmpty()) {
-							row.createCell(colIndex++).setCellValue(ledgerAmount.subtract(new BigDecimal(contractCountAmount)).toString());
+							row.createCell(colIndex++).setCellValue(((BigDecimal)ledgerAmount).subtract(new BigDecimal(contractCountAmount)).toString());
 						} else {
-							row.createCell(colIndex++).setCellValue("-");//这种情况不应该发生，合同总额是必填项
+							row.createCell(colIndex++).setCellValue("");//这种情况不应该发生，合同总额是必填项
 						}
 					}
 					String reason = retrieveLastLedgerReasonForChange(contractToLedgerMap, one.getContractId());
 					row.createCell(colIndex++).setCellValue(reason);//这种情况不应该发生，合同总额是必填项
 					row.createCell(colIndex+1).setCellValue(retrieveLastLedgerCostCenter(contractToLedgerMap, one.getContractId()));
 				}else{
-					row.createCell(colIndex++).setCellValue("-");//没有合同
-					row.createCell(colIndex++).setCellValue("-");//这种情况不应该发生，合同总额是必填项
-					row.createCell(colIndex+1).setCellValue("-");
+					row.createCell(colIndex++).setCellValue("");//没有合同
+					row.createCell(colIndex++).setCellValue("");//这种情况不应该发生，合同总额是必填项
+					row.createCell(colIndex+1).setCellValue("");
 				}
 
 				row.createCell(colIndex++).setCellValue(sample.getAddress());
 				colIndex++;
-//				if(one != null) {
-//
-//				}else{
-//
-//				}
+
 				colIndex +=3;
 
 				//输出供应商相关
-//				PerformanceReportVO one = null;
 				XSSFRow oldRow = null;
 				Object obj = null;
 				if(i < supplierCount){
 					obj = supplierList.get(i);
-					String res = "-";
+					String res = "";
 					String secondId = null;
 					if(obj instanceof String){
 						User user = userMap.get(obj);
@@ -489,45 +483,107 @@ public class ReportService {
 								PerformanceReportVO oneContract = oneSupplierContractList.get(j);
 								row.createCell(colIndex+1).setCellValue(oneContract.getContractCountAmount());
 								setOneCellStyle(row,colIndex+1,mapStyle);
+
+								if(oneContract != null) {
+									Map<String,Object> ledgerMap = doledgerMap(contractToLedgerMap, oneContract.getContractId());
+									Object ledgerAmount = ledgerMap.get("total");
+									String contractCountAmount = oneContract.getContractCountAmount();
+									if(ledgerAmount == null){
+										row.createCell(colIndex+2).setCellValue("");//若台账总额为空（没有台账），打印"-",表示不存在差额
+									}else {
+										if (contractCountAmount != null && !contractCountAmount.trim().isEmpty()) {
+											row.createCell(colIndex+2).setCellValue(((BigDecimal)ledgerAmount).subtract(new BigDecimal(contractCountAmount)).toString());
+										} else {
+											row.createCell(colIndex+2).setCellValue("");//这种情况不应该发生，合同总额是必填项
+										}
+									}
+									setOneCellStyle(row,colIndex+2,mapStyle);
+									row.createCell(colIndex+3).setCellValue(ledgerAmount == null ? "":ledgerAmount.toString());//这种情况不应该发生，合同总额是必填项
+									setOneCellStyle(row,colIndex+3,mapStyle);
+									row.createCell(colIndex+4).setCellValue(oneContract.getContractCode());
+									setOneCellStyle(row,colIndex+4,mapStyle);
+
+									for(int n = 0 ; n < ledgerItemDefineList.size() ; n++){
+										Object o = ledgerMap.get(ledgerItemDefineList.get(n).getId());
+										if(o != null){
+											BigDecimal val = ((LedgerReportVO)o).getPaymentAmount();
+											row.createCell(colIndex+4 + (n+1)).setCellValue(val.toString());
+											setOneCellStyle(row,colIndex+4+ (n+1),mapStyle);
+										}else{
+											row.createCell(colIndex+4 + (n+1));
+											setOneCellStyle(row,colIndex+4+ (n+1),mapStyle);
+										}
+									}
+
+									UserVO user = userMap.get(oneContract.getProjectCreatorId());
+									XSSFCell cell = row.createCell(colIndex+4 + (ledgerItemDefineList.size()+1));
+									if(user != null){
+										cell.setCellValue(user.getRoleNames());
+									}
+									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+1),mapStyle);
+
+									cell = row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2));
+									if(user != null){
+										cell.setCellValue(user.getName());
+									}
+									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2),mapStyle);
+
+									//设计师
+									for(int n = 0 ; n < designerItemDefineList.size() ; n++){
+										DesignerReportVO o = designerReportVOMap.get(designerItemDefineList.get(n).getId());
+										if(o != null){
+											row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + (n+1)).setCellValue(o.getName());
+											setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + (n+1),mapStyle);
+										}else{
+											row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + (n+1));
+											setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + (n+1),mapStyle);
+										}
+									}
+
+									//客户来源
+									Dictionary source = dictionaryService.selectDictionary(sample.getCustomerSource());
+									row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+1).setCellValue(source == null?null:source.getValue());
+									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+1,mapStyle);
+
+									//客户创建者
+									User customerCreator = userMap.get(sample.getCustomerCreatorId());
+									row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+2).setCellValue(customerCreator == null?null:customerCreator.getName());
+									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+2,mapStyle);
+
+									//面积
+									row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+3).setCellValue(oneContract.getContractArea());
+									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+3,mapStyle);
+								}
+								else{
+									for(int n = 0 ; n < ledgerItemDefineList.size() + designerItemDefineList.size()+8; n++) {
+										row.createCell(colIndex + n);
+										setOneCellStyle(row,colIndex + n,mapStyle);
+									}
+								}
+
 								k++;
+							}
+							if(oneSupplierContractList.size() > 1) {
+								CellRangeAddress region = new CellRangeAddress(rowNum, rowNum+k-1, colIndex, colIndex);
+								sheet.addMergedRegion(region);
 							}
 
 							colIndex += 2;
 						}else{
 							row.createCell(colIndex++).setCellValue(res);
 							setOneCellStyle(row,colIndex-1,mapStyle);
-							row.createCell(colIndex++).setCellValue("-");
+							row.createCell(colIndex++).setCellValue("");
 							setOneCellStyle(row,colIndex-1,mapStyle);
+							for(int n = 0 ; n < ledgerItemDefineList.size() + designerItemDefineList.size()+8; n++) {
+								row.createCell(colIndex + n);
+								setOneCellStyle(row,colIndex + n,mapStyle);
+							}
 							k++;
 						}
 					} else{//不应该发生这种情况
-//						oldRow = row;
-//						setCellStyle(row,colIndex,mapStyle);
-//						row = sheet.createRow(rowNum + k);
-//						row.createCell(colIndex++).setCellValue(res);
-////						setOneCellStyle(row,colIndex-1,mapStyle);
-//						row.createCell(colIndex++).setCellValue("-");
-////						setOneCellStyle(row,colIndex-1,mapStyle);
+
 					}
 				}
-//				else{
-//					setCellStyle(row,colIndex,mapStyle);
-//					row = sheet.createRow(rowNum+k - 1);
-//					row.createCell(colIndex++).setCellValue("-");
-//					setOneCellStyle(row,colIndex-1,mapStyle);
-//					row.createCell(colIndex++).setCellValue("-");
-//					setOneCellStyle(row,colIndex-1,mapStyle);
-//				}
-
-				//打印供应商合同，顺序打印，一个项目结束处理供应商等合并
-
-//				if(contractList != null && i < contractList.size()){
-//					PerformanceReportVO oneContract = contractList.get(i);
-//
-//					row.createCell(colIndex++).setCellValue(oneContract.get);
-//				}else{
-//					row.createCell(colIndex++).setCellValue("-");
-//				}
 
 				if(oldRow!= null)
 					row = oldRow;
@@ -553,19 +609,35 @@ public class ReportService {
 			cell.setCellStyle(mapStyle.get("data_4"));
 	}
 
-	private BigDecimal compulateLedgerAmount(Map<String,List<LedgerReportVO>> contractToLedgerMap, String contractId){
+	private Map<String,Object> doledgerMap(Map<String,List<LedgerReportVO>> contractToLedgerMap, String contractId){
 		List<LedgerReportVO> ledgerList = contractToLedgerMap.get(contractId);
-
+		Map<String,Object> map = new HashMap<String,Object>(15);
 		if(ledgerList != null){
 			BigDecimal total = new BigDecimal(0);
 			for(LedgerReportVO one : ledgerList){
 				BigDecimal amo = one.getPaymentAmount();
-				total.add(amo);
+				total = total.add(amo);
+				map.put(one.getMoneyType(),one);
 			}
-			return total;
+			map.put("total",total);
+//			return map;
 		}
-		return null;
+		return map;
 	}
+
+//	private BigDecimal compulateLedgerAmount(Map<String,List<LedgerReportVO>> contractToLedgerMap, String contractId){
+//		List<LedgerReportVO> ledgerList = contractToLedgerMap.get(contractId);
+//
+//		if(ledgerList != null){
+//			BigDecimal total = new BigDecimal(0);
+//			for(LedgerReportVO one : ledgerList){
+//				BigDecimal amo = one.getPaymentAmount();
+//				total.add(amo);
+//			}
+//			return total;
+//		}
+//		return null;
+//	}
 
 	private String retrieveLastLedgerReasonForChange(Map<String,List<LedgerReportVO>> contractToLedgerMap, String contractId){
 		List<LedgerReportVO> ledgerList = contractToLedgerMap.get(contractId);

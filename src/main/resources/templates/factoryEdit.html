@@ -759,6 +759,9 @@
                 if($(this).val() == ""){
                     $(this).attr("selected",false);
                 }
+                if($(this).val() == "未选择"){
+                    $(this).attr("value","");
+                }
                 if($(this).val() == $("#selectProvinceValue").val()){
                     $(this).attr("selected",true);
                 }
@@ -768,6 +771,9 @@
                 if($(this).val() == ""){
                     $(this).attr("selected",false);
                 }
+                if($(this).val() == "未选择"){
+                    $(this).attr("value","");
+                }
                 if($(this).val() == $("#selectCityValue").val()){
                     $(this).attr("selected",true);
                 }
@@ -776,6 +782,9 @@
             $("#region option").each(function(){
                 if($(this).val() == ""){
                     $(this).attr("selected",false);
+                }
+                if($(this).val() == "未选择"){
+                    $(this).attr("value","");
                 }
                 if($(this).val() == $("#selectRegionValue").val()){
                     $(this).attr("selected",true);

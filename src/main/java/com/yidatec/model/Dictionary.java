@@ -17,7 +17,7 @@ import javax.validation.constraints.Pattern;
 public class Dictionary extends BaseModel {
 	private static final long serialVersionUID = -140219923846563098L;
 	@NotBlank(message = "必须输入主键", groups = { })
-	@Length(min = 3, max = 40, message = "主键必须由3到40个字符组成", groups = { })
+	@Length(min = 3, max = 20, message = "主键必须由3到20个字符组成", groups = { })
 	private String code;
 
 	@NotNull(message = "必须输入大于等于0的整数", groups = {})
@@ -25,7 +25,7 @@ public class Dictionary extends BaseModel {
 	private Integer sort;
 
 	@NotBlank(message = "必须输入项目值", groups = { })
-	@Length(min = 1, max = 50, message = "项目值必须由1到50个字符组成", groups = { })
+	@Length(min = 1, max = 20, message = "项目值必须由1到20个字符组成", groups = { })
 	private String value;
 
 	@NotBlank(message = "必须输入描述", groups = { })

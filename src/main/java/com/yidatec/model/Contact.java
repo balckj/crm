@@ -19,7 +19,7 @@ public class Contact extends BaseModel{
     private String mobilePhone;
     @NotBlank(message = "必须输入联系人职位", groups = { })
     private String position;
-    @Email(regexp="^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",message="邮箱格式不正确", groups = { })
+//    @Email(regexp="^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",message="邮箱格式不正确", groups = { })
     private String email;
     private String state;
 

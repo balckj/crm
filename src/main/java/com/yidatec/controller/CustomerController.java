@@ -5,7 +5,9 @@ import com.yidatec.model.Dictionary;
 import com.yidatec.service.CustomerService;
 import com.yidatec.service.DictionaryService;
 import com.yidatec.util.Constants;
+import com.yidatec.util.DownloadHelper;
 import com.yidatec.vo.CustomerVO;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/7/11.
@@ -113,6 +115,28 @@ public class CustomerController extends BaseController{
     public Object getContact(@Validated @RequestBody String id){
         customerService.getContact(id);
         return getSuccessJson(null);
+    }
+
+    @RequestMapping("/customerDownLoadIndex")
+    public  String customerDownLoadIndex(){
+        return  "customerDownLoad";
+    }
+
+    @RequestMapping(value = "/customerDownLoad")
+    public void customerDownLoad (
+            HttpServletRequest request, HttpServletResponse response,
+            @RequestParam(value="id",required = false) String id
+    ) throws Exception{
+        String startTime = request.getParameter("startTime");
+        String endTime = request.getParameter("endTime");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(new Date());
+        String fileName = "客户关系大表"+date+".xlsx";
+        XSSFWorkbook wb = new XSSFWorkbook();
+
+        customerService.customerDownLoad(wb,startTime,endTime);
+
+        new DownloadHelper().downLoad(wb, response, fileName);
     }
 
 }

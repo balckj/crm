@@ -15,7 +15,6 @@ public class CustomerQueryProvider {
         if(!StringUtils.isEmpty(customerVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
         }
-
         if(!StringUtils.isEmpty(customerVO.getNature())){
             sb.append(" AND D.nature = #{nature}");
         }
@@ -36,18 +35,44 @@ public class CustomerQueryProvider {
         if(!StringUtils.isEmpty(customerVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
         }
-//        if(!StringUtils.isEmpty(customerVO.getCompanyId())){
-//            sb.append(" AND D.companyId = #{companyId}");
-//        }
         if(!StringUtils.isEmpty(customerVO.getNature())){
             sb.append(" AND D.nature = #{nature}");
         }
         if(!StringUtils.isEmpty(customerVO.getAddress())){
-            sb.append(" AND D.address = #{address}");
+            sb.append(" AND D.address LIKE CONCAT('%',#{address},'%')");
         }
         if(!StringUtils.isEmpty(customerVO.getCreatorId())){
             sb.append(" AND D.creatorId = #{creatorId}");
         }
+        return sb.toString();
+    }
+
+    public String customerDownLoad(String startTime,String endTime)
+    {
+        StringBuffer sb = new StringBuffer();
+        sb.append("");
+        sb.append(" SELECT");
+        sb.append(" c.`name` as saleName,");
+        sb.append(" b.`name` as customerName,");
+        sb.append(" d.`value` as industry,");//行业
+        sb.append(" b.province,");
+        sb.append(" b.city,");
+        sb.append(" a.exhibitionNumber,");
+        sb.append(" f.`name` as userName,");
+        sb.append(" f.mobilePhone,");
+        sb.append(" g.value as position,");
+        sb.append(" f.email,");
+        sb.append(" a.remark,");
+        sb.append(" a.createTime");
+        sb.append(" FROM `T_PROJECT` a");
+        sb.append(" LEFT JOIN T_CUSTOMER b ON a.customerId = b.id");
+        sb.append(" LEFT JOIN T_CUSTOMER_CONTACT e ON e.customerId = b.id");
+        sb.append(" LEFT JOIN T_CONTACT f ON e.contactId = f.id");
+        sb.append(" LEFT JOIN T_DICTIONARY g ON f.position = g.id");
+        sb.append(" LEFT JOIN T_USER c ON a.developSaleId = c.id");
+        sb.append(" LEFT JOIN T_DICTIONARY d ON b.industry = d.id");
+//        sb.append(" where 1=1 and a.createTime > #{startTime} and a.createTime < #{endTime}");
+        sb.append(" ORDER BY a.createTime ");
         return sb.toString();
     }
 }

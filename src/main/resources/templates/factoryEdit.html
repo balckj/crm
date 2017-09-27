@@ -715,8 +715,12 @@
         $("#country").change();
 
         $(document).ready(function() {
-            $("#goodAtIndustry").select2();
-            $("#goodAtMaterial").select2();
+            $("#goodAtIndustry").select2({
+                maximumSelectionLength: 3
+            });
+            $("#goodAtMaterial").select2({
+                maximumSelectionLength: 3
+            });
 
             $("#country").change(function(){
                 if($(this).val()=="中国"){

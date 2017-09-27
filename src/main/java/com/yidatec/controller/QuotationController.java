@@ -11,7 +11,6 @@ import com.yidatec.vo.ProductVO;
 import com.yidatec.vo.QuotationVO;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -148,7 +147,6 @@ public class QuotationController extends BaseController{
 //            @DateTimeFormat(pattern="yyyy-MM-dd") Date endTime
             @RequestParam(value="id",required = false) String id
             ) throws Exception{
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(new Date());
         String fileName = "报价单"+date+".xlsx";

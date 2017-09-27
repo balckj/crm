@@ -196,10 +196,10 @@ public class ReportService {
 		int colIndex = 0;
 
 		row1.createCell(colIndex).setCellValue("合同编号");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 160);
 
 		row1.createCell(colIndex).setCellValue("项目名称");
-		sheet.setColumnWidth(colIndex++, 32 * 100);
+		sheet.setColumnWidth(colIndex++, 32 * 120);
 
 		row1.createCell(colIndex).setCellValue("市场活动名称");
 		sheet.setColumnWidth(colIndex++, 32 * 100);
@@ -208,7 +208,7 @@ public class ReportService {
 		sheet.setColumnWidth(colIndex++, 32 * 80);
 
 		row1.createCell(colIndex).setCellValue("开展日期");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 260);
 
 		row1.createCell(colIndex).setCellValue("展位号");
 		sheet.setColumnWidth(colIndex++, 32 * 50);
@@ -223,7 +223,7 @@ public class ReportService {
 		sheet.setColumnWidth(colIndex++, 32 * 80);
 
 		row1.createCell(colIndex).setCellValue("扣款理由");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 120);
 
 		row1.createCell(colIndex).setCellValue("执行地");
 		sheet.setColumnWidth(colIndex++, 32 * 80);
@@ -246,23 +246,23 @@ public class ReportService {
 
 
 		row1.createCell(colIndex).setCellValue("供应商");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 160);
 
 
 		row1.createCell(colIndex).setCellValue("供应商合同额及变动");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 120);
 
 
 		row1.createCell(colIndex).setCellValue("供应商扣款");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 120);
 
 
 		row1.createCell(colIndex).setCellValue("最终供应商价格");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 120);
 
 
 		row1.createCell(colIndex).setCellValue("供应商合同编号");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 160);
 
 
 
@@ -301,19 +301,19 @@ public class ReportService {
 		if(designerItemDefineList != null){
 			for(int i = 0;i < designerItemDefineList.size();i++){
 				row1.createCell(colIndex).setCellValue(designerItemDefineList.get(i).getValue());
-				sheet.setColumnWidth(colIndex++, 32 * 50);
+				sheet.setColumnWidth(colIndex++, 32 * 120);
 			}
 		}
 		row1.createCell(colIndex).setCellValue("客户来源");
-		sheet.setColumnWidth(colIndex++, 32 * 50);
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
 
 		row1.createCell(colIndex).setCellValue("客户的创建者");
-		sheet.setColumnWidth(colIndex++, 32 * 50);
+		sheet.setColumnWidth(colIndex++, 32 * 100);
 
 
 		row1.createCell(colIndex).setCellValue("面积/㎡");
-		sheet.setColumnWidth(colIndex++, 32 * 50);
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
 
 
@@ -590,40 +590,13 @@ public class ReportService {
 										}
 									}
 
-									UserVO user = userMap.get(oneContract.getProjectCreatorId());
-									XSSFCell cell = row.createCell(colIndex+4 + (ledgerItemDefineList.size()+1));
-									if(user != null){
-										cell.setCellValue(user.getRoleNames());
+									int deptIndex = colIndex + 4 + (ledgerItemDefineList.size() + 1);
+									int customerIndex = colIndex + 4 + (ledgerItemDefineList.size() + 2) + designerItemDefineList.size() + 2;
+
+									for(; deptIndex <= customerIndex; deptIndex++) {
+										row.createCell(deptIndex);
+										setOneCellStyle(row,deptIndex,mapStyle);
 									}
-									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+1),mapStyle);
-
-									cell = row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2));
-									if(user != null){
-										cell.setCellValue(user.getName());
-									}
-									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2),mapStyle);
-
-									//设计师
-									for(int n = 0 ; n < designerItemDefineList.size() ; n++){
-										DesignerReportVO o = designerReportVOMap.get(designerItemDefineList.get(n).getId());
-										if(o != null){
-											row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + (n+1)).setCellValue(o.getName());
-											setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + (n+1),mapStyle);
-										}else{
-											row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + (n+1));
-											setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + (n+1),mapStyle);
-										}
-									}
-
-									//客户来源
-									Dictionary source = dictionaryService.selectDictionary(sample.getCustomerSource());
-									row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+1).setCellValue(source == null?null:source.getValue());
-									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+1,mapStyle);
-
-									//客户创建者
-									User customerCreator = userMap.get(sample.getCustomerCreatorId());
-									row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+2).setCellValue(customerCreator == null?null:customerCreator.getName());
-									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+2,mapStyle);
 
 									//面积
 									row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+3).setCellValue(oneContract.getContractArea());
@@ -683,6 +656,7 @@ public class ReportService {
 							setOneCellStyle(saleContractRow,colIndex-1,mapStyle);
 						}
 
+
 						for(; p < needTotalRowNumber ; p++){
 							XSSFRow blankRow = sheet.getRow(rowNum - i + p);
 							blankRow.createCell(colIndex-3);
@@ -691,6 +665,14 @@ public class ReportService {
 							setOneCellStyle(blankRow,colIndex-2,mapStyle);
 							blankRow.createCell(colIndex-1);
 							setOneCellStyle(blankRow,colIndex-1,mapStyle);
+						}
+
+						//合并供应商列以前的行
+						if(saleContractCount < needTotalRowNumber){
+							for(int e = 0 ; e < colIndex ; e++) {
+								CellRangeAddress region = new CellRangeAddress(rowNum - needTotalRowNumber + saleContractCount, rowNum, e, e);
+								sheet.addMergedRegion(region);
+							}
 						}
 					}
 				}else{
@@ -704,8 +686,64 @@ public class ReportService {
 							blankRow.createCell(colIndex - 1);
 							setOneCellStyle(blankRow, colIndex - 1, mapStyle);
 						}
+
+						//合并供应商列以前的行
+						if(needTotalRowNumber>1){
+							for(int e = 0 ; e < colIndex ; e++) {
+								CellRangeAddress region = new CellRangeAddress(rowNum - needTotalRowNumber + 1, rowNum, e, e);
+								sheet.addMergedRegion(region);
+							}
+						}
 					}
 				}
+
+				if (i == needTotalRowNumber - 1) {
+					XSSFRow oneProjectFirstRow = sheet.getRow(rowNum - i);
+					//签单部门
+					UserVO user = userMap.get(sample.getProjectCreatorId());
+					XSSFCell cell = oneProjectFirstRow.getCell(colIndex + 4 + (ledgerItemDefineList.size() + 1));
+					if (user != null) {
+						cell.setCellValue(user.getRoleNames());
+					}
+
+					//业务员
+					cell = oneProjectFirstRow.getCell(colIndex + 4 + (ledgerItemDefineList.size() + 2));
+					if (user != null) {
+						cell.setCellValue(user.getName());
+					}
+
+					//设计师
+					for (int n = 0; n < designerItemDefineList.size(); n++) {
+						DesignerReportVO o = designerReportVOMap.get(designerItemDefineList.get(n).getId());
+						if (o != null) {
+							oneProjectFirstRow.getCell(colIndex + 4 + (ledgerItemDefineList.size() + 2) + (n + 1)).setCellValue(o.getName());
+						}
+					}
+
+					//客户来源
+					Dictionary source = dictionaryService.selectDictionary(sample.getCustomerSource());
+					String v = source == null ? null : source.getValue();
+					oneProjectFirstRow.getCell(colIndex + 4 + (ledgerItemDefineList.size() + 2) + designerItemDefineList.size() + 1).setCellValue(v);
+
+					//客户创建者
+					User customerCreator = userMap.get(sample.getCustomerCreatorId());
+					String u = customerCreator == null ? null : customerCreator.getName();
+					oneProjectFirstRow.getCell(colIndex + 4 + (ledgerItemDefineList.size() + 2) + designerItemDefineList.size() + 2).setCellValue(u);
+
+
+
+
+					int deptIndex = colIndex + 4 + (ledgerItemDefineList.size() + 1);
+					int customerIndex = colIndex + 4 + (ledgerItemDefineList.size() + 2) + designerItemDefineList.size() + 2;
+					for (; deptIndex <= customerIndex; deptIndex++) {
+						CellRangeAddress region = new CellRangeAddress(rowNum - needTotalRowNumber + 1, rowNum, deptIndex, deptIndex);
+						sheet.addMergedRegion(region);
+
+					}
+				}
+
+
+
 				rowNum++;
 			}
 		}

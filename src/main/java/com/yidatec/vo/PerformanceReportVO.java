@@ -43,7 +43,7 @@ public class PerformanceReportVO{
     private String traceSaleId;
 
     private String customerCreatorId;
-    private String projectArea;
+    private String contractArea;
 
     public String getProjectId() {
         return projectId;
@@ -277,11 +277,11 @@ public class PerformanceReportVO{
         this.customerCreatorId = customerCreatorId;
     }
 
-    public String getProjectArea() {
-        return projectArea;
+    public String getContractArea() {
+        return contractArea;
     }
 
-    public void setProjectArea(String projectArea) {
-        this.projectArea = projectArea;
+    public void setContractArea(String contractArea) {
+        this.contractArea = contractArea;
     }
 }

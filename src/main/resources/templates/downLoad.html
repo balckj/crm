@@ -62,6 +62,42 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-sm-12">
+                    <form method="POST" class="form-horizontal form-inline" id='orReportForm'>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">订单追踪<span style="color:#ed5565;"></span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="startTime2" class="control-label">开始时间</label>
+                                    <input type="text"  id="startTime2" name="startTime2" readonly="readonly" class="form-control input-sm"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="endTime2" class="control-label">结束时间</label>
+                                    <input type="text"  id="endTime2" name="endTime2" readonly="readonly" class="form-control input-sm"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-sm" type="button" style="width: 100%;margin-top: 23px;" onclick="query2();">下&nbsp;&nbsp;载</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -74,25 +110,25 @@
     <script type="text/javascript">
         /*<![CDATA[*/
 
-        $('#startTime').datepicker({
-            startView: 1,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'cn',
-        });
 
-        $('#endTime').datepicker({
-            startView: 1,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'cn',
-        });
+
+        $(function () {
+            datepickerInit("startTime");
+            datepickerInit("endTime");
+            datepickerInit("startTime2");
+            datepickerInit("endTime2");
+        })
+        function datepickerInit(id) {
+            $('#' + id).datepicker({
+                startView: 1,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: "yyyy-mm-dd",
+                language: 'cn',
+            });
+        }
         /**
          *
          * 获取当前时间
@@ -112,6 +148,8 @@
         $('#startTime').val(now);
         $('#endTime').val(now);
 
+        $('#startTime2').val(now);
+        $('#endTime2').val(now);
         function query(){
             var startTime = $("#startTime").val();
             var endTime = $("#endTime").val();
@@ -128,6 +166,21 @@
             $("#acReportForm").submit();
         }
 
+        function query2(){
+            var startTime = $("#startTime2").val();
+            var endTime = $("#endTime2").val();
+//            if(startTime == "" || endTime == ""){
+//                sweetAlert("开始时间和结束时间必须选择");
+//                return ;
+//            }
+//            if(!checkEndTime(startTime,endTime)){
+//                sweetAlert("结束时间必须晚于开始时间！");
+//                return;
+//            }
+
+            $('#orReportForm').attr('action', "/orderTrackingDownLoad");
+            $("#orReportForm").submit();
+        }
         function checkEndTime(startTime,endTime){
             var startTime=startTime;
             var start=new Date(startTime.replace("-", "/").replace("-", "/"));

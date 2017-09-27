@@ -74,4 +74,7 @@ public interface UserMapper {
     @Update("UPDATE T_USER SET `openId`=#{openId} WHERE mobilePhone=#{mobilePhone} and password=#{password}")
     int bind(User user);
 
+    @Select("select *,GROUP_CONCAT(r.`name` ) `roleNames` from T_USER u left join T_USER_ROLE ur on u.id=ur.userId left join T_ROLE r on ur.roleId = r.id group by u.id")
+    List<UserVO> findAllUser();
+
 }

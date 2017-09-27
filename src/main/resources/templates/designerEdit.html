@@ -870,6 +870,7 @@
                         caseList = [];
                         swal("操作失败", data.txt, "error");
                     }else{
+                        toastr["success"]('保存成功!');
                         loadPage("designerList",function(){
                             saveBtnda.stop();
                         });

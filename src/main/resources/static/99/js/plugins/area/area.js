@@ -420,4 +420,3 @@ function _init_area(){  //初始化函数
 	}
 	change(0);
 }
-/* 代码整理：懒人之家 www.lanrenzhijia.com */

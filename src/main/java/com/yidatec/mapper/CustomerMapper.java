@@ -2,6 +2,7 @@ package com.yidatec.mapper;
 
 import com.yidatec.model.Customer;
 import com.yidatec.vo.CustomerVO;
+import com.yidatec.vo.ProjectVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -45,6 +46,11 @@ public interface CustomerMapper {
     @Delete("DELETE FROM T_CUSTOMER_CONTACT  WHERE customerId =#{customerId}")
     int deleteCustomerRelation(String customerId);
 
-
+    /**
+     * 客户大表下载
+     * @return
+     */
+    @SelectProvider(type=CustomerQueryProvider.class,method = "customerDownLoad")
+    List<ProjectVO> customerDownLoad(String startTime,String endTime);
 
 }

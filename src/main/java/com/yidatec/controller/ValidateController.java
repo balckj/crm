@@ -136,6 +136,9 @@ public class ValidateController extends BaseController{
         if(code == null || code.trim().isEmpty()){
             return getErrorJson("必须输入主键");
         }
+        if(!(code.length() >= 3 && code.length() <=20)){
+            return getErrorJson("主键必须由3到20个字符组成");
+        }
         return getSuccessJson(null);
     }
 
@@ -147,7 +150,7 @@ public class ValidateController extends BaseController{
         sort = sort.trim();
         boolean res = sort.matches( "^[0-9]*[0-9][0-9]*$");
         if(!res)
-            return getErrorJson("序号必须是数字");
+            return getErrorJson("必须输入大于等于0的整数");
         return getSuccessJson(null);
     }
 
@@ -155,6 +158,9 @@ public class ValidateController extends BaseController{
     public String validateValue(@RequestParam(value="value") String value){
         if(value == null || value.trim().isEmpty()){
             return getErrorJson("必须输入项目值");
+        }
+        if(!(value.length() >= 1 && value.length() <=20)){
+            return getErrorJson("项目必须由1到20个字符组成");
         }
         return getSuccessJson(null);
     }

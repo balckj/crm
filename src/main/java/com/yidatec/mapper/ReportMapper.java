@@ -60,7 +60,7 @@ public interface ReportMapper {
 //    @Select("SELECT * FROM T_CONTRACT_HISTORY order by id, modifyTime ASC")
 //    List<LedgerVO> getLedgerList(String contractId);
 
-    @Select("SELECT U.`name`,U.id,P1.id `projectId` FROM T_PROJECT P1 LEFT JOIN  T_PROJECT_DESIGNER P  ON P1.id = P.projectid  LEFT JOIN T_USER U ON P.designerId = U.id WHERE P1.createTime BETWEEN DATE(#{startTime}) AND DATE(#{endTime})")
+    @Select("SELECT U.`name`,U.id,P1.id `projectId`,U.designerCategory FROM T_PROJECT P1 LEFT JOIN  T_PROJECT_DESIGNER P  ON P1.id = P.projectid  LEFT JOIN T_USER U ON P.designerId = U.id WHERE P1.createTime BETWEEN DATE(#{startTime}) AND DATE(#{endTime})")
     List<DesignerReportVO> selectProjectDesigner(@Param(value = "startTime") String startTime, @Param(value = "endTime")String endTime);
 
     @Select("SELECT U.`name`,U.id,P1.id `projectId` FROM T_PROJECT P1 LEFT JOIN T_PROJECT_FACTORY P ON P1.id = P.projectid LEFT JOIN T_FACTORY U ON P.factoryId = U.id WHERE P1.createTime BETWEEN DATE(#{startTime}) AND DATE(#{endTime})")

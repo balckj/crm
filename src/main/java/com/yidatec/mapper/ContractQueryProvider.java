@@ -67,7 +67,7 @@ public class ContractQueryProvider {
         .append(" LEFT JOIN T_PROJECT B ON A.projectId = B.id")
         .append(" LEFT JOIN T_CAMPAIGN AS C ON A.campaignId = C.id")
         .append(" LEFT JOIN T_CONTRACT_LEDGER AS cl ON A.id = cl.contractId")
-        .append(" GROUP BY cl.contractId");
+        .append(" GROUP BY A.id");
 
         sb.append(" ) A ");
         sb.append(" WHERE 1=1 ");
@@ -106,7 +106,7 @@ public class ContractQueryProvider {
                 .append(" LEFT JOIN T_PROJECT B ON A.projectId = B.id")
                 .append(" LEFT JOIN T_CAMPAIGN AS C ON A.campaignId = C.id")
                 .append(" LEFT JOIN T_CONTRACT_LEDGER AS cl ON A.id = cl.contractId")
-                .append(" GROUP BY cl.contractId");
+                .append(" GROUP BY A.id");
 
         if(!StringUtils.isEmpty(contractVO.getName())){
             sb.append(" AND A.name LIKE CONCAT('%',#{name},'%')");

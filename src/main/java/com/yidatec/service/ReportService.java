@@ -327,7 +327,7 @@ public class ReportService {
 
 		for(String projectId : projectIdList){
 			Map<String, List<PerformanceReportVO>> casMap = map.get(projectId);//当项目没有合同时，casMap.size()为0
-			List<PerformanceReportVO> saleContractList = casMap.get("S");
+			List<PerformanceReportVO> saleContractList = casMap.get("C");
 			int saleContractCount = saleContractList == null ? 0:saleContractList.size();
 			int supplierContractCount = 0;//一个项目所有供应商合同数量
 			BigDecimal supplierLedgerAmount = new BigDecimal(0);//一个项目所有供应商的台账总额
@@ -590,6 +590,7 @@ public class ReportService {
 										}
 									}
 
+									//打印从供应商合同及变动到客户创建者列的单元格，但是不打印单元格内容，内容在合并时一起输出
 									int deptIndex = colIndex + 4 + (ledgerItemDefineList.size() + 1);
 									int customerIndex = colIndex + 4 + (ledgerItemDefineList.size() + 2) + designerItemDefineList.size() + 2;
 
@@ -602,11 +603,11 @@ public class ReportService {
 									row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+3).setCellValue(oneContract.getContractArea());
 									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+3,mapStyle);
 								}
-								else{
-									for(int n = 0 ; n < ledgerItemDefineList.size() + designerItemDefineList.size()+8; n++) {
-										row.createCell(colIndex + n);
-										setOneCellStyle(row,colIndex + n,mapStyle);
-									}
+								else{//不应该发生这种情况
+//									for(int n = 0 ; n < ledgerItemDefineList.size() + designerItemDefineList.size()+8; n++) {
+//										row.createCell(colIndex + n);
+//										setOneCellStyle(row,colIndex + n,mapStyle);
+//									}
 								}
 
 								k++;
@@ -652,7 +653,7 @@ public class ReportService {
 							BigDecimal b = (totalObj.add(changeObj).subtract(supplierLedgerAmount));
 							saleContractRow.createCell(colIndex-2).setCellValue(b.toString());//原始需求减去两次成本台账，我稍作修改减去供应商台账总额
 							setOneCellStyle(saleContractRow,colIndex-2,mapStyle);
-							saleContractRow.createCell(colIndex-1).setCellValue(b.multiply(new BigDecimal(100)).divide(a,2, RoundingMode.HALF_UP).toString()+"%");//原始需求减去两次成本台账，我稍作修改减去供应商台账总额
+							saleContractRow.createCell(colIndex-1).setCellValue(a.compareTo(BigDecimal.ZERO) ==0 ? null :  b.multiply(new BigDecimal(100)).divide(a,2, RoundingMode.HALF_UP).toString()+"%");//原始需求减去两次成本台账，我稍作修改减去供应商台账总额
 							setOneCellStyle(saleContractRow,colIndex-1,mapStyle);
 						}
 

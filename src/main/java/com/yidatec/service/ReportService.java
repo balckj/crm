@@ -588,7 +588,7 @@ public class ReportService {
 										}
 									}
 
-									//打印从供应商合同及变动到客户创建者列的单元格，但是不打印单元格内容，内容在合并时一起输出
+									//打印从签单部门到客户创建者列的单元格，但是不打印单元格内容，内容在合并时一起输出
 									int deptIndex = colIndex + 4 + (ledgerItemDefineList.size() + 1);
 									int customerIndex = colIndex + 4 + (ledgerItemDefineList.size() + 2) + designerItemDefineList.size() + 2;
 
@@ -853,6 +853,7 @@ public class ReportService {
 		Font headerFont4 = wb.createFont();
 		headerFont4.setBoldweight(Font.BOLDWEIGHT_BOLD);
 		headerFont4.setFontHeightInPoints((short) 10);
+		headerFont4.setColor(IndexedColors.WHITE.getIndex());
 		style = createBorderedStyle(wb);
 		style.setAlignment(CellStyle.ALIGN_CENTER);
 		style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);//垂直

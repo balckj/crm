@@ -7,6 +7,7 @@ import com.yidatec.model.User;
 import com.yidatec.util.Constants;
 import com.yidatec.vo.*;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -414,12 +415,9 @@ public class ReportService {
 			}
 			int supplierCount = supplierList.size();
 
-//			int max = saleContractCount > supplierContractCount ? (saleContractCount > supplierCount ? saleContractCount : supplierCount ) : ( supplierContractCount > supplierCount ? supplierContractCount : supplierCount );
-
-			//获取总行数
 
 			int k = 0;// 一个项目的准确的行号指示器
-//			int contractCounter = 0;
+			//循环处理一个项目的每一行
 			for(int i = 0 ; i < (saleContractCount > 1? needTotalRowNumber * saleContractCount : needTotalRowNumber) ; i++){
 				colIndex = 0;
 				XSSFRow row = null;
@@ -651,9 +649,9 @@ public class ReportService {
 						String change = oneSaleContract.getContractCountAmountChange() ;
 						BigDecimal changeObj = (change == null || change.trim().isEmpty())?new BigDecimal(0):new BigDecimal(change);
 						BigDecimal a = (totalObj.add(changeObj).subtract(costLedgerAmount));
-						saleContractRow.createCell(colIndex-3).setCellValue(a.toString());
+						saleContractRow.createCell(colIndex-3).setCellValue(a.toString());//实际业绩
 						setOneCellStyle(saleContractRow,colIndex-3,mapStyle);
-						BigDecimal b = (totalObj.add(changeObj).subtract(supplierLedgerAmount));
+						BigDecimal b = (totalObj.add(changeObj).subtract(supplierLedgerAmount));//毛利润
 						saleContractRow.createCell(colIndex-2).setCellValue(b.toString());//原始需求减去两次成本台账，我稍作修改减去供应商台账总额
 						setOneCellStyle(saleContractRow,colIndex-2,mapStyle);
 						saleContractRow.createCell(colIndex-1).setCellValue(a.compareTo(BigDecimal.ZERO) ==0 ? null :  b.multiply(new BigDecimal(100)).divide(a,2, RoundingMode.HALF_UP).toString()+"%");//原始需求减去两次成本台账，我稍作修改减去供应商台账总额
@@ -772,19 +770,6 @@ public class ReportService {
 		return map;
 	}
 
-//	private BigDecimal compulateLedgerAmount(Map<String,List<LedgerReportVO>> contractToLedgerMap, String contractId){
-//		List<LedgerReportVO> ledgerList = contractToLedgerMap.get(contractId);
-//
-//		if(ledgerList != null){
-//			BigDecimal total = new BigDecimal(0);
-//			for(LedgerReportVO one : ledgerList){
-//				BigDecimal amo = one.getPaymentAmount();
-//				total.add(amo);
-//			}
-//			return total;
-//		}
-//		return null;
-//	}
 
 	private String retrieveLastLedgerReasonForChange(Map<String,List<LedgerReportVO>> contractToLedgerMap, String contractId){
 		List<LedgerReportVO> ledgerList = contractToLedgerMap.get(contractId);
@@ -794,9 +779,9 @@ public class ReportService {
 			if(reason != null && !reason.trim().isEmpty()){
 				return dictionaryService.selectDictionary(reason).getValue();
 			}
-			return "-";
+			return "";
 		}
-		return "-";
+		return "";
 	}
 
 	private String retrieveLastLedgerCostCenter(Map<String,List<LedgerReportVO>> contractToLedgerMap, String contractId){
@@ -805,31 +790,10 @@ public class ReportService {
 		if(ledgerList != null){
 			return dictionaryService.selectDictionary(ledgerList.get(0).getCostCenter()).getValue();
 		}
-		return "-";
+		return "";
 	}
 
-//	private void setColspanTitle(XSSFSheet sheet,XSSFRow row,
-//								 Map<String, XSSFCellStyle> mapStyle,
-//								 XSSFWorkbook wb,
-//								 String title,
-//								 String cellStyle,
-//								 int cell,
-//								 int StringRow,
-//								 int endRow,
-//								 int StringCell,
-//								 int endCell){
-//		row.createCell(cell).setCellValue(title);
-//		// 参数：起始行号，终止行号， 起始列号，终止列号
-//		CellRangeAddress region = new CellRangeAddress(StringRow,endRow,StringCell,endCell);
-//		sheet.addMergedRegion(region);
-//		row.getCell(cell).setCellStyle(mapStyle.get(cellStyle));//"data_4"
-//		int border = 2;
-//		RegionUtil.setBorderBottom(border,region, sheet, wb);
-//		RegionUtil.setBorderLeft(border,region, sheet, wb);
-//		RegionUtil.setBorderRight(border,region, sheet, wb);
-//		RegionUtil.setBorderTop(border,region, sheet, wb);
-//		row.setHeightInPoints(30);
-//	}
+
 	private XSSFCellStyle createBorderedStyle(XSSFWorkbook wb) {
 		XSSFCellStyle style = wb.createCellStyle();
 		style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
@@ -893,6 +857,8 @@ public class ReportService {
 		style.setAlignment(CellStyle.ALIGN_CENTER);
 		style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);//垂直
 		style.setFont(headerFont4);
+		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		style.setFillForegroundColor(IndexedColors.BLUE.getIndex());
 		styles.put("header_6", style);
 
 		//白色背景标题 9号粗体黑字 版本标题用

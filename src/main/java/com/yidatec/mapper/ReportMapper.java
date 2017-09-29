@@ -34,7 +34,7 @@ public interface ReportMapper {
             "\tc.`amount` AS contractCountAmount,\n" +
             "\tc.`area` AS contractArea,\n" +
             "\tCONCAT( IF(ca.`city` = '未选择','',ca.`city`) , '', ca.`address`  ) AS address,\n" +
-            "\tIF(HIS_TOP.amount IS NULL,'',c.amount - HIS_TOP.amount) AS contractCountAmountChange,\n" +
+            "\tIF(HIS_TOP.amount IS NULL,'',if(c.amount - HIS_TOP.amount < 0.000000000001 ,0.00,c.amount - HIS_TOP.amount)) AS contractCountAmountChange,\n" +
             "\tc.`creatorId` AS contractCreatorId,\n" +
             "\tp.`creatorId` AS projectCreatorId,\n" +
             "\tcus.`creatorId` AS customerCreatorId\n" +
@@ -45,8 +45,7 @@ public interface ReportMapper {
             "LEFT JOIN T_CONTRACT c ON p.id = c.projectId\n" +
             "\n" +
             "LEFT JOIN \n" +
-            "(SELECT * FROM T_CONTRACT_HISTORY \n" +
-            "    ORDER BY modifyTime ASC LIMIT 1) HIS_TOP ON c.id = HIS_TOP.id\n" +
+            "(select * from (SELECT * FROM T_CONTRACT_HISTORY ORDER BY modifyTime DESC) tmp group by tmp.id ) HIS_TOP ON c.id = HIS_TOP.id\n" +
             "WHERE p.createTime BETWEEN DATE(#{startTime}) AND DATE(#{endTime})\n" +
             "ORDER BY\n" +
             "\tp.modifyTime DESC,c.createTime DESC")

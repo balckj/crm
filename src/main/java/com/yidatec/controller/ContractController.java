@@ -79,8 +79,9 @@ public class ContractController extends BaseController{
         } else {
             contract.setModifierId(getWebUser().getId());
             contract.setModifyTime(LocalDateTime.now());
-            contractService.updateContract(contract);
+
             contractService.createContractHistory(contract);
+            contractService.updateContract(contract);
         }
         return getSuccessJson(null);
     }

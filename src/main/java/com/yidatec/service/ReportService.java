@@ -196,10 +196,10 @@ public class ReportService {
 		int colIndex = 0;
 
 		row1.createCell(colIndex).setCellValue("合同编号");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 160);
 
 		row1.createCell(colIndex).setCellValue("项目名称");
-		sheet.setColumnWidth(colIndex++, 32 * 100);
+		sheet.setColumnWidth(colIndex++, 32 * 120);
 
 		row1.createCell(colIndex).setCellValue("市场活动名称");
 		sheet.setColumnWidth(colIndex++, 32 * 100);
@@ -208,7 +208,7 @@ public class ReportService {
 		sheet.setColumnWidth(colIndex++, 32 * 80);
 
 		row1.createCell(colIndex).setCellValue("开展日期");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 260);
 
 		row1.createCell(colIndex).setCellValue("展位号");
 		sheet.setColumnWidth(colIndex++, 32 * 50);
@@ -223,7 +223,7 @@ public class ReportService {
 		sheet.setColumnWidth(colIndex++, 32 * 80);
 
 		row1.createCell(colIndex).setCellValue("扣款理由");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 120);
 
 		row1.createCell(colIndex).setCellValue("执行地");
 		sheet.setColumnWidth(colIndex++, 32 * 80);
@@ -246,23 +246,23 @@ public class ReportService {
 
 
 		row1.createCell(colIndex).setCellValue("供应商");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 160);
 
 
 		row1.createCell(colIndex).setCellValue("供应商合同额及变动");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 120);
 
 
 		row1.createCell(colIndex).setCellValue("供应商扣款");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 120);
 
 
 		row1.createCell(colIndex).setCellValue("最终供应商价格");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 120);
 
 
 		row1.createCell(colIndex).setCellValue("供应商合同编号");
-		sheet.setColumnWidth(colIndex++, 32 * 80);
+		sheet.setColumnWidth(colIndex++, 32 * 160);
 
 
 
@@ -301,19 +301,19 @@ public class ReportService {
 		if(designerItemDefineList != null){
 			for(int i = 0;i < designerItemDefineList.size();i++){
 				row1.createCell(colIndex).setCellValue(designerItemDefineList.get(i).getValue());
-				sheet.setColumnWidth(colIndex++, 32 * 50);
+				sheet.setColumnWidth(colIndex++, 32 * 120);
 			}
 		}
 		row1.createCell(colIndex).setCellValue("客户来源");
-		sheet.setColumnWidth(colIndex++, 32 * 50);
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
 
 		row1.createCell(colIndex).setCellValue("客户的创建者");
-		sheet.setColumnWidth(colIndex++, 32 * 50);
+		sheet.setColumnWidth(colIndex++, 32 * 100);
 
 
 		row1.createCell(colIndex).setCellValue("面积/㎡");
-		sheet.setColumnWidth(colIndex++, 32 * 50);
+		sheet.setColumnWidth(colIndex++, 32 * 80);
 
 
 
@@ -327,7 +327,7 @@ public class ReportService {
 
 		for(String projectId : projectIdList){
 			Map<String, List<PerformanceReportVO>> casMap = map.get(projectId);//当项目没有合同时，casMap.size()为0
-			List<PerformanceReportVO> saleContractList = casMap.get("S");
+			List<PerformanceReportVO> saleContractList = casMap.get("C");
 			int saleContractCount = saleContractList == null ? 0:saleContractList.size();
 			int supplierContractCount = 0;//一个项目所有供应商合同数量
 			BigDecimal supplierLedgerAmount = new BigDecimal(0);//一个项目所有供应商的台账总额
@@ -418,8 +418,9 @@ public class ReportService {
 
 			//获取总行数
 
-			int k = 0;
-			for(int i = 0 ; i < needTotalRowNumber ; i++){
+			int k = 0;// 一个项目的准确的行号指示器
+//			int contractCounter = 0;
+			for(int i = 0 ; i < (saleContractCount > 1? needTotalRowNumber * saleContractCount : needTotalRowNumber) ; i++){
 				colIndex = 0;
 				XSSFRow row = null;
 				row = sheet.getRow(rowNum);
@@ -429,8 +430,9 @@ public class ReportService {
 				//销售合同编号打印
 				PerformanceReportVO one = null;
 				if(saleContractCount > 0) {//有销售合同的
-					if (i < saleContractCount) {//打印销售合同
-						one = saleContractList.get(i);
+					if ( i%needTotalRowNumber == 0) {//打印销售合同
+						supplierLedgerAmount = new BigDecimal(0);//一个项目所有供应商的台账总额
+						one = saleContractList.get(i/needTotalRowNumber);
 						row.createCell(colIndex++).setCellValue(one.getContractCode());
 
 						row.createCell(colIndex++).setCellValue(one.getProjectName());
@@ -458,7 +460,6 @@ public class ReportService {
 						row.createCell(colIndex+1).setCellValue(retrieveLastLedgerCostCenter(contractToLedgerMap, one.getContractId()));
 						row.createCell(colIndex++).setCellValue(one.getAddress());
 
-
 					} else {//打印剩下行单元格 用于合并
 						row.createCell(colIndex++);
 						row.createCell(colIndex++);
@@ -475,7 +476,7 @@ public class ReportService {
 					}
 				}else{//无销售合同的
 					row.createCell(colIndex++);
-					if(i == 0) {//打印项目信息
+					if(k/needTotalRowNumber == 0) {//打印项目信息
 						row.createCell(colIndex++).setCellValue(sample.getProjectName());
 						row.createCell(colIndex++).setCellValue(sample.getCampaignName());
 						row.createCell(colIndex++).setCellValue(sample.getCampaignType() == null ? "" : dictionaryService.selectDictionary(sample.getCampaignType()).getValue());
@@ -503,7 +504,6 @@ public class ReportService {
 				}
 
 
-//				row.createCell(colIndex++).setCellValue(sample.getAddress());
 				colIndex++;
 
 				colIndex +=3;
@@ -511,8 +511,8 @@ public class ReportService {
 				//输出供应商相关
 				XSSFRow oldRow = null;
 				Object obj = null;
-				if(i < supplierCount){
-					obj = supplierList.get(i);
+				if(i%needTotalRowNumber < supplierCount){
+					obj = supplierList.get(i%needTotalRowNumber);
 					String res = "";
 					String secondId = null;
 					if(obj instanceof String){
@@ -541,7 +541,7 @@ public class ReportService {
 								if(j == 0){
 									row.createCell(colIndex).setCellValue(res);
 								}else{
-									row = sheet.createRow(rowNum+k);
+									row = sheet.createRow(rowNum+k-i);
 									row.createCell(colIndex);
 								}
 								setOneCellStyle(row,colIndex,mapStyle);
@@ -590,59 +590,31 @@ public class ReportService {
 										}
 									}
 
-									UserVO user = userMap.get(oneContract.getProjectCreatorId());
-									XSSFCell cell = row.createCell(colIndex+4 + (ledgerItemDefineList.size()+1));
-									if(user != null){
-										cell.setCellValue(user.getRoleNames());
+									//打印从供应商合同及变动到客户创建者列的单元格，但是不打印单元格内容，内容在合并时一起输出
+									int deptIndex = colIndex + 4 + (ledgerItemDefineList.size() + 1);
+									int customerIndex = colIndex + 4 + (ledgerItemDefineList.size() + 2) + designerItemDefineList.size() + 2;
+
+									for(; deptIndex <= customerIndex; deptIndex++) {
+										row.createCell(deptIndex);
+										setOneCellStyle(row,deptIndex,mapStyle);
 									}
-									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+1),mapStyle);
-
-									cell = row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2));
-									if(user != null){
-										cell.setCellValue(user.getName());
-									}
-									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2),mapStyle);
-
-									//设计师
-									for(int n = 0 ; n < designerItemDefineList.size() ; n++){
-										DesignerReportVO o = designerReportVOMap.get(designerItemDefineList.get(n).getId());
-										if(o != null){
-											row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + (n+1)).setCellValue(o.getName());
-											setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + (n+1),mapStyle);
-										}else{
-											row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + (n+1));
-											setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + (n+1),mapStyle);
-										}
-									}
-
-									//客户来源
-									Dictionary source = dictionaryService.selectDictionary(sample.getCustomerSource());
-									row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+1).setCellValue(source == null?null:source.getValue());
-									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+1,mapStyle);
-
-									//客户创建者
-									User customerCreator = userMap.get(sample.getCustomerCreatorId());
-									row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+2).setCellValue(customerCreator == null?null:customerCreator.getName());
-									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+2,mapStyle);
 
 									//面积
 									row.createCell(colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+3).setCellValue(oneContract.getContractArea());
 									setOneCellStyle(row,colIndex+4 + (ledgerItemDefineList.size()+2) + designerItemDefineList.size()+3,mapStyle);
 								}
-								else{
-									for(int n = 0 ; n < ledgerItemDefineList.size() + designerItemDefineList.size()+8; n++) {
-										row.createCell(colIndex + n);
-										setOneCellStyle(row,colIndex + n,mapStyle);
-									}
+								else{//不应该发生这种情况
+//									for(int n = 0 ; n < ledgerItemDefineList.size() + designerItemDefineList.size()+8; n++) {
+//										row.createCell(colIndex + n);
+//										setOneCellStyle(row,colIndex + n,mapStyle);
+//									}
 								}
-
 								k++;
 							}
 							if(oneSupplierContractList.size() > 1) {
-								CellRangeAddress region = new CellRangeAddress(rowNum, rowNum+k-1, colIndex, colIndex);
+								CellRangeAddress region = new CellRangeAddress(rowNum, rowNum+k-i-1, colIndex, colIndex);
 								sheet.addMergedRegion(region);
 							}
-
 						}else{
 							row.createCell(colIndex).setCellValue(res);
 							setOneCellStyle(row,colIndex,mapStyle);
@@ -663,40 +635,40 @@ public class ReportService {
 					row = oldRow;
 				setCellStyle(row,colIndex,mapStyle);
 				if(saleContractCount > 0) {//有销售合同的
-					if (i == needTotalRowNumber - 1) {//打印实际业绩、毛利润、百分比
-						int p = 0;
-						for( ; p < saleContractCount ; p++) {
-							PerformanceReportVO oneSaleContract = saleContractList.get(p);
-							Map<String,Object> ledgerMap = doledgerMap(contractToLedgerMap, oneSaleContract.getContractId());
-							XSSFRow saleContractRow = sheet.getRow(rowNum - i + p);
-							Object total = ledgerMap.get("total");
-							BigDecimal totalObj = total== null ? new BigDecimal(0):(BigDecimal)total;
-							String change = oneSaleContract.getContractCountAmountChange() ;
-							BigDecimal changeObj = (change == null || change.trim().isEmpty())?new BigDecimal(0):new BigDecimal(change);
-							BigDecimal a = (totalObj.add(changeObj).subtract(costLedgerAmount));
-							saleContractRow.createCell(colIndex-3).setCellValue(a.toString());
-							setOneCellStyle(saleContractRow,colIndex-3,mapStyle);
-							BigDecimal b = (totalObj.add(changeObj).subtract(supplierLedgerAmount));
-							saleContractRow.createCell(colIndex-2).setCellValue(b.toString());//原始需求减去两次成本台账，我稍作修改减去供应商台账总额
-							setOneCellStyle(saleContractRow,colIndex-2,mapStyle);
-							saleContractRow.createCell(colIndex-1).setCellValue(b.multiply(new BigDecimal(100)).divide(a,2, RoundingMode.HALF_UP).toString()+"%");//原始需求减去两次成本台账，我稍作修改减去供应商台账总额
-							setOneCellStyle(saleContractRow,colIndex-1,mapStyle);
+					XSSFRow blankRow = sheet.getRow(rowNum);
+					blankRow.createCell(colIndex-3);
+					setOneCellStyle(blankRow,colIndex-3,mapStyle);
+					blankRow.createCell(colIndex-2);
+					setOneCellStyle(blankRow,colIndex-2,mapStyle);
+					blankRow.createCell(colIndex-1);
+					setOneCellStyle(blankRow,colIndex-1,mapStyle);
+					if (i%needTotalRowNumber == needTotalRowNumber - 1) {//打印实际业绩、毛利润、百分比
+						PerformanceReportVO oneSaleContract = saleContractList.get(i/needTotalRowNumber);
+						Map<String,Object> ledgerMap = doledgerMap(contractToLedgerMap, oneSaleContract.getContractId());
+						XSSFRow saleContractRow = sheet.getRow(rowNum - needTotalRowNumber +1);
+						Object total = ledgerMap.get("total");
+						BigDecimal totalObj = total== null ? new BigDecimal(0):(BigDecimal)total;
+						String change = oneSaleContract.getContractCountAmountChange() ;
+						BigDecimal changeObj = (change == null || change.trim().isEmpty())?new BigDecimal(0):new BigDecimal(change);
+						BigDecimal a = (totalObj.add(changeObj).subtract(costLedgerAmount));
+						saleContractRow.createCell(colIndex-3).setCellValue(a.toString());
+						setOneCellStyle(saleContractRow,colIndex-3,mapStyle);
+						BigDecimal b = (totalObj.add(changeObj).subtract(supplierLedgerAmount));
+						saleContractRow.createCell(colIndex-2).setCellValue(b.toString());//原始需求减去两次成本台账，我稍作修改减去供应商台账总额
+						setOneCellStyle(saleContractRow,colIndex-2,mapStyle);
+						saleContractRow.createCell(colIndex-1).setCellValue(a.compareTo(BigDecimal.ZERO) ==0 ? null :  b.multiply(new BigDecimal(100)).divide(a,2, RoundingMode.HALF_UP).toString()+"%");//原始需求减去两次成本台账，我稍作修改减去供应商台账总额
+						setOneCellStyle(saleContractRow,colIndex-1,mapStyle);
+
+						for(int e = 0 ; e < colIndex ; e++) {
+							CellRangeAddress region = new CellRangeAddress(rowNum - needTotalRowNumber+1, rowNum, e, e);
+							sheet.addMergedRegion(region);
 						}
 
-						for(; p < needTotalRowNumber ; p++){
-							XSSFRow blankRow = sheet.getRow(rowNum - i + p);
-							blankRow.createCell(colIndex-3);
-							setOneCellStyle(blankRow,colIndex-3,mapStyle);
-							blankRow.createCell(colIndex-2);
-							setOneCellStyle(blankRow,colIndex-2,mapStyle);
-							blankRow.createCell(colIndex-1);
-							setOneCellStyle(blankRow,colIndex-1,mapStyle);
-						}
 					}
-				}else{
-					if (i == needTotalRowNumber - 1) {
+				}else{//无销售合同的
+					if (i%needTotalRowNumber == needTotalRowNumber - 1) {
 						for (int p = 0; p < needTotalRowNumber; p++) {
-							XSSFRow blankRow = sheet.getRow(rowNum - i + p);
+							XSSFRow blankRow = sheet.getRow(rowNum - needTotalRowNumber + p +1);
 							blankRow.createCell(colIndex - 3);
 							setOneCellStyle(blankRow, colIndex - 3, mapStyle);
 							blankRow.createCell(colIndex - 2);
@@ -704,6 +676,56 @@ public class ReportService {
 							blankRow.createCell(colIndex - 1);
 							setOneCellStyle(blankRow, colIndex - 1, mapStyle);
 						}
+
+						//合并供应商列以前的行
+						if(needTotalRowNumber>1){
+							for(int e = 0 ; e < colIndex ; e++) {
+								CellRangeAddress region = new CellRangeAddress(rowNum - needTotalRowNumber + 1, rowNum, e, e);
+								sheet.addMergedRegion(region);
+							}
+						}
+					}
+				}
+
+				if (i%needTotalRowNumber == needTotalRowNumber - 1) {
+					XSSFRow oneProjectFirstRow = sheet.getRow(rowNum - (needTotalRowNumber - 1));
+					//签单部门
+					UserVO user = userMap.get(sample.getProjectCreatorId());
+					XSSFCell cell = oneProjectFirstRow.getCell(colIndex + 4 + (ledgerItemDefineList.size() + 1));
+					if (user != null) {
+						cell.setCellValue(user.getRoleNames());
+					}
+
+					//业务员
+					cell = oneProjectFirstRow.getCell(colIndex + 4 + (ledgerItemDefineList.size() + 2));
+					if (user != null) {
+						cell.setCellValue(user.getName());
+					}
+
+					//设计师
+					for (int n = 0; n < designerItemDefineList.size(); n++) {
+						DesignerReportVO o = designerReportVOMap.get(designerItemDefineList.get(n).getId());
+						if (o != null) {
+							oneProjectFirstRow.getCell(colIndex + 4 + (ledgerItemDefineList.size() + 2) + (n + 1)).setCellValue(o.getName());
+						}
+					}
+
+					//客户来源
+					Dictionary source = dictionaryService.selectDictionary(sample.getCustomerSource());
+					String v = source == null ? null : source.getValue();
+					oneProjectFirstRow.getCell(colIndex + 4 + (ledgerItemDefineList.size() + 2) + designerItemDefineList.size() + 1).setCellValue(v);
+
+					//客户创建者
+					User customerCreator = userMap.get(sample.getCustomerCreatorId());
+					String u = customerCreator == null ? null : customerCreator.getName();
+					oneProjectFirstRow.getCell(colIndex + 4 + (ledgerItemDefineList.size() + 2) + designerItemDefineList.size() + 2).setCellValue(u);
+
+					int deptIndex = colIndex + 4 + (ledgerItemDefineList.size() + 1);
+					int customerIndex = colIndex + 4 + (ledgerItemDefineList.size() + 2) + designerItemDefineList.size() + 2;
+					for (; deptIndex <= customerIndex; deptIndex++) {
+						CellRangeAddress region = new CellRangeAddress(rowNum - needTotalRowNumber + 1, rowNum, deptIndex, deptIndex);
+						sheet.addMergedRegion(region);
+
 					}
 				}
 				rowNum++;

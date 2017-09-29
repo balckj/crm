@@ -22,6 +22,9 @@ public class ReportController extends BaseController{
     @Autowired
     ReportService reportService;
 
+    @Autowired
+    OderTrackingReportService oderTrackingReportService;
+
     @RequestMapping("/downLoadIndex")
     public  String downLoadIndex(){
         return  "downLoad";
@@ -53,15 +56,15 @@ public class ReportController extends BaseController{
             @DateTimeFormat(pattern="yyyy-MM-dd") Date endTime2
     ) throws Exception{
 
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        String date = sdf.format(new Date());
-//        String fileName = "订单追踪"+date+".xlsx";
-//        XSSFWorkbook wb = new XSSFWorkbook();
-//
-//        String beginYear = sdf.format(startTime2);
-//        String entYear = sdf.format(endTime2);
-//        reportService.generateOderTrackingReport(wb,beginYear,entYear);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(new Date());
+        String fileName = "订单追踪"+date+".xlsx";
+        XSSFWorkbook wb = new XSSFWorkbook();
 
-//        new DownloadHelper().downLoad(wb, response, fileName);
+        String beginYear = sdf.format(startTime2);
+        String entYear = sdf.format(endTime2);
+        oderTrackingReportService.generateOderTrackingReport(wb,beginYear,entYear);
+
+        new DownloadHelper().downLoad(wb, response, fileName);
     }
 }

@@ -122,7 +122,8 @@ public class ReportService {
 						oneSecondList = new ArrayList<PerformanceReportVO>(10);
 						categoryAndSupplierToContractMap.put(one.getContractSecondParty(), oneSecondList);
 					}
-					oneSecondList.add(one);
+					if(!"C".equalsIgnoreCase(one.getContractCategory()))//项目中，销售合同中乙方不能是供应商，而目前系统可以这样做，bug以后应被修复
+						oneSecondList.add(one);
 				}
 
 

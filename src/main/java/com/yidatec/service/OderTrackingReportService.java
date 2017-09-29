@@ -124,7 +124,8 @@ public class OderTrackingReportService {
                         oneSecondList = new ArrayList<PerformanceReportVO>(10);
                         categoryAndSupplierToContractMap.put(one.getContractSecondParty(), oneSecondList);
                     }
-                    oneSecondList.add(one);
+                    if(!"C".equalsIgnoreCase(one.getContractCategory()))//项目中，销售合同中乙方不能是供应商，而目前系统可以这样做，bug以后应被修复
+                        oneSecondList.add(one);
                 }
 
 
@@ -640,22 +641,24 @@ public class OderTrackingReportService {
                                     row.createCell(colIndex+2).setCellValue(oneContract.getContractCode());
                                     setOneCellStyle(row,colIndex+2,mapStyle);
 
+                                    //设置供应商应付款
                                     List<LedgerReportVO> ledgerList = contractToLedgerMap.get(oneContract.getContractId());
-
-                                    int celIndex = 0;
-                                    for (int l = 0; l < supplierShouldPayMaxNum; l++) {
-                                        row.createCell(colIndex+3 + l);
-                                        setOneCellStyle(row,colIndex+3 + l,mapStyle);
-                                        if(ledgerList != null) {
-                                            if (l < ledgerList.size()) {
-                                                LedgerReportVO le = ledgerList.get(l);
-                                                if (shouldPayId.equalsIgnoreCase(le.getMoneyType())) {
-                                                    row.getCell(celIndex).setCellValue(le.getPaymentAmount() == null ? null : le.getPaymentAmount().toString());
-                                                    setOneCellStyle(row, colIndex, mapStyle);
-                                                    celIndex++;
-                                                }
+                                    List<LedgerReportVO> shouldPayLedgerList = new ArrayList<LedgerReportVO>(ledgerList == null ? 0:ledgerList.size());
+                                    if(ledgerList != null){
+                                        for(LedgerReportVO lrv : ledgerList){
+                                            if (shouldPayId.equalsIgnoreCase(lrv.getMoneyType())) {
+                                                shouldPayLedgerList.add(lrv);
                                             }
                                         }
+                                    }
+                                    for (int l = 0; l < supplierShouldPayMaxNum; l++) {
+                                        XSSFCell cel = row.createCell(colIndex+3 + l);
+                                        setOneCellStyle(row,colIndex+3 + l,mapStyle);
+                                        if (l < shouldPayLedgerList.size()) {
+                                            LedgerReportVO oneItem = shouldPayLedgerList.get(l);
+                                            cel.setCellValue(oneItem.getPaymentAmount() == null ? null : oneItem.getPaymentAmount().toString());
+                                        }
+
                                     }
 
 

@@ -48,13 +48,21 @@ public class OderTrackingReportService {
     static String saleCostId = "23d62f69-709a-4f42-b137-cdbc6eec7683";//营销费id
     static String shouldPayId = "02f3bfc8-2e8c-412e-aaeb-f368561aea76";//营销费id
     static String shouldReceiveId = "d0bddb87-009e-491a-a034-35726e020a64";
+    static String changeId = "ea2d49bd-635e-4aa4-951b-164b00849d80";//变更id
+    static String tuiyajinId = "0616c1c7-fa44-4d2c-94fd-fbc6336590f2";//退押金id
+    static String yajinId = "42b9ad0e-6e33-4df6-8024-c0d34fb80aaf";//押金id
     static List<String> costKeyList =new ArrayList<String>(5);
+    static List<String> cost2KeyList = new ArrayList<String>(10);
     static{
         costKeyList.add(dianxiangCostId);
         costKeyList.add(manageCostId);
         costKeyList.add(shentuCostId);
         costKeyList.add(baoxianCostId);
         costKeyList.add(saleCostId);
+
+        cost2KeyList.addAll(costKeyList);
+        cost2KeyList.add(tuiyajinId);
+        cost2KeyList.add(yajinId);
     }
 
     public void generateOderTrackingReport(XSSFWorkbook wb,
@@ -265,9 +273,10 @@ public class OderTrackingReportService {
 
         row1.createCell(colIndex).setCellValue("展位号");
         sheet.setColumnWidth(colIndex++, 32 * 50);
-
-        row1.createCell(colIndex).setCellValue("合同价");
+        row1.createCell(colIndex).setCellValue("成本中心");
         sheet.setColumnWidth(colIndex++, 32 * 80);
+        row1.createCell(colIndex).setCellValue("合同价");
+        sheet.setColumnWidth(colIndex++, 32 * 120);
 
 //        row1.createCell(colIndex).setCellValue("合同变更");
 //        sheet.setColumnWidth(colIndex++, 32 * 150);
@@ -282,15 +291,49 @@ public class OderTrackingReportService {
 //        sheet.setColumnWidth(colIndex++, 32 * 80);
 
 
-        row1.createCell(colIndex).setCellValue("成本中心");
+        //客户增减费用
+        row1.createCell(colIndex).setCellValue("客户增减费用");
+        sheet.setColumnWidth(colIndex++, 32 * 120);
+
+        //代缴费用（第三方费用台账)
+        row1.createCell(colIndex).setCellValue("代缴费用");
         sheet.setColumnWidth(colIndex++, 32 * 80);
 
+
+
+
         //销售应收
-//        for (int i = 0; i < saleShouldReceiveMaxNum; i++) {
-//            row1.createCell(colIndex).setCellValue("收款金额");
-//            sheet.setColumnWidth(colIndex++, 32 * 160);
-//
-//        }
+        for (int i = 0; i < saleShouldReceiveMaxNum; i++) {
+            row1.createCell(colIndex).setCellValue("收款金额");
+            sheet.setColumnWidth(colIndex++, 32 * 120);
+        }
+
+        row1.createCell(colIndex).setCellValue("应收帐款");
+        sheet.setColumnWidth(colIndex++, 32 * 160);
+
+        List<Dictionary> ledgerItemDefineList = dictionaryService.selectDictionaryListByCodeCommon(Constants.MONEY_TYPE);
+
+        List<Dictionary> costItemDefineList = new ArrayList<Dictionary>(5);
+
+
+        if(ledgerItemDefineList != null){
+            for(int i = 0;i < ledgerItemDefineList.size();i++){
+                Dictionary one = ledgerItemDefineList.get(i);
+                String id = one.getId();
+                if(cost2KeyList.contains(id)){
+                    costItemDefineList.add(one);
+
+                }
+            }
+        }
+        ledgerItemDefineList = costItemDefineList;
+
+        if(ledgerItemDefineList != null){
+            for(int i = 0;i < ledgerItemDefineList.size();i++){
+                row1.createCell(colIndex).setCellValue(ledgerItemDefineList.get(i).getValue());
+                sheet.setColumnWidth(colIndex++, 32 * 120);
+            }
+        }
 
 //        row1.createCell(colIndex).setCellValue("实际业绩");
 //        sheet.setColumnWidth(colIndex++, 32 * 80);
@@ -308,7 +351,7 @@ public class OderTrackingReportService {
         sheet.setColumnWidth(colIndex++, 32 * 160);
 
 
-        row1.createCell(colIndex).setCellValue("供应商合同额及变动");
+        row1.createCell(colIndex).setCellValue("供应商合同额");
         sheet.setColumnWidth(colIndex++, 32 * 120);
 
 
@@ -326,28 +369,16 @@ public class OderTrackingReportService {
 
         //供应商应付
         for (int i = 0; i < supplierShouldPayMaxNum; i++) {
-            row1.createCell(colIndex).setCellValue("供应商应付款");
-            sheet.setColumnWidth(colIndex++, 32 * 160);
+            row1.createCell(colIndex).setCellValue("供应商付款");
+            sheet.setColumnWidth(colIndex++, 32 * 120);
 
         }
 
-
-        List<Dictionary> ledgerItemDefineList = dictionaryService.selectDictionaryListByCodeCommon(Constants.MONEY_TYPE);
-
-        List<Dictionary> costItemDefineList = new ArrayList<Dictionary>(5);
+        row1.createCell(colIndex).setCellValue("供应商应付帐款");
+        sheet.setColumnWidth(colIndex++, 32 * 160);
 
 
-        if(ledgerItemDefineList != null){
-            for(int i = 0;i < ledgerItemDefineList.size();i++){
-                Dictionary one = ledgerItemDefineList.get(i);
-                String id = one.getId();
-                if(id.equalsIgnoreCase(dianxiangCostId)||id.equalsIgnoreCase(manageCostId)||id.equalsIgnoreCase(shentuCostId)||id.equalsIgnoreCase(baoxianCostId)||id.equalsIgnoreCase(saleCostId)){
-                    costItemDefineList.add(one);
-//					costKeyList.add(id);
-                }
-            }
-        }
-        ledgerItemDefineList = costItemDefineList;
+
 
 //        if(ledgerItemDefineList != null){
 //            for(int i = 0;i < ledgerItemDefineList.size();i++){
@@ -503,6 +534,7 @@ public class OderTrackingReportService {
                         row.createCell(colIndex++).setCellValue(one.getCampaignType() == null ? "" : dictionaryService.selectDictionary(one.getCampaignType()).getValue());
                         row.createCell(colIndex++).setCellValue(one.getCampaignStartEndTime());
                         row.createCell(colIndex++).setCellValue(one.getExhibitionNumber());
+                        row.createCell(colIndex++).setCellValue(retrieveLastLedgerCostCenter(contractToLedgerMap, one.getContractId()));
                         row.createCell(colIndex++).setCellValue(one.getContractCountAmount());
 //                        row.createCell(colIndex++).setCellValue(one.getContractCountAmountChange());
 //
@@ -520,8 +552,74 @@ public class OderTrackingReportService {
 //                        }
 //                        String reason = retrieveLastLedgerReasonForChange(contractToLedgerMap, one.getContractId());
 //                        row.createCell(colIndex++).setCellValue(reason);//这种情况不应该发生，合同总额是必填项
-                        row.createCell(colIndex++).setCellValue(retrieveLastLedgerCostCenter(contractToLedgerMap, one.getContractId()));
+
 //                        row.createCell(colIndex++).setCellValue(one.getAddress());
+                        List<LedgerReportVO> ledgerList = contractToLedgerMap.get(one.getContractId());
+                        List<LedgerReportVO> shouldReceiveLedgerList = new ArrayList<LedgerReportVO>(ledgerList == null ? 0:ledgerList.size());
+                        BigDecimal ledgerChangeAmount = null;
+                        BigDecimal daijiaoAmount = null;
+                        if(ledgerList != null){
+                            for(LedgerReportVO lrv : ledgerList){
+                                if (shouldReceiveId.equalsIgnoreCase(lrv.getMoneyType())) {
+                                    shouldReceiveLedgerList.add(lrv);
+                                }
+                                else if(changeId.equalsIgnoreCase(lrv.getMoneyType())){
+                                    if(ledgerChangeAmount == null){
+                                        ledgerChangeAmount = lrv.getPaymentAmount();
+                                    }else if(lrv.getPaymentAmount() != null){
+                                        ledgerChangeAmount = ledgerChangeAmount.add(lrv.getPaymentAmount());
+                                    }
+                                }else if(costKeyList.contains(lrv.getMoneyType())){
+                                    if(daijiaoAmount == null){
+                                        daijiaoAmount = lrv.getPaymentAmount();
+                                    }else if(lrv.getPaymentAmount() != null){
+                                        daijiaoAmount = daijiaoAmount.add(lrv.getPaymentAmount());
+                                    }
+                                }
+
+
+                            }
+                        }
+                        //打印客户增减费用(台账变更和)
+                        row.createCell(colIndex++).setCellValue(ledgerChangeAmount == null ? null:ledgerChangeAmount.toString());
+                        //打印代缴费用
+                        row.createCell(colIndex++).setCellValue(daijiaoAmount == null ? null:daijiaoAmount.toString());
+
+                        //打印收款金额
+//                        List<LedgerReportVO> ledgerList = contractToLedgerMap.get(one.getContractId());
+
+                        int l = 0;
+                        BigDecimal totalReceive = null;
+                        for (; l < saleShouldReceiveMaxNum; l++) {
+                            XSSFCell cel = row.createCell(colIndex++);
+                            if (l < shouldReceiveLedgerList.size()) {
+                                LedgerReportVO oneItem = shouldReceiveLedgerList.get(l);
+                                cel.setCellValue(oneItem.getPaymentAmount() == null ? null : oneItem.getPaymentAmount().toString());
+                                //求应收款总额，如果是null，啥也不显示
+                                if(totalReceive == null){
+                                    totalReceive = oneItem.getPaymentAmount();
+                                }else if(oneItem.getPaymentAmount() != null){
+                                    totalReceive = totalReceive.add(oneItem.getPaymentAmount());
+                                }
+                            }
+
+                        }
+                        //打印应收账款
+                        XSSFCell cel = row.createCell(colIndex++);
+                        cel.setCellValue(totalReceive == null?null:totalReceive.toString());
+
+                        Map<String,Object> ledgerMap = doledgerMap(contractToLedgerMap, one.getContractId());
+                        for(int n = 0 ; n < ledgerItemDefineList.size() ; n++){
+                            Object o = ledgerMap.get(ledgerItemDefineList.get(n).getId());
+                            if(o != null){
+                                BigDecimal val = (BigDecimal)o;
+                                row.createCell(colIndex).setCellValue(val.toString());
+                                setOneCellStyle(row,colIndex++,mapStyle);
+                            }else{
+                                row.createCell(colIndex);
+                                setOneCellStyle(row,colIndex++,mapStyle);
+                            }
+                        }
 
                     } else {//打印剩下行单元格 用于合并
                         row.createCell(colIndex++);
@@ -531,11 +629,24 @@ public class OderTrackingReportService {
                         row.createCell(colIndex++);
                         row.createCell(colIndex++);
                         row.createCell(colIndex++);
+                        row.createCell(colIndex++);
+                        row.createCell(colIndex++);
 //                        row.createCell(colIndex++);
 //                        row.createCell(colIndex++);
 //                        row.createCell(colIndex++);
                         row.createCell(colIndex++);
 //                        row.createCell(colIndex++);
+
+
+                        for (int l = 0; l < saleShouldReceiveMaxNum; l++) {
+                            row.createCell(colIndex++);
+                        }
+                        //打印应收账款
+                        row.createCell(colIndex++);
+
+                        for(int n = 0 ; n < ledgerItemDefineList.size() ; n++){
+                            row.createCell(colIndex++);
+                        }
                     }
                 }else{//无销售合同的
                     row.createCell(colIndex++);
@@ -546,11 +657,21 @@ public class OderTrackingReportService {
                         row.createCell(colIndex++).setCellValue(sample.getCampaignStartEndTime());
                         row.createCell(colIndex++);
                         row.createCell(colIndex++);
+                        row.createCell(colIndex++);
+                        row.createCell(colIndex++);
 //                        row.createCell(colIndex++);
 //                        row.createCell(colIndex++);
 //                        row.createCell(colIndex++);
                         row.createCell(colIndex++);
 //                        row.createCell(colIndex++).setCellValue(sample.getAddress());
+                        for (int l = 0; l < saleShouldReceiveMaxNum; l++) {
+                            row.createCell(colIndex++);
+                        }
+                        //打印应收账款
+                        row.createCell(colIndex++);
+                        for(int n = 0 ; n < ledgerItemDefineList.size() ; n++){
+                            row.createCell(colIndex++);
+                        }
                     }else{//仅打印空单元格 用于合并
                         row.createCell(colIndex++);
                         row.createCell(colIndex++);
@@ -558,11 +679,21 @@ public class OderTrackingReportService {
                         row.createCell(colIndex++);
                         row.createCell(colIndex++);
                         row.createCell(colIndex++);
+                        row.createCell(colIndex++);
+                        row.createCell(colIndex++);
 //                        row.createCell(colIndex++);
 //                        row.createCell(colIndex++);
 //                        row.createCell(colIndex++);
                         row.createCell(colIndex++);
 //                        row.createCell(colIndex++);
+                        for (int l = 0; l < saleShouldReceiveMaxNum; l++) {
+                            row.createCell(colIndex++);
+                        }
+                        //打印应收账款
+                        row.createCell(colIndex++);
+                        for(int n = 0 ; n < ledgerItemDefineList.size() ; n++){
+                            row.createCell(colIndex++);
+                        }
                     }
                 }
 
@@ -641,7 +772,7 @@ public class OderTrackingReportService {
                                     row.createCell(colIndex+2).setCellValue(oneContract.getContractCode());
                                     setOneCellStyle(row,colIndex+2,mapStyle);
 
-                                    //设置供应商应付款
+                                    //设置供应商付款
                                     List<LedgerReportVO> ledgerList = contractToLedgerMap.get(oneContract.getContractId());
                                     List<LedgerReportVO> shouldPayLedgerList = new ArrayList<LedgerReportVO>(ledgerList == null ? 0:ledgerList.size());
                                     if(ledgerList != null){
@@ -651,15 +782,27 @@ public class OderTrackingReportService {
                                             }
                                         }
                                     }
-                                    for (int l = 0; l < supplierShouldPayMaxNum; l++) {
+                                    int l = 0;
+                                    BigDecimal totalPay = null;
+                                    for (; l < supplierShouldPayMaxNum; l++) {
                                         XSSFCell cel = row.createCell(colIndex+3 + l);
                                         setOneCellStyle(row,colIndex+3 + l,mapStyle);
                                         if (l < shouldPayLedgerList.size()) {
                                             LedgerReportVO oneItem = shouldPayLedgerList.get(l);
                                             cel.setCellValue(oneItem.getPaymentAmount() == null ? null : oneItem.getPaymentAmount().toString());
+                                            //求应付款总额，如果是null，啥也不显示
+                                            if(totalPay == null){
+                                                totalPay = oneItem.getPaymentAmount();
+                                            }else if(oneItem.getPaymentAmount() != null){
+                                                totalPay = totalPay.add(oneItem.getPaymentAmount());
+                                            }
                                         }
 
                                     }
+                                    //设置供应商应付账款
+                                    XSSFCell cel = row.createCell(colIndex+3 + l);
+                                    cel.setCellValue(totalPay == null?null:totalPay.toString());
+                                    setOneCellStyle(row,colIndex+3 + l,mapStyle);
 
 
 
@@ -706,11 +849,14 @@ public class OderTrackingReportService {
                             setOneCellStyle(row,colIndex+2,mapStyle);
 
 
-
-                            for (int l = 0; l < supplierShouldPayMaxNum; l++) {
+                            int l = 0;
+                            for (; l < supplierShouldPayMaxNum; l++) {
                                 row.createCell(colIndex+3 + l);
                                 setOneCellStyle(row,colIndex+3 + l,mapStyle);
                             }
+
+                            row.createCell(colIndex+3+l).setCellValue("");//供应商合同编号
+                            setOneCellStyle(row,colIndex+3+l,mapStyle);
 //                            for(int n = 0 ; n < ledgerItemDefineList.size() ; n++) {
 //                                row.createCell(colIndex + 3 + n);
 //                                setOneCellStyle(row,colIndex + 3 + n,mapStyle);

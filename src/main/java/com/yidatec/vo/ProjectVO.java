@@ -15,6 +15,7 @@ public class ProjectVO extends ProjectEntity{
 
     private String saleName;
     private String industry;
+    private String Country;
     private String province;
     private String city;
     private Contact contact;
@@ -133,5 +134,13 @@ public class ProjectVO extends ProjectEntity{
 
     public void setContact(Contact contact) {
         this.contact = contact;
+    }
+
+    public String getCountry() {
+        return Country;
+    }
+
+    public void setCountry(String country) {
+        Country = country;
     }
 }

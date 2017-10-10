@@ -30,7 +30,7 @@ public class Customer extends BaseModel{
     @NotBlank(message = "必须选择所在区域", groups = { })
     private String region;
 
-    @Length(max = 200, message = "地址必须由3到200个字符组成", groups = { })
+    @Length(max = 200, message = "地址必须最多由200个字符组成", groups = { })
     private String address;
     @NotBlank(message = "必须选择平台等级", groups = { })
     private String level;

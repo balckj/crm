@@ -96,25 +96,25 @@ public class CustomerService {
 
 
     public void customerDownLoad(XSSFWorkbook wb,
-                                  String startTime,String endTime) throws Exception {
+                                 String startTime,String endTime) throws Exception {
 
         HashMap<String,List<ProjectVO>> map = new HashMap<String,List<ProjectVO>>();
 
         List<ProjectVO>  projectVOList=  customerMapper.customerDownLoad(startTime,endTime);
 
-        List<String> dicIdList =  new ArrayList<String>();
+        List<String> prijectIdList =  new ArrayList<String>();
 
         for (ProjectVO projectVO : projectVOList) {
 
-            if(!dicIdList.contains(projectVO.getDicId())){
-                dicIdList.add(projectVO.getDicId());
+            if(!prijectIdList.contains(projectVO.getId())){
+                prijectIdList.add(projectVO.getId());
             }
 
-            List<ProjectVO> projectVOList1VOList1 = map.get(projectVO.getDicId());
+            List<ProjectVO> projectVOList1VOList1 = map.get(projectVO.getId());
 
             if (projectVOList1VOList1 == null){
                 projectVOList1VOList1 = new ArrayList<>();
-                map.put(projectVO.getDicId(),projectVOList1VOList1);
+                map.put(projectVO.getId(),projectVOList1VOList1);
             }
 
             projectVOList1VOList1.add(projectVO);
@@ -130,54 +130,57 @@ public class CustomerService {
         int rowNum = 0;
         row = sheet.createRow(rowNum);
 
-        row.createCell(0).setCellValue("总标题");
-        setColspanTitle(sheet,row , mapStyle, wb,
-                projectVOList!=null && projectVOList.size() > 0   ? projectVOList.get(0).getCustomerName()+"报价单":"报价单", "header_6",
-                0, 0, 0, 0, 7);
-        sheet.setColumnWidth(0, 32 * 50);
+//        row.createCell(0).setCellValue("总标题");
+//        setColspanTitle(sheet,row , mapStyle, wb,
+//                "客户管理大表", "header_6",
+//                0, 0, 0, 0, 7);
+//        sheet.setColumnWidth(0, 32 * 50);
 
-        rowNum++;// 从第二行起
+//        rowNum++;// 从第二行起
         row = sheet.createRow(rowNum);
         row.createCell(0).setCellValue("销售");
-        sheet.setColumnWidth(0, 32 * 80);
+        sheet.setColumnWidth(0, 32 * 100);
         row.createCell(1).setCellValue("公司名称");
-        sheet.setColumnWidth(1, 32 * 50);
+        sheet.setColumnWidth(1, 32 * 100);
         row.createCell(2).setCellValue("行业");
         sheet.setColumnWidth(2, 32 * 150);
         row.createCell(3).setCellValue("开展城市");
-        sheet.setColumnWidth(3, 32 * 50);
-        row.createCell(4).setCellValue("展位号");
-        sheet.setColumnWidth(4, 32 * 50);
-        row.createCell(5).setCellValue("联系人");
-        sheet.setColumnWidth(5, 32 * 80);
-        row.createCell(6).setCellValue("职位");
-        sheet.setColumnWidth(6, 32 * 150);
-        row.createCell(7).setCellValue("电话");
-        sheet.setColumnWidth(7, 32 * 100);
-        row.createCell(8).setCellValue("邮箱");
+        sheet.setColumnWidth(3, 32 * 100);
+        row.createCell(4).setCellValue("市场活动");
+        sheet.setColumnWidth(4, 32 * 100);
+        row.createCell(5).setCellValue("展位号");
+        sheet.setColumnWidth(5, 32 * 100);
+        row.createCell(6).setCellValue("联系人");
+        sheet.setColumnWidth(6, 32 * 80);
+        row.createCell(7).setCellValue("职位");
+        sheet.setColumnWidth(7, 32 * 80);
+        row.createCell(8).setCellValue("电话");
         sheet.setColumnWidth(8, 32 * 100);
-        row.createCell(9).setCellValue("备注");
-        sheet.setColumnWidth(9, 32 * 500);
+        row.createCell(9).setCellValue("邮箱");
+        sheet.setColumnWidth(9, 32 * 150);
+        row.createCell(10).setCellValue("备注");
+        sheet.setColumnWidth(10, 32 * 250);
 
         // 第2行以上冻结
-        sheet.createFreezePane(5, 1, 5, 1);
+        sheet.createFreezePane(6, 1, 6, 1);
 
-//        row.getCell(0).setCellStyle(mapStyle.get("header_7"));
-//        row.getCell(1).setCellStyle(mapStyle.get("header_7"));
-//        row.getCell(2).setCellStyle(mapStyle.get("header_7"));
-//        row.getCell(3).setCellStyle(mapStyle.get("header_7"));
-//        row.getCell(4).setCellStyle(mapStyle.get("header_7"));
-//        row.getCell(5).setCellStyle(mapStyle.get("header_7"));
-//        row.getCell(6).setCellStyle(mapStyle.get("header_7"));
-//        row.getCell(7).setCellStyle(mapStyle.get("header_7"));
-//        row.getCell(8).setCellStyle(mapStyle.get("header_7"));
-//        row.getCell(9).setCellStyle(mapStyle.get("header_7"));
+        row.getCell(0).setCellStyle(mapStyle.get("header_7"));
+        row.getCell(1).setCellStyle(mapStyle.get("header_7"));
+        row.getCell(2).setCellStyle(mapStyle.get("header_7"));
+        row.getCell(3).setCellStyle(mapStyle.get("header_7"));
+        row.getCell(4).setCellStyle(mapStyle.get("header_7"));
+        row.getCell(5).setCellStyle(mapStyle.get("header_7"));
+        row.getCell(6).setCellStyle(mapStyle.get("header_7"));
+        row.getCell(7).setCellStyle(mapStyle.get("header_7"));
+        row.getCell(8).setCellStyle(mapStyle.get("header_7"));
+        row.getCell(9).setCellStyle(mapStyle.get("header_7"));
+        row.getCell(10).setCellStyle(mapStyle.get("header_7"));
         row.setHeightInPoints(30);
 
         int num = 1;
         Double countPrict = new Double(0);
         /*设置数据起始行号，填充数据*/
-        for (String s : dicIdList) {
+        for (String s : prijectIdList) {
             List<ProjectVO> projectVOList2 = map.get(s);
             for (int i = 0; i< projectVOList2.size() ; i ++) {
                 ProjectVO projectVO = projectVOList2.get(i);
@@ -190,13 +193,13 @@ public class CustomerService {
                 if(i == projectVOList2.size()-1){
                     if (projectVOList2.size() > 1) {
                         // 参数：起始行号，终止行号， 起始列号，终止列号
-//                        CellRangeAddress region = new CellRangeAddress(rowNum - projectVOList2.size() + 1, rowNum, 0, 0);
-//                        sheet.addMergedRegion(region);
+                        for(int j=0;j<6;j++){
+                            CellRangeAddress region = new CellRangeAddress(rowNum - projectVOList2.size() + 1, rowNum, j, j);
+                            sheet.addMergedRegion(region);
+                        }
                     }
                 }
 
-                // 编号
-//                row.createCell(1).setCellValue(num++);
                 // 销售
                 row.createCell(0).setCellValue(projectVO.getSaleName());
                 // 公司
@@ -204,111 +207,45 @@ public class CustomerService {
                 // 行业
                 row.createCell(2).setCellValue(projectVO.getIndustry());
                 // 城市
-                if(projectVO.getCity()=="市辖区"){
+                System.out.println(projectVO.getCountry()+projectVO.getProvince()+projectVO.getCity());
+                if("中国".equals(projectVO.getCountry())&&projectVO.getCity().equals(projectVO.getProvince())){
                     row.createCell(3).setCellValue(projectVO.getProvince());
-                }else{
+                }else if("中国".equals(projectVO.getCountry())&&!projectVO.getCity().equals(projectVO.getProvince())){
                     row.createCell(3).setCellValue(projectVO.getProvince()+projectVO.getCity());
+                }else{
+                    row.createCell(3).setCellValue(projectVO.getCountry());
                 }
+                // 市场活动
+                row.createCell(4).setCellValue(projectVO.getCampaignName());
                 // 展位号
-                row.createCell(4).setCellValue(projectVO.getExhibitionNumber());
+                row.createCell(5).setCellValue(projectVO.getExhibitionNumber());
 //                countPrict += Double.valueOf(projectVO.getCountPrice());
                 // 联系人
-                row.createCell(5).setCellValue(projectVO.getUserName());
+                row.createCell(6).setCellValue(projectVO.getUserName());
                 //职位
-                row.createCell(6).setCellValue(projectVO.getPosition());
+                row.createCell(7).setCellValue(projectVO.getPosition());
                 //电话
-                row.createCell(7).setCellValue(projectVO.getMobilePhone());
+                row.createCell(8).setCellValue(projectVO.getMobilePhone());
                 //邮箱
-                row.createCell(8).setCellValue(projectVO.getEmail());
+                row.createCell(9).setCellValue(projectVO.getEmail());
                 //备注
-                row.createCell(9).setCellValue(projectVO.getRemark());
+                row.createCell(10).setCellValue(projectVO.getRemark());
 
-//                row.getCell(0).setCellStyle(mapStyle.get("data_4"));
-//                row.getCell(1).setCellStyle(mapStyle.get("data_4"));
-//                row.getCell(2).setCellStyle(mapStyle.get("data_1"));
-//                row.getCell(3).setCellStyle(mapStyle.get("data_4"));
-//                row.getCell(4).setCellStyle(mapStyle.get("data_4"));
-//                row.getCell(5).setCellStyle(mapStyle.get("data_5"));
-//                row.getCell(6).setCellStyle(mapStyle.get("data_5"));
-//                row.getCell(7).setCellStyle(mapStyle.get("data_1"));
+                row.getCell(0).setCellStyle(mapStyle.get("data_1"));
+                row.getCell(1).setCellStyle(mapStyle.get("data_1"));
+                row.getCell(2).setCellStyle(mapStyle.get("data_1"));
+                row.getCell(3).setCellStyle(mapStyle.get("data_1"));
+                row.getCell(4).setCellStyle(mapStyle.get("data_1"));
+                row.getCell(5).setCellStyle(mapStyle.get("data_1"));
+                row.getCell(6).setCellStyle(mapStyle.get("data_1"));
+                row.getCell(7).setCellStyle(mapStyle.get("data_1"));
+                row.getCell(8).setCellStyle(mapStyle.get("data_1"));
+                row.getCell(9).setCellStyle(mapStyle.get("data_1"));
+                row.getCell(10).setCellStyle(mapStyle.get("data_1"));
                 row.setHeightInPoints(20);
             }
         }
 
-//        if(projectVOList != null && projectVOList.size() > 0) {
-//            int lastNumb = rowNum + 1;
-//
-//            rowNum++;
-//            row = sheet.createRow(rowNum);
-//            // 施工费用合计
-//            row.createCell(0).setCellValue("施工费用合计");
-//            setColspanTitle(sheet, row, mapStyle, wb,
-//                    "施工费用合计", "data_6",
-//                    0, rowNum, rowNum, 0, 5);
-//
-//            // 施工费用合计钱数
-//            row.createCell(6).setCellFormula("SUM(G3:G" + lastNumb + ")");
-//            row.getCell(6).setCellStyle(mapStyle.get("data_7"));
-//
-//            // 施工费用合计钱数转汉子
-//            CNNumberFormat cnFmt = new CNNumberFormat(true);
-//            row.createCell(7).setCellValue("RMB" + cnFmt.format(countPrict));
-//            row.getCell(7).setCellStyle(mapStyle.get("data_8"));
-//
-//            rowNum++;
-//            row = sheet.createRow(rowNum);
-//            // 税费
-//            row.createCell(0).setCellValue("税费(6%,增票专票)");
-//            setColspanTitle(sheet, row, mapStyle, wb,
-//                    "税费(6%,增票专票)", "data_9",
-//                    0, rowNum, rowNum, 0, 5);
-//
-//            // 税费钱数
-//            Double shui = countPrict * 0.06;
-//            row.createCell(6).setCellFormula(String.valueOf(shui));
-//            row.getCell(6).setCellStyle(mapStyle.get("data_10"));
-//
-//            // 税费钱数转汉子
-//            row.createCell(7).setCellValue("RMB" + cnFmt.format(shui));
-//            row.getCell(7).setCellStyle(mapStyle.get("data_11"));
-//
-//            rowNum++;
-//            row = sheet.createRow(rowNum);
-//            // 项目
-//            row.createCell(0).setCellValue("项目金额(含税)合计");
-//            setColspanTitle(sheet, row, mapStyle, wb,
-//                    "项目金额(含税)合计", "data_6",
-//                    0, rowNum, rowNum, 0, 5);
-//
-//            // 项目钱数
-//            Double projectMoney = shui + countPrict;
-//            row.createCell(6).setCellFormula(String.valueOf(projectMoney));
-//            row.getCell(6).setCellStyle(mapStyle.get("data_7"));
-//
-//            // 项目钱数转汉子
-//            row.createCell(7).setCellValue("RMB" + cnFmt.format(projectMoney));
-//            row.getCell(7).setCellStyle(mapStyle.get("data_8"));
-//
-//            rowNum++;
-//            row = sheet.createRow(rowNum);
-//            // 空
-//            row.createCell(0).setCellValue("");
-//            row.createCell(1).setCellValue("");
-//            row.createCell(2).setCellValue("");
-//            row.createCell(3).setCellValue("");
-//            row.createCell(4).setCellValue("");
-//            row.createCell(5).setCellValue("");
-//            setColspanTitle(sheet, row, mapStyle, wb,
-//                    "", "data_12",
-//                    0, rowNum, rowNum, 0, 5);
-//            row.createCell(6).setCellValue("高度按4米计算");
-//            row.getCell(6).setCellStyle(mapStyle.get("data_12"));
-//            row.createCell(7).setCellValue("");
-//            row.getCell(7).setCellStyle(mapStyle.get("data_12"));
-//            setColspanTitle(sheet, row, mapStyle, wb,
-//                    "", "data_12",
-//                    0, rowNum, rowNum, 6, 7);
-//        }
     }
 
     private void setColspanTitle(XSSFSheet sheet,XSSFRow row,

@@ -50,7 +50,19 @@ public interface CustomerMapper {
      * 客户大表下载
      * @return
      */
-    @SelectProvider(type=CustomerQueryProvider.class,method = "customerDownLoad")
-    List<ProjectVO> customerDownLoad(String startTime,String endTime);
+    @Select("SELECT a.id,c.`name` as saleName,b.`name` as customerName,d.`value` as industry," +
+            "h.`name` as campaignName,b.country,b.province,b.city,a.exhibitionNumber," +
+            "f.`name` as userName,f.mobilePhone,g.value as position,f.email,a.remark,a.createTime" +
+            " FROM `T_PROJECT` a" +
+            " LEFT JOIN T_CUSTOMER b ON a.customerId = b.id" +
+            " LEFT JOIN T_CAMPAIGN h ON a.campaignId = h.id" +
+            " LEFT JOIN T_CUSTOMER_CONTACT e ON e.customerId = b.id"+
+            " LEFT JOIN T_CONTACT f ON e.contactId = f.id"+
+            " LEFT JOIN T_DICTIONARY g ON f.position = g.id"+
+            " LEFT JOIN T_USER c ON a.developSaleId = c.id"+
+            " LEFT JOIN T_DICTIONARY d ON b.industry = d.id"+
+            " where a.createTime BETWEEN DATE(#{startTime}) AND DATE(#{endTime})"+
+            " ORDER BY a.createTime ")
+    List<ProjectVO> customerDownLoad(@Param(value = "startTime") String startTime, @Param(value = "endTime")String endTime);
 
 }

@@ -1,6 +1,8 @@
 package com.yidatec.controller;
 
-import com.yidatec.service.*;
+import com.yidatec.service.CustomerService;
+import com.yidatec.service.OderTrackingReportService;
+import com.yidatec.service.ReportService;
 import com.yidatec.util.DownloadHelper;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
 
 /**
  * Created by jrw on 2017/7/13.
@@ -24,6 +26,9 @@ public class ReportController extends BaseController{
 
     @Autowired
     OderTrackingReportService oderTrackingReportService;
+
+    @Autowired
+    CustomerService customerService;
 
     @RequestMapping("/downLoadIndex")
     public  String downLoadIndex(){
@@ -64,6 +69,24 @@ public class ReportController extends BaseController{
         String beginYear = sdf.format(startTime2);
         String entYear = sdf.format(endTime2);
         oderTrackingReportService.generateOderTrackingReport(wb,beginYear,entYear);
+
+        new DownloadHelper().downLoad(wb, response, fileName);
+    }
+
+    @RequestMapping(value = "/customerDownLoad")
+    public void customerDownLoad (
+            HttpServletRequest request, HttpServletResponse response,
+            @DateTimeFormat(pattern="yyyy-MM-dd") Date startTime3,
+            @DateTimeFormat(pattern="yyyy-MM-dd") Date endTime3
+    ) throws Exception{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String beginYear = sdf.format(startTime3);
+        String entYear = sdf.format(endTime3);
+        String date = sdf.format(new Date());
+        String fileName = "客户关系大表"+date+".xlsx";
+        XSSFWorkbook wb = new XSSFWorkbook();
+
+        customerService.customerDownLoad(wb,beginYear,entYear);
 
         new DownloadHelper().downLoad(wb, response, fileName);
     }

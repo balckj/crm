@@ -31,6 +31,8 @@ public class ConfProperties {
 
     private String imagePath;
 
+    private String adminId;
+
     public String getSystemLocale() {
         return systemLocale;
     }
@@ -193,5 +195,13 @@ public class ConfProperties {
 
     public void setImagePath(String path) {
         this.imagePath = path;
+    }
+
+    public String getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(String adminId) {
+        this.adminId = adminId;
     }
 }

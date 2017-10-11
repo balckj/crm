@@ -60,13 +60,13 @@
                                     <div class="form-group" id="stateForm"><label class="col-sm-2 control-label">状态</label>
                                         <div class="col-sm-3">
                                             <div class="radio radio-inline radio-info">
-                                                <input type="radio" name="state" id="s1" value="1" th:checked="${role}?${role.state eq 1}:'true'"/>
+                                                <input type="radio" name="state" th:disabled="${isAdminRole}" id="s1" value="1" th:checked="${role}?${role.state eq 1}:'true'"/>
                                                 <label for="s1">
                                                     有效
                                                 </label>
                                             </div>
                                             <div class="radio radio-inline radio-info">
-                                                <input type="radio" name="state" id="s2" value="2" th:checked="${role}?${role.state eq 2}:'true'"/>
+                                                <input type="radio" name="state" th:disabled="${isAdminRole}" id="s2" value="2" th:checked="${role}?${role.state eq 2}:'true'"/>
                                                 <label for="s2">
                                                     无效
                                                 </label>

@@ -98,6 +98,7 @@ public class SecurityController extends BaseController {
         model.put("roleList",securityData.findRoleListEnable());
         User user = userMapper.findById(id);
         model.put("user",user);
+        model.put("isAdmin",id == null ? false:confProperties.getAdminId().equalsIgnoreCase(id));
         return "userEdit";
     }
 
@@ -206,6 +207,7 @@ public class SecurityController extends BaseController {
         model.put("title",(id == null || id.isEmpty())?"新建角色":"编辑角色");
         Role role = roleMapper.findById(id);
         model.put("role",role);
+        model.put("isAdminRole",id == null ? false:confProperties.getAdminRoleId().equalsIgnoreCase(id));
         return "roleEdit";
     }
 

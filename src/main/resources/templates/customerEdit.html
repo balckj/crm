@@ -465,6 +465,15 @@
 
         $(function () {
             $("#country").change(function(){
+                if($("#country").val()=="中国"){
+                    validateSelect('province', 'province', 'validateProvince');
+                    validateSelect('city', 'city', 'validateCity');
+                    validateSelect('region', 'region', 'validateRegion');
+                }else{
+                    notValidateSelect('province');
+                    notValidateSelect('city');
+                    notValidateSelect('region');
+                }
                 if($(this).val()=="中国"){
                     $("#province").attr("disabled",false);
                     $("#city").attr("disabled",false);
@@ -663,9 +672,17 @@
             validateSelect('industry', 'industry', 'validateIndustry');
             validateSelect('nature', 'nature', 'validateNature');
             validateSelect('country', 'country', 'validateCountry');
-            validateSelect('province', 'province', 'validateProvince');
-            validateSelect('city', 'city', 'validateCity');
-            validateSelect('region', 'region', 'validateRegion');
+            if($("#country").val()=="中国"){
+                alert("1");
+                validateSelect('province', 'province', 'validateProvince');
+                validateSelect('city', 'city', 'validateCity');
+                validateSelect('region', 'region', 'validateRegion');
+            }else{
+                alert("2");
+                notValidateSelect('province');
+                notValidateSelect('city');
+                notValidateSelect('region');
+            }
             validate('address', 'address', 'validateAddress');
             validateSelect('level', 'level', 'validateLevel');
         });

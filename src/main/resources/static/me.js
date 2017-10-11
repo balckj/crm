@@ -35,6 +35,10 @@ function validateSelect(id,key,url){
     });
 }
 
+function notValidateSelect(id){
+    $("#"+id).unbind("change");
+}
+
 function validateDiv(id,key,url){
     $("#"+id).bind('DOMNodeInserted', function(e) {
         var param = {};

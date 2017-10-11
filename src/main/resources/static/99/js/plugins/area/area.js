@@ -20,7 +20,7 @@ function change(v){
 	var ss=document.getElementById(s[v]);
 	with(ss){
 		length = 0;
-		options[0]=new Option(opt0[v],opt0[v]);
+		options[0]=new Option(opt0[v],"");
 		if(v && document.getElementById(s[v-1]).selectedIndex>0 || !v){
 			if(dsy.Exists(str)){
 				ar = dsy.Items[str];

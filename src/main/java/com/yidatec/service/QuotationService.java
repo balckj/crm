@@ -129,7 +129,7 @@ public class QuotationService {
 				row.getCell(0).setCellValue(quotationVO.getCategoryName());
 
 				if(i == quotationVOList2.size()-1){
-					if (quotationVOList2.size() > 1) {
+					if ( quotationVOList2.size() >1) {
 						// 参数：起始行号，终止行号， 起始列号，终止列号
 						CellRangeAddress region = new CellRangeAddress(rowNum - quotationVOList2.size() + 1, rowNum, 0, 0);
 						sheet.addMergedRegion(region);

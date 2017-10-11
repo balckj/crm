@@ -51,10 +51,12 @@ public class CustomerQueryProvider {
     {
         StringBuffer sb = new StringBuffer();
         sb.append("");
-        sb.append(" SELECT");
+        sb.append(" SELECT a.id,");
         sb.append(" c.`name` as saleName,");
         sb.append(" b.`name` as customerName,");
         sb.append(" d.`value` as industry,");//行业
+        sb.append(" h.`name` as campaignName,");
+        sb.append(" b.country,");
         sb.append(" b.province,");
         sb.append(" b.city,");
         sb.append(" a.exhibitionNumber,");
@@ -66,12 +68,13 @@ public class CustomerQueryProvider {
         sb.append(" a.createTime");
         sb.append(" FROM `T_PROJECT` a");
         sb.append(" LEFT JOIN T_CUSTOMER b ON a.customerId = b.id");
+        sb.append(" LEFT JOIN T_CAMPAIGN h ON a.campaignId = h.id");
         sb.append(" LEFT JOIN T_CUSTOMER_CONTACT e ON e.customerId = b.id");
         sb.append(" LEFT JOIN T_CONTACT f ON e.contactId = f.id");
         sb.append(" LEFT JOIN T_DICTIONARY g ON f.position = g.id");
         sb.append(" LEFT JOIN T_USER c ON a.developSaleId = c.id");
         sb.append(" LEFT JOIN T_DICTIONARY d ON b.industry = d.id");
-//        sb.append(" where 1=1 and a.createTime > #{startTime} and a.createTime < #{endTime}");
+        sb.append(" where a.createTime BETWEEN DATE(#{startTime}) AND DATE(#{endTime})");
         sb.append(" ORDER BY a.createTime ");
         return sb.toString();
     }

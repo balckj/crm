@@ -27,7 +27,6 @@ public class FactoryEntity extends BaseModel{
     private String director;//厂长
 
     @Valid
-    @NotEmpty
     private List<Contact> contactList;//联系人
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -36,11 +35,11 @@ public class FactoryEntity extends BaseModel{
     @NotBlank(message = "必须选择所在国家", groups = { })
     private String country;
 
-    @NotBlank(message = "必须选择所在省份", groups = { })
+//    @NotBlank(message = "必须选择所在省份", groups = { })
     private String province;
-    @NotBlank(message = "必须选择所在城市", groups = { })
+//    @NotBlank(message = "必须选择所在城市", groups = { })
     private String city;
-    @NotBlank(message = "必须选择所在区域", groups = { })
+//    @NotBlank(message = "必须选择所在区域", groups = { })
     private String region;
     @NotBlank(message = "必须输入地址", groups = { })
     @Length(max = 200, message = "地址最多由200个字符组成", groups = { })

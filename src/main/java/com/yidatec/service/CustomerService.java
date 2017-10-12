@@ -207,7 +207,6 @@ public class CustomerService {
                 // 行业
                 row.createCell(2).setCellValue(projectVO.getIndustry());
                 // 城市
-                System.out.println(projectVO.getCountry()+projectVO.getProvince()+projectVO.getCity());
                 if("中国".equals(projectVO.getCountry())&&projectVO.getCity().equals(projectVO.getProvince())){
                     row.createCell(3).setCellValue(projectVO.getProvince());
                 }else if("中国".equals(projectVO.getCountry())&&!projectVO.getCity().equals(projectVO.getProvince())){

@@ -7,7 +7,11 @@
     <link th:href="@{99/css/plugins/area/chosen.min.css}" rel="stylesheet"/>
     <link th:href="@{99/css/style.css}" rel="stylesheet"/>
     <script th:src="@{jquery.koala.js}" type="text/javascript"></script>
-
+    <style type="text/css">
+        .contactHeight{
+            height: 34px;
+        }
+    </style>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
             <h2 th:text="${title}"></h2>
@@ -174,7 +178,7 @@
                                                 <label class="control-label">姓名<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <input type="text" name="name" id="name0" class="form-control input-sm" maxlength="30"/>
+                                                    <input type="text" name="name" id="name0" class="form-control input-sm contactHeight" maxlength="30"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -184,7 +188,7 @@
                                                 <label class="control-label">电话<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <input type="text" oninput="if(value.length>11)value=value.slice(0,11)" name="mobilePhone" id="mobilePhone0" class="form-control input-sm" maxlength="30"/>
+                                                    <input type="text" oninput="if(value.length>11)value=value.slice(0,11)" name="mobilePhone" id="mobilePhone0" class="form-control input-sm contactHeight" maxlength="30"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -195,7 +199,7 @@
                                                 <label class="control-label">职位<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <select class="form-control input-sm" name="position" id="position0" >
+                                                    <select class="form-control input-sm" style="height: 34px"  name="position" id="position0" >
                                                         <option value="" selected="selected">未选择</option>
                                                         <option th:value="${position.id}" th:text="${position.value}" th:each="position : ${position}"></option>
                                                     </select>
@@ -207,32 +211,37 @@
                                             <div id="email0Form">
                                                 <label class="control-label">QQ邮箱</label>
                                                 <div>
-                                                    <input type="text" name="email" id="email0" class="form-control input-sm" maxlength="50"/>
+                                                    <input type="text" name="email" id="email0" class="form-control input-sm contactHeight" maxlength="50"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-1" style="margin-top: 20px">
-                                            <button onclick="addLi()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
+                                        <div class="col-sm-1" >
+                                            <div>
+                                                <label class="control-label" style="color: white">增加</label>
+                                                <button onclick="addLi()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row" th:unless="${#lists.isEmpty(customer.contactList)}" th:each="contact,terStat : ${customer.contactList}">
                                         <div class="col-sm-2">
                                             <div  th:attr="id='name'+${terStat.index}+'Form'">
-                                                <label class="control-label">姓名<span
+
+                                                <label class="control-label" th:if="${terStat.first}">姓名<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <input type="text" th:attr="id='name'+${terStat.index}, name='name'" class="form-control input-sm" maxlength="20" th:value="${contact.name}"/>
+                                                    <input type="text" th:attr="id='name'+${terStat.index}, name='name'" class="form-control input-sm contactHeight" maxlength="20" th:value="${contact.name}"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div th:attr="id='mobilePhone'+${terStat.index}+'Form'">
-                                                <label class="control-label">电话<span
+                                                <label class="control-label" th:if="${terStat.first}">电话<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
-                                                    <input type="text" oninput="if(value.length>11)value=value.slice(0,11)"  th:attr="id='mobilePhone'+${terStat.index}, name='mobilePhone'" class="form-control input-sm" maxlength="20" th:value="${contact.mobilePhone}"/>
+                                                    <input type="text" oninput="if(value.length>11)value=value.slice(0,11)"  th:attr="id='mobilePhone'+${terStat.index}, name='mobilePhone'" class="form-control input-sm contactHeight" maxlength="20" th:value="${contact.mobilePhone}"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -240,7 +249,7 @@
 
                                         <div class="col-sm-2">
                                             <div th:attr="id='position'+${terStat.index}+'Form'">
-                                                <label class="control-label">职位<span
+                                                <label class="control-label" th:if="${terStat.first}">职位<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
                                                     <select class="form-control location" th:attr="id='position'+${terStat.index}, name='position'" >
@@ -253,15 +262,18 @@
                                         </div>
                                         <div class="col-sm-2">
                                             <div th:attr="id='email'+${terStat.index}+'Form'">
-                                                <label class="control-label">QQ邮箱</label>
+                                                <label class="control-label" th:if="${terStat.first}">QQ邮箱</label>
                                                 <div>
-                                                    <input type="text" th:attr="id='email'+${terStat.index}, name='email'" class="form-control input-sm" maxlength="50" th:value="${contact.email}"/>
+                                                    <input type="text" th:attr="id='email'+${terStat.index}, name='email'" class="form-control input-sm contactHeight" maxlength="50" th:value="${contact.email}"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-1" th:if="${terStat.first}" style="margin-top: 20px">
-                                            <button onclick="addLi()" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
+                                        <div class="col-sm-1" th:if="${terStat.first}" >
+                                            <div>
+                                                <label class="control-label" style="color: white">增加</label>
+                                                <button onclick="addLi()" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
+                                            </div>
                                         </div>
                                         <div class="col-sm-1" th:unless="${terStat.first}">
                                             <button onclick="delBtnData(this)" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button btn-w-m btn-primary">删&nbsp;&nbsp;除</button>
@@ -367,7 +379,7 @@
             var row =  "<div class='row'><div class='col-sm-2'>"
                 +" <div id='name"+total+ "Form'>"
                 +" <div>"
-                +" <input type='text' name='name' id='name"+total+ "' class='form-control input-sm' maxlength='20'/>"
+                +" <input type='text' name='name' id='name"+total+ "' class='form-control input-sm contactHeight' maxlength='20'/>"
                 +" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
@@ -375,7 +387,7 @@
                 +" <div class='col-sm-2'>"
                 +" <div id='mobilePhone"+total+ "Form'>"
                 +" <div>"
-                +" <input type='text' name='mobilePhone' id='mobilePhone"+total+ "' class='form-control input-sm' maxlength='20'/>"
+                +" <input type='text' name='mobilePhone' id='mobilePhone"+total+ "' class='form-control input-sm contactHeight' maxlength='20'/>"
                 +" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
@@ -392,7 +404,7 @@
                 +" <div class='col-sm-2'>"
                 +" <div id='email"+total+ "Form'>"
                 +" <div>"
-                +" <input type='text' name='email' id='email"+total+ "' class='form-control input-sm' maxlength='50'/>"
+                +" <input type='text' name='email' id='email"+total+ "' class='form-control input-sm contactHeight' maxlength='50'/>"
                 +" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"

@@ -1,8 +1,13 @@
 package com.yidatec.controller;
 
 
+import com.yidatec.model.Role;
 import com.yidatec.model.User;
+import com.yidatec.util.ConfProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.util.List;
 
 
 /**
@@ -11,6 +16,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @author QuShengWen
  */
 public abstract class BaseController {
+
+	@Autowired
+	ConfProperties confProperties;
 
 	public static final String WEB_USER = "web_user";
 
@@ -136,4 +144,19 @@ public abstract class BaseController {
 //	protected Object processValidationRes(BindingResult result){
 //		result.getFieldErrors();
 //	}
+
+	public boolean isAdmin(){
+		User u = getWebUser();
+		if(u != null) {
+			List<Role> roleList = u.getRoleList();
+			if (roleList != null) {
+				for (Role r : roleList) {
+					if (r.getId().equalsIgnoreCase(confProperties.getAdminRoleId())) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 }

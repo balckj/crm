@@ -2,19 +2,36 @@ package com.yidatec.controller;
 
 import com.yidatec.mapper.ContractMapper;
 import com.yidatec.mapper.LedgerMapper;
-import com.yidatec.model.*;
-import com.yidatec.service.*;
+import com.yidatec.mapper.RoleMapper;
+import com.yidatec.model.Contract;
+import com.yidatec.model.ProjectEntity;
+import com.yidatec.model.User;
+import com.yidatec.service.ContractService;
+import com.yidatec.service.DictionaryService;
+import com.yidatec.service.ProjectService;
+import com.yidatec.service.SequenceService;
+import com.yidatec.util.ConfProperties;
 import com.yidatec.util.Constants;
+import com.yidatec.util.DownloadHelper;
 import com.yidatec.vo.*;
+import freemarker.cache.FileTemplateLoader;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -40,6 +57,12 @@ public class ContractController extends BaseController{
     ContractMapper contractMapper;
     @Autowired
     LedgerMapper ledgerMapper;
+
+    @Autowired
+    ConfProperties confProperties;
+
+    @Autowired
+    RoleMapper roleMapper;
 
     @RequestMapping("/contractList")
     public String contractList(ModelMap model){
@@ -89,6 +112,8 @@ public class ContractController extends BaseController{
     @RequestMapping(value = "/findContract")
     @ResponseBody
     public Object findContract(@RequestBody ContractVO contractVO)throws Exception{
+        contractVO.setId(getWebUser().getId());
+        contractVO.setAdmin(isAdmin());
         List<ContractVO> saleEntityList = contractService.selectContractList(contractVO);
         int count = contractService.countContractList(contractVO);
         Map<String, Object> map = new HashMap<String, Object>();
@@ -266,5 +291,101 @@ public class ContractController extends BaseController{
         abvo1.setId(Constants.DING_SHI_ID);
         abvo1.setName(Constants.DING_SHI_NAME);
         return abvo1;
+    }
+
+
+    @RequestMapping(value = "contractDownLoad")
+    public void orderTrackingDownLoad ( HttpServletRequest request, HttpServletResponse response,@RequestParam(value="contractId",required = false) String contractId
+    ) throws Exception{
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(new Date());
+        String fileName = "合同"+date+".doc";
+
+        Configuration configuration = new Configuration();
+        configuration.setDefaultEncoding("UTF-8");
+
+        Map<String,Object> dataMap=new HashMap<String,Object>();
+        getData(dataMap);
+
+        File cfgFile =  ResourceUtils.getFile("classpath:\\static\\template");
+        configuration.setClassForTemplateLoading(this.getClass(), cfgFile.getPath());//模板文件所在路径
+
+        FileTemplateLoader templateLoader = new FileTemplateLoader(new File(cfgFile.getPath()));
+        configuration.setTemplateLoader(templateLoader);
+        freemarker.template.Template t = configuration.getTemplate("n.ftl");
+
+        File outFile = new File(cfgFile.getPath()+"\\"+fileName); //导出文件
+        Writer out = null;
+        try {
+//            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile)));?
+            out= new FileWriter(outFile);
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+
+        try {
+            t.process(dataMap, out); //将填充数据填入模板文件并输出到目标文件
+        } catch (TemplateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            out.close();
+        }
+
+        FileInputStream input = null;
+        ByteArrayOutputStream output = null;
+        try{
+            // 创建输入流和内存输出流
+            input = new FileInputStream(outFile);
+            output = new ByteArrayOutputStream(4096);
+
+            int b;
+            // 从文件读取数据，并写入到内存缓冲区中
+            while((b = input.read()) > 0) {
+                output.write(b);
+            }
+
+        }catch(IOException e) {
+            e.printStackTrace();
+        }finally {
+            try{
+                // 关闭输入流
+                if(input != null) {
+                    input.close();
+                }
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+            // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
+            if (outFile.exists() && outFile.isFile()) {
+                if (outFile.delete()) {
+                    System.out.println("删除单个文件" + fileName + "成功！");
+                } else {
+                    System.out.println("删除单个文件" + fileName + "失败！");
+                }
+            }
+        }
+        new DownloadHelper().downLoad(output, response, fileName);
+    }
+
+    private void getData(Map<String, Object> dataMap) {
+        dataMap.put("Title", "标题");
+//        dataMap.put("Nian", "2016");
+//        dataMap.put("Yue", "3");
+//        dataMap.put("ri", "6");
+////        dataMap.put("shenheren", "lc");
+//
+//        List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+//        for (int i = 0; i < 10; i++) {
+//            Map<String,Object> map = new HashMap<String,Object>();
+//            map.put("Xuehao", i);
+//            map.put("Neirong", "内容"+i);
+//            list.add(map);
+//        }
+
+
+//        dataMap.put("list", list);
     }
 }

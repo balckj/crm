@@ -81,6 +81,10 @@
                             <button class="btn btn-warning btn-sm" type="button" style="width: 100%;margin-top: 23px;" onclick="resetForm();">重&nbsp;&nbsp;置</button>
                         </div>
                     </form>
+
+                    <form method="POST" class="form-horizontal form-inline" id='contrctReportForm' hidden="hidden">
+                        <input type="hidden" id="contractId" name="contractId" />
+                    </form>
                 </div>
             </div>
         </div>
@@ -186,7 +190,7 @@
         /*<![CDATA[*/
         var hasCreate = [[${#authorization.url('/contractCreate')}]]; // 合同新建
 
-        var hasEdit = [[${#authorization.url('/edit')}]];// 合同编辑权限
+        var hasEdit = [[${#authorization.url('/contractEdit')}]];// 合同编辑权限
         var hasContractView = [[${#authorization.url('/contractContractView')}]];// 合同查看权限
 
         var contractDonwLoad = [[${#authorization.url('/contractDonwLoad')}]]; // 合同下载
@@ -673,7 +677,10 @@
         }
 
         function ledgerDonwLoad(id) {
+            $("#contractId").val(id);
             // todo
+            $('#contrctReportForm').attr('action', "/contractDownLoad");
+            $("#contrctReportForm").submit();
         }
 
         var showLedgerbtn;

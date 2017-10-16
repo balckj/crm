@@ -62,7 +62,7 @@ public class ContractQueryProvider {
     public String selectContractList(final ContractVO contractVO){
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT * FROM ( ");
-        sb.append(" SELECT A.*,B.code AS projectCode ,B.name AS projectName,C.name AS campaignName,count(cl.contractId) AS ledgerCount")
+        sb.append(" SELECT A.*,B.code AS projectCode ,B.name AS projectName,C.name AS campaignName,count(cl.contractId) AS ledgerCount,B.developSaleId,B.traceSaleId,B.pmId,B.designProgress")
         .append(" FROM T_CONTRACT A")
         .append(" LEFT JOIN T_PROJECT B ON A.projectId = B.id")
         .append(" LEFT JOIN T_CAMPAIGN AS C ON A.campaignId = C.id")
@@ -90,6 +90,17 @@ public class ContractQueryProvider {
         if(!StringUtils.isEmpty(contractVO.getSecondParty())){
             sb.append(" AND A.secondParty = #{secondParty}");
         }
+
+        if(!contractVO.isAdmin()){
+            sb.append(" AND (");
+            sb.append(" A.pmId = #{id}");
+            sb.append(" or A.developSaleId = #{id}");
+            sb.append(" or A.traceSaleId = #{id}");
+            sb.append(" or find_in_set(#{id},A.designProgress)");
+            sb.append(" )");
+        }
+
+
         sb.append(" ORDER BY A.modifyTime DESC LIMIT #{start},#{length}");
         return sb.toString();
     }
@@ -101,13 +112,17 @@ public class ContractQueryProvider {
     public String countContractList(final ContractVO contractVO){
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT count(*) FROM (");
-        sb.append(" SELECT A.*,B.code AS projectCode ,B.name AS projectName,C.name AS campaignName,count(cl.contractId) AS ledgerCount")
+        sb.append(" SELECT A.*,B.code AS projectCode ,B.name AS projectName,C.name AS campaignName,count(cl.contractId) AS ledgerCount,B.developSaleId,B.traceSaleId,B.pmId,B.designProgress")
                 .append(" FROM T_CONTRACT A")
                 .append(" LEFT JOIN T_PROJECT B ON A.projectId = B.id")
                 .append(" LEFT JOIN T_CAMPAIGN AS C ON A.campaignId = C.id")
                 .append(" LEFT JOIN T_CONTRACT_LEDGER AS cl ON A.id = cl.contractId")
                 .append(" GROUP BY A.id");
 
+
+
+        sb.append(" ) A");
+        sb.append(" WHERE 1=1 ");
         if(!StringUtils.isEmpty(contractVO.getName())){
             sb.append(" AND A.name LIKE CONCAT('%',#{name},'%')");
         }
@@ -126,7 +141,15 @@ public class ContractQueryProvider {
         if(!StringUtils.isEmpty(contractVO.getSecondParty())){
             sb.append(" AND A.secondParty = #{secondParty}");
         }
-        sb.append(" ) A");
+
+        if(!contractVO.isAdmin()){
+            sb.append(" AND (");
+            sb.append(" A.pmId = #{id}");
+            sb.append(" or A.developSaleId = #{id}");
+            sb.append(" or A.traceSaleId = #{id}");
+            sb.append(" or find_in_set(#{id},A.designProgress)");
+            sb.append(" )");
+        }
         return sb.toString();
     }
 

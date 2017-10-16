@@ -24,6 +24,8 @@ public class ProjectVO extends ProjectEntity{
     private String email;
     private String mobilePhone;
 
+    private boolean isAdmin;
+
     public String getUserName() {
         return userName;
     }
@@ -142,5 +144,13 @@ public class ProjectVO extends ProjectEntity{
 
     public void setCountry(String country) {
         Country = country;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }

@@ -41,7 +41,14 @@ public class ProjectQueryProvider {
         if(!StringUtils.isEmpty(projectVO.getSearch())){
             sb.append(" AND D.name LIKE CONCAT('%',#{search},'%') OR D.code LIKE CONCAT('%',#{search},'%')");
         }
-
+        if(!projectVO.isAdmin()){
+            sb.append(" AND (");
+            sb.append(" D.pmId = #{id}");
+            sb.append(" or D.developSaleId = #{id}");
+            sb.append(" or D.traceSaleId = #{id}");
+            sb.append(" or find_in_set(#{id},D.designProgress)");
+            sb.append(" )");
+        }
         sb.append(" ORDER BY D.modifyTime DESC LIMIT #{start},#{length}");
         return sb.toString();
     }
@@ -67,6 +74,14 @@ public class ProjectQueryProvider {
         }
         if(!StringUtils.isEmpty(projectVO.getPmId())){
             sb.append(" AND D.pmId = #{pmId}");
+        }
+        if(!projectVO.isAdmin()){
+            sb.append(" AND (");
+            sb.append(" D.pmId = #{id}");
+            sb.append(" or D.developSaleId = #{id}");
+            sb.append(" or D.traceSaleId = #{id}");
+            sb.append(" or find_in_set(#{id},D.designProgress)");
+            sb.append(" )");
         }
         if(!StringUtils.isEmpty(projectVO.getState())){
             sb.append(" AND D.state = #{state}");

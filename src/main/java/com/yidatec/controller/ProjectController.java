@@ -108,6 +108,8 @@ public class ProjectController extends BaseController {
     @RequestMapping(value = "/findProject")
     @ResponseBody
     public Object findProject(@RequestBody ProjectVO project)throws Exception{
+        project.setId(getWebUser().getId());
+        project.setAdmin(isAdmin());
         List<ProjectEntity> ProjectEntityList = projectService.selectProjectList(project);
         if (ProjectEntityList != null){
             for(ProjectEntity project1 : ProjectEntityList){

@@ -15,6 +15,8 @@ public class ContractVO extends Contract{
 
     private int ledgerCount;
 
+    private boolean isAdmin;
+
     public Integer getDraw() {
         return draw;
     }
@@ -61,5 +63,13 @@ public class ContractVO extends Contract{
 
     public void setLedgerCount(int ledgerCount) {
         this.ledgerCount = ledgerCount;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }

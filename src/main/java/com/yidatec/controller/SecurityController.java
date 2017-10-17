@@ -96,8 +96,12 @@ public class SecurityController extends BaseController {
     public String userEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建用户":"编辑用户");
         model.put("roleList",securityData.findRoleListEnable());
-        User user = userMapper.findById(id);
-        model.put("user",user);
+        if( id != null && !id.isEmpty()) {
+            User user = userMapper.findById(id);
+            model.put("user", user);
+        }else{
+            model.put("user", null);
+        }
         model.put("isAdmin",id == null ? false:confProperties.getAdminId().equalsIgnoreCase(id));
         return "userEdit";
     }

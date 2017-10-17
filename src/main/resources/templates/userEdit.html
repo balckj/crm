@@ -183,8 +183,8 @@
             $("#r1").select2();
         })
 
-        var userRoleList = [[${user.roleList}]];
-        if(userRoleList) {
+        var userRoleList = [[${user == null?null:user.roleList}]];
+        if(userRoleList != null) {
             var setkey = [];
             for (var ur in userRoleList) {
                 setkey.push(userRoleList[ur].id);
@@ -287,7 +287,7 @@
 //                    });
                 }
             }
-           debugger
+
             var p = {
                 id: $("#id").val().trim(),
 //                nick: $("#nick").val().trim(),

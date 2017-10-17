@@ -58,7 +58,7 @@
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="mobilePhoneForm"><label class="col-sm-2 control-label">销售电话<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="mobilePhone" name="mobilePhone" type="number" oninput="if(value.length>11)value=value.slice(0,11)"
+                                <div class="col-sm-4"><input id="mobilePhone" name="mobilePhone" type="text" oninput="if(value.length>11)value=value.slice(0,11)"
                                                              class="form-control" maxlength="11" th:value="${sale}?${sale.mobilePhone}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
@@ -78,7 +78,8 @@
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group"><label class="col-sm-2 control-label">状态</label>
+
+                            <div class="form-group"><label class="col-sm-2 control-label">用户状态</label>
                                 <div class="col-sm-4">
                                     <div class="radio radio-inline radio-info">
                                         <input type="radio" name="state" id="s1" value="1" th:checked="${sale}?${sale.state eq 1}:'true'"/>
@@ -87,9 +88,15 @@
                                         </label>
                                     </div>
                                     <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s2" value="0" th:checked="${sale}?${sale.state eq 0}"/>
+                                        <input type="radio" name="state" id="s2" value="2" th:checked="${sale}?${sale.state eq 2}"/>
                                         <label for="s2">
-                                            不可用
+                                            锁定
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-inline radio-info">
+                                        <input type="radio" name="state" id="s3" value="3" th:checked="${sale}?${sale.state eq 3}"/>
+                                        <label for="s3">
+                                            禁用
                                         </label>
                                     </div>
                                 </div>

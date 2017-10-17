@@ -5,6 +5,7 @@ import com.yidatec.util.ConfProperties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,6 +45,22 @@ public class GlobalExceptionHandler {
             be = (BaseException) exception;
             message = be.getErrorMsgWithCode(currentLang);
             message = confProperties.getWebIframeExceptionHtml(message);
+        }else if(exception instanceof DuplicateKeyException){
+            int index = exception.getCause().getMessage().lastIndexOf("for key");
+            String field = exception.getCause().getMessage().substring(index+9,exception.getCause().getMessage().length()-1);
+            logger.error(exception.getMessage(), exception);
+            if("mobilePhone".equalsIgnoreCase(field)){
+                message = BaseController.getErrorJson("电话号码重复");
+            }else if("openId".equalsIgnoreCase(field)){
+                message = BaseController.getErrorJson("微信标识重复");
+            }else if("code".equalsIgnoreCase(field)){
+                message = BaseController.getErrorJson("编号重复");
+            }
+            else if("name".equalsIgnoreCase(field)){
+                message = BaseController.getErrorJson("名称重复");
+            }else{
+                be = new BusinessException(exception);
+            }
         }
         else if (exception instanceof BaseException) {
             be = (BaseException) exception;

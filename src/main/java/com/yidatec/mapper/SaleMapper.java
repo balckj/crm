@@ -22,20 +22,13 @@ public interface SaleMapper {
 	@Select("SELECT * FROM T_USER WHERE id = #{id}")
 	User selectSale(String id);
 
-	/**
-	 * 销售列表
-	 * @param userVO
-	 * @return
-	 */
-	@SelectProvider(type=com.yidatec.mapper.SaleQueryProvider.class,method = "selectSale")
-	List<User> selectSaleListByName(UserVO userVO);
-	/**
-	 * 销售列表
-	 * @param userVO
-	 * @return
-	 */
-	@SelectProvider(type=com.yidatec.mapper.SaleQueryProvider.class,method = "countSale")
-	int countSaleListByName(UserVO userVO);
+	@SelectProvider(type=com.yidatec.mapper.SaleQueryProvider.class,method = "selectUserByRoleCommon")
+	List<User> selectUserByRoleCommon(UserVO userVO);
+	@SelectProvider(type=com.yidatec.mapper.SaleQueryProvider.class,method = "countUserByRoleCommon")
+	int countUserByRoleCommon(UserVO userVO);
+
+	@SelectProvider(type=com.yidatec.mapper.SaleQueryProvider.class,method = "selectSaleListALL")
+	List<User> selectSaleListALL(UserVO userVO);
 
 
 	@Insert("INSERT INTO T_USER (id,`name`,channel,mobilePhone,password,email,state,creatorId,createTime," +

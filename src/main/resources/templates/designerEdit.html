@@ -178,6 +178,9 @@
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+
+                            <div class="hr-line-dashed"></div>
+
                             <div class="form-group" id="addressForm">
                                 <label class="col-sm-2 control-label">地址</label>
                                 <div class="col-sm-4"><input id="address" name="address" type="text"
@@ -392,19 +395,19 @@
                             <div class="form-group"><label class="col-sm-2 control-label">用户状态</label>
                                 <div class="col-sm-4">
                                     <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s1" value="1" th:checked="${customer}?${customer.state eq 1}:'true'"/>
+                                        <input type="radio" name="state" id="s1" value="1" th:checked="${designer}?${designer.state eq 1}:'true'"/>
                                         <label for="s1">
                                             可用
                                         </label>
                                     </div>
                                     <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s2" value="2" th:checked="${customer}?${customer.state eq 2}"/>
+                                        <input type="radio" name="state" id="s2" value="2" th:checked="${designer}?${designer.state eq 2}"/>
                                         <label for="s2">
                                             锁定
                                         </label>
                                     </div>
                                     <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s3" value="3" th:checked="${customer}?${customer.state eq 3}"/>
+                                        <input type="radio" name="state" id="s3" value="3" th:checked="${designer}?${designer.state eq 3}"/>
                                         <label for="s3">
                                             禁用
                                         </label>

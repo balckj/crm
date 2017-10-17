@@ -51,13 +51,13 @@ public class SaleService {
 	public List<User> selectSaleListByName(UserVO userVO) {
 		Param param = paramService.findParam(Constants.SALE_PARAM_ID);
 		userVO.setParaRoleIDS(param.getValue());
-		return  roleMapper.selectUserByRoleCommon(userVO);
+		return  saleMapper.selectUserByRoleCommon(userVO);
 	}
 
 	public List<User> selectSaleListforProject(UserVO userVO) {
 		Param param = paramService.findParam(Constants.SALE_PARAM_ID);
 		userVO.setParaRoleIDS(param.getValue());
-		return  roleMapper.selectSaleListALL(userVO);
+		return  saleMapper.selectSaleListALL(userVO);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class SaleService {
 	public int countSaleListByName(UserVO userVO) {
 		Param param = paramService.findParam(Constants.SALE_PARAM_ID);
 		userVO.setParaRoleIDS(param.getValue());
-		return roleMapper.countUserByRoleCommon(userVO);
+		return saleMapper.countUserByRoleCommon(userVO);
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
@@ -85,7 +85,7 @@ public class SaleService {
 	public List<User> selectSaleListALL(UserVO userVO) {
 		Param param = paramService.findParam(Constants.SALE_PARAM_ID);
 		userVO.setParaRoleIDS(param.getValue());
-		return  roleMapper.selectSaleListALL(userVO);
+		return  saleMapper.selectSaleListALL(userVO);
 	}
 
 	/**

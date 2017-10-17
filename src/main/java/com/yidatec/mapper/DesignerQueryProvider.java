@@ -36,8 +36,10 @@ public class DesignerQueryProvider {
         if(!StringUtils.isEmpty(userVO.getMobilePhone())){
             sb.append(" AND U.mobilePhone = #{mobilePhone}");
         }
-
-        sb.append(" and U.state = 1 GROUP BY U.id ORDER BY U.modifyTime DESC");
+        if(!StringUtils.isEmpty(userVO.getState())){
+            sb.append(" and U.state =  #{state}");
+        }
+        sb.append("  GROUP BY U.id ORDER BY U.modifyTime DESC");
         sb.append(" LIMIT #{start},#{length}");
         return sb.toString();
     }
@@ -64,14 +66,16 @@ public class DesignerQueryProvider {
         sb.append(")");
 
         if(!StringUtils.isEmpty(userVO.getName())){
-            sb.append(" AND  U.name LIKE CONCAT('%',#{name},'%')");
+            sb.append(" AND DD.referrer LIKE CONCAT('%',#{name},'%')");
         }
         if(!StringUtils.isEmpty(userVO.getMobilePhone())){
             sb.append(" AND U.mobilePhone = #{mobilePhone}");
         }
 
-        sb.append(" and U.state = 1 GROUP BY U.id ORDER BY U.modifyTime DESC");
-        sb.append(" LIMIT #{start},#{length}");
+        if(!StringUtils.isEmpty(userVO.getState())){
+            sb.append(" and U.state =  #{state}");
+        }
+        sb.append("  GROUP BY U.id ORDER BY U.modifyTime DESC");
         sb.append(") as A");
         return sb.toString();
     }

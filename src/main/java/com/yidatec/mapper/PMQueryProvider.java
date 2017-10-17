@@ -37,8 +37,10 @@ public class PMQueryProvider {
         if(!StringUtils.isEmpty(userVO.getMobilePhone())){
             sb.append(" AND U.mobilePhone = #{mobilePhone}");
         }
-
-        sb.append(" and U.state = 1 GROUP BY U.id");
+        if(!StringUtils.isEmpty(userVO.getState())){
+            sb.append(" and U.state = #{state}");
+        }
+        sb.append("  GROUP BY U.id");
         sb.append(" ) A");
         sb.append(" LEFT JOIN T_PROJECT P ON P.pmId = A.id");
         sb.append(" GROUP BY A.id");

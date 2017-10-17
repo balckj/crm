@@ -84,12 +84,12 @@ public class AudienceService {
 	 * 观众和活动关系表操作
 	 */
 	private void createAudienceCampaign(Audience audience) {
-		if(audience.getActivityList() != null){
-			for (int i = 0; i < audience.getActivityList().size(); i++) {
-				Activity activity = audience.getActivityList().get(i);
+		if(audience.getCampaignName() != null){
+			String[] campaign = audience.getCampaignName().split(",");
+			for (String c : campaign) {
 				AudienceCampaign audienceCampaign = new AudienceCampaign();
 				audienceCampaign.setAudienceId(audience.getId());
-				audienceCampaign.setCampaignId(activity.getId());
+				audienceCampaign.setCampaignId(c);
 				audienceCampaignMapper.createAudienceCampaign(audienceCampaign);
 			}
 		}

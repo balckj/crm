@@ -31,6 +31,9 @@ public class ValidateController extends BaseController{
         if(name == null || name.trim().isEmpty()){
             return getErrorJson("必须输入真实姓名");
         }
+        if(!(name.length() >=2 && name.length() <=20) ){
+            return getErrorJson("姓名必须由2到20个字符组成");
+        }
         return getSuccessJson(null);
     }
 
@@ -271,7 +274,7 @@ public class ValidateController extends BaseController{
     @RequestMapping(value = "/validateEnglishAbility")
     public String validateEnglishAbility(@RequestParam(value="englishAbility") String englishAbility){
         if(englishAbility == null || englishAbility.trim().isEmpty()){
-            return getErrorJson("必须输入英文能力");
+            return getErrorJson("必须输入英文水平");
         }
         return getSuccessJson(null);
     }

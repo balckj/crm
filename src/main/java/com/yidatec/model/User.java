@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -28,7 +29,7 @@ public class User extends BaseModel implements UserDetails {
 
 
     @NotBlank(message = "必须输入姓名", groups = {UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class ,UserValidate.class})
-    @Length(min = 1, max = 40, message = "姓名必须由1到20个字符组成", groups = {UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class ,UserValidate.class })
+    @Length(min = 2, max = 40, message = "姓名必须由2到20个字符组成", groups = {UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class ,UserValidate.class })
     private String name;
     private String avatar;
     //用户以电话号码标识，如果没有注册电话号码就无法约课，电话号码是必须的
@@ -71,7 +72,7 @@ public class User extends BaseModel implements UserDetails {
     private String designStyle;
 
     @NotNull(message = "必须输入从业年限", groups = {UserValidatePM.class,UserValidateDesigner.class })
-    @Min(value=0,message = "必须输入大于等于0的整数", groups = {})
+    @Min(value=0,message = "必须输入大于等于0的整数", groups = {UserValidatePM.class,UserValidateDesigner.class})
     private Integer experience;
 
     @NotBlank(message = "必须输入最近上家公司", groups = {UserValidatePM.class,UserValidateDesigner.class })
@@ -95,7 +96,7 @@ public class User extends BaseModel implements UserDetails {
     @JsonIgnore
     private List<GrantedAuthority> grantedAuthorityList;
 
-    @NotBlank(message = "必须输入国家", groups = {UserValidatePM.class })
+    @NotBlank(message = "必须输入国家", groups = {UserValidatePM.class,UserValidateDesigner.class })
     private String country;
     private String address;
     private String province;

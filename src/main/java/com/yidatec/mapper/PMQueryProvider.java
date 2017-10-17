@@ -32,7 +32,7 @@ public class PMQueryProvider {
         sb.append(")");
 
         if(!StringUtils.isEmpty(userVO.getName())){
-            sb.append(" AND DD.referrer LIKE CONCAT('%',#{name},'%')");
+            sb.append(" AND U.name LIKE CONCAT('%',#{name},'%')");
         }
         if(!StringUtils.isEmpty(userVO.getMobilePhone())){
             sb.append(" AND U.mobilePhone = #{mobilePhone}");
@@ -73,7 +73,7 @@ public class PMQueryProvider {
         sb.append(")");
 
         if(!StringUtils.isEmpty(userVO.getName())){
-            sb.append(" AND DD.referrer LIKE CONCAT('%',#{name},'%')");
+            sb.append(" AND U.name LIKE CONCAT('%',#{name},'%')");
         }
         if(!StringUtils.isEmpty(userVO.getMobilePhone())){
             sb.append(" AND U.mobilePhone = #{mobilePhone}");

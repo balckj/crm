@@ -57,7 +57,7 @@
                                 <label class="col-sm-2 control-label">电话<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <input id="mobilePhone" name="mobilePhone" type="number" oninput="if(value.length>11)value=value.slice(0,11)"
+                                    <input id="mobilePhone" name="mobilePhone" type="text" oninput="if(value.length>11)value=value.slice(0,11)"
                                            class="form-control" maxlength="11" th:value="${audience}?${audience.mobilePhone}"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -118,7 +118,8 @@
 
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="hobbyForm">
-                                <label class="col-sm-2 control-label">兴趣爱好</label>
+                                <label class="col-sm-2 control-label">兴趣爱好<span
+                                        style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="hobby" id="hobby" multiple="multiple">
                                         <option th:value="${hobby.id}" th:text="${hobby.value}" th:each="hobby:${hobbyList}"></option>
@@ -127,9 +128,11 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
+
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="campaignNameForm">
-                                <label class="col-sm-2 control-label">参加的活动</label>
+                                <label class="col-sm-2 control-label">参加的活动<span
+                                        style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="campaignName" id="campaignName" multiple="multiple">
                                         <option th:value="${campaign.id}" th:text="${campaign.name}" th:each="campaign:${campaignList}"></option>
@@ -304,13 +307,13 @@
         var saveBtnda;
         function saveAudience(btn) {
             saveBtnda = Ladda.create(btn);
-            var activityIdList = [];
-           var campaignName =  $("#campaignName").val();
-           for(var i = 0; i< campaignName.length; i ++){
-               var temp = {};
-               temp.id = campaignName[i];
-               activityIdList.push(temp);
-           }
+//            var activityIdList = [];
+//           var campaignName =  $("#campaignName").val();
+//           for(var i = 0; i< campaignName.length; i ++){
+//               var temp = {};
+//               temp.id = campaignName[i];
+//               activityIdList.push(temp);
+//           }
 
 
             var p = {
@@ -323,7 +326,8 @@
                 city: $("#city").val().trim(),
                 region: $("#region").val().trim(),
                 hobby: $("#hobby").val().toString().trim(),
-                activityList: activityIdList
+                campaignName: $("#campaignName").val().toString().trim()
+//                activityList: activityIdList
             }
             var a = JSON.stringify(p);
             $.ajax({

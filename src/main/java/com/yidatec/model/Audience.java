@@ -35,9 +35,9 @@ public class Audience extends BaseModel {
 	@NotBlank(message = "必须输入兴趣爱好", groups = {})
 	private String hobby;
 
-	@NotNull(message = "必须输入参加的活动", groups = {})
-	@Size(min=1,message = "必须输入参加的活动")
-	private List<Activity> activityList;
+//	@NotNull(message = "必须输入参加的活动", groups = {})
+//	@Size(min=1,message = "必须输入参加的活动")
+//	private List<Activity> activityList;
 
 	@NotBlank(message = "必须输入国家", groups = {})
 	private String country;
@@ -46,6 +46,7 @@ public class Audience extends BaseModel {
 	private String city;
 	private String region;
 
+	@NotBlank(message = "必须输入参加的活动", groups = {})
 	private String campaignName;
 
 	public String getName() {
@@ -120,13 +121,13 @@ public class Audience extends BaseModel {
 		this.region = region;
 	}
 
-	public List<Activity> getActivityList() {
-		return activityList;
-	}
-
-	public void setActivityList(List<Activity> activityList) {
-		this.activityList = activityList;
-	}
+//	public List<Activity> getActivityList() {
+//		return activityList;
+//	}
+//
+//	public void setActivityList(List<Activity> activityList) {
+//		this.activityList = activityList;
+//	}
 
 	public String getCampaignName() {
 		return campaignName;

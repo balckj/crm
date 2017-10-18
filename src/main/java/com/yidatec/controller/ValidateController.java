@@ -526,17 +526,16 @@ public class ValidateController extends BaseController{
         if(amount == null || amount.trim().isEmpty()){
             return getErrorJson("必须输入合同总价");
         }
-        boolean res2 = amount.matches("^[0-9]+(.[0-9]{2})?$");
+        boolean res2 = amount.matches("^-?[0-9]+(.[0-9]{2})?$");
         if(!res2)
-            if(!res2)
-                return getErrorJson("合同总价整数位不能超过18位,小数位必须是两位");
+            return getErrorJson("合同总价整数位不能超过18位,小数位必须是两位");
         return getSuccessJson(null);
     }
 
     @RequestMapping(value = "/validatCategory")
     public String validatCategory(@RequestParam(value="category") String category){
         if(category == null || category.trim().isEmpty()){
-            return getErrorJson("必须输入合同分类");
+            return getErrorJson("必须输入合同类型");
         }
         return getSuccessJson(null);
     }

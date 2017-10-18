@@ -8,6 +8,12 @@
         #contracttable_length  select {
             padding-top: 3px;
         }
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+        input::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
     </style>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
@@ -148,6 +154,12 @@
                                             <input type="radio" name="state" id="s3" value="U" onclick="queryABTable(this)"/>
                                             <label for="s3">
                                                 人
+                                            </label>
+                                        </div>
+                                        <div class="radio radio-inline radio-info">
+                                            <input type="radio" name="state" id="s4" value="DS" onclick="queryABTable(this)"/>
+                                            <label for="s4">
+                                                鼎世
                                             </label>
                                         </div>
                                     </div>

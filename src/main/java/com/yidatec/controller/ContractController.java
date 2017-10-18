@@ -271,9 +271,22 @@ public class ContractController extends BaseController{
     @RequestMapping(value = "/loadABTable")
     @ResponseBody
     public Object loadABTable(@RequestBody ABVO abvo)throws Exception{
-        List<ABVO> abvoList = contractService.selectABVOTableList(abvo);
-        abvoList.add(setDingS());
-        int count = contractService.countABVOTable(abvo);
+        List<ABVO> abvoList = new ArrayList<>();
+        int count = 0;
+        if ("DS".equalsIgnoreCase(abvo.getType())){// 鼎世
+            if ("鼎世".equalsIgnoreCase(abvo.getSearch())){
+                abvoList.add(setDingS());
+                count = 1;
+            }else if(!"鼎世".equalsIgnoreCase(abvo.getSearch()) && !StringUtils.isEmpty(abvo.getSearch())){
+                count = 0;
+            }else{
+                abvoList.add(setDingS());
+                count = 1;
+            }
+        }else {
+            abvoList = contractService.selectABVOTableList(abvo);
+            count = contractService.countABVOTable(abvo);
+        }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("draw", abvo.getDraw());
         map.put("recordsTotal", count);

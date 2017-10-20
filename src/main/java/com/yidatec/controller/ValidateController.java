@@ -697,6 +697,9 @@ public class ValidateController extends BaseController{
         if (budget == null || budget.trim().isEmpty()) {
             return getErrorJson("必须输入预算");
         }
+        boolean res2 = budget.matches("^[0-9]+(.[0-9]{2})?$");
+        if(!res2)
+                return getErrorJson("预算整数位不能超过18位,小数位必须是两位");
         return getSuccessJson(null);
     }
 

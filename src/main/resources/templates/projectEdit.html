@@ -896,36 +896,20 @@
         var saveBtnda;
         function saveProject(btn) {
             saveBtnda = Ladda.create( btn );
-            if(hasDesignerOption){
-                if($("#designerId").val() == ""){
+            debugger;
+            if($("#name").val()!=""&&$("#type").val()!=""&&$("#customerId").attr("customerid")!=""&&$("#campaignId").attr("campaignid")!=""
+                &&$("#exhibitionNumber").val()!=""&&$("#budget").val()!=""&&$("#area").val()!=""
+                &&$("#setupTime").val()!=""&&$("#tearDownTime").val()!=""&& $("#degreeOfImportance").val()!=""
+                &&$("#potential").val()!=""){
+                if(hasDesignerOption||hasPmOption||hasFactoryOption||hasDevelopSale||hasProjectPhoto){
                     $("#designerIdForm").addClass("has-error")
                     $("#designerId").parent().next().html("必须选择设计师");
-                    return;
-                }
-            }
-            if(hasPmOption){
-                if($("#pmId").val() == ""){
                     $("#pmIdForm").addClass("has-error")
                     $("#pmId").parent().next().html("必须选择项目经理");
-                    return;
-                }
-            }
-            if(hasFactoryOption){
-                if($("#factoryId").val() == ""){
                     $("#factoryIdForm").addClass("has-error")
                     $("#factoryId").parent().next().html("必须选择工厂");
-                    return;
-                }
-            }
-            if(hasDevelopSale){
-                if($("#developSaleId").val() == ""){
                     $("#developSaleIdForm").addClass("has-error")
                     $("#developSaleId").parent().next().html("必须选择开发销售");
-                    return;
-                }
-            }
-            if(hasProjectPhoto){
-                if(photolist == ""){
                     $("#photoForm").addClass("has-error")
                     $("#photo").next().html("必须上传项目图片");
                     return;
@@ -1015,6 +999,19 @@
                                 }
                                 tmp.html(data[p].defaultMessage);
                             }
+                        }
+                        if(hasDesignerOption||hasPmOption||hasFactoryOption||hasDevelopSale||hasProjectPhoto){
+                            $("#designerIdForm").addClass("has-error")
+                            $("#designerId").parent().next().html("必须选择设计师");
+                            $("#pmIdForm").addClass("has-error")
+                            $("#pmId").parent().next().html("必须选择项目经理");
+                            $("#factoryIdForm").addClass("has-error")
+                            $("#factoryId").parent().next().html("必须选择工厂");
+                            $("#developSaleIdForm").addClass("has-error")
+                            $("#developSaleId").parent().next().html("必须选择开发销售");
+                            $("#photoForm").addClass("has-error")
+                            $("#photo").next().html("必须上传项目图片");
+                            return;
                         }
                     }else{
                         toastr["success"]('保存成功!');

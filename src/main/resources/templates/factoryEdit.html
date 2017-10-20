@@ -374,7 +374,8 @@
                             <div id="caseList"  style="background-color: #f8f7f6;border-radius: 4px;padding-top: 15px;padding-bottom: 15px;" >
                                 <div  th:if="${#lists.isEmpty(factory.caseList)}">
                                     <div class="form-group " id="caseName0Form"><label
-                                            class="col-sm-2 control-label">案例名称</label>
+                                            class="col-sm-2 control-label">案例名称<span
+                                            style="color:#ed5565;">*</span></label>
                                         <div class="col-sm-4">
                                             <input id="caseName0" name="caseName" type="text"
                                                                      class="form-control" maxlength="10"/>
@@ -386,7 +387,8 @@
                                     </div>
                                     <div class="form-group " id="casePhoto0Form">
                                         <input th:attr="id='hiddenPhoto0', name='hiddenPhoto'" type='hidden' />
-                                        <label class="col-sm-2 control-label">案例照片</label>
+                                        <label class="col-sm-2 control-label">案例照片<span
+                                                style="color:#ed5565;">*</span></label>
                                         <div class="col-sm-6 dropzone" id="casePhoto0" name="casePhoto">
                                             <div class="am-text-success dz-message" >
                                                 点击此处添加图片
@@ -398,7 +400,8 @@
                                 <div  th:unless="${#lists.isEmpty(factory.caseList)}" th:each="case,terStat : ${factory.caseList}" >
                                     <div class="form-group " th:attr="id='caseName'+${terStat.index}+'Form'">
                                         <input th:attr="id='caseId'+${terStat.index}, name='caseId'" th:value="${case.id}" type="hidden"/>
-                                        <label class="col-sm-2 control-label">案例名称</label>
+                                        <label class="col-sm-2 control-label">案例名称<span
+                                                style="color:#ed5565;">*</span></label>
                                         <div class="col-sm-4"><input th:attr="id='caseName'+${terStat.index}, name='caseName'" type="text"
                                                                      class="form-control" maxlength="10" th:value="${case.name}"/></div>
                                         <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -414,7 +417,8 @@
                                     </div>
                                     <div class="form-group " th:attr="id='casePhoto'+${terStat.index}+'Form'">
                                         <input th:attr="id='hiddenPhoto'+${terStat.index}, name='hiddenPhoto'" type='hidden' th:value="${case.photo}" />
-                                        <label class="col-sm-2 control-label">案例照片</label>
+                                        <label class="col-sm-2 control-label">案例照片<span
+                                                style="color:#ed5565;">*</span></label>
                                         <div class="col-sm-6 dropzone" th:attr="id='casePhoto'+${terStat.index}">
                                             <div class="am-text-success dz-message" >
                                                 点击此处添加图片
@@ -591,14 +595,14 @@
                 " <div>"
                         +"<div id='line"+total+ "' class='hr-line-dashed'></div>"
                         +"<div class='form-group ' id='caseName"+total+ "Form'>"
-                            +"<label class='col-sm-2 control-label'>案例名称</label> "
+                            +"<label class='col-sm-2 control-label'>案例名称<span style='color:#ed5565;'>*</span></label> "
                             +"<div class='col-sm-4'><input id='caseName"+total+ "' name='caseName' type='text' "
                             +"class='form-control' maxlength='10'/></div> "
                             +" <label class='col-sm-4 control-label' style='text-align: left'></label> "
                             +" <div class='col-sm-1'><button onclick='delCase(this)' id='casedel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div>"
                         +"</div>"
                         +"<div class='form-group ' id='casePhoto"+total+"Form'>"
-                            +"<label class='col-sm-2 control-label'>案例照片</label>"
+                            +"<label class='col-sm-2 control-label'>案例照片<span style='color:#ed5565;'>*</span></label>"
 //                            +"<input id='casePhoto"+total+ "' name='casePhoto' type='hidden' "
                             +"<div class='col-sm-6 dropzone' id='casePhoto"+total+ "' name='casePhoto'>"
                             +"<div class='am-text-success dz-message' >"

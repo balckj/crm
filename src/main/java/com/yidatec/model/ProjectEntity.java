@@ -54,7 +54,7 @@ public class ProjectEntity extends BaseModel {
     private LocalDate tearDownTime;
 
 //    @NotNull(message = "必须输入项目成本", groups = { })
-    @Digits(integer = 18 ,message = "成本整数位不能超过18位,小数位必须是两位", fraction = 2 /*scale*/)
+    @Digits(integer = 18 ,message = "成本整数位不能超过18位,小数位必须是两位", fraction = 2 )
     private Float cost;
 
     @NotBlank(message = "必须选择重要程度", groups = { })

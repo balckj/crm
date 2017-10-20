@@ -19,15 +19,6 @@ public class FactoryQueryProvider {
         if(!StringUtils.isEmpty(factory.getDirector())){
             sb.append(" AND A.director LIKE CONCAT('%',#{director},'%')");
         }
-//        if (!StringUtils.isEmpty(factory.getUserList())){
-//            if(!StringUtils.isEmpty(factory.getUserList().get(0).getName())){
-//                sb.append(" AND D.companyName LIKE CONCAT('%',#{companyName},'%')");
-//            }
-//        }
-
-//        if(!StringUtils.isEmpty(factory.getUserList().get(0).getName())){
-//            sb.append(" AND D.companyId = #{companyId}");
-//        }
         if(!StringUtils.isEmpty(factory.getAddress())){
             sb.append(" AND A.address LIKE CONCAT('%',#{address},'%')");
         }
@@ -50,7 +41,7 @@ public class FactoryQueryProvider {
         sb.append(" AND A.director LIKE CONCAT('%',#{director},'%')");
         }
         if(!StringUtils.isEmpty(factory.getAddress())){
-            sb.append(" AND D.address LIKE CONCAT('%',#{address},'%')");
+            sb.append(" AND A.address LIKE CONCAT('%',#{address},'%')");
         }
         if(!StringUtils.isEmpty(factory.getState())){
             sb.append(" AND A.state = #{state}");

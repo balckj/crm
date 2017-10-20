@@ -87,18 +87,6 @@ public class ActivityController extends BaseController{
     @ResponseBody
     public Object findActivity(@RequestBody ActivityVO activityVO)throws Exception{
         List<Activity> ActivityEntityList = activityService.selectActivityList(activityVO);
-//        if (ActivityEntityList!=null){
-//            for(Activity activity:ActivityEntityList){
-//                ExhibitionVO exhibition = exhibitionService.selectExhibition(activity.getExhibitioHall());
-//                if(exhibition != null){
-//                    activity.setExhibitioHall(exhibition.getName());
-//                }
-//                Customer customer = customerService.selectCustomer(activity.getSponsor());
-//                if(customer != null){
-//                    activity.setSponsor(customer.getName());
-//                }
-//            }
-//        }
         int count = activityService.countActivityList(activityVO);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("draw", activityVO.getDraw());

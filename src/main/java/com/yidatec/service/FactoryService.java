@@ -2,10 +2,8 @@ package com.yidatec.service;
 
 import com.yidatec.mapper.CaseMapper;
 import com.yidatec.mapper.ContactMapper;
-import com.yidatec.mapper.CustomerMapper;
 import com.yidatec.mapper.FactoryMapper;
 import com.yidatec.model.FactoryEntity;
-import com.yidatec.model.User;
 import com.yidatec.vo.FactoryVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +79,7 @@ public class FactoryService {
 
     }
 
-    public List<FactoryEntity> selectFactoryList(FactoryVO factory) {
+    public List<FactoryVO> selectFactoryList(FactoryVO factory) {
         return factoryMapper.selectFactoryList(factory);
     }
 

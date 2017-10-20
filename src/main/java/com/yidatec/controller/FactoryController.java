@@ -91,7 +91,7 @@ public class FactoryController extends BaseController{
     @RequestMapping(value = "/findFactory")
     @ResponseBody
     public Object findFactory(@RequestBody FactoryVO factoryVO)throws Exception{
-        List<FactoryEntity> FactoryEntityList = factoryService.selectFactoryList(factoryVO);
+        List<FactoryVO> FactoryEntityList = factoryService.selectFactoryList(factoryVO);
         if(FactoryEntityList!=null){
             for(FactoryEntity factory:FactoryEntityList){
                 Dictionary dictionaryArea = dictionaryService.selectDictionary(factory.getGoodAtArea());

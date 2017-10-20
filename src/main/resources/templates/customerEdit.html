@@ -481,10 +481,6 @@
                     validateSelect('province', 'province', 'validateProvince');
                     validateSelect('city', 'city', 'validateCity');
                     validateSelect('region', 'region', 'validateRegion');
-                }else{
-                    notValidateSelect('province');
-                    notValidateSelect('city');
-                    notValidateSelect('region');
                 }
                 if($(this).val()=="中国"){
                     $("#province").attr("disabled",false);
@@ -493,7 +489,7 @@
                 }else{
                     $("#provinceForm").removeClass("has-error");
                     $("#province" ).parent().next().html("");
-                    $("#cityform").removeClass("has-error");
+                    $("#cityForm").removeClass("has-error");
                     $("#city" ).parent().next().html("");
                     $("#regionForm").removeClass("has-error");
                     $("#region" ).parent().next().html("");
@@ -530,7 +526,7 @@
             }else{
                 $("#provinceForm").removeClass("has-error");
                 $("#province" ).parent().next().html("");
-                $("#cityform").removeClass("has-error");
+                $("#cityForm").removeClass("has-error");
                 $("#city" ).parent().next().html("");
                 $("#regionForm").removeClass("has-error");
                 $("#region" ).parent().next().html("");
@@ -798,7 +794,6 @@
                     swal("操作失败", "通信错误!", "error");
                 },
                 success: function (data) {
-                    debugger;
                     if (data.res == undefined) {
                         saveBtnda.stop();
                         for (var p in data) {

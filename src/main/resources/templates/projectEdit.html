@@ -273,9 +273,9 @@
                             <div class="form-group" id="photoForm">
                                 <label class="col-sm-2 control-label">项目图片<span
                                     style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4 dropzone" id="photo">
+                                <div class="col-sm-6 dropzone" id="photo">
                                     <div class="am-text-success dz-message row" >
-                                        <!--点此打开文件管理器选择文件-->
+                                        点击此处添加图片
                                     </div>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -735,7 +735,7 @@
                         p.draw = d.draw;
                         p.length = d.length;
                         p.start = d.start;
-                        p.search = d.search.value;
+                        p.name = d.search.value;
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -743,7 +743,7 @@
 
                 "columns": [
                     {
-                        "data": "id", "width": "80px",
+                        "data": "id", "width": "50px",
                         "render": function (data, type, row) {
                             var u = "";
                             u =  "<input type=\"radio\" name='activity' value='" + row.id + "' activityName='" + row.name + "' sponser='"+row.customerName+"' sponserid='"+row.sponsor+"' ' />";
@@ -753,15 +753,15 @@
                     },
 
                     {"data": "name", "width": "200px"},
-                    {"data": "startDate", "width": "100px"},
-                    {"data": "endDate", "width": "100px"},
+                    {"data": "startDate", "width": "120px"},
+                    {"data": "endDate", "width": "120px"},
                 ]
                 , language: {
                     lengthMenu: '每页显示 <select class="form-control input-sm">'
                     + '<option value="20">20</option>'
                     + '<option value="40">40</option>'
                     + '<option value="100">100</option>'
-                    + '</select> 个项目'
+                    + '</select> 个活动'
                     ,
                     processing: "载入中 ...",//处理页面数据的时候的显示
                     paginate: {//分页的样式文本内容。
@@ -770,11 +770,11 @@
                         first: "第一页",
                         last: "最后一页"
                     },
-                    "sSearch": "搜索",
-                    zeroRecords: "没有用户",//table tbody内容为空时，tbody的内容。
+                    "sSearch": "活动搜索",
+                    zeroRecords: "没有活动",//table tbody内容为空时，tbody的内容。
                     //下面三者构成了总体的左下角的内容。
-                    info: "当前显示第_START_到第_END_个用户 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
-                    infoEmpty: "0个用户",//筛选为空时左下角的显示。
+                    info: "当前显示第_START_到第_END_个活动 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    infoEmpty: "0个活动",//筛选为空时左下角的显示。
                     infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
                 }
                 , "lengthChange": true
@@ -821,7 +821,7 @@
                         p.draw = d.draw;
                         p.length = d.length;
                         p.start = d.start;
-                        p.search = d.search.value;
+                        p.name = d.search.value;
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -829,7 +829,7 @@
 
                 "columns": [
                     {
-                        "data": "id", "width": "80px",
+                        "data": "id", "width": "50px",
                         "render": function (data, type, row) {
                             var u = "";
                             u =  "<input type=\"radio\" name='customer' value='" + row.id + "' customerName='" + row.name + "' />";
@@ -847,7 +847,7 @@
                     + '<option value="10">10</option>'
                     + '<option value="20">20</option>'
                     + '<option value="500">50</option>'
-                    + '</select> 个项目'
+                    + '</select> 个客户'
                     ,
                     processing: "载入中 ...",//处理页面数据的时候的显示
                     paginate: {//分页的样式文本内容。
@@ -856,11 +856,11 @@
                         first: "第一页",
                         last: "最后一页"
                     },
-                    "sSearch": "搜索",
-                    zeroRecords: "没有用户",//table tbody内容为空时，tbody的内容。
+                    "sSearch": "客户搜索",
+                    zeroRecords: "没有客户",//table tbody内容为空时，tbody的内容。
                     //下面三者构成了总体的左下角的内容。
-                    info: "当前显示第_START_到第_END_个用户 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
-                    infoEmpty: "0个用户",//筛选为空时左下角的显示。
+                    info: "当前显示第_START_到第_END_个客户 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    infoEmpty: "0个客户",//筛选为空时左下角的显示。
                     infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
                 }
                 , "lengthChange": true

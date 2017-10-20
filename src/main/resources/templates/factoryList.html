@@ -8,6 +8,13 @@
         #factorytable_length  select {
             padding-top: 3px;
         }
+        td.details-control {
+            background: url('../resources/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+        tr.shown td.details-control {
+            background: url('../resources/details_close.png') no-repeat center center;
+        }
     </style>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
@@ -32,14 +39,14 @@
 
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="name" class="control-label">工厂名称</label>
+                        <label for="name" class="control-label">企业名称</label>
                         <input type="text"  id="name" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="userName" class="control-label">联系人</label>
-                        <input type="text"  id="userName" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="director" class="control-label">厂长名称</label>
+                        <input type="text"  id="director" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <!--<div class="col-sm-2">-->
@@ -50,8 +57,19 @@
                 <!--</div>-->
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="address" class="control-label">具体位置</label>
+                        <label for="address" class="control-label">地址</label>
                         <input type="text"  id="address" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="state" class="control-label">状态</label>
+                        <select name="state" id="state" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
+                            <option value="" selected="selected">不限</option>
+                            <option value="1">可用</option>
+                            <option value="2">锁定</option>
+                            <option value="3">禁用</option>
+                        </select>
                     </div>
                 </div>
 
@@ -72,10 +90,11 @@
                         <table id="factorytable" class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                             <tr>
+                                <!--<th></th>-->
                                 <th>操作</th>
                                 <th>推荐人</th>
-                                <th>工厂企业名称</th>
-                                <th>工厂厂长名称</th>
+                                <th>企业名称</th>
+                                <th>厂长名称</th>
                                 <!--<th>联系人</th>-->
                                 <!--<th>联系人职位</th>-->
                                 <!--<th>联系人电话</th>-->
@@ -120,6 +139,13 @@
         var hasEdit = [[${#authorization.url('/factoryEdit')}]];
         var hasCreate = [[${#authorization.url('/factoryCreate')}]];
 
+        function format ( d ) {
+            return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+                '<tr>'+
+                '<td><b>联系人姓名:</b> '+d.userName+' <b>电话:</b> '+d.mobilePhone+' <b>职位:</b> '+d.position+' <b>邮箱: </b>'+d.email+'</td>'+
+                '</tr>'+
+                '</table>';
+        }
         var factorytable;
         function factorytableLoad() {
             factorytable = $('#factorytable').DataTable({
@@ -135,14 +161,22 @@
                         p.draw = d.draw;
                         p.length = d.length;
                         p.start = d.start;
-                        p.factoryName=$("#factoryName").val();
+                        p.name=$("#name").val();
+                        p.director=$("#director").val();
                         p.address=$("#address").val();
+                        p.state=$("#state").val();
                         var a = JSON.stringify(p);
                         return a;
                     }
                 },
 
                 "columns": [
+//                    {
+//                        "class":          'details-control',
+//                        "orderable":      false,
+//                        "data":           null,
+//                        "defaultContent": ''
+//                    },
                     {
                         "data": "id", "width": "80px",
                         "render": function (data, type, row) {
@@ -218,13 +252,13 @@
                             }
                         }
                     }
-                ]
-                , language: {
+                ],
+                language: {
                     lengthMenu: '每页显示 <select class="form-control input-sm">'
                     + '<option value="20">20</option>'
                     + '<option value="40">40</option>'
                     + '<option value="100">100</option>'
-                    + '</select> 个用户'
+                    + '</select> 个工厂'
                     ,
                     processing: "载入中 ...",//处理页面数据的时候的显示
                     paginate: {//分页的样式文本内容。
@@ -239,19 +273,16 @@
                     info: "当前显示第_START_到第_END_个工厂 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
                     infoEmpty: "0个工厂",//筛选为空时左下角的显示。
                     infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
-                }
-                , "lengthChange": true
-                , "bFilter": false //搜索栏
-                , "bAutoWidth": true  //自适应宽度
-                , "sPaginationType": "full_numbers" //分页，一共两种样式，full_numbers和two_button(默认)
-                , "bJQueryUI": false //开关，是否启用JQueryUI风格
-                , "bSort": false
-                , "processing": true
-                , "serverSide": true
-                , "iDisplayLength": 20 //默认显示的记录数
-//            ,"dom": '<"top"i>rt<"bottom"flp>'
-//            ,"dom": '<"toolbar">frtip'
-//            ,"dom": 'lBfrtip',
+                },
+            "lengthChange": true,
+            "bFilter": false, //搜索栏
+            "bAutoWidth": true,  //自适应宽度
+            "sPaginationType": "full_numbers", //分页，一共两种样式，full_numbers和two_button(默认)
+            "bJQueryUI": false, //开关，是否启用JQueryUI风格
+            "bSort": false,
+            "processing": true,
+            "serverSide": true,
+            "iDisplayLength": 20 //默认显示的记录数
             });
         }
 
@@ -284,6 +315,20 @@
         $(document).ready(function () {
             // 提示栏初始化
             factorytableLoad();
+//            $('#factorytable tbody').on('click', 'td.details-control', function () {
+//                var tr = $(this).closest('tr');
+//                var row = factorytable.row( tr );
+//                if ( row.child.isShown() ) {
+//                    // This row is already open - close it
+//                    row.child.hide();
+//                    tr.removeClass('shown');
+//                }
+//                else {
+//                    // Open this row
+//                    row.child( format(row.data()) ).show();
+//                    tr.addClass('shown');
+//                }
+//            } );
             var v ='';
             if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"factoryEdit\");'>新&nbsp;&nbsp;建</button>"
             $("#factorytable_wrapper div").children().eq(0).append(v);

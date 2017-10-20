@@ -33,11 +33,11 @@ public class Activity extends BaseModel{
     private LocalDateTime endDate;
     @NotBlank(message = "必须选择国家", groups = { })
     private String country;
-    @NotBlank(message = "必须选择省份", groups = { })
+//    @NotBlank(message = "必须选择省份", groups = { })
     private String province;
-    @NotBlank(message = "必须选择城市", groups = { })
+//    @NotBlank(message = "必须选择城市", groups = { })
     private String city;
-    @NotBlank(message = "必须选择区域", groups = { })
+//    @NotBlank(message = "必须选择区域", groups = { })
     private String region;
     @Length( max = 200, message = "地址最多由200个字符组成", groups = { })
     private String address;

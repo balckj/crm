@@ -10,7 +10,7 @@ public class ActivityQueryProvider {
     public String selectActivity(final ActivityVO activityVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT b.name as customerName,c.name as exhibitioHallName,D.* FROM T_CAMPAIGN  as D LEFT JOIN T_CUSTOMER b on D.sponsor = b.id LEFT JOIN T_EXHIBITION_HALL c on D.exhibitioHall=c.id WHERE 1=1 ");
+        sb.append("SELECT b.name as customerName,c.name as exhibitioHallName,u.value as type,D.* FROM T_CAMPAIGN  as D LEFT JOIN T_CUSTOMER b on D.sponsor = b.id LEFT JOIN T_EXHIBITION_HALL c on D.exhibitioHall=c.id LEFT JOIN T_DICTIONARY u ON D.type = u.id  WHERE 1=1 ");
 
         if(!StringUtils.isEmpty(activityVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
@@ -21,14 +21,14 @@ public class ActivityQueryProvider {
         if(!StringUtils.isEmpty(activityVO.getAddress())){
             sb.append(" AND D.address LIKE CONCAT('%',#{address},'%')");
         }
-        if(!StringUtils.isEmpty(activityVO.getStartDate())){
-            sb.append(" AND D.startDate = #{startDate}");
-        }
-        if(!StringUtils.isEmpty(activityVO.getEndDate())){
-            sb.append(" AND D.endDate = #{endDate}");
+        if(!StringUtils.isEmpty(activityVO.getStartDate())&&!StringUtils.isEmpty(activityVO.getEndDate())){
+            sb.append(" AND (Date(D.startDate) between Date(#{startDate}) and  Date(#{endDate}))");
         }
         if(!StringUtils.isEmpty(activityVO.getCreatorId())){
             sb.append(" AND D.creatorId = #{creatorId}");
+        }
+        if(!StringUtils.isEmpty(activityVO.getState())){
+            sb.append(" AND D.state = #{state}");
         }
         sb.append(" ORDER BY D.modifyTime DESC");
         sb.append(" LIMIT #{start},#{length}");
@@ -42,17 +42,20 @@ public class ActivityQueryProvider {
         if(!StringUtils.isEmpty(activityVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
         }
+        if(!StringUtils.isEmpty(activityVO.getType())){
+            sb.append(" AND D.type = #{type}");
+        }
         if(!StringUtils.isEmpty(activityVO.getAddress())){
             sb.append("  AND D.address LIKE CONCAT('%',#{address},'%')");
         }
-        if(!StringUtils.isEmpty(activityVO.getStartDate())){
-            sb.append(" AND D.startDate = #{startDate}");
-        }
-        if(!StringUtils.isEmpty(activityVO.getEndDate())){
-            sb.append(" AND D.endDate = #{endDate}");
+        if(!StringUtils.isEmpty(activityVO.getStartDate())&&!StringUtils.isEmpty(activityVO.getEndDate())){
+            sb.append(" AND (Date(D.startDate) between Date(#{startDate}) and  Date(#{endDate}))");
         }
         if(!StringUtils.isEmpty(activityVO.getCreatorId())){
             sb.append(" AND D.creatorId = #{creatorId}");
+        }
+        if(!StringUtils.isEmpty(activityVO.getState())){
+            sb.append(" AND D.state = #{state}");
         }
         return sb.toString();
     }

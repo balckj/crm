@@ -24,6 +24,9 @@ public class CustomerQueryProvider {
         if(!StringUtils.isEmpty(customerVO.getCreatorId())){
             sb.append(" AND D.creatorId = #{creatorId}");
         }
+        if(!StringUtils.isEmpty(customerVO.getState())){
+            sb.append(" AND D.state = #{state}");
+        }
         sb.append(" ORDER BY D.modifyTime DESC LIMIT #{start},#{length}");
         return sb.toString();
     }
@@ -43,6 +46,9 @@ public class CustomerQueryProvider {
         }
         if(!StringUtils.isEmpty(customerVO.getCreatorId())){
             sb.append(" AND D.creatorId = #{creatorId}");
+        }
+        if(!StringUtils.isEmpty(customerVO.getState())){
+            sb.append(" AND D.state = #{state}");
         }
         return sb.toString();
     }

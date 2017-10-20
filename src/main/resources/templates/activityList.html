@@ -53,17 +53,26 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="startDate" class="control-label">开始日期</label>
-                        <input type="text"  id="startDate" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <input type="text"  id="startDate" readonly="readonly" class="form-control input-sm" />
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="endDate" class="control-label">结束日期</label>
-                        <input type="text"  id="endDate" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <input type="text"  id="endDate" readonly="readonly" class="form-control input-sm" />
                     </div>
                 </div>
-
-
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="state" class="control-label">状态</label>
+                        <select name="state" id="state" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
+                            <option value="" selected="selected">不限</option>
+                            <option value="1">可用</option>
+                            <option value="2">锁定</option>
+                            <option value="3">禁用</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <!--<label for="f9" class="control-label"></label>-->
@@ -83,6 +92,7 @@
                             <tr>
                                 <th>操作</th>
                                 <th>活动名称</th>
+                                <th>活动类型</th>
                                 <th>开始日期</th>
                                 <th>结束日期</th>
                                 <th>国家</th>
@@ -105,12 +115,65 @@
 
     <link th:href="@{99/css/plugins/datapicker/bootstrap-datetimepicker.min.css}" rel="stylesheet"/>
     <script th:src="@{99/js/plugins/datapicker/bootstrap-datetimepicker.min.js}"></script>
+    <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
         var hasEdit = [[${#authorization.url('/activityEdit')}]];
         var hasCreate = [[${#authorization.url('/activityCreate')}]];
+
+//        $('#startDate').datepicker({
+//            startView: 1,
+//            todayBtn: "linked",
+//            keyboardNavigation: false,
+//            forceParse: false,
+//            autoclose: true,
+//            format: "yyyy-mm-dd",
+//            language: 'cn',
+//        });
+
+        $('#startDate').datetimepicker({
+            startView: 2,
+            todayBtn: "linked",
+            todayHighlight:true,
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: 'yyyy-mm-dd hh:ii',
+            language: 'cn',
+        });
+
+
+        $('#endDate').datetimepicker({
+            startView: 2,
+            todayBtn: "linked",
+            todayHighlight:true,
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: 'yyyy-mm-dd hh:ii',
+            language: 'cn',
+        });
+        function p(s) {
+            return s < 10 ? '0' + s: s;
+        }
+
+//        var myDate = new Date();
+//        //获取当前年
+//        var year=myDate.getFullYear();
+//        //获取当前月
+//        var month=myDate.getMonth()+1;
+//        //获取当前日
+//        var date=myDate.getDate();
+//        var h=myDate.getHours();       //获取当前小时数(0-23)
+//        var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+//        var s=myDate.getSeconds();
+//        var now = year+'-'+p(month)+"-"+p(date)+" "+p(h)+':'+p(m);//+":"+p(s);
+//        $('#startDate').val(now);
+//        $('#endDate').val(now);
+
+
         var activitytable;
         function activitytableLoad() {
             activitytable = $('#activitytable').DataTable({
@@ -130,8 +193,9 @@
                         p.name = $('#name').val();
                         p.type = $('#type').val();
                         p.address = $('#address').val();
-                        p.startDate = $('#startDate').val();
-                        p.endDate = $('#endDate').val();
+                        p.startDate =  $("#startDate").val()==""?"":$("#startDate").val().replace(' ','T')+":00";
+                        p.endDate =  $("#endDate").val()==""?"":$("#endDate").val().replace(' ','T')+":00";
+                        p.state = $('#state').val();
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -153,6 +217,7 @@
                         },
                     },
                     {"data": "name", "width": "100px"},
+                    {"data": "type", "width": "100px"},
                     {"data": "startDate", "width": "100px"},
                     {"data": "endDate", "width": "100px"},
                     {"data": "country", "width": "100px"},
@@ -239,27 +304,6 @@
             });
         }
 
-        $('#startDate').datetimepicker({
-            startView: 2,
-            todayBtn: "linked",
-            todayHighlight:true,
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: 'yyyy-mm-dd hh:ii',
-            language: 'cn',
-        });
-
-        $('#endDate').datetimepicker({
-            startView: 2,
-            todayBtn: "linked",
-            todayHighlight:true,
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: 'yyyy-mm-dd hh:ii',
-            language: 'cn',
-        });
 
         // 时间格式化
         function timeStamp2String(time,hasHour) {

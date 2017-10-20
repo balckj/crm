@@ -258,11 +258,22 @@
 
         $(function () {
             $("#country").change(function(){
+                if($("#country").val()=="中国"){
+                    validateSelect('province', 'province', 'validateProvince');
+                    validateSelect('city', 'city', 'validateCity');
+                    validateSelect('region', 'region', 'validateRegion');
+                }
                 if($(this).val()=="中国"){
                     $("#province").attr("disabled",false);
                     $("#city").attr("disabled",false);
                     $("#region").attr("disabled",false);
                 }else{
+                    $("#provinceForm").removeClass("has-error");
+                    $("#province" ).parent().next().html("");
+                    $("#cityForm").removeClass("has-error");
+                    $("#city" ).parent().next().html("");
+                    $("#regionForm").removeClass("has-error");
+                    $("#region" ).parent().next().html("");
                     $("#province ").get(0).selectedIndex=0;
                     $("#province").attr("disabled",true);
                     $("#city").attr("disabled",true);
@@ -290,11 +301,22 @@
                 }
             });
 
-            if ($("#country").val()=="中国"){
+            if($("#country").val()=="中国"){
+                validateSelect('province', 'province', 'validateProvince');
+                validateSelect('city', 'city', 'validateCity');
+                validateSelect('region', 'region', 'validateRegion');
+            }
+            if($(this).val()=="中国"){
                 $("#province").attr("disabled",false);
                 $("#city").attr("disabled",false);
                 $("#region").attr("disabled",false);
             }else{
+                $("#provinceForm").removeClass("has-error");
+                $("#province" ).parent().next().html("");
+                $("#cityForm").removeClass("has-error");
+                $("#city" ).parent().next().html("");
+                $("#regionForm").removeClass("has-error");
+                $("#region" ).parent().next().html("");
                 $("#province ").get(0).selectedIndex=0;
                 $("#province").attr("disabled",true);
                 $("#city").attr("disabled",true);
@@ -496,6 +518,43 @@
                 photo:photolist.toString()
             };
             var a = JSON.stringify(p);
+            if($("#country").val()=="中国"){
+                if($("#province").val()==""||$("#city").val()==""||$("#region").val()==""){
+
+                }
+
+
+
+                if($("#province").val()==""){
+                    $("#provinceForm").addClass("has-error");
+                    $("#province" ).parent().next().html("必须选择所在省份");
+                    $("#province").focus();
+                    if ($("#city").val()==""){
+                        $("#cityForm").addClass("has-error");
+                        $("#city" ).parent().next().html("必须选择所在城市");
+                    }
+                    if($("#region").val()==""){
+                        $("#regionForm").addClass("has-error");
+                        $("#region" ).parent().next().html("必须选择所在区域");
+                    }
+                    return;
+                }else if ($("#city").val()==""){
+                    $("#cityForm").addClass("has-error");
+                    $("#city" ).parent().next().html("必须选择所在城市");
+                    $("#city").focus();
+                    if($("#region").val()==""){
+                        $("#regionForm").addClass("has-error");
+                        $("#region" ).parent().next().html("必须选择所在区域");
+                    }
+                    return;
+                }else if($("#region").val()==""){
+                    $("#regionForm").addClass("has-error");
+                    $("#region" ).parent().next().html("必须选择所在区域");
+                    $("#region").focus();
+                    return;
+                }
+            }
+
             $.ajax({
                 url: 'saveActivity',
                 async: true,

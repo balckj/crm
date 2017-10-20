@@ -1,5 +1,7 @@
 package com.yidatec.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.yidatec.util.CustomLocalDateSerializer;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -29,6 +31,7 @@ public class FactoryEntity extends BaseModel{
     @Valid
     private List<Contact> contactList;//联系人
 
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate firstOrderTime;//首单时间
 
@@ -263,4 +266,5 @@ public class FactoryEntity extends BaseModel{
     public void setState(Integer state) {
         this.state = state;
     }
+
 }

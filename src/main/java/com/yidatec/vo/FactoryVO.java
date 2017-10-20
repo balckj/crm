@@ -9,7 +9,10 @@ public class FactoryVO extends FactoryEntity{
     private Integer draw;
     private Integer length;
     private Integer start;
-
+    private String userName;
+    private String mobilePhone;
+    private String position;
+    private String email;
 
     public Integer getDraw() {
         return draw;
@@ -35,5 +38,35 @@ public class FactoryVO extends FactoryEntity{
         this.start = start;
     }
 
+    public String getUserName() {
+        return userName;
+    }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

@@ -28,7 +28,7 @@ public interface FactoryMapper {
     int createRelation(@Param(value="factoryId") String factoryId, @Param(value="contactid") String contactid);
 
     @SelectProvider(type=com.yidatec.mapper.FactoryQueryProvider.class,method = "selectFactory")
-    List<FactoryEntity> selectFactoryList(FactoryVO factory);
+    List<FactoryVO> selectFactoryList(FactoryVO factory);
 
     @SelectProvider(type=com.yidatec.mapper.FactoryQueryProvider.class,method = "countFactory")
     int countFactoryList(FactoryVO factory);

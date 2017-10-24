@@ -5,9 +5,13 @@ import com.yidatec.model.Param;
 import com.yidatec.model.Role;
 import com.yidatec.service.ParamService;
 import com.yidatec.util.Constants;
+import com.yidatec.vo.ParamVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,6 +54,24 @@ public class ParamController extends BaseController{
         return map;
     }
 
+    /**
+     *  后台必须验证
+     * @param paramVO
+     * @param result
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/saveParam2")
+    @ResponseBody
+    public Object saveParam2(@Validated @RequestBody ParamVO paramVO,
+                                   BindingResult result)throws Exception{
+        List<FieldError> errors = result.getFieldErrors();
+        if(errors  != null && errors.size() > 0){
+            return errors;
+        }
+
+        return getSuccessJson(null);
+    }
 
     @RequestMapping(value = "/saveParam")
     @ResponseBody

@@ -1,6 +1,5 @@
 package com.yidatec.model;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -11,7 +10,7 @@ import javax.validation.constraints.Pattern;
  */
 public class Contact extends BaseModel{
     @NotBlank(message = "必须输入联系人", groups = { })
-    @Length(min =1, max = 30, message = "联系人必须由1到30个字符组成", groups = { })
+    @Length(max = 30, message = "联系人最多超过30个字符组成", groups = { })
     private String name;
 
     @NotBlank(message = "必须输入联系人电话", groups = { })

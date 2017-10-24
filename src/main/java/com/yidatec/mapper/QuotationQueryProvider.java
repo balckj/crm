@@ -44,6 +44,7 @@ public class QuotationQueryProvider {
         if(!StringUtils.isEmpty(quotationVO.getPriceLevel())){
             sb.append(" AND D.priceLevel=#{priceLevel}");
         }
+        sb.append(" ORDER BY D.modifyTime DESC LIMIT #{start},#{length}");
         return sb.toString();
     }
     public String countQuotationList(final QuotationVO quotationVO)

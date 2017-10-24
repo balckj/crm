@@ -302,11 +302,6 @@
             });
 
             if($("#country").val()=="中国"){
-                validateSelect('province', 'province', 'validateProvince');
-                validateSelect('city', 'city', 'validateCity');
-                validateSelect('region', 'region', 'validateRegion');
-            }
-            if($(this).val()=="中国"){
                 $("#province").attr("disabled",false);
                 $("#city").attr("disabled",false);
                 $("#region").attr("disabled",false);

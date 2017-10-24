@@ -74,7 +74,7 @@ public class WechatCampaignController extends BaseController{
         if(id == null){//新建
             res = new HashMap<String,Object>();
             res.put("res",1);
-            model.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.ACTIVITY_TYPE));
+            res.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.ACTIVITY_TYPE));
             res.put("exhibitioHallList",exhibitionService.selectExhibitionAll());
             res.put("customerList",customerService.selectCustomerAll());
         }else{//编辑
@@ -87,7 +87,7 @@ public class WechatCampaignController extends BaseController{
                 res.put("exhibitioHallList",exhibitionService.selectExhibitionAll());
                 res.put("customerList",customerService.selectCustomerAll());
                 res.put("campaign",campaign);
-                model.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.ACTIVITY_TYPE));
+                res.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.ACTIVITY_TYPE));
             }
         }
         Map<String,String> signure = wechatService.generateJSAPISignature(confProperties.getWeChatHost()+confProperties.getWeChatContextPath()+url);
@@ -158,7 +158,7 @@ public class WechatCampaignController extends BaseController{
             activityService.createActivity(activity);
         } else {//编辑
 
-            activity.setModifierId(getWebUser().getId());
+//            activity.setModifierId(activity.getCreatorId());
             activity.setModifyTime(LocalDateTime.now());
             activityService.updateActivity(activity);
         }

@@ -192,11 +192,12 @@
                 }
             });
         }
-        
+
         var saveBtnda;
         function saveParam(btn) {
             saveBtnda = Ladda.create(btn);
             var params = [];
+            var a = "";
             params.push({id: "22b328ca-f6a5-42cf-86c1-c8ef719a85b6" ,title:"空闲时间供应商",value:$("#vendorAppointment").val() ?$("#vendorAppointment").val().toString():null});
             params.push({id: "5c5cde48-bd14-4006-9381-58c9972c3752" ,title:"设计师",value:$("#designer").val() ?$("#designer").val().toString():null});
             params.push({id: "5551aea7-f6e6-4914-a042-d8bdcef8f342" ,title:"项目经理",value:$("#pm").val() ?$("#pm").val().toString():null});
@@ -204,9 +205,36 @@
             var p = {
                 paramList:params
             }
-            var a = JSON.stringify(p);
+
+            var url = "saveParam";
+
+            var paramList = params;
+            if(paramList.length > 0){
+                var rFlag = false;
+                for (var i = 0;i<paramList.length;i++){
+                    var value = paramList[i].value;
+                    if (value == "" || value == undefined || value == null){
+                        rFlag = true;
+                        break;
+                    }
+                }
+                if(rFlag){
+                    url = "saveParam2";
+                    var p2 = {
+                        "vendorAppointment":$("#vendorAppointment").val() ?$("#vendorAppointment").val().toString():null,
+                        "designer":$("#designer").val() ?$("#designer").val().toString():null,
+                        "pm":$("#pm").val() ?$("#pm").val().toString():null,
+                        "sale":$("#sale").val() ?$("#sale").val().toString():null,
+                    }
+
+                    a = JSON.stringify(p2);
+                }else {
+                    a = JSON.stringify(p);
+                }
+            }
+
             $.ajax({
-                url: 'saveParam',
+                url: url,
                 async: true,
                 type: 'POST',
                 data: a,
@@ -221,17 +249,23 @@
                     saveBtnda.stop();
                 },
                 success: function (data) {
-//                    loadPage("paramList",function(){
-//                        saveBtnda.stop();
-//                    });
+                    if (data.res == undefined) {
+                        saveBtnda.stop();
+                        for (var p in data) {
+                            var tmp = $("#" + data[p].field).parent().next();
 
-                    if (data.res == 0) {
+                            if (tmp.text() == '') {
+                                $("#" + data[p].field + "Form").addClass("has-error")
+                                var tmp = $("#" + data[p].field).parent().next();
+                                tmp.html(data[p].defaultMessage);
+                            }
+                        }
+                    }else if(data.res == 0){
                         swal("操作失败", data.txt, "error");
-                        saveBtnda.stop();
-                    } else {
+                    }else{
                         swal("操作成功!", "您成功修改了角色配置!", "success")
-                        saveBtnda.stop();
                     }
+                    saveBtnda.stop();
                 }
             });
         }

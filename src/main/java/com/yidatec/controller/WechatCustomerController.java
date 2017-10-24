@@ -175,7 +175,7 @@ public class WechatCustomerController extends BaseController{
             customerService.createCustomer(customer);
 
         } else {//编辑
-            customer.setModifierId(getWebUser().getId());
+//            customer.setModifierId(getWebUser().getId());
             customer.setModifyTime(LocalDateTime.now());
             customerService.updateCustomer(customer);
         }

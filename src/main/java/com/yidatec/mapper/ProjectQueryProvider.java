@@ -31,6 +31,7 @@ public class ProjectQueryProvider {
         if(!StringUtils.isEmpty(projectVO.getPmId())){
             sb.append(" AND D.pmId = #{pmId}");
         }
+
         if(!StringUtils.isEmpty(projectVO.getState())){
             sb.append(" AND D.state = #{state}");
         }

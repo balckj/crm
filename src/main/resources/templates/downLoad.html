@@ -196,14 +196,14 @@
         function query(){
             var startTime = $("#startTime").val();
             var endTime = $("#endTime").val();
-//            if(startTime == "" || endTime == ""){
-//                sweetAlert("开始时间和结束时间必须选择");
-//                return ;
-//            }
-//            if(!checkEndTime(startTime,endTime)){
-//                sweetAlert("结束时间必须晚于开始时间！");
-//                return;
-//            }
+            if(startTime == "" || endTime == ""){
+                sweetAlert("开始时间和结束时间必须选择");
+                return ;
+            }
+            if(!checkEndTime(startTime,endTime)){
+                sweetAlert("结束时间必须晚于开始时间！");
+                return;
+            }
 
             $('#acReportForm').attr('action', "/performanceDownLoad");
             $("#acReportForm").submit();
@@ -212,14 +212,14 @@
         function query2(){
             var startTime = $("#startTime2").val();
             var endTime = $("#endTime2").val();
-//            if(startTime == "" || endTime == ""){
-//                sweetAlert("开始时间和结束时间必须选择");
-//                return ;
-//            }
-//            if(!checkEndTime(startTime,endTime)){
-//                sweetAlert("结束时间必须晚于开始时间！");
-//                return;
-//            }
+            if(startTime == "" || endTime == ""){
+                sweetAlert("开始时间和结束时间必须选择");
+                return ;
+            }
+            if(!checkEndTime(startTime,endTime)){
+                sweetAlert("结束时间必须晚于开始时间！");
+                return;
+            }
 
             $('#orReportForm').attr('action', "/orderTrackingDownLoad");
             $("#orReportForm").submit();
@@ -228,14 +228,14 @@
         function query3(){
             var startTime = $("#startTime3").val();
             var endTime = $("#endTime3").val();
-//            if(startTime == "" || endTime == ""){
-//                sweetAlert("开始时间和结束时间必须选择");
-//                return ;
-//            }
-//            if(!checkEndTime(startTime,endTime)){
-//                sweetAlert("结束时间必须晚于开始时间！");
-//                return;
-//            }
+            if(startTime == "" || endTime == ""){
+                sweetAlert("开始时间和结束时间必须选择");
+                return ;
+            }
+            if(!checkEndTime(startTime,endTime)){
+                sweetAlert("结束时间必须晚于开始时间！");
+                return;
+            }
 
             $('#customerForm').attr('action', "/customerDownLoad");
             $("#customerForm").submit();

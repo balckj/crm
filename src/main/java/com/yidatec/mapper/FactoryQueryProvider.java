@@ -16,11 +16,17 @@ public class FactoryQueryProvider {
         if(!StringUtils.isEmpty(factory.getName())){
             sb.append(" AND A.name LIKE CONCAT('%',#{name},'%')");
         }
+        if(!StringUtils.isEmpty(factory.getProvince())){
+            sb.append(" AND A.province LIKE CONCAT('%',#{province},'%')");
+        }
+        if(!StringUtils.isEmpty(factory.getCity())){
+            sb.append(" AND A.city LIKE CONCAT('%',#{city},'%')");
+        }
+        if(!StringUtils.isEmpty(factory.getPlatformLevel())){
+            sb.append(" AND A.platformLevel LIKE CONCAT('%',#{platformLevel},'%')");
+        }
         if(!StringUtils.isEmpty(factory.getDirector())){
             sb.append(" AND A.director LIKE CONCAT('%',#{director},'%')");
-        }
-        if(!StringUtils.isEmpty(factory.getAddress())){
-            sb.append(" AND A.address LIKE CONCAT('%',#{address},'%')");
         }
         if(!StringUtils.isEmpty(factory.getState())){
             sb.append(" AND A.state = #{state}");
@@ -36,6 +42,15 @@ public class FactoryQueryProvider {
 
         if(!StringUtils.isEmpty(factory.getName())){
             sb.append(" AND A.name LIKE CONCAT('%',#{name},'%')");
+        }
+        if(!StringUtils.isEmpty(factory.getProvince())){
+            sb.append(" AND A.province LIKE CONCAT('%',#{province},'%')");
+        }
+        if(!StringUtils.isEmpty(factory.getCity())){
+            sb.append(" AND A.city LIKE CONCAT('%',#{city},'%')");
+        }
+        if(!StringUtils.isEmpty(factory.getPlatformLevel())){
+            sb.append(" AND A.platformLevel LIKE CONCAT('%',#{platformLevel},'%')");
         }
        if(!StringUtils.isEmpty(factory.getDirector())){
         sb.append(" AND A.director LIKE CONCAT('%',#{director},'%')");

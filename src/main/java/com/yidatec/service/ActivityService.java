@@ -2,7 +2,9 @@ package com.yidatec.service;
 
 import com.yidatec.mapper.ActivityMapper;
 import com.yidatec.model.Activity;
+import com.yidatec.model.Customer;
 import com.yidatec.vo.ActivityVO;
+import com.yidatec.vo.CustomerVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -20,7 +22,7 @@ public class ActivityService {
     @Autowired
     ActivityMapper activityMapper;
 
-    public Activity selectActivity(String id){
+    public ActivityVO selectActivity(String id){
         return  activityMapper.selectActivity(id);
     }
     /**
@@ -54,5 +56,6 @@ public class ActivityService {
     public void updateActivity(Activity activity) {
         activityMapper.update(activity);
     }
+
 
 }

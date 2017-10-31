@@ -51,6 +51,29 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="industry" class="control-label">行业</label>
+                        <select name="industry" id="industry" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
+                            <option value="">未选择</option>
+                            <option th:value="${industryList.id}" th:text="${industryList.value}" th:each="industryList:${industryList}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="province" class="control-label">省份</label>
+                        <input type="text"  id="province" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="city" class="control-label">城市</label>
+                        <input type="text"  id="city" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                    </div>
+                </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="address" class="control-label">地址</label>
@@ -63,14 +86,13 @@
                         <select name="state" id="state" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
                             <option value="" selected="selected">不限</option>
                             <option value="1">可用</option>
-                            <option value="2">锁定</option>
                             <option value="3">禁用</option>
                         </select>
                     </div>
                 </div>
 
 
-                <div class="col-sm-2">
+                <div class="col-sm-2" style="float: right">
                     <div class="form-group">
                         <!--<label for="f9" class="control-label"></label>-->
                         <button class="btn btn-primary btn-sm" type="button" style="width: 100%;margin-top: 23px;" onclick="query();">查&nbsp;&nbsp;询</button>
@@ -113,6 +135,9 @@
 
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
+    <script th:src="@{99/js/plugins/area/area_chs.js}"></script>
+    <script th:src="@{99/js/plugins/area/area.js}"></script>
+
     <script th:inline="javascript">
         /*<![CDATA[*/
         var hasEdit = [[${#authorization.url('/customerEidt')}]];
@@ -137,6 +162,9 @@
                         p.name = $("#companyName").val();
                         p.address = $("#address").val();
                         p.state = $("#state").val();
+                        p.province=$("#province").val();
+                        p.city = $("#city").val();
+                        p.industry = $("#industry").val();
                         var a = JSON.stringify(p);
                         return a;
                     }

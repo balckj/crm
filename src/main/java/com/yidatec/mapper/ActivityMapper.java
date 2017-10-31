@@ -17,8 +17,8 @@ public interface ActivityMapper {
      * 载入客户可列表
      * @return
      */
-    @Select("SELECT * FROM T_CAMPAIGN WHERE id = #{id}")
-    Activity selectActivity(String id);
+    @Select("SELECT a.*,b.name as sponsorName FROM T_CAMPAIGN a left join T_CUSTOMER b on a.sponsor = b.id WHERE a.id = #{id}  ")
+    ActivityVO selectActivity(String id);
 
     @Select("SELECT * FROM T_CAMPAIGN")
     List<Activity> activityList();
@@ -38,4 +38,5 @@ public interface ActivityMapper {
             "modifierId=#{modifierId}," +
             "modifyTime=#{modifyTime} WHERE id=#{id}")
     int update(Activity activity);
+
 }

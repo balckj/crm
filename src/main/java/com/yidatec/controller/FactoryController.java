@@ -44,6 +44,7 @@ public class FactoryController extends BaseController{
 
     @RequestMapping("/factoryList")
     public String factoryList(ModelMap model){
+        model.put("levelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL));// 平台等级
         return "factoryList";
     }
 
@@ -52,7 +53,7 @@ public class FactoryController extends BaseController{
         model.put("title",(id == null || id.isEmpty())?"新建工厂":"编辑工厂");
         model.put("factory",factoryService.selectFactory(id));
         model.put("saleList",saleService.selectSaleListALL(new UserVO()));// 推荐人
-        model.put("position",dictionaryService.selectDictionaryListByCodeCommon(Constants.POSITION));// 职位
+        model.put("position",dictionaryService.selectDictionaryListByCodeCommon(Constants.FACTORY_POSITION));// 工厂联系人职位
         model.put("goodAtIndustryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 擅长行业
         model.put("goodAtMaterialList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_MATERIAL));// 擅长材料
         model.put("goodAtAreaList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_AREA)); // 擅长面积

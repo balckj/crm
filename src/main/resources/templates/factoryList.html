@@ -39,7 +39,7 @@
 
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="name" class="control-label">企业名称</label>
+                        <label for="name" class="control-label">工厂名称</label>
                         <input type="text"  id="name" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
@@ -49,16 +49,25 @@
                         <input type="text"  id="director" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
-                <!--<div class="col-sm-2">-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="factoryId" class="control-label">工厂ID</label>-->
-                        <!--<input type="text" placeholder="包含您的输入值的活动地址" id="factoryId" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>-->
-                    <!--</div>-->
-                <!--</div>-->
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="address" class="control-label">地址</label>
-                        <input type="text"  id="address" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="province" class="control-label">省份</label>
+                        <input type="text"  id="province" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="city" class="control-label">城市</label>
+                        <input type="text"  id="city" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="state" class="control-label">平台等级</label>
+                        <select class="form-control " name="platformLevel" id="platformLevel">
+                            <option value="" selected="selected">未选择</option>
+                            <option th:value="${levelList.value}" th:text="${levelList.value}" th:each="levelList:${levelList}"></option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -93,7 +102,7 @@
                                 <!--<th></th>-->
                                 <th>操作</th>
                                 <th>推荐人</th>
-                                <th>企业名称</th>
+                                <th>工厂名称</th>
                                 <th>厂长名称</th>
                                 <!--<th>联系人</th>-->
                                 <!--<th>联系人职位</th>-->
@@ -163,8 +172,10 @@
                         p.start = d.start;
                         p.name=$("#name").val();
                         p.director=$("#director").val();
-                        p.address=$("#address").val();
                         p.state=$("#state").val();
+                        p.province = $("#province").val();
+                        p.city = $("#city").val();
+                        p.platformLevel = $("#platformLevel").val();
                         var a = JSON.stringify(p);
                         return a;
                     }

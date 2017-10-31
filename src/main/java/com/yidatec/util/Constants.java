@@ -151,6 +151,11 @@ public interface Constants {
     public static final String POSITION = "position";
 
     /**
+     * 工厂联系人职位
+     */
+    public static final String FACTORY_POSITION = "factory_position";
+
+    /**
      * 客户来源
      */
     public static final String SOURCE = "customerSource";

@@ -26,6 +26,7 @@ import java.util.UUID;
 
 /**
  * Created by Administrator on 2017/7/21.
+ * @author xingfei
  */
 @Controller
 public class ActivityController extends BaseController{
@@ -52,8 +53,8 @@ public class ActivityController extends BaseController{
         model.put("title",(id == null || id.isEmpty())?"新建活动":"编辑活动");
         model.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.ACTIVITY_TYPE));
         model.put("activity",activityService.selectActivity(id));
-        model.put("exhibitioHallList",exhibitionService.selectExhibitionAll());// 展馆列表
-        model.put("customerList",customerService.selectCustomerAll());// 主办方列表
+        model.put("exhibitioHallList",exhibitionService.selectExhibitionAll());/*展馆列表*/
+        model.put("customerList",customerService.selectCustomerAll());/*主办方列表*/
         return "activityEdit";
     }
 
@@ -65,8 +66,7 @@ public class ActivityController extends BaseController{
         if(errors  != null && errors.size() > 0){
             return errors;
         }
-
-        if(activity.getId() == null || activity.getId().trim().length() <= 0)//新建
+        if(activity.getId() == null || activity.getId().trim().length() <= 0)/*新建*/
         {
             activity.setId(UUID.randomUUID().toString().toLowerCase());
             activity.setCreatorId(getWebUser().getId());
@@ -74,8 +74,7 @@ public class ActivityController extends BaseController{
             activity.setModifierId(activity.getCreatorId());
             activity.setModifyTime(activity.getModifyTime());
             activityService.createActivity(activity);
-        } else {//编辑
-
+        } else {/*编辑*/
             activity.setModifierId(getWebUser().getId());
             activity.setModifyTime(LocalDateTime.now());
             activityService.updateActivity(activity);
@@ -86,13 +85,14 @@ public class ActivityController extends BaseController{
     @RequestMapping(value = "/findActivity")
     @ResponseBody
     public Object findActivity(@RequestBody ActivityVO activityVO)throws Exception{
-        List<Activity> ActivityEntityList = activityService.selectActivityList(activityVO);
+        List<Activity> activityEntityList = activityService.selectActivityList(activityVO);
         int count = activityService.countActivityList(activityVO);
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<String, Object>(4);
         map.put("draw", activityVO.getDraw());
         map.put("recordsTotal", count);
         map.put("recordsFiltered", count);
-        map.put("data", ActivityEntityList);
+        map.put("data", activityEntityList);
         return map;
     }
+
 }

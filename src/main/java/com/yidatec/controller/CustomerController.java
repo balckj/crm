@@ -37,6 +37,7 @@ public class CustomerController extends BaseController{
 
     @RequestMapping("/customerList")
     public String customerList(ModelMap model){
+        model.put("industryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 所属行业
         model.put("nature",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));
         return "customerList";
     }

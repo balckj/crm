@@ -37,7 +37,7 @@ public class ProjectQueryProvider {
         }
         //
         if(!StringUtils.isEmpty(projectVO.getSearch())){
-            sb.append(" AND D.name LIKE CONCAT('%',#{search},'%') OR D.code LIKE CONCAT('%',#{search},'%')");
+            sb.append(" AND D.name LIKE CONCAT('%',#{search},'%') OR D.code LIKE CONCAT('%',#{search},'%') OR c.name LIKE CONCAT('%',#{search},'%')");
         }
         if(!projectVO.isAdmin()){
             sb.append(" AND (");
@@ -83,6 +83,9 @@ public class ProjectQueryProvider {
         }
         if(!StringUtils.isEmpty(projectVO.getState())){
             sb.append(" AND D.state = #{state}");
+        }
+        if(!StringUtils.isEmpty(projectVO.getSearch())){
+            sb.append(" AND D.name LIKE CONCAT('%',#{search},'%') OR D.code LIKE CONCAT('%',#{search},'%') OR c.name LIKE CONCAT('%',#{search},'%')");
         }
         return sb.toString();
     }

@@ -15,6 +15,12 @@ public class ActivityQueryProvider {
         if(!StringUtils.isEmpty(activityVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
         }
+        if(!StringUtils.isEmpty(activityVO.getProvince())){
+            sb.append(" AND D.province LIKE CONCAT('%',#{province},'%')");
+        }
+        if(!StringUtils.isEmpty(activityVO.getCity())){
+            sb.append(" AND D.city LIKE CONCAT('%',#{city},'%')");
+        }
         if(!StringUtils.isEmpty(activityVO.getType())){
             sb.append(" AND D.type = #{type}");
         }
@@ -41,6 +47,12 @@ public class ActivityQueryProvider {
 
         if(!StringUtils.isEmpty(activityVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
+        }
+        if(!StringUtils.isEmpty(activityVO.getProvince())){
+            sb.append(" AND D.province LIKE CONCAT('%',#{province},'%')");
+        }
+        if(!StringUtils.isEmpty(activityVO.getCity())){
+            sb.append(" AND D.city LIKE CONCAT('%',#{city},'%')");
         }
         if(!StringUtils.isEmpty(activityVO.getType())){
             sb.append(" AND D.type = #{type}");

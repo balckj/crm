@@ -1,13 +1,13 @@
 package com.yidatec.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.yidatec.util.CustomLocalDateTime2Serializer;
+import com.yidatec.util.CustomLocalDateSerializer;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -24,13 +24,13 @@ public class Activity extends BaseModel{
     private String type;
 
     @NotNull(message = "必须输入开始时间", groups = { })
-    @JsonSerialize(using = CustomLocalDateTime2Serializer.class)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime startDate;
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
     @NotNull(message = "必须输入结束时间", groups = { })
-    @JsonSerialize(using = CustomLocalDateTime2Serializer.class)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime endDate;
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate endDate;
     @NotBlank(message = "必须选择国家", groups = { })
     private String country;
 //    @NotBlank(message = "必须选择省份", groups = { })
@@ -79,19 +79,19 @@ public class Activity extends BaseModel{
         this.name = name;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -161,12 +161,12 @@ public class Activity extends BaseModel{
 
     public String getStartDateStr(){
         if(startDate == null)return "";
-        return startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public String getEndDateStr(){
         if(endDate == null)return "";
-        return endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public String getMediaIds() {

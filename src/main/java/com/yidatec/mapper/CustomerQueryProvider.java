@@ -21,6 +21,15 @@ public class CustomerQueryProvider {
         if(!StringUtils.isEmpty(customerVO.getAddress())){
             sb.append(" AND D.address LIKE CONCAT('%',#{address},'%')");
         }
+        if(!StringUtils.isEmpty(customerVO.getProvince())){
+            sb.append(" AND D.province LIKE CONCAT('%',#{province},'%')");
+        }
+        if(!StringUtils.isEmpty(customerVO.getCity())){
+            sb.append(" AND D.city LIKE CONCAT('%',#{city},'%')");
+        }
+        if(!StringUtils.isEmpty(customerVO.getIndustry())){
+            sb.append(" AND D.industry = #{industry}");
+        }
         if(!StringUtils.isEmpty(customerVO.getCreatorId())){
             sb.append(" AND D.creatorId = #{creatorId}");
         }
@@ -43,6 +52,15 @@ public class CustomerQueryProvider {
         }
         if(!StringUtils.isEmpty(customerVO.getAddress())){
             sb.append(" AND D.address LIKE CONCAT('%',#{address},'%')");
+        }
+        if(!StringUtils.isEmpty(customerVO.getProvince())){
+            sb.append(" AND D.province LIKE CONCAT('%',#{province},'%')");
+        }
+        if(!StringUtils.isEmpty(customerVO.getCity())){
+            sb.append(" AND D.city LIKE CONCAT('%',#{city},'%')");
+        }
+        if(!StringUtils.isEmpty(customerVO.getIndustry())){
+            sb.append(" AND D.industry = #{industry}");
         }
         if(!StringUtils.isEmpty(customerVO.getCreatorId())){
             sb.append(" AND D.creatorId = #{creatorId}");

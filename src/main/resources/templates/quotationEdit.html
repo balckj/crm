@@ -52,7 +52,6 @@
                                         <option value="3">高价</option>
                                     </select>
                                 </div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
                             <div class="hr-line-dashed"></div>
@@ -60,8 +59,11 @@
                                 <label class="col-sm-2 control-label">产品信息<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-8 jqGrid_wrapper">
-                                    <input type="BUTTON" id="add" value="add" />
+                                    <!--<input type="BUTTON" id="add" value="add" />-->
                                     <table id="table"></table>
+                                </div>
+                                <div class="col-sm-1" >
+                                    <button type="button" id="add"  class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -243,10 +245,10 @@
                         last: "最后一页"
                     },
                     "sSearch": "搜索",
-                    zeroRecords: "没有",//table tbody内容为空时，tbody的内容。
+                    zeroRecords: "没有项目",//table tbody内容为空时，tbody的内容。
                     //下面三者构成了总体的左下角的内容。
-                    info: "当前显示第_START_到第_END_个报价单 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
-                    infoEmpty: "0个报价单",//筛选为空时左下角的显示。
+                    info: "当前显示第_START_到第_END_个项目 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    infoEmpty: "0个项目",//筛选为空时左下角的显示。
                     infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
                 }
                 , "lengthChange": true
@@ -322,25 +324,22 @@
                 colNames : ['操作','产品ID','产品名称', '产品分类', '单位','数量','单价', '描述' ],
                 colModel : [
                     {name:'act',index:'act',width:50,search:false,sortable:false,editable:false},
-//                    {name : 'id',index : 'id',width : 60,sorttype : "int",hidden:true},
                     {name : 'produceId',index : 'produceId',width : 60,sorttype : "int",hidden:true},
-                    {name : 'name',index : 'name',width : 100,align : "right",editable : false,
-                        editrules: {edithidden:true,required:true,number:true,minValue:1},
+                    {name : 'name',index : 'name',width : 100,align : "center",editable : false,
+                        editrules: {edithidden:true,required:true},
                         formatter:function(cellvalue, options, rowObject){
                             return '<a href="javascript:void(0)" onclick="campaignClick('+options.rowId+')">'+(cellvalue==""?"请选择产品名称":cellvalue)+'</a>';
                          }
                     },
-                    {name : 'category',index : 'category',align : "right",width : 100,  edittype:'text',},
-                    {name : 'unit',index : 'unit',width : 80,align : "right",editable : false},
-                    {name : 'count',index : 'count',width : 80,align : "right",editable : true,
+                    {name : 'category',index : 'category',align : "center",width : 100,  edittype:'text',},
+                    {name : 'unit',index : 'unit',width : 80,align : "center",editable : false},
+                    {name : 'count',index : 'count',width : 80,align : "center",editable : true,
                         editrules: {edithidden:true,required:true,number:true,minValue:1}
                     },
-                    {name : 'unitPrice',index : 'unitPrice',width :150,align : "right",editable : false},
-                    {name : 'workContent',index : 'workContent',width : 80,align : "right",editable : true,
-//                        editrules:{custom:true, custom_func:mypricecheck}
+                    {name : 'unitPrice',index : 'unitPrice',width :150,align : "center",editable : false},
+                    {name : 'workContent',index : 'workContent',width : 80,align : "center",editable : true,
                         editrules: {edithidden:true,required:true}
                     }
-//                    {name : 'error',index : 'error',width : 180,align : "right",editable : false,hidden:true}
                 ],
                 multiselect : false,
                 onSelectRow : function(id) {
@@ -360,7 +359,7 @@
                         de = "<input style='height:22px;width:40px;' type='button' value='删除' onclick=\"delRow("+cl+")\"/>";
 //                        ce = "<input style='height:22px;width:40px;' type='button' value='保存' onclick=\"saveRow("+cl+")\"/>";
                         $("#table").jqGrid('setRowData',ids[i],{act:de});
-                    }
+                    };
                 },
 //                caption : "产品信息",
                 autowidth:true,
@@ -414,6 +413,7 @@
         $("#add").click(function() {
             addRow();
         });
+
         function addRow() {
             var selectedId = $("#table").jqGrid("getGridParam", "selrow");
             var ids = $("#table").jqGrid('getDataIDs');
@@ -439,6 +439,7 @@
 //            $("#table").setGridParam({cellEdit:false});
             //设置grid单元格可编辑
             $('#table').jqGrid('editRow', newrowid, true);
+
         }
         function delRow(rowid){
             $('#table').jqGrid('delRowData',rowid);
@@ -507,7 +508,7 @@
                     "sSearch": "搜索",
                     zeroRecords: "没有产品",//table tbody内容为空时，tbody的内容。
                     //下面三者构成了总体的左下角的内容。
-                    info: "当前显示第_START_到第_END_个报价单 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    info: "当前显示第_START_到第_END_个产品 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
                     infoEmpty: "0个产品",//筛选为空时左下角的显示。
                     infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
                 }
@@ -567,30 +568,35 @@
             var rowIds=$("#table").jqGrid('getDataIDs');
             var paraArr = [];
             for(var i=0,j = rowIds.length - i;i < j; i++){
-                $("#table").jqGrid('saveRow',rowIds[i]);
-                var rowData = $("#table").jqGrid('getRowData',rowIds[i]);
+                var aaa = $("#table").jqGrid('saveRow',rowIds[i]);
+                if (aaa==true){
+                    var rowData = $("#table").jqGrid('getRowData',rowIds[i]);
 
-                if(rowData.category==''||rowData.count==''||rowData.workContent==''){
-                    $("#"+rowIds[i]+ " td").css("background-color","red");
+                    if(rowData.category==''||rowData.count==''||rowData.workContent==''){
+                        $("#"+rowIds[i]+ " td").css("background-color","red");
+                        return;
+                    }else{
+                        $("#"+rowIds[i]+ " td").css("background-color","white");
+                    }
+                    var price = rowData.unitPrice.split("/");
+                    if($("#priceLevel").val()==1){
+                        price=price[0];
+                    }else if($("#priceLevel").val()==2){
+                        price=price[1]
+                    }else if($("#priceLevel").val()==3){
+                        price=price[2]
+                    }
+                    var param = {
+                        id: rowData.produceId,
+                        unitPrice:price,
+                        count:rowData.count,
+                        workContent:rowData.workContent
+                    };
+                    paraArr.push(param);
+                }else {
                     return;
-                }else{
-                    $("#"+rowIds[i]+ " td").css("background-color","white");
                 }
-                var price = rowData.unitPrice.split("/");
-                if($("#priceLevel").val()==1){
-                    price=price[0];
-                }else if($("#priceLevel").val()==2){
-                    price=price[1]
-                }else if($("#priceLevel").val()==3){
-                    price=price[2]
-                }
-                var param = {
-                    id: rowData.produceId,
-                    unitPrice:price,
-                    count:rowData.count,
-                    workContent:rowData.workContent
-                };
-                paraArr.push(param);
+
             }
             var p = {
                 id: $("#id").val(),

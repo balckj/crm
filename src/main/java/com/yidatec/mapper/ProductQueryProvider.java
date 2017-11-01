@@ -1,6 +1,5 @@
 package com.yidatec.mapper;
 
-import com.yidatec.model.Product;
 import com.yidatec.vo.ProductVO;
 import org.springframework.util.StringUtils;
 
@@ -27,9 +26,11 @@ public class ProductQueryProvider {
         if(!StringUtils.isEmpty(product.getName())){
             sb.append(" AND C.name LIKE CONCAT('%',#{name},'%')");
         }
-
         if(!StringUtils.isEmpty(product.getUnit())){
             sb.append(" AND D1.unit = #{unit}");
+        }
+        if(!StringUtils.isEmpty(product.getSearch())){
+            sb.append(" AND D.category LIKE CONCAT('%',#{search},'%') OR C.name LIKE CONCAT('%',#{search},'%') OR D1.unit LIKE CONCAT('%',#{search},'%')");
         }
 
         sb.append(" ORDER BY C.modifyTime DESC");
@@ -58,9 +59,9 @@ public class ProductQueryProvider {
         if(!StringUtils.isEmpty(product.getUnit())){
             sb.append(" AND D1.unit = #{unit}");
         }
-
-        sb.append(" ORDER BY C.modifyTime DESC");
-        sb.append(" LIMIT #{start},#{length}");
+        if(!StringUtils.isEmpty(product.getSearch())){
+            sb.append(" AND D.category LIKE CONCAT('%',#{search},'%') OR C.name LIKE CONCAT('%',#{search},'%') OR D1.unit LIKE CONCAT('%',#{search},'%')");
+        }
         return sb.toString();
     }
 

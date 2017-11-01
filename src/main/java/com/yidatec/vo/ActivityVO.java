@@ -9,6 +9,24 @@ public class ActivityVO extends Activity{
     private Integer draw;
     private Integer length;
     private Integer start;
+    private String search;
+    private String sponsorName;
+
+    public String getSponsorName() {
+        return sponsorName;
+    }
+
+    public void setSponsorName(String sponsorName) {
+        this.sponsorName = sponsorName;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
 
     public Integer getDraw() {
         return draw;

@@ -1,12 +1,6 @@
 package com.yidatec.vo;
 
-import com.yidatec.model.BaseModel;
 import com.yidatec.model.Product;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
-
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
 
 /**
  * 产品实体类
@@ -18,6 +12,7 @@ public class ProductVO extends Product {
 	private Integer draw;
 	private Integer length;
 	private Integer start;
+	private String search;
 
 	public Integer getDraw() {
 		return draw;
@@ -41,5 +36,13 @@ public class ProductVO extends Product {
 
 	public void setStart(Integer start) {
 		this.start = start;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
 	}
 }

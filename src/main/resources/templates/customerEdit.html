@@ -168,7 +168,7 @@
                             <div class="hr-line-dashed"></div>
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">联系人<span
+                                <label class="col-sm-2 control-label" id="contactForm">联系人<span
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-10" id="contactList">
                                     <div class="row" th:if="${#lists.isEmpty(customer.contactList)}">
@@ -298,12 +298,6 @@
                                         <input type="radio" name="state" id="s1" value="1" th:checked="${customer.state}?${customer.state eq 1}:'true'"/>
                                         <label for="s1">
                                             可用
-                                        </label>
-                                    </div>
-                                    <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s2" value="2" th:checked="${customer.state}?${customer.state eq 2}"/>
-                                        <label for="s2">
-                                            锁定
                                         </label>
                                     </div>
                                     <div class="radio radio-inline radio-info">
@@ -804,9 +798,14 @@
                             var tmp = $("#" + data[p].field).parent().next();
 
                             if (tmp.text() == '') {
-                                $("#" + data[p].field + "Form").addClass("has-error")
+//                                if(tempField.startsWith("name")){
+//                                    $("#contactForm").css("color","#ed5565");
+//                                }
+                                $("#" + data[p].field+ "Form").addClass("has-error")
                                 var tmp = $("#" + data[p].field).parent().next();
                                 tmp.html(data[p].defaultMessage);
+
+
                             }
                         }
                     }else{

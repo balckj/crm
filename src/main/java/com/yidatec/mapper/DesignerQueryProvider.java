@@ -11,7 +11,7 @@ public class DesignerQueryProvider {
     public String selectUserByRoleDesigner(final UserVO userVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT U.id,U.name,DD.referrer,U.mobilePhone ,U.country ,U.city,U.goodAtIndustry,U.englishAbility,U.goodAtArea,U.state,U.createTime,U.modifyTime  FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId " +
+        sb.append("SELECT U.id,U.name,DD.referrer,U.mobilePhone ,U.designerCategory ,U.city ,U.region ,U.platformLevel ,U.country ,U.city,U.goodAtIndustry,U.englishAbility,U.goodAtArea,U.state,U.createTime,U.modifyTime  FROM T_USER U LEFT JOIN T_USER_ROLE UR ON U.id = UR.userId " +
                 "LEFT JOIN (SELECT A.id,B.name as referrer FROM T_USER AS  A INNER JOIN T_USER as B ON A.referrer = B.id) as DD ON DD.id = U.id WHERE 1=1 ");
 
         sb.append(" AND UR.roleId in (");
@@ -35,6 +35,18 @@ public class DesignerQueryProvider {
         }
         if(!StringUtils.isEmpty(userVO.getMobilePhone())){
             sb.append(" AND U.mobilePhone = #{mobilePhone}");
+        }
+        if(!StringUtils.isEmpty(userVO.getCity())){
+            sb.append(" AND U.city LIKE CONCAT('%',#{city},'%')");
+        }
+        if(!StringUtils.isEmpty(userVO.getRegion())){
+            sb.append(" AND U.region LIKE CONCAT('%',#{region},'%')");
+        }
+        if(!StringUtils.isEmpty(userVO.getPlatformLevel())){
+            sb.append(" and U.platformLevel =  #{platformLevel}");
+        }
+        if(!StringUtils.isEmpty(userVO.getDesignerCategory())){
+            sb.append(" and U.designerCategory =  #{designerCategory}");
         }
         if(!StringUtils.isEmpty(userVO.getState())){
             sb.append(" and U.state =  #{state}");
@@ -72,6 +84,18 @@ public class DesignerQueryProvider {
             sb.append(" AND U.mobilePhone = #{mobilePhone}");
         }
 
+        if(!StringUtils.isEmpty(userVO.getCity())){
+            sb.append(" AND U.city LIKE CONCAT('%',#{city},'%')");
+        }
+        if(!StringUtils.isEmpty(userVO.getRegion())){
+            sb.append(" AND U.region LIKE CONCAT('%',#{region},'%')");
+        }
+        if(!StringUtils.isEmpty(userVO.getPlatformLevel())){
+            sb.append(" and U.platformLevel =  #{platformLevel}");
+        }
+        if(!StringUtils.isEmpty(userVO.getDesignerCategory())){
+            sb.append(" and U.designerCategory =  #{designerCategory}");
+        }
         if(!StringUtils.isEmpty(userVO.getState())){
             sb.append(" and U.state =  #{state}");
         }

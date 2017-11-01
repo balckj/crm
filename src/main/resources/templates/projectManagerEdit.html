@@ -44,7 +44,7 @@
                             <input type="hidden" name="selectProvinceValue" id="selectProvinceValue" th:value="${pm}?${pm.province}"/>
                             <input type="hidden" name="selectCityValue" id="selectCityValue" th:value="${pm}?${pm.city}"/>
                             <input type="hidden" name="selectRegionValue" id="selectRegionValue" th:value="${pm}?${pm.region}"/>
-
+                            <input type="hidden" name="selectPlatformLevelValue" id="selectPlatformLevelValue" th:value="${pm}?${pm.platformLevel}"/>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="referrerForm">
                                 <label class="col-sm-2 control-label">推荐人<span
@@ -79,14 +79,6 @@
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="mobilePhone" name="mobilePhone" type="text" oninput="if(value.length>11)value=value.slice(0,11)"
                                                              class="form-control" maxlength="11" th:value="${pm}?${pm.mobilePhone}"/></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
-
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="passwordForm"><label class="col-sm-2 control-label">密码<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="password" name="password" type="text"
-                                                             class="form-control" maxlength="12" th:value="${pm}?${pm.password}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
@@ -178,6 +170,19 @@
                             </div>
 
                             <div class="hr-line-dashed"></div>
+                            <div class="form-group" id="platformLevelForm">
+                                <label class="col-sm-2 control-label">平台级别<span
+                                        style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <select class="form-control " name="platformLevel" id="platformLevel">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option th:value="${platformLevel.id}" th:text="${platformLevel.value}" th:each="platformLevel:${platformLevelList}"></option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
                             <div class="form-group" id="previousForm">
                                 <label class="col-sm-2 control-label">最近上家公司<span
                                         style="color:#ed5565;">*</span></label>
@@ -224,12 +229,6 @@
                                         <input type="radio" name="state" id="s1" value="1" th:checked="${pm}?${pm.state eq 1}:'true'"/>
                                         <label for="s1">
                                             可用
-                                        </label>
-                                    </div>
-                                    <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s2" value="2" th:checked="${pm}?${pm.state eq 2}"/>
-                                        <label for="s2">
-                                            锁定
                                         </label>
                                     </div>
                                     <div class="radio radio-inline radio-info">
@@ -384,6 +383,15 @@
                 }
             });
 
+            $("#platformLevel option").each(function(){
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if($(this).val() == $("#selectPlatformLevelValue").val()){
+                    $(this).attr("selected",true);
+                }
+            });
+
             $("#englishAbility option").each(function(){
                 if($(this).val() == ""){
                     $(this).attr("selected",false);
@@ -424,7 +432,6 @@
         validateSelect('referrer', 'referrer', 'validateReferrer');
         validate('name', 'name', 'validateUserName');
         validate2('mobilePhone', 'mobile', {isEdit: false}, 'validateMobile');
-        validate('password', 'password', 'validatePassword');
         validate('email', 'email', 'validateEmail');
 
         validateSelect('englishAbility', 'englishAbility', 'validateEnglishAbility');
@@ -436,6 +443,8 @@
         validateMultipleSelect('goodAtIndustry', 'goodAtIndustry', 'validateGoodAtIndustry');
         validateSelect('goodAtArea', 'goodAtArea', 'validateGoodAtArea');
 
+        validateSelect('platformLevel', 'platformLevel', 'validatePlatformLevel');
+
         var saveBtnda;
         function savePM(btn) {
             saveBtnda = Ladda.create(btn);
@@ -445,7 +454,6 @@
                 name: $("#name").val().trim(),
                 nameEN: $("#nameEN").val().trim(),
                 mobilePhone: $("#mobilePhone").val().trim(),
-                password: $("#password").val(),
                 wechat: $("#wechat").val().trim(),
                 email: $("#email").val().trim(),
                 englishAbility: $("#englishAbility").val().trim(),
@@ -460,7 +468,7 @@
                 experience: $("#experience").val().trim(),
                 goodAtIndustry: $("#goodAtIndustry").val().toString().trim(),
                 goodAtArea: $("#goodAtArea").val().trim(),
-
+                platformLevel: $("#platformLevel").val().trim(),
                 state: $("input[name='state']:checked").val()
             }
             var a = JSON.stringify(p);

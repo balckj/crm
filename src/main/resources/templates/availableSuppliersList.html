@@ -49,12 +49,21 @@
                         <input type="text"  id="name" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
-                <!--<div class="col-sm-2">-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="position" class="control-label">地理位置</label>-->
-                        <!--<input type="text" placeholder="包含您的输入值的地理位置" id="position" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>-->
-                    <!--</div>-->
-                <!--</div>-->
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="city" class="control-label">城市</label>
+                        <input type="text"  id="city" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label  for="platformLevel" class="control-label">供应商级别</label>
+                        <select class="form-control input-sm" name="platformLevel" id="platformLevel" onchange="query();">
+                            <option value="" selected="selected">未选择</option>
+                            <option th:value="${platformLevel.id}" th:text="${platformLevel.value}" th:each="platformLevel:${platformLevelList}"></option>
+                        </select>
+                    </div>
+                </div>
                 <!--<div class="col-sm-2">-->
                     <!--<div class="form-group">-->
                         <!--<label for="level" class="control-label">供应商级别</label>-->
@@ -164,6 +173,8 @@
                         p.start = d.start;
 
                         p.name = $('#name').val();
+                        p.city = $('#city').val();
+                        p.platformLevel = $('#platformLevel').val();
                         p.startTime = $('#startTime').val();
                         p.endTime = $('#endTime').val();
                         var a = JSON.stringify(p);

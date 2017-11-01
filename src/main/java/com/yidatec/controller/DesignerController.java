@@ -57,6 +57,8 @@ public class DesignerController extends BaseController{
 
     @RequestMapping("/designerList")
     public String designerList(ModelMap model){
+        model.put("platformLevelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL)); // 平台等级
+        model.put("designerCategoryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.DESIGNER_CATEGORY)); // 设计师分类
         return "designerList";
     }
 
@@ -123,7 +125,14 @@ public class DesignerController extends BaseController{
                 if(dictionaryArea != null){
                     u.setGoodAtArea(dictionaryEn.getValue());// 擅长面积
                 }
-
+                Dictionary dictionaryDesignerCategory = dictionaryService.selectDictionary(u.getDesignerCategory());
+                if(dictionaryDesignerCategory != null){
+                    u.setDesignerCategory(dictionaryDesignerCategory.getValue());// 擅长设计类型
+                }
+                Dictionary dictionaryPLeve = dictionaryService.selectDictionary(u.getPlatformLevel());
+                if(dictionaryPLeve != null){
+                    u.setPlatformLevel(dictionaryPLeve.getValue());// 平台级别
+                }
                 String params = u.getGoodAtIndustry();
                 if (!StringUtils.isEmpty(params)){
                     String[] paramsList = params.split(",");

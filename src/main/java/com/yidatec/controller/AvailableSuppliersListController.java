@@ -45,6 +45,7 @@ public class AvailableSuppliersListController extends BaseController{
 
     @RequestMapping("/availableSuppliersList")
     public String availableSuppliersList(ModelMap model){
+        model.put("platformLevelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL)); // 平台等级
         return "availableSuppliersList";
     }
 

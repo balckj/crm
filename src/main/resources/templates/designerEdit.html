@@ -92,7 +92,7 @@
 
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="designerCategoryForm">
-                                <label class="col-sm-2 control-label">设计分类</label>
+                                <label class="col-sm-2 control-label">设计类型</label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="designerCategory" id="designerCategory">
                                         <option value="" selected="selected">未选择</option>
@@ -108,14 +108,6 @@
                                         style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4"><input id="mobilePhone" name="mobilePhone" type="text" oninput="if(value.length>11)value=value.slice(0,11)"
                                                              class="form-control" maxlength="11" th:value="${designer}?${designer.mobilePhone}"/></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
-
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="passwordForm"><label class="col-sm-2 control-label">密码<span
-                                    style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="password" name="password" type="text"
-                                                             class="form-control" maxlength="12" th:value="${designer}?${designer.password}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
@@ -400,12 +392,12 @@
                                             可用
                                         </label>
                                     </div>
-                                    <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s2" value="2" th:checked="${designer}?${designer.state eq 2}"/>
-                                        <label for="s2">
-                                            锁定
-                                        </label>
-                                    </div>
+                                    <!--<div class="radio radio-inline radio-info">-->
+                                        <!--<input type="radio" name="state" id="s2" value="2" th:checked="${designer}?${designer.state eq 2}"/>-->
+                                        <!--<label for="s2">-->
+                                            <!--锁定-->
+                                        <!--</label>-->
+                                    <!--</div>-->
                                     <div class="radio radio-inline radio-info">
                                         <input type="radio" name="state" id="s3" value="3" th:checked="${designer}?${designer.state eq 3}"/>
                                         <label for="s3">
@@ -774,7 +766,6 @@
         validateSelect('referrer', 'referrer', 'validateReferrer');
         validate('name', 'name', 'validateUserName');
         validate2('mobilePhone', 'mobile', {isEdit: false}, 'validateMobile');
-        validate('password', 'password', 'validatePassword');
         validate('email', 'email', 'validateEmail');
 
         validateSelect('englishAbility', 'englishAbility', 'validateEnglishAbility');
@@ -813,7 +804,6 @@
                 nameEN: $("#nameEN").val().trim(),
                 designerCategory: $("#designerCategory").val().trim(),
                 mobilePhone: $("#mobilePhone").val().trim(),
-                password: $("#password").val(),
                 wechat: $("#wechat").val().trim(),
                 email: $("#email").val().trim(),
                 englishAbility: $("#englishAbility").val().trim(),

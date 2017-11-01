@@ -40,7 +40,7 @@ public class User extends BaseModel implements UserDetails {
     @Email(regexp="^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",message="邮箱格式不正确", groups = {UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class ,UserValidate.class })
     private String email;
     private String openId;
-    @NotBlank(message = "必须输入密码", groups = {UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class ,UserValidate.class,UserValidateBind.class })
+    @NotBlank(message = "必须输入密码", groups = {UserValidateSpectator.class ,UserValidate.class,UserValidateBind.class })
     @Pattern(regexp="(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{5,10}",message="密码必须是5~10位数字和字母的组合", groups = { UserValidatePM.class,UserValidateDesigner.class,UserValidateSale.class,UserValidateSpectator.class ,UserValidate.class})
     private String password;
 

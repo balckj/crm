@@ -4,6 +4,7 @@
 
 <div th:fragment="audienceList">
     <link th:href="@{99/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
+    <link th:href="@{99/css/plugins/jasny/jasny-bootstrap.min.css}" rel="stylesheet"/>
     <style type="text/css">
         #audiencetable_length  select {
             padding-top: 3px;
@@ -40,6 +41,9 @@
                         <button class="btn btn-primary btn-sm" type="button" style="width: 100%;margin-top: 23px;" onclick="query();">查&nbsp;&nbsp;询</button>
                     </div>
                 </div>
+                <form method="POST" class="form-horizontal form-inline" id='acdienceEorrFileForm' hidden="hidden">
+                    <input type="hidden" id="errorFileName" name="errorFileName" />
+                </form>
             </div>
         </div>
         <div class="row">
@@ -54,11 +58,8 @@
                                 <th>电话</th>
                                 <th>邮件</th>
                                 <th>所在国家</th>
-                                <!--<th>所在省</th>-->
                                 <th>所在城市</th>
-                                <!--<th>所在区域</th>-->
-                                <!--<th>兴趣爱好</th>-->
-                                <th>参加的活动</th>
+                                <th>参加的市场活动</th>
                                 <th>创建时间</th>
                                 <th>修改时间</th>
                             </tr>
@@ -72,11 +73,15 @@
     </div>
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
+
+    <script th:src="@{99/js/plugins/jasny/jasny-bootstrap.min.js}"></script>
+    <!-- dropzone -->
+    <script th:src="@{99/js/plugins/dropzone/dropzone.js}"></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
         var hasEdit = [[${#authorization.url('/audienceEdit')}]];
         var hasCreate = [[${#authorization.url('/audienceCreate')}]];
-
+        var hasUpload = [[${#authorization.url('/audienceUplaod')}]];
         var audiencetable;
         function audiencetableLoad() {
             audiencetable = $('#audiencetable').DataTable({
@@ -167,10 +172,86 @@
             // 提示栏初始化
             audiencetableLoad();
             var v ='';
-            if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"audienceEdit \");'>新&nbsp;&nbsp;建</button>"
+            if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"audienceEdit \");'>新&nbsp;&nbsp;建</button>";
             $("#audiencetable_wrapper div").children().eq(0).append(v);
 
+            var templeteDownload = "";
+            templeteDownload = "<form  method= \"post\" enctype =\"multipart/form-data\" id= \"templeteDownloadForm\"" +
+                "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='audienceTempleteDownload();'>模板下载</button>" +
+                "</form>";
+           if(hasUpload) $("#audiencetable_wrapper div").children().eq(0).append(templeteDownload);
+
+            var fileBtn = '';
+            fileBtn = "<form  method= \"post\" enctype =\"multipart/form-data\" id= \"uploadForm\">" +
+                "<div class=\"fileinput fileinput-new\" data-provides=\"fileinput\">\n" +
+                "    <span class=\"btn btn-default btn-file\"><span class=\"fileinput-new\">选择文件</span>\n" +
+                "    <span class=\"fileinput-exists\">变更</span><input type=\"file\" id='files' name='files'/></span>\n" +
+                "    <span class=\"fileinput-filename\"></span>\n" +
+                "    <a href=\"#\" class=\"close fileinput-exists\" data-dismiss=\"fileinput\" style=\"float: none\">×</a>\n" +
+                "</div>";
+
+            fileBtn += "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='fileUpload(this);'>上&nbsp;&nbsp;传</button>"
+             +"</form>";
+            if(hasUpload) $("#audiencetable_wrapper div").children().eq(1).append(fileBtn);
         });
+
+        function audienceTempleteDownload() {
+            $('#templeteDownloadForm').attr('action', "/audienceTempleteDownload");
+            $("#templeteDownloadForm").submit();
+        }
+
+        var saveBtnda;
+        function fileUpload(btn) {
+            saveBtnda = Ladda.create(btn);
+            var formData = new FormData($("#uploadForm")[0]);
+            var files = $("#files").val();
+            if(!files){
+                toastr["warning"]('请选择文件');
+                return;
+            }
+            if(".xlsx" != files.substring(files.lastIndexOf("."),files.length)){
+                toastr["warning"]('文件格式不正确,请参照模板文件');
+                return;
+            }
+            $.ajax({
+                url: 'audienceileupload' ,
+                type: 'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    saveBtnda.start();
+                },
+                error: function (result) {
+                    swal("操作失败", "通信错误!", "error");
+                    saveBtnda.stop();
+                },
+                success: function (data) {
+                    if(data.res == 0){
+//                        toastr["error"]('上传文件有误!请参照模板文件!');
+                        // 下载上传的文件
+
+                        errorFileDownLoad(data.errorFileName);
+                    }else{
+                        toastr["success"]('保存成功!');
+                        loadPage("audienceList",function(){
+                            saveBtnda.stop();
+                        });
+                    }
+                    saveBtnda.stop();
+                },
+                error: function (returndata) {
+                    saveBtnda.stop();
+                }
+            });
+        }
+        function errorFileDownLoad(fileName) {
+            $("#errorFileName").val(fileName);
+            $('#acdienceEorrFileForm').attr('action', "/errorFileDownload");
+            $("#acdienceEorrFileForm").submit();
+        }
         /*]]>*/
     </script>
 </div>

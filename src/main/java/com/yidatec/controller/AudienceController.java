@@ -2,6 +2,7 @@ package com.yidatec.controller;
 
 import com.yidatec.exception.BusinessException;
 import com.yidatec.exception.ExceptionID;
+import com.yidatec.mapper.AudienceMapper;
 import com.yidatec.mapper.UserMapper;
 import com.yidatec.model.Activity;
 import com.yidatec.model.Audience;
@@ -64,6 +65,9 @@ public class AudienceController extends BaseController {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    AudienceMapper audienceMapper;
 
     //默认单元格内容为数字时格式
     private  DecimalFormat df = new DecimalFormat("0");
@@ -142,8 +146,8 @@ public class AudienceController extends BaseController {
 
     @RequestMapping(value = "audienceTempleteDownload")
     public void audienceTempleteDownload (HttpServletRequest request, HttpServletResponse response)throws Exception{
-        String fileName = "观众模板.xlsx";
-        String showName = "观众模板.xlsx";
+        String fileName = "audience_template.xlsx";
+        String showName = "audience_template.xlsx";
         OutputStream out = null;
         try {
             out = response.getOutputStream();
@@ -173,7 +177,7 @@ public class AudienceController extends BaseController {
 
     @RequestMapping(value = "errorFileDownload")
     public void errorFileDownload (HttpServletRequest request, HttpServletResponse response,@RequestParam(value="errorFileName",required = false) String errorFileName)throws Exception{
-        String showName = "观众模板.xlsx";
+        String showName = "audience_template.xlsx";
         OutputStream out = null;
         File downLoadFile = null;
         try {
@@ -332,8 +336,8 @@ public class AudienceController extends BaseController {
             return  true;
         } if(!StringUtils.isEmpty(getCellValue(cell)) && cellNumb == 1){
             String mobile = getCellValue(cell);
-            User user = userMapper.findByMobilePhone(mobile);
-            if(user != null){
+            Audience audience = audienceMapper.findByMobilePhone(mobile);
+            if(audience != null){
                 row.getCell(cellNumb).setCellStyle(mapStyle.get("data_1"));
                 return  true;
             }else {

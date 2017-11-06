@@ -205,24 +205,17 @@ public class AudienceController extends BaseController {
     @RequestMapping(value = "/audienceileupload", method = RequestMethod.POST)
     @ResponseBody
     public Map audienceileupload(@RequestParam("files") MultipartFile file,HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String serverName = new Date().getTime() + "_" + file.getOriginalFilename();
-        // 上传文件路径
-        String path = buildFile(confProperties.getUploadAudieceFile(), true) + File.separator + serverName;
-        File newFile = new File(path);
-        file.transferTo(newFile);
-        List<Audience> res = readExcel(newFile,request,response);
+        List<Audience> res = readExcel(file.getInputStream(),file.getName());
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("res", res != null && res.size() > 0 ? 1 : 0);
-        map.put("errorFileName", newFile.getName());
-        // 上传后删除文件
-        delFile(newFile);
+        map.put("errorFileName", file.getName());
         return map;
     }
 
-    private List<Audience> readExcel(File file,HttpServletRequest request, HttpServletResponse response) {
+    private List<Audience> readExcel(InputStream is,String fileName) {
         List<Audience> audiencesList = new ArrayList<Audience>();
         try {
-            XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream(file));
+            XSSFWorkbook wb = new XSSFWorkbook(is);
             XSSFSheet sheet = wb.getSheetAt(0);
             XSSFRow row;
             Map<String, XSSFCellStyle> mapStyle = createStyles(wb);
@@ -256,7 +249,7 @@ public class AudienceController extends BaseController {
             if(errorFlg){
                 // 有错误把错误文件写入磁盘
                 try {
-                    errorReportWrite(wb,file.getName());
+                    errorReportWrite(wb,fileName);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -300,8 +293,6 @@ public class AudienceController extends BaseController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            // 下载后删除错误文件
-            delFile(file);
         }
 
         return audiencesList;

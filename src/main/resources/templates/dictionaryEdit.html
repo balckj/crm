@@ -165,6 +165,7 @@
                             }
                         }
                     }else if(data.res == 0){
+                        saveBtnda.stop();
                         swal("操作失败", data.txt, "error");
                     }else{
                         toastr["success"]('保存成功!');

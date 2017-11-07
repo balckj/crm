@@ -88,6 +88,12 @@ public class AvailableSupplierQueryProvider {
         if (!StringUtils.isEmpty(availableSupplierVO.getName())){
             sb.append(" and tmp.`name` LIKE CONCAT('%',#{name},'%') ");
         }
+        if (!StringUtils.isEmpty(availableSupplierVO.getCity())){
+            sb.append(" and tmp.`city` LIKE CONCAT('%',#{city},'%') ");
+        }
+        if(!StringUtils.isEmpty(availableSupplierVO.getPlatformLevel())){
+            sb.append(" and tmp.platformLevel =  #{platformLevel}");
+        }
         sb.append(" LIMIT #{start},#{length}");
 
         return sb.toString();
@@ -166,6 +172,12 @@ public class AvailableSupplierQueryProvider {
 
         if (!StringUtils.isEmpty(availableSupplierVO.getName())){
             sb.append(" and tmp.`name` LIKE CONCAT('%',#{name},'%') ");
+        }
+        if (!StringUtils.isEmpty(availableSupplierVO.getCity())){
+            sb.append(" and tmp.`city` LIKE CONCAT('%',#{city},'%') ");
+        }
+        if(!StringUtils.isEmpty(availableSupplierVO.getPlatformLevel())){
+            sb.append(" and tmp.platformLevel =  #{platformLevel}");
         }
         sb.append(" ) a ");
         return sb.toString();

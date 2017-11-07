@@ -95,4 +95,14 @@ public class AudienceService {
 		}
 	}
 
+	// 上传文件批量导入
+	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
+	public void createAudienceList(List<Audience> audienceList) {
+		if (audienceList != null){
+			for (int i = 0; i < audienceList.size(); i++) {
+				audienceMapper.create(audienceList.get(i));
+			}
+		}
+	}
+
 }

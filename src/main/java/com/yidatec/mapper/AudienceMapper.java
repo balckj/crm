@@ -41,6 +41,8 @@ public interface AudienceMapper {
 	int update(Audience audience);
 
 	@Delete("DELETE FROM T_AUDIENCE WHERE id=#{id}")
-	int delete(String id);
 
+	int delete(String id);
+	@Select("SELECT * FROM T_AUDIENCE WHERE mobilePhone=#{mobilePhone}")
+	Audience findByMobilePhone(String mobilePhone);
 }

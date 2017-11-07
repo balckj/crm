@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+    <div class="wrapper wrapper-content  ecommerce">
         <div class="ibox-content m-b-sm border-bottom">
             <div class="row">
 
@@ -44,11 +44,41 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
+                        <label for="city" class="control-label">市</label>
+                        <input type="text" id="city" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="region" class="control-label">区域</label>
+                        <input type="text" id="region" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label  for="platformLevel" class="control-label">平台级别</label>
+                        <select class="form-control input-sm" name="platformLevel" id="platformLevel" onchange="query();">
+                            <option value="" selected="selected">未选择</option>
+                            <option th:value="${platformLevel.id}" th:text="${platformLevel.value}" th:each="platformLevel:${platformLevelList}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label  for="designerCategory" class="control-label">设计类型</label>
+                        <select class="form-control input-sm" name="designerCategory" id="designerCategory" onchange="query();">
+                            <option value="" selected="selected">未选择</option>
+                            <option th:value="${designerCategory.id}" th:text="${designerCategory.value}" th:each="designerCategory:${designerCategoryList}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
                         <label for="state" class="control-label">状态</label>
                         <select name="state" id="state" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
                             <option value="" selected="selected">不限</option>
                             <option value="1">可用</option>
-                            <option value="2">锁定</option>
+                            <!--<option value="2">锁定</option>-->
                             <option value="3">禁用</option>
                         </select>
                     </div>
@@ -74,11 +104,13 @@
                                 <th>推荐人</th>
                                 <th>中文名</th>
                                 <th>电话</th>
+                                <th>设计类型</th>
                                 <th>国家</th>
                                 <th>城市</th>
+                                <th>区域</th>
                                 <th>擅长行业</th>
                                 <th>擅长面积</th>
-                                <!--<th>案例个数</th>-->
+                                <th>平台级别</th>
                                 <th>状态</th>
                                 <th>创建时间</th>
                                 <th>修改时间</th>
@@ -115,6 +147,10 @@
 
                         p.name = $('#name').val();
                         p.mobilePhone = $('#mobilePhone').val();
+                        p.city = $('#city').val();
+                        p.region = $('#region').val();
+                        p.platformLevel = $('#platformLevel').val();
+                        p.designerCategory = $('#designerCategory').val();
                         p.state = $('#state').val();
                         var a = JSON.stringify(p);
                         return a;
@@ -140,20 +176,19 @@
                     {"data": "referrer", "width": "100px"},
                     {"data": "name", "width": "100px"},
                     {"data": "mobilePhone", "width": "100px"},
+                    {"data": "designerCategory", "width": "100px"},
                     {"data": "country", "width": "50px"},
                     {"data": "city", "width": "100px"},
+                    {"data": "region", "width": "100px"},
                     {"data": "goodAtIndustry", "width": "250px"},
                     {"data": "goodAtArea", "width": "60px"},
-//                {"data": "goodAtCases", "width": "100px"},
+                    {"data": "platformLevel", "width": "100px"},
                     {
                         "data": "state", "width": "40px",
                         "render": function (data, type, full, meta) {
                             if (data == 1) {
                                 return '可用';
-                            }
-                            else if (data == 2) {
-                                return '锁定';
-                            } else if (data == 3) {
+                            }else if (data == 3) {
                                 return '禁用';
                             }else {
                                 return '';

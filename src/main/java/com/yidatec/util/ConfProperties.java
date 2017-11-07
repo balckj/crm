@@ -33,6 +33,8 @@ public class ConfProperties {
 
     private String adminId;
 
+    private String upLoadAudieceFileError;
+
     public String getSystemLocale() {
         return systemLocale;
     }
@@ -203,5 +205,14 @@ public class ConfProperties {
 
     public void setAdminId(String adminId) {
         this.adminId = adminId;
+    }
+
+
+    public String getUpLoadAudieceFileError() {
+        return upLoadAudieceFileError;
+    }
+
+    public void setUpLoadAudieceFileError(String upLoadAudieceFileError) {
+        this.upLoadAudieceFileError = upLoadAudieceFileError;
     }
 }

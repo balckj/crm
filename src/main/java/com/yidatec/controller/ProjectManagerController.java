@@ -48,6 +48,8 @@ public class ProjectManagerController extends BaseController{
 
     @RequestMapping("/projectManagerList")
     public String projectManagerList(ModelMap model){
+        model.put("platformLevelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL)); // 平台等级
+        model.put("goodAtIndustryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 擅长行业
         return "projectManagerList";
     }
 
@@ -56,6 +58,7 @@ public class ProjectManagerController extends BaseController{
         model.put("title",(id == null || id.isEmpty())?"新建经理":"编辑经理");
         model.put("pm",pmService.selectPM(id));
         model.put("saleList",saleService.selectSaleListALL(new UserVO()));// 推荐人
+        model.put("platformLevelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL)); // 平台等级
         model.put("englishAbilityList",dictionaryService.selectDictionaryListByCodeCommon(Constants.ENGLISH_ABILITY));// 英文水平
         model.put("goodAtIndustryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 擅长行业
         model.put("goodAtAreaList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_AREA)); // 擅长面积
@@ -101,7 +104,10 @@ public class ProjectManagerController extends BaseController{
                 if(dictionaryArea != null){
                     u.setGoodAtArea(dictionaryEn.getValue());// 擅长面积
                 }
-
+                Dictionary dictionaryPLeve = dictionaryService.selectDictionary(u.getPlatformLevel());
+                if(dictionaryPLeve != null){
+                    u.setPlatformLevel(dictionaryPLeve.getValue());// 平台级别
+                }
                 String params = u.getGoodAtIndustry();
                 if (!StringUtils.isEmpty(params)){
                     String[] paramsList = params.split(",");

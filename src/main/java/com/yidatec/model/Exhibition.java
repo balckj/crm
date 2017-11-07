@@ -14,10 +14,10 @@ public class Exhibition extends BaseModel{
     @NotBlank(message = "必须输入展馆名称", groups = { })
     private String name;
 
-    @NotNull(message = "必须输入开展时间", groups = { })
-    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate startTime;
+//    @NotNull(message = "必须输入开展时间", groups = { })
+//    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    private LocalDate startTime;
 
     @NotBlank(message = "必须输入展馆地址", groups = { })
     private String address;
@@ -30,13 +30,13 @@ public class Exhibition extends BaseModel{
         this.name = name;
     }
 
-    public LocalDate getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDate startTime) {
-        this.startTime = startTime;
-    }
+//    public LocalDate getStartTime() {
+//        return startTime;
+//    }
+//
+//    public void setStartTime(LocalDate startTime) {
+//        this.startTime = startTime;
+//    }
 
     public String getAddress() {
         return address;

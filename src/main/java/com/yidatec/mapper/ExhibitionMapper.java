@@ -35,13 +35,13 @@ public interface ExhibitionMapper {
 	@SelectProvider(type=ExhibitionQueryProvider.class,method = "countSelectExhibitionList")
 	int countSelectExhibitionList(ExhibitionVO exhibitionVO);
 
-	@Insert("INSERT INTO T_EXHIBITION_HALL (id,`name`,`start`,`address`," +
+	@Insert("INSERT INTO T_EXHIBITION_HALL (id,`name`,`address`," +
 			"creatorId,createTime,modifierId,modifyTime) VALUES (" +
-			"#{id},#{name},#{startTime},#{address}," +
+			"#{id},#{name},#{address}," +
 			"#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
 	int create(Exhibition exhibition);
 
-	@Update("UPDATE T_EXHIBITION_HALL SET `name`=#{name},`start`=#{startTime},address=#{address}," +
+	@Update("UPDATE T_EXHIBITION_HALL SET `name`=#{name},address=#{address}," +
 			"modifierId=#{modifierId}," +
 			"modifyTime=#{modifyTime} WHERE id=#{id}")
 	int update(Exhibition exhibition);

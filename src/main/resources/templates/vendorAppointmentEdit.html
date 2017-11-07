@@ -235,6 +235,9 @@
                             v = "这个"+title+"已被删除！"
                             $('#calendar').fullCalendar('removeEvents',originalId);
                             swal("操作成功", v, "success");
+                        }else if(data.res == 0){
+                            saveBtnda.stop();
+                            swal("操作失败", data.txt, "error");
                         }else{
                             v = data.txt
                             swal("操作失败", v, "error");

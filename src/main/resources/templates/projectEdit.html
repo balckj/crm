@@ -298,12 +298,6 @@
                                         </label>
                                     </div>
                                     <div class="radio radio-inline radio-info">
-                                        <input type="radio" name="state" id="s2" value="2" th:checked="${project}?${project.state eq 2}"/>
-                                        <label for="s2">
-                                            锁定
-                                        </label>
-                                    </div>
-                                    <div class="radio radio-inline radio-info">
                                         <input type="radio" name="state" id="s3" value="3" th:checked="${project}?${project.state eq 3}"/>
                                         <label for="s3">
                                             禁用
@@ -902,17 +896,19 @@
                 &&$("#setupTime").val()!=""&&$("#tearDownTime").val()!=""&& $("#degreeOfImportance").val()!=""
                 &&$("#potential").val()!=""){
                 if(hasDesignerOption||hasPmOption||hasFactoryOption||hasDevelopSale||hasProjectPhoto){
-                    $("#designerIdForm").addClass("has-error")
-                    $("#designerId").parent().next().html("必须选择设计师");
-                    $("#pmIdForm").addClass("has-error")
-                    $("#pmId").parent().next().html("必须选择项目经理");
-                    $("#factoryIdForm").addClass("has-error")
-                    $("#factoryId").parent().next().html("必须选择工厂");
-                    $("#developSaleIdForm").addClass("has-error")
-                    $("#developSaleId").parent().next().html("必须选择开发销售");
-                    $("#photoForm").addClass("has-error")
-                    $("#photo").next().html("必须上传项目图片");
-                    return;
+                    if($("#designerId").val()==""||$("#pmId").val()==""||$("#factoryId").val()==""||$("#developSaleId").val()==""||photolist.toString()==""){
+                        $("#designerIdForm").addClass("has-error")
+                        $("#designerId").parent().next().html("必须选择设计师");
+                        $("#pmIdForm").addClass("has-error")
+                        $("#pmId").parent().next().html("必须选择项目经理");
+                        $("#factoryIdForm").addClass("has-error")
+                        $("#factoryId").parent().next().html("必须选择工厂");
+                        $("#developSaleIdForm").addClass("has-error")
+                        $("#developSaleId").parent().next().html("必须选择开发销售");
+                        $("#photoForm").addClass("has-error")
+                        $("#photo").next().html("必须上传项目图片");
+                        return;
+                    }
                 }
             }
 

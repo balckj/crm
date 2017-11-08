@@ -19,7 +19,7 @@ public interface ExhibitionMapper {
 	 * 查找一个展馆
 	 * @return
 	 */
-	@Select("SELECT id,name,address,start as startTime,country,province,city,region,createTime,creatorId,modifyTime,modifierId FROM T_EXHIBITION_HALL WHERE id = #{id}")
+	@Select("SELECT id,name,address,start as startTime,country,province,city,region,area,createTime,creatorId,modifyTime,modifierId FROM T_EXHIBITION_HALL WHERE id = #{id}")
 	ExhibitionVO selectExhibition(String id);
 
 
@@ -27,7 +27,7 @@ public interface ExhibitionMapper {
 	 * 查找一个展馆ALL
 	 * @return
 	 */
-	@Select("SELECT id,name,address,start as startTime,country,province,city,region,createTime,creatorId,modifyTime,modifierId FROM T_EXHIBITION_HALL")
+	@Select("SELECT id,name,address,start as startTime,country,province,city,region,area,createTime,creatorId,modifyTime,modifierId FROM T_EXHIBITION_HALL")
 	List<ExhibitionVO> selectExhibitionAll();
 
 	@SelectProvider(type=ExhibitionQueryProvider.class,method = "selectExhibitionList")
@@ -35,13 +35,13 @@ public interface ExhibitionMapper {
 	@SelectProvider(type=ExhibitionQueryProvider.class,method = "countSelectExhibitionList")
 	int countSelectExhibitionList(ExhibitionVO exhibitionVO);
 
-	@Insert("INSERT INTO T_EXHIBITION_HALL (id,`name`,`address`,country,province,city,region," +
+	@Insert("INSERT INTO T_EXHIBITION_HALL (id,`name`,`address`,country,province,city,region,area," +
 			"creatorId,createTime,modifierId,modifyTime) VALUES (" +
-			"#{id},#{name},#{address},#{country},#{province},#{city},#{region}," +
+			"#{id},#{name},#{address},#{country},#{province},#{city},#{region},#{area}," +
 			"#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
 	int create(Exhibition exhibition);
 
-	@Update("UPDATE T_EXHIBITION_HALL SET `name`=#{name},address=#{address},country=#{country},province=#{province},city=#{city},region=#{region}," +
+	@Update("UPDATE T_EXHIBITION_HALL SET `name`=#{name},address=#{address},country=#{country},province=#{province},city=#{city},region=#{region},area=#{area}," +
 			"modifierId=#{modifierId}," +
 			"modifyTime=#{modifyTime} WHERE id=#{id}")
 	int update(Exhibition exhibition);

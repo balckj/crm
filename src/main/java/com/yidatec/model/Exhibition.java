@@ -25,6 +25,7 @@ public class Exhibition extends BaseModel{
     private String province;
     private String city;
     private String region;
+    private String area;
 
     public String getCountry() {
         return country;
@@ -80,5 +81,13 @@ public class Exhibition extends BaseModel{
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 }

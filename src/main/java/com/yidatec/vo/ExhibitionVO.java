@@ -24,7 +24,7 @@ public class ExhibitionVO extends BaseModel{
     private String province;
     private String city;
     private String region;
-
+    private String area;
     @JsonSerialize(using = CustomLocalDateSerializer.class)
     private LocalDate startTime;
     public Integer getDraw() {
@@ -105,5 +105,13 @@ public class ExhibitionVO extends BaseModel{
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 }

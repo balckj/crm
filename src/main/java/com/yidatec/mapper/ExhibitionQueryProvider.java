@@ -12,7 +12,7 @@ public class ExhibitionQueryProvider {
     public String selectExhibitionList(final ExhibitionVO exhibitionVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT id,name,start as startTime,address,createTime,modifyTime FROM T_EXHIBITION_HALL C");
+        sb.append("SELECT id,name,start as startTime,address,country,province,city,region,createTime,modifyTime FROM T_EXHIBITION_HALL C");
         sb.append(" WHERE 1=1 ");
         if(!StringUtils.isEmpty(exhibitionVO.getName())){
             sb.append(" AND C.name LIKE CONCAT('%',#{name},'%')");

@@ -15,8 +15,8 @@ import java.util.List;
 public interface ContactMapper {
 
     //新建联系人
-    @Insert("INSERT INTO T_CONTACT (id,name,mobilePhone,position,email,state,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{name},#{mobilePhone},#{position}," +
-            "#{email},#{state},#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
+    @Insert("INSERT INTO T_CONTACT (id,name,mobilePhone,position,email,qq,tel,state,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{name},#{mobilePhone},#{position}," +
+            "#{email},#{qq},#{tel},#{state},#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
     int createContact(Contact contact);
 
     //删除客户联系人

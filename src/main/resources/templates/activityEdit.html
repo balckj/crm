@@ -645,24 +645,19 @@
                         $("#cityForm").addClass("has-error");
                         $("#city" ).parent().next().html("必须选择所在城市");
                     }
-                    if($("#region").val()==""){
-                        $("#regionForm").addClass("has-error");
-                        $("#region" ).parent().next().html("必须选择所在区域");
-                    }
+//                    if($("#region").val()==""){
+//                        $("#regionForm").addClass("has-error");
+//                        $("#region" ).parent().next().html("必须选择所在区域");
+//                    }
                     return;
                 }else if ($("#city").val()==""){
                     $("#cityForm").addClass("has-error");
                     $("#city" ).parent().next().html("必须选择所在城市");
                     $("#city").focus();
-                    if($("#region").val()==""){
-                        $("#regionForm").addClass("has-error");
-                        $("#region" ).parent().next().html("必须选择所在区域");
-                    }
-                    return;
-                }else if($("#region").val()==""){
-                    $("#regionForm").addClass("has-error");
-                    $("#region" ).parent().next().html("必须选择所在区域");
-                    $("#region").focus();
+//                    if($("#region").val()==""){
+//                        $("#regionForm").addClass("has-error");
+//                        $("#region" ).parent().next().html("必须选择所在区域");
+//                    }
                     return;
                 }
             }

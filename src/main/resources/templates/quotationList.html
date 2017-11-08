@@ -86,7 +86,7 @@
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
-        var hasEdit = [[${#authorization.url('/quotationEidt')}]];
+        var hasEdit = [[${#authorization.url('/quotationEdit')}]];
         var hasCreate = [[${#authorization.url('/quotationCreate')}]];
         var hasDown = [[${#authorization.url('/quotationDownLoad')}]];
         var quotationtable;

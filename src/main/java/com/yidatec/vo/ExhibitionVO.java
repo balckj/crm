@@ -20,7 +20,11 @@ public class ExhibitionVO extends BaseModel{
 
     private String name;
     private String address;
-
+    private String country;
+    private String province;
+    private String city;
+    private String region;
+    private String area;
     @JsonSerialize(using = CustomLocalDateSerializer.class)
     private LocalDate startTime;
     public Integer getDraw() {
@@ -69,5 +73,45 @@ public class ExhibitionVO extends BaseModel{
 
     public void setStartTime(LocalDate startTime) {
         this.startTime = startTime;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 }

@@ -37,6 +37,20 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
+                        <label for="city" class="control-label">城市</label>
+                        <input type="text"  id="city" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="region" class="control-label">区域</label>
+                        <input type="text"  id="region" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-2">
+                    <div class="form-group">
                         <button class="btn btn-primary btn-sm" type="button" style="width: 100%;margin-top: 23px;" onclick="query();">查&nbsp;&nbsp;询</button>
                     </div>
                 </div>
@@ -51,7 +65,12 @@
                             <tr>
                                 <th>操作</th>
                                 <th>展馆名称</th>
+                                <th>国家</th>
+                                <th>省</th>
+                                <th>城市</th>
+                                <th>区域</th>
                                 <th>地址</th>
+                                <th>面积</th>
                                 <th>创建时间</th>
                                 <th>修改时间</th>
                             </tr>
@@ -86,6 +105,8 @@
                         p.length = d.length;
                         p.start = d.start;
                         p.name = $('#name').val();
+                        p.region = $('#region').val();
+                        p.city = $('#city').val();
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -107,13 +128,14 @@
                         },
                     },
                     {"data": "name", "width": "100px"},
+                    {"data": "country", "width": "200px"},
+                    {"data": "province", "width": "200px"},
+                    {"data": "city", "width": "200px"},
+                    {"data": "region", "width": "200px"},
                     {"data": "address", "width": "200px"},
-                    {
-                        "data": "createTime", "width": "140px"
-                    },
-                    {
-                        "data": "modifyTime", "width": "140px"
-                    }
+                    {"data": "area", "width": "200px"},
+                    {"data": "createTime", "width": "140px"},
+                    {"data": "modifyTime", "width": "140px"}
                 ]
                 , language: {
                     lengthMenu: '每页显示 <select class="form-control input-sm">'

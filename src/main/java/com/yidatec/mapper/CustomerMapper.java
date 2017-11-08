@@ -19,6 +19,9 @@ public interface CustomerMapper {
     @Select("SELECT * FROM T_CUSTOMER WHERE id = #{id}")
     Customer selectCustomer(String id);
 
+    @Select("SELECT * FROM T_CUSTOMER WHERE name = #{name}")
+    Customer getCustomer(String name);
+
     @Select("SELECT * FROM T_CUSTOMER")
     List<Customer> selectCustomerAll();
 

@@ -1,9 +1,12 @@
 package com.yidatec.controller;
 
+import com.yidatec.mapper.CustomerMapper;
 import com.yidatec.mapper.RoleMapper;
 import com.yidatec.mapper.UserMapper;
+import com.yidatec.model.Customer;
 import com.yidatec.model.Role;
 import com.yidatec.model.User;
+import com.yidatec.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,9 @@ public class ValidateController extends BaseController{
 
     @Autowired
     RoleMapper roleMapper;
+
+    @Autowired
+    CustomerMapper customerMapper;
 
     @RequestMapping(value = "/validateUserName")
     public String validateName(@RequestParam(value="name") String name){
@@ -186,6 +192,10 @@ public class ValidateController extends BaseController{
     public String validateCompanyName(@RequestParam(value="name") String companyName){
         if(companyName == null || companyName.trim().isEmpty()){
             return getErrorJson("必须输入企业名称");
+        }
+        Customer customer = customerMapper.getCustomer(companyName);
+        if(customer != null){
+            return getErrorJson("企业名称已存在");
         }
         return getSuccessJson(null);
     }
@@ -878,5 +888,27 @@ public class ValidateController extends BaseController{
         }
         return getSuccessJson(null);
     }
+
+    @RequestMapping(value = "/validateQq")
+    public String validateQq(@RequestParam(value = "qq") String qq) {
+        String regex = "[1-9][0-9]{4,14}";
+        boolean res = qq.matches(regex);
+        if(!res){
+            return getErrorJson("QQ号码不正确");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateTel")
+    public String validateTel(@RequestParam(value = "tel") String tel) {
+        String regexp="^(0[0-9]{2,3}/-)?([2-9][0-9]{6,7})+(/-[0-9]{1,4})?$";
+        boolean res = tel.matches(regexp);
+        if(!res){
+            return getErrorJson("座机格式不正确");
+        }
+        return getSuccessJson(null);
+    }
+
+
 
 }

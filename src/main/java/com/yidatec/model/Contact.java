@@ -20,6 +20,10 @@ public class Contact extends BaseModel{
     private String position;
 //    @Email(regexp="^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",message="邮箱格式不正确", groups = { })
     private String email;
+
+
+    private String qq;
+    private String tel;
     private String state;
 
     public String getName() {
@@ -60,5 +64,21 @@ public class Contact extends BaseModel{
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 }

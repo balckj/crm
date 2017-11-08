@@ -11,6 +11,9 @@
         .contactHeight{
             height: 34px;
         }
+        .contactStyle{
+            width:14%;float: left;position: relative;padding-left: 15px;padding-right: 15px;
+        }
     </style>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
@@ -137,8 +140,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="regionForm">
-                                <label class="col-sm-2 control-label">区域<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">区域</label>
                                 <div class="col-sm-4">
                                     <select class="form-control" name="region" id="region" disabled="disabled">
 
@@ -173,7 +175,7 @@
                                 <div class="col-sm-10" id="contactList">
                                     <div class="row" th:if="${#lists.isEmpty(customer.contactList)}">
 
-                                        <div class="col-sm-2">
+                                        <div class="contactStyle">
                                             <div id="name0Form">
                                                 <label class="control-label">姓名<span
                                                         style="color:#ed5565;">*</span></label>
@@ -183,9 +185,9 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="contactStyle">
                                             <div id="mobilePhone0Form">
-                                                <label class="control-label">电话<span
+                                                <label class="control-label">手机<span
                                                         style="color:#ed5565;">*</span></label>
                                                 <div>
                                                     <input type="text" oninput="if(value.length>11)value=value.slice(0,11)" name="mobilePhone" id="mobilePhone0" class="form-control input-sm contactHeight" maxlength="30"/>
@@ -194,7 +196,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-2">
+                                        <div class="contactStyle">
                                             <div id="position0Form">
                                                 <label class="control-label">职位<span
                                                         style="color:#ed5565;">*</span></label>
@@ -207,25 +209,46 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="contactStyle">
                                             <div id="email0Form">
-                                                <label class="control-label">QQ邮箱</label>
+                                                <label class="control-label">邮箱</label>
                                                 <div>
                                                     <input type="text" name="email" id="email0" class="form-control input-sm contactHeight" maxlength="50"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-1" >
+
+                                        <div class="contactStyle">
+                                            <div id="qqForm">
+                                                <label class="control-label">QQ</label>
+                                                <div>
+                                                    <input type="text" name="qq" id="qq" class="form-control input-sm contactHeight" maxlength="50" style="min-width:100px"/>
+                                                </div>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="contactStyle">
+                                            <div id="telForm">
+                                                <label class="control-label">座机</label>
+                                                <div>
+                                                    <input type="text" name="tel" id="tel" class="form-control input-sm contactHeight" maxlength="50" style="min-width:100px"/>
+                                                </div>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="contactStyle" >
                                             <div>
                                                 <label class="control-label" style="color: white">增加</label>
-                                                <button onclick="addLi()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
-                                                <label class=" control-label" style="text-align: left"></label>
+                                                <div>
+                                                    <button onclick="addLi()" type="button" id="addordel0"  class="btn ladda-button btn-primary">增&nbsp;&nbsp;加</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row" th:unless="${#lists.isEmpty(customer.contactList)}" th:each="contact,terStat : ${customer.contactList}">
-                                        <div class="col-sm-2">
+                                        <div class="contactStyle">
                                             <div  th:attr="id='name'+${terStat.index}+'Form'">
 
                                                 <label class="control-label" th:if="${terStat.first}">姓名<span
@@ -236,7 +259,7 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="contactStyle">
                                             <div th:attr="id='mobilePhone'+${terStat.index}+'Form'">
                                                 <label class="control-label" th:if="${terStat.first}">电话<span
                                                         style="color:#ed5565;">*</span></label>
@@ -247,7 +270,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-2">
+                                        <div class="contactStyle">
                                             <div th:attr="id='position'+${terStat.index}+'Form'">
                                                 <label class="control-label" th:if="${terStat.first}">职位<span
                                                         style="color:#ed5565;">*</span></label>
@@ -260,23 +283,43 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="contactStyle">
                                             <div th:attr="id='email'+${terStat.index}+'Form'">
-                                                <label class="control-label" th:if="${terStat.first}">QQ邮箱</label>
+                                                <label class="control-label" th:if="${terStat.first}">邮箱</label>
                                                 <div>
                                                     <input type="text" th:attr="id='email'+${terStat.index}, name='email'" class="form-control input-sm contactHeight" maxlength="50" th:value="${contact.email}"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-1" th:if="${terStat.first}" >
-                                            <div>
-                                                <label class="control-label" style="color: white">增加</label>
-                                                <button onclick="addLi()" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
+                                        <div class="contactStyle">
+                                            <div th:attr="id='qq'+${terStat.index}+'Form'">
+                                                <label class="control-label" th:if="${terStat.first}">QQ</label>
+                                                <div>
+                                                    <input type="text" th:attr="id='qq'+${terStat.index}, name='qq'" class="form-control input-sm contactHeight" maxlength="50" th:value="${contact.qq}"/>
+                                                </div>
+                                                <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-1" th:unless="${terStat.first}">
-                                            <button onclick="delBtnData(this)" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button btn-w-m btn-primary">删&nbsp;&nbsp;除</button>
+                                        <div class="contactStyle">
+                                            <div th:attr="id='tel'+${terStat.index}+'Form'">
+                                                <label class="control-label" th:if="${terStat.first}">座机</label>
+                                                <div>
+                                                    <input type="text" th:attr="id='tel'+${terStat.index}, name='tel'" class="form-control input-sm contactHeight" maxlength="50" th:value="${contact.tel}"/>
+                                                </div>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="contactStyle" th:if="${terStat.first}" >
+                                            <div>
+                                                <label class="control-label" style="color: white">增加</label>
+                                                <div>
+                                                    <button onclick="addLi()" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button btn-primary">增&nbsp;&nbsp;加</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="contactStyle" th:unless="${terStat.first}">
+                                            <button onclick="delBtnData(this)" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button btn-primary">删&nbsp;&nbsp;除</button>
                                         </div>
                                     </div>
                                 </div>
@@ -370,7 +413,7 @@
         //创建li标签，包含显示姓名，邮箱，电话号码及删除按钮
         function addLi() {
             var total = $("#contactList").children().length;
-            var row =  "<div class='row'><div class='col-sm-2'>"
+            var row =  "<div class='row'><div class='contactStyle'>"
                 +" <div id='name"+total+ "Form'>"
                 +" <div>"
                 +" <input type='text' name='name' id='name"+total+ "' class='form-control input-sm contactHeight' maxlength='20'/>"
@@ -378,7 +421,7 @@
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
-                +" <div class='col-sm-2'>"
+                +" <div class='contactStyle'>"
                 +" <div id='mobilePhone"+total+ "Form'>"
                 +" <div>"
                 +" <input type='text' name='mobilePhone' id='mobilePhone"+total+ "' class='form-control input-sm contactHeight' maxlength='20'/>"
@@ -386,7 +429,7 @@
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
-                +" <div class='col-sm-2'>"
+                +" <div class='contactStyle'>"
                 +" <div id='position"+total+ "Form'>"
                 +" <div>"
                 +" <select class='form-control location' name='position' id='position"+total+ "' >"
@@ -395,7 +438,7 @@
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
-                +" <div class='col-sm-2'>"
+                +" <div class='contactStyle'>"
                 +" <div id='email"+total+ "Form'>"
                 +" <div>"
                 +" <input type='text' name='email' id='email"+total+ "' class='form-control input-sm contactHeight' maxlength='50'/>"
@@ -403,7 +446,26 @@
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
-                +" <div class='col-sm-1'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div></div>";
+
+                +" <div class='contactStyle'>"
+                +" <div id='qq"+total+ "Form'>"
+                +" <div>"
+                +" <input type='text' name='qq' id='qq"+total+ "' class='form-control input-sm contactHeight' maxlength='50'/>"
+                +" </div>"
+                +" <label class=' control-label' style='text-align: left'></label>"
+                +" </div>"
+                +" </div>"
+
+                +" <div class='contactStyle'>"
+                +" <div id='tel"+total+ "Form'>"
+                +" <div>"
+                +" <input type='text' name='tel' id='tel"+total+ "' class='form-control input-sm contactHeight' maxlength='50'/>"
+                +" </div>"
+                +" <label class=' control-label' style='text-align: left'></label>"
+                +" </div>"
+                +" </div>"
+
+                +" <div class='contactStyle'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-primary'>删&nbsp;&nbsp;除</button></div></div>";
             $("#contactList").append(row);
             addTagListOption("position"+total);
 
@@ -411,6 +473,8 @@
             validate2('mobilePhone'+total, 'mobile', {isEdit: false}, 'validateMobile');
             validateSelect('position'+total,'position','validatePosition');
             validate('email'+total, 'email', 'validateEmail');
+            validate('qq'+total, 'qq', 'validateQq');
+            validate('tel'+total, 'tel', 'validateTel');
         }
 
         function addTagListOption(id){
@@ -680,6 +744,8 @@
                 validate2('mobilePhone'+i, 'mobile', {isEdit: false}, 'validateMobile')
                 validateSelect('position'+i, 'position', 'validatePosition');
                 validate('email'+i, 'email', 'validateEmail');
+                validate('qq'+i,'qq','validateQq');
+                validate('tel'+i,'tel','validateTel');
             }
             validateSelect('source', 'source', 'validateSource');
             validate('name', 'name', 'validateCompanyName');
@@ -709,11 +775,15 @@
                 userPosition = $(this).find("select[name='position']").val();
                 userPhone = $(this).find("input[name='mobilePhone']").val();
                 userEmail = $(this).find("input[name='email']").val();
+                userQQ = $(this).find("input[name='qq']").val();
+                userTel =  $(this).find("input[name='tel']").val();
                 userList.push({
                     "name":userName,
                     "position":userPosition,
                     "mobilePhone":userPhone,
-                    "email":userEmail
+                    "email":userEmail,
+                    "qq":userQQ,
+                    "tel":userTel
                 })
             })
             var p = {
@@ -750,24 +820,19 @@
                         $("#cityForm").addClass("has-error");
                         $("#city" ).parent().next().html("必须选择所在城市");
                     }
-                    if($("#region").val()==""){
-                        $("#regionForm").addClass("has-error");
-                        $("#region" ).parent().next().html("必须选择所在区域");
-                    }
+//                    if($("#region").val()==""){
+//                        $("#regionForm").addClass("has-error");
+//                        $("#region" ).parent().next().html("必须选择所在区域");
+//                    }
                     return;
                 }else if ($("#city").val()==""){
                     $("#cityForm").addClass("has-error");
                     $("#city" ).parent().next().html("必须选择所在城市");
                     $("#city").focus();
-                    if($("#region").val()==""){
-                        $("#regionForm").addClass("has-error");
-                        $("#region" ).parent().next().html("必须选择所在区域");
-                    }
-                    return;
-                }else if($("#region").val()==""){
-                    $("#regionForm").addClass("has-error");
-                    $("#region" ).parent().next().html("必须选择所在区域");
-                    $("#region").focus();
+//                    if($("#region").val()==""){
+//                        $("#regionForm").addClass("has-error");
+//                        $("#region" ).parent().next().html("必须选择所在区域");
+//                    }
                     return;
                 }
             }

@@ -87,7 +87,7 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         var hasEdit = [[${#authorization.url('/exhibitionEdit')}]];
-        var hasCreate = [[${#authorization.url('/exhibitionEditCreate')}]];
+        var hasCreate = [[${#authorization.url('/exhibitionCreate')}]];
 
         var exhibitiontable;
         function exhibitiontableLoad() {

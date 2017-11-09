@@ -44,15 +44,7 @@
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="addressForm">
-                                <label class="col-sm-2 control-label">地址<span
-                                        style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4"><input id="address" name="address" type="text"
-                                                             class="form-control" maxlength="200" th:value="${ex}?${ex.address}"/></div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
-                            </div>
+
 
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="countryForm">
@@ -97,8 +89,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="addressForm">
-                                <label class="col-sm-2 control-label">地址<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">地址</label>
                                 <div class="col-sm-4"><input id="address" name="address" type="text"
                                                              class="form-control" maxlength="200" th:value="${ex}?${ex.address}"/></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -241,7 +232,7 @@
 
         validate('name', 'name', 'validateExhibitionName');
         validateSelect('startTime', 'startTime', 'validateStartTime');
-        validate('address', 'address', 'validateAddress');
+//        validate('address', 'address', 'validateAddress');
         validateSelect('country', 'country', 'validateCountry');
         var saveBtnda;
         function saveExhibition(btn) {

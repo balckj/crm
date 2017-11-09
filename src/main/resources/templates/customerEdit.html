@@ -118,8 +118,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="provinceForm">
-                                <label class="col-sm-2 control-label">省<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">省</label>
                                 <div class="col-sm-4">
                                     <select class="form-control location" name="province" id="province" disabled="disabled">
 
@@ -129,8 +128,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="cityForm">
-                                <label class="col-sm-2 control-label">城市<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">城市</label>
                                 <div class="col-sm-4">
                                     <select class="form-control location" name="city" id="city" disabled="disabled">
 
@@ -535,11 +533,11 @@
 
         $(function () {
             $("#country").change(function(){
-                if($("#country").val()=="中国"){
-                    validateSelect('province', 'province', 'validateProvince');
-                    validateSelect('city', 'city', 'validateCity');
-                    validateSelect('region', 'region', 'validateRegion');
-                }
+//                if($("#country").val()=="中国"){
+//                    validateSelect('province', 'province', 'validateProvince');
+//                    validateSelect('city', 'city', 'validateCity');
+//                    validateSelect('region', 'region', 'validateRegion');
+//                }
                 if($(this).val()=="中国"){
                     $("#province").attr("disabled",false);
                     $("#city").attr("disabled",false);
@@ -752,10 +750,10 @@
             validateSelect('industry', 'industry', 'validateIndustry');
             validateSelect('nature', 'nature', 'validateNature');
             validateSelect('country', 'country', 'validateCountry');
-            validateSelect('province', 'province', 'validateProvince');
-            validateSelect('city', 'city', 'validateCity');
-            validateSelect('region', 'region', 'validateRegion');
-            validate('address', 'address', 'validateAddress');
+//            validateSelect('province', 'province', 'validateProvince');
+//            validateSelect('city', 'city', 'validateCity');
+//            validateSelect('region', 'region', 'validateRegion');
+//            validate('address', 'address', 'validateAddress');
             validateSelect('level', 'level', 'validateLevel');
         });
 
@@ -805,37 +803,37 @@
             };
             console.info(p);
             var a = JSON.stringify(p);
-            if($("#country").val()=="中国"){
-                if($("#province").val()==""||$("#city").val()==""||$("#region").val()==""){
+//            if($("#country").val()=="中国"){
+//                if($("#province").val()==""||$("#city").val()==""||$("#region").val()==""){
+//
+//                }
 
-                }
 
 
-
-                if($("#province").val()==""){
-                    $("#provinceForm").addClass("has-error");
-                    $("#province" ).parent().next().html("必须选择所在省份");
-                    $("#province").focus();
-                    if ($("#city").val()==""){
-                        $("#cityForm").addClass("has-error");
-                        $("#city" ).parent().next().html("必须选择所在城市");
-                    }
+//                if($("#province").val()==""){
+//                    $("#provinceForm").addClass("has-error");
+//                    $("#province" ).parent().next().html("必须选择所在省份");
+//                    $("#province").focus();
+//                    if ($("#city").val()==""){
+//                        $("#cityForm").addClass("has-error");
+//                        $("#city" ).parent().next().html("必须选择所在城市");
+//                    }
 //                    if($("#region").val()==""){
 //                        $("#regionForm").addClass("has-error");
 //                        $("#region" ).parent().next().html("必须选择所在区域");
 //                    }
-                    return;
-                }else if ($("#city").val()==""){
-                    $("#cityForm").addClass("has-error");
-                    $("#city" ).parent().next().html("必须选择所在城市");
-                    $("#city").focus();
+//                    return;
+//                }else if ($("#city").val()==""){
+//                    $("#cityForm").addClass("has-error");
+//                    $("#city" ).parent().next().html("必须选择所在城市");
+//                    $("#city").focus();
 //                    if($("#region").val()==""){
 //                        $("#regionForm").addClass("has-error");
 //                        $("#region" ).parent().next().html("必须选择所在区域");
 //                    }
-                    return;
-                }
-            }
+//                    return;
+//                }
+//            }
 
             $.ajax({
                 url: 'saveCustomer',

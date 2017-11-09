@@ -82,18 +82,13 @@
                                 <div class="col-sm-4">
                                     <select class="form-control " name="country" id="country">
                                         <option value="" selected="selected">未选择</option>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="provinceForm">
-                                <label class="col-sm-2 control-label">省<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">省</label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="province" id="province" disabled="disabled">
                                         <option value="" selected="selected">未选择</option>
@@ -103,8 +98,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="cityForm">
-                                <label class="col-sm-2 control-label">城市<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">城市</label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="city" id="city" disabled="disabled">
                                         <option value="" selected="selected">未选择</option>
@@ -114,8 +108,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="regionForm">
-                                <label class="col-sm-2 control-label">区域<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">区域</label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="region" id="region" disabled="disabled">
                                         <option value="" selected="selected">未选择</option>
@@ -146,7 +139,7 @@
                             <div class="form-group" id="sponsorForm"><label class="col-sm-2 control-label">主办方<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <input id="sponsor" name="sponsor" placeholder="请选择主办方" readonly="readonly"  type="text" th:value="${activity}?${activity.sponsorName}" th:attr="activityid=${activity}?${activity.id}"
+                                    <input id="sponsor" name="sponsor" placeholder="请选择主办方" readonly="readonly"  type="text" th:value="${activity}?${activity.sponsorName}" th:attr="sponsorid=${activity}?${activity.sponsor}"
                                            class="form-control" maxlength="200" onclick="customerClick();" style="cursor:pointer;"/>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -289,11 +282,11 @@
             })
 
             $("#country").change(function(){
-                if($("#country").val()=="中国"){
-                    validateSelect('province', 'province', 'validateProvince');
-                    validateSelect('city', 'city', 'validateCity');
-                    validateSelect('region', 'region', 'validateRegion');
-                }
+//                if($("#country").val()=="中国"){
+//                    validateSelect('province', 'province', 'validateProvince');
+//                    validateSelect('city', 'city', 'validateCity');
+//                    validateSelect('region', 'region', 'validateRegion');
+//                }
                 if($(this).val()=="中国"){
                     $("#province").attr("disabled",false);
                     $("#city").attr("disabled",false);
@@ -407,13 +400,13 @@
 
             validate('name', 'name', 'validateActivityName');
             validateSelect('country', 'country', 'validateCountry');
-            validateSelect('province', 'province', 'validateProvince');
-            validateSelect('city', 'city', 'validateCity');
-            validateSelect('region', 'region', 'validateRegion');
-            validate('address', 'address', 'validateAddress');
+//            validateSelect('province', 'province', 'validateProvince');
+//            validateSelect('city', 'city', 'validateCity');
+//            validateSelect('region', 'region', 'validateRegion');
+//            validate('address', 'address', 'validateAddress');
             validateSelect('exhibitioHall','exhibitioHall','validateChooseExhibition');
             validateSelect('sponsor','sponsor','validateSponsor');
-
+            validateSelect('customerId', 'customerId', 'validateCustomerId');
         });
 
         function customerClick() {
@@ -454,7 +447,7 @@
 
                     {"data": "name", "width": "100px"},
                     {"data": "industry", "width": "200px"},
-                    {"data": "nature", "width": "50px"},
+                    {"data": "nature", "width": "130px"},
                 ]
                 , language: {
                     lengthMenu: '每页显示 <select class="form-control input-sm">'
@@ -499,7 +492,7 @@
                 }
             });
             $('#customerTableModal').modal('hide');
-            $("#customerId").change();
+            $("#sponsor").change();
 //            $("#code").val("");
         }
 
@@ -630,37 +623,37 @@
                 photo:photolist.toString()
             };
             var a = JSON.stringify(p);
-            if($("#country").val()=="中国"){
-                if($("#province").val()==""||$("#city").val()==""||$("#region").val()==""){
-
-                }
-
-
-
-                if($("#province").val()==""){
-                    $("#provinceForm").addClass("has-error");
-                    $("#province" ).parent().next().html("必须选择所在省份");
-                    $("#province").focus();
-                    if ($("#city").val()==""){
-                        $("#cityForm").addClass("has-error");
-                        $("#city" ).parent().next().html("必须选择所在城市");
-                    }
+//            if($("#country").val()=="中国"){
+//                if($("#province").val()==""||$("#city").val()==""||$("#region").val()==""){
+//
+//                }
+//
+//
+//
+//                if($("#province").val()==""){
+//                    $("#provinceForm").addClass("has-error");
+//                    $("#province" ).parent().next().html("必须选择所在省份");
+//                    $("#province").focus();
+//                    if ($("#city").val()==""){
+//                        $("#cityForm").addClass("has-error");
+//                        $("#city" ).parent().next().html("必须选择所在城市");
+//                    }
 //                    if($("#region").val()==""){
 //                        $("#regionForm").addClass("has-error");
 //                        $("#region" ).parent().next().html("必须选择所在区域");
 //                    }
-                    return;
-                }else if ($("#city").val()==""){
-                    $("#cityForm").addClass("has-error");
-                    $("#city" ).parent().next().html("必须选择所在城市");
-                    $("#city").focus();
+//                    return;
+//                }else if ($("#city").val()==""){
+//                    $("#cityForm").addClass("has-error");
+//                    $("#city" ).parent().next().html("必须选择所在城市");
+//                    $("#city").focus();
 //                    if($("#region").val()==""){
 //                        $("#regionForm").addClass("has-error");
 //                        $("#region" ).parent().next().html("必须选择所在区域");
 //                    }
-                    return;
-                }
-            }
+//                    return;
+//                }
+//            }
 
             $.ajax({
                 url: 'saveActivity',

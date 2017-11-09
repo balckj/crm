@@ -44,7 +44,7 @@ public class FactoryEntity extends BaseModel{
     private String city;
 //    @NotBlank(message = "必须选择所在区域", groups = { })
     private String region;
-    @NotBlank(message = "必须输入地址", groups = { })
+//    @NotBlank(message = "必须输入地址", groups = { })
     @Length(max = 200, message = "地址最多由200个字符组成", groups = { })
     private String address;
 

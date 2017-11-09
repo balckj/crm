@@ -272,8 +272,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="provinceForm">
-                                <label class="col-sm-2 control-label">省<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">省</label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="province" id="province">
                                         <option value="" selected="selected">未选择</option>
@@ -283,8 +282,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="cityForm">
-                                <label class="col-sm-2 control-label">城市<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">城市</label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="city" id="city">
                                         <option value="" selected="selected">未选择</option>
@@ -294,8 +292,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="regionForm">
-                                <label class="col-sm-2 control-label">区域<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">区域</label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="region" id="region">
                                         <option value="" selected="selected">未选择</option>
@@ -305,8 +302,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="addressForm">
-                                <label class="col-sm-2 control-label">地址<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">地址</label>
                                 <div class="col-sm-4"><input id="address" name="address" type="text"
                                                              class="form-control" maxlength="15" th:value="${factory}?${factory.address}" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
@@ -952,10 +948,10 @@
             validate('name', 'name', 'validateCompanyName');
             validate('director', 'director', 'validateDirector');
             validateSelect('country', 'country', 'validateCountry');
-            validateSelect('province', 'province', 'validateProvince');
-            validateSelect('city', 'city', 'validateCity');
-            validateSelect('region', 'region', 'validateRegion');
-            validate('address', 'address', 'validateAddress');
+//            validateSelect('province', 'province', 'validateProvince');
+//            validateSelect('city', 'city', 'validateCity');
+//            validateSelect('region', 'region', 'validateRegion');
+//            validate('address', 'address', 'validateAddress');
             validate('factoryArea', 'area', 'validateArea');
             validateSelect('taxpayerType', 'taxpayerType', 'validateTaxpayerType');
             validateMultipleSelect('goodAtIndustry', 'goodAtIndustry', 'validateGoodAtIndustry');
@@ -1230,31 +1226,31 @@
 //                email: $("#email").val().trim(),
             };
             console.info(p);
-            if($("#country").val()=="中国"){
-                if($("#province").val()==""){
-                    $("#provinceForm").addClass("has-error");
-                    $("#province" ).parent().next().html("必须选择所在省份");
-                    $("#province").focus();
-                    if ($("#city").val()==""){
-                        $("#cityForm").addClass("has-error");
-                        $("#city" ).parent().next().html("必须选择所在城市");
-                    }
+//            if($("#country").val()=="中国"){
+//                if($("#province").val()==""){
+//                    $("#provinceForm").addClass("has-error");
+//                    $("#province" ).parent().next().html("必须选择所在省份");
+//                    $("#province").focus();
+//                    if ($("#city").val()==""){
+//                        $("#cityForm").addClass("has-error");
+//                        $("#city" ).parent().next().html("必须选择所在城市");
+//                    }
 //                    if($("#region").val()==""){
 //                        $("#regionForm").addClass("has-error");
 //                        $("#region" ).parent().next().html("必须选择所在区域");
 //                    }
-                    return;
-                }else if ($("#city").val()==""){
-                    $("#cityForm").addClass("has-error");
-                    $("#city" ).parent().next().html("必须选择所在城市");
-                    $("#city").focus();
+//                    return;
+//                }else if ($("#city").val()==""){
+//                    $("#cityForm").addClass("has-error");
+//                    $("#city" ).parent().next().html("必须选择所在城市");
+//                    $("#city").focus();
 //                    if($("#region").val()==""){
 //                        $("#regionForm").addClass("has-error");
 //                        $("#region" ).parent().next().html("必须选择所在区域");
 //                    }
-                    return;
-                }
-            }
+//                    return;
+//                }
+//            }
             var a = JSON.stringify(p);
             $.ajax({
                 url: 'saveFactory',

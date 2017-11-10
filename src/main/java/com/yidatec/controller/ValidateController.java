@@ -911,6 +911,14 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
+    @RequestMapping(value = "/validateActivityDate")
+    public String validateActivityDate(@RequestParam(value="activityDate") String activityDate){
+        if(activityDate == null || activityDate.trim().isEmpty()){
+            return getErrorJson("必须输入日期");
+        }
+        return getSuccessJson(null);
+    }
+
 
 
 }

@@ -400,13 +400,16 @@
 
             validate('name', 'name', 'validateActivityName');
             validateSelect('country', 'country', 'validateCountry');
+            validateSelect('type', 'type', 'validateType');
+            validateSelect('startDate', 'activityDate', 'validateActivityDate');
+            validateSelect('endDate', 'activityDate', 'validateActivityDate');
 //            validateSelect('province', 'province', 'validateProvince');
 //            validateSelect('city', 'city', 'validateCity');
 //            validateSelect('region', 'region', 'validateRegion');
 //            validate('address', 'address', 'validateAddress');
             validateSelect('exhibitioHall','exhibitioHall','validateChooseExhibition');
             validateSelect('sponsor','sponsor','validateSponsor');
-            validateSelect('customerId', 'customerId', 'validateCustomerId');
+//            validateSelect('customerId', 'customerId', 'validateCustomerId');
         });
 
         function customerClick() {

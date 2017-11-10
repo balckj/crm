@@ -20,7 +20,7 @@ public class Activity extends BaseModel{
     @Length( max = 200, message = "名称最多由200个字符组成", groups = { })
     private String name;
 
-    @NotBlank(message = "必须选择类型", groups = { })
+    @NotBlank(message = "必须选择活动类型", groups = { })
     private String type;
 
     @NotNull(message = "必须输入开始时间", groups = { })

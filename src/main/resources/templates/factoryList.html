@@ -64,7 +64,7 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="state" class="control-label">平台等级</label>
-                        <select class="form-control " name="platformLevel" id="platformLevel">
+                        <select class="form-control " name="platformLevel" id="platformLevel" onchange="query();">
                             <option value="" selected="selected">未选择</option>
                             <option th:value="${levelList.value}" th:text="${levelList.value}" th:each="levelList:${levelList}"></option>
                         </select>
@@ -117,9 +117,9 @@
                                 <!--<th>厂房照片</th>-->
                                 <th>注册资金</th>
                                 <th>纳税人身份</th>
-                                <th>固定工人数量</th>
-                                <th>擅长行业</th>
-                                <th>擅长材料</th>
+                                <!--<th>固定工人数量</th>-->
+                                <!--<th>擅长行业</th>-->
+                                <!--<th>擅长材料</th>-->
                                 <th>擅长面积</th>
                                 <th>平台等级</th>
                                 <!--<th>案例个数</th>-->
@@ -188,7 +188,7 @@
 //                        "defaultContent": ''
 //                    },
                     {
-                        "data": "id", "width": "80px",
+                        "data": "id", "width": "50px",
                         "render": function (data, type, row) {
                             var u = '';
                             if(hasEdit) {
@@ -208,7 +208,7 @@
                     {"data": "country", "width": "100px"},
                     {"data": "province", "width": "50px",
                         "render": function (data, type, full, meta) {
-                            if (data == '未选择') {
+                            if (data == '') {
                                 return '---';
                             }else {
                                 return data;
@@ -217,7 +217,7 @@
                     },
                     {"data": "city", "width": "50px",
                         "render": function (data, type, full, meta) {
-                            if (data == '未选择') {
+                            if (data == '') {
                                 return '---';
                             }else {
                                 return data;
@@ -237,9 +237,9 @@
                     {"data": "factoryArea", "width": "100px"},
                     {"data": "registeredCapital", "width": "100px"},
                     {"data": "taxpayerType", "width": "100px"},
-                    {"data": "fixedEmployeeCount", "width": "100px"},
-                    {"data": "goodAtIndustry", "width": "100px"},
-                    {"data": "goodAtMaterial", "width": "100px"},
+//                    {"data": "fixedEmployeeCount", "width": "100px"},
+//                    {"data": "goodAtIndustry", "width": "100px"},
+//                    {"data": "goodAtMaterial", "width": "100px"},
                     {"data": "goodAtArea", "width": "100px"},
                     {"data": "platformLevel", "width": "100px"},
 //                    {"data": "caseCount", "width": "100px"},

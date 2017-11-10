@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yidatec.util.CustomLocalDateSerializer;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class FactoryEntity extends BaseModel{
     @Length(max = 50, message = "面积最多由50个字符组成", groups = { })
     private String factoryArea;//厂房面积
 
-    @NotBlank(message = "必须上传厂房照片", groups = { })
+//    @NotBlank(message = "必须上传厂房照片", groups = { })
     private String photo;
 //    @NotNull(message = "必须输入注册资金", groups = { })
     @Digits(integer = 18 ,message = "资金整数位不能超过18位,小数位必须是两位", fraction = 2 /*scale*/)
@@ -61,7 +61,8 @@ public class FactoryEntity extends BaseModel{
     @NotBlank(message = "必须选择纳税人身份", groups = { })
     private String taxpayerType;//纳税人身份
 
-    @Length(max = 10, message = "工人数量最多由10个字符组成", groups = { })
+//    @Length(max = 10, message = "工人数量最多由10个字符组成", groups = { })
+    @Min(0)
     private String fixedEmployeeCount;//固定工人数量
 
     @NotBlank(message = "必须输入擅长行业", groups = { })
@@ -83,8 +84,8 @@ public class FactoryEntity extends BaseModel{
 
     private Integer state;
 
-    @Valid
-    @NotEmpty
+//    @Valid
+//    @NotEmpty
     private List<Case> caseList;//案例列表
 
     public List<Case> getCaseList() {

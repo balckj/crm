@@ -168,15 +168,13 @@
                             <div class="hr-line-dashed"></div>
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" id="contactForm">联系人<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label" id="contactForm">联系人</label>
                                 <div class="col-sm-10" id="contactList">
                                     <div class="row" th:if="${#lists.isEmpty(customer.contactList)}">
 
                                         <div class="contactStyle">
                                             <div id="name0Form">
-                                                <label class="control-label">姓名<span
-                                                        style="color:#ed5565;">*</span></label>
+                                                <label class="control-label">姓名</label>
                                                 <div>
                                                     <input type="text" name="name" id="name0" class="form-control input-sm contactHeight" maxlength="30"/>
                                                 </div>
@@ -185,8 +183,7 @@
                                         </div>
                                         <div class="contactStyle">
                                             <div id="mobilePhone0Form">
-                                                <label class="control-label">手机<span
-                                                        style="color:#ed5565;">*</span></label>
+                                                <label class="control-label">手机</label>
                                                 <div>
                                                     <input type="text" oninput="if(value.length>11)value=value.slice(0,11)" name="mobilePhone" id="mobilePhone0" class="form-control input-sm contactHeight" maxlength="30"/>
                                                 </div>
@@ -196,8 +193,7 @@
 
                                         <div class="contactStyle">
                                             <div id="position0Form">
-                                                <label class="control-label">职位<span
-                                                        style="color:#ed5565;">*</span></label>
+                                                <label class="control-label">职位</label>
                                                 <div>
                                                     <select class="form-control input-sm" style="height: 34px"  name="position" id="position0" >
                                                         <option value="" selected="selected">未选择</option>
@@ -249,8 +245,7 @@
                                         <div class="contactStyle">
                                             <div  th:attr="id='name'+${terStat.index}+'Form'">
 
-                                                <label class="control-label" th:if="${terStat.first}">姓名<span
-                                                        style="color:#ed5565;">*</span></label>
+                                                <label class="control-label" th:if="${terStat.first}">姓名</label>
                                                 <div>
                                                     <input type="text" th:attr="id='name'+${terStat.index}, name='name'" class="form-control input-sm contactHeight" maxlength="20" th:value="${contact.name}"/>
                                                 </div>
@@ -259,8 +254,7 @@
                                         </div>
                                         <div class="contactStyle">
                                             <div th:attr="id='mobilePhone'+${terStat.index}+'Form'">
-                                                <label class="control-label" th:if="${terStat.first}">电话<span
-                                                        style="color:#ed5565;">*</span></label>
+                                                <label class="control-label" th:if="${terStat.first}">手机</label>
                                                 <div>
                                                     <input type="text" oninput="if(value.length>11)value=value.slice(0,11)"  th:attr="id='mobilePhone'+${terStat.index}, name='mobilePhone'" class="form-control input-sm contactHeight" maxlength="20" th:value="${contact.mobilePhone}"/>
                                                 </div>
@@ -270,8 +264,7 @@
 
                                         <div class="contactStyle">
                                             <div th:attr="id='position'+${terStat.index}+'Form'">
-                                                <label class="control-label" th:if="${terStat.first}">职位<span
-                                                        style="color:#ed5565;">*</span></label>
+                                                <label class="control-label" th:if="${terStat.first}">职位</label>
                                                 <div>
                                                     <select class="form-control location" th:attr="id='position'+${terStat.index}, name='position'" >
                                                         <option value="" selected="selected">未选择</option>
@@ -467,7 +460,7 @@
             $("#contactList").append(row);
             addTagListOption("position"+total);
 
-            validate("name"+total,"name","validateUsername");
+//            validate("name"+total,"name","validateUsername");
             validate2('mobilePhone'+total, 'mobile', {isEdit: false}, 'validateMobile');
             validateSelect('position'+total,'position','validatePosition');
             validate('email'+total, 'email', 'validateEmail');
@@ -738,7 +731,7 @@
             var total = $("#contactList").children().length;
             for (var i=0;i<total;i++)
             {
-                validate("name"+i,"name","validateUsername");
+//                validate("name"+i,"name","validateUsername");
                 validate2('mobilePhone'+i, 'mobile', {isEdit: false}, 'validateMobile')
                 validateSelect('position'+i, 'position', 'validatePosition');
                 validate('email'+i, 'email', 'validateEmail');
@@ -775,14 +768,16 @@
                 userEmail = $(this).find("input[name='email']").val();
                 userQQ = $(this).find("input[name='qq']").val();
                 userTel =  $(this).find("input[name='tel']").val();
-                userList.push({
-                    "name":userName,
-                    "position":userPosition,
-                    "mobilePhone":userPhone,
-                    "email":userEmail,
-                    "qq":userQQ,
-                    "tel":userTel
-                })
+                if(userName!=""&&userPhone!="") {
+                    userList.push({
+                        "name": userName,
+                        "position": userPosition,
+                        "mobilePhone": userPhone,
+                        "email": userEmail,
+                        "qq": userQQ,
+                        "tel": userTel
+                    })
+                }
             })
             var p = {
                 id: $("#id").val().trim(),

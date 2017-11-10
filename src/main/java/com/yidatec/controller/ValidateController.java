@@ -46,16 +46,18 @@ public class ValidateController extends BaseController{
     @RequestMapping(value = "/validateMobile")
     public String validateMobilePhone(@RequestParam(value="mobile") String mobile,@RequestParam(value="isEdit")boolean isEdit){
         if(mobile == null || mobile.trim().isEmpty()){
-            return getErrorJson("必须输入手机号码");
-        }
-        mobile = mobile.trim();
-        boolean res = mobile.matches("^1[3|4|5|7|8][0-9]\\d{4,8}$");
-        if(!res)
-            return getErrorJson("手机号码格式不正确");
-        else if(!isEdit){
-            User user = userMapper.findByMobilePhone(mobile);
-            if(user != null)
-                return getErrorJson("手机号码已存在");
+//            return getErrorJson("必须输入手机号码");
+            getSuccessJson(null);
+        }else{
+            mobile = mobile.trim();
+            boolean res = mobile.matches("^1[3|4|5|7|8][0-9]\\d{4,8}$");
+            if(!res)
+                return getErrorJson("手机号码格式不正确");
+            else if(!isEdit){
+                User user = userMapper.findByMobilePhone(mobile);
+                if(user != null)
+                    return getErrorJson("手机号码已存在");
+            }
         }
         return getSuccessJson(null);
     }
@@ -851,9 +853,9 @@ public class ValidateController extends BaseController{
 
     @RequestMapping(value = "/validatePosition")
     public String validatePosition(@RequestParam(value="position") String position){
-        if(position == null || position.trim().isEmpty()){
-            return getErrorJson("必须选择职位");
-        }
+//        if(position == null || position.trim().isEmpty()){
+//            return getErrorJson("必须选择职位");
+//        }
         return getSuccessJson(null);
     }
 
@@ -901,8 +903,8 @@ public class ValidateController extends BaseController{
 
     @RequestMapping(value = "/validateTel")
     public String validateTel(@RequestParam(value = "tel") String tel) {
-        String regexp="^(0[0-9]{2,3}/-)?([2-9][0-9]{6,7})+(/-[0-9]{1,4})?$";
-        boolean res = tel.matches(regexp);
+//        String regexp="^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$";
+        boolean res = tel.matches("^((0\\d{2,3}-\\d{7,8})|(1[3584]\\d{9}))$");
         if(!res){
             return getErrorJson("座机格式不正确");
         }

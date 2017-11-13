@@ -621,7 +621,7 @@
             "  <div class=\"dz-details\">\n" +
 //            "  <img data-dz-thumbnail name='picture' class='img-responsive'/>\n" +
             "  </div>\n" +
-            "<div class=\"dz-image,preview\"><a data-lightbox='test'><img data-dz-thumbnail style='width: 120px;height: 120px;'/></a></div>\n  " +
+            "<div class=\"dz-image,preview\"><a  data-lightbox='test'><img data-dz-thumbnail style='width: 120px;height: 120px;'/></a></div>\n  " +
             "<div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  " +
             "<div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  " +
             "<div class=\"dz-success-mark\">\n    " +
@@ -677,6 +677,9 @@
                 previewTemplate:previewTemplate ,
                 acceptedFiles: ".jpg,.gif,.png", //上传的类
                 init:function(){
+                    $('a[data-lightbox="test"] > img').each(function(){
+                        this.parentNode.href = this.src
+                    })
                     this.on("addedfile", function(file) {
                         //上传文件时触发的事件
                     });
@@ -692,8 +695,9 @@
                         casephoto[total].push(file.serverName );
 
                     });
-                    this.on("thumbnail",function (file,dataUrl) {
-                    })
+                    this.on("thumbnail",function(file,response) {
+                        //单个上传完成后触发的方法
+                    });
                     this.on("queuecomplete",function(file) {
                         //上传完成后触发的方法
                         $("#caseCount").val(total+1);
@@ -988,8 +992,17 @@
                             this.emit("complete", mockFile);
                         }
                     }
+                    $('a[data-lightbox="test"] > img').each(function(){
+                        this.parentNode.href = this.src
+                    })
+                    this.on("thumbnail",function(file,response) {
+                        //单个上传完成后触发的方法
+
+                    });
+
                     this.on("addedfile", function(file) {
                         //上传文件时触发的事件
+
                     });
                     this.on("thumbnail",function (file,dataUrl) {
                         file.thumbnail = dataUrl;
@@ -1074,6 +1087,14 @@
                     this.emit("complete", mockFile);
                 }
 
+                $('a[data-lightbox="test"] > img').each(function(){
+                    this.parentNode.href = this.src
+                })
+
+                this.on("thumbnail",function(file,response) {
+                    //单个上传完成后触发的方法
+                });
+
                 this.on("addedfile", function(file) {
                     //上传文件时触发的事件
                 });
@@ -1089,7 +1110,6 @@
                     validateDiv('photo','photo','validatePhoto');
                 });
                 this.on("removedfile",function(file){
-                    debugger;
                     //删除文件时触发的方法
                     validateDiv('photo','photo','validatePhoto');
                     if(file.serverName==undefined){
@@ -1322,6 +1342,8 @@
             });
 
         }
+
+
 
         /*]]>*/
     </script>

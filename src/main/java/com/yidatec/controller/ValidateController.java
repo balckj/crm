@@ -843,6 +843,22 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
+    @RequestMapping(value = "/validateOrganizer")
+    public String validateOrganizer(@RequestParam(value="organizer") String organizer){
+        if(organizer == null || organizer.trim().isEmpty()){
+            return getErrorJson("必须选择承办方");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateBuilder")
+    public String validateBuilder(@RequestParam(value="builder") String builder){
+        if(builder == null || builder.trim().isEmpty()){
+            return getErrorJson("必须选择主场搭建方");
+        }
+        return getSuccessJson(null);
+    }
+
     @RequestMapping(value = "/validateSource")
     public String validateSource(@RequestParam(value="source") String source){
         if(source == null || source.trim().isEmpty()){
@@ -904,7 +920,8 @@ public class ValidateController extends BaseController{
     @RequestMapping(value = "/validateTel")
     public String validateTel(@RequestParam(value = "tel") String tel) {
 //        String regexp="^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$";
-        boolean res = tel.matches("^((0\\d{2,3}-\\d{7,8})|(1[3584]\\d{9}))$");
+        String reg = "/^(\\d{3,4})-(\\d{7,8})/";
+        boolean res = tel.matches(reg);
         if(!res){
             return getErrorJson("座机格式不正确");
         }

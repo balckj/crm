@@ -145,6 +145,24 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"/>
+                            <div class="form-group" id="organizerForm"><label class="col-sm-2 control-label">承办方<span
+                                style="color:#ed5565;">*</span></label>
+                            <div class="col-sm-4">
+                                <input id="organizer" name="organizer" placeholder="请选择承办方" readonly="readonly"  type="text" th:value="${activity}?${activity.organizerName}" th:attr="organizer=${activity}?${activity.organizer}"
+                                       class="form-control" maxlength="200" onclick="organizerClick();" style="cursor:pointer;"/>
+                            </div>
+                            <label class="col-sm-4 control-label" style="text-align: left"></label>
+                        </div>
+                            <div class="hr-line-dashed"/>
+                            <div class="form-group" id="builderForm"><label class="col-sm-2 control-label">主场搭建<span
+                                    style="color:#ed5565;">*</span></label>
+                                <div class="col-sm-4">
+                                    <input id="builder" name="builder" placeholder="请选择主场搭建" readonly="readonly"  type="text" th:value="${activity}?${activity.builderName}" th:attr="builder=${activity}?${activity.builder}"
+                                           class="form-control" maxlength="200" onclick="builderClick();" style="cursor:pointer;"/>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+                            <div class="hr-line-dashed"/>
                             <div class="form-group" id="photoForm">
                                 <label class="col-sm-2 control-label">活动照片</label>
                                 <div class="col-sm-6 dropzone" id="photo">
@@ -219,10 +237,74 @@
         </div>
     </div>
 
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="organizerTableModal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 >请选择一个承办方</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <table id="organizerTable" class="table table-striped table-bordered table-hover dataTables-example">
+                                    <thead>
+                                    <tr>
+                                        <th>操作</th>
+                                        <th>客户名称</th>
+                                        <th>所属行业</th>
+                                        <th>企业性质</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn ladda-button btn-primary" onclick="chooseOrganizer(this);"><span class="ladda-label">确定</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="builderTableModal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 >请选择一个主场搭建</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <table id="builderTable" class="table table-striped table-bordered table-hover dataTables-example">
+                                    <thead>
+                                    <tr>
+                                        <th>操作</th>
+                                        <th>客户名称</th>
+                                        <th>所属行业</th>
+                                        <th>企业性质</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn ladda-button btn-primary" onclick="chooseBuilder(this);"><span class="ladda-label">确定</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Data picker -->
     <link th:href="@{99/css/plugins/datapicker/datepicker3.css}" rel="stylesheet"/>
     <script th:src="@{99/js/plugins/datapicker/bootstrap-datetimepicker.min.js}"></script>
-    <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.min.js}"></script>
+    <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
     <script th:src="@{99/js/plugins/dropzone/dropzone.js}"></script>
@@ -278,6 +360,18 @@
             $('#customerTableModal').on('shown.bs.modal',function(){
                 if(customerTable == undefined && customerTable == null){
                     customerTableInit();// 项目table初始化
+                }
+            })
+
+            $('#organizerTableModal').on('shown.bs.modal',function(){
+                if(organizerTable == undefined && organizerTable == null){
+                    organizerTableInit();// 项目table初始化
+                }
+            })
+
+            $('#builderTableModal').on('shown.bs.modal',function(){
+                if(builderTable == undefined && builderTable == null){
+                    builderTableInit();// 项目table初始化
                 }
             })
 
@@ -409,11 +503,21 @@
 //            validate('address', 'address', 'validateAddress');
             validateSelect('exhibitioHall','exhibitioHall','validateChooseExhibition');
             validateSelect('sponsor','sponsor','validateSponsor');
+            validateSelect('organizer','organizer','validateOrganizer');
+            validateSelect('builder','builder','validateBuilder');
 //            validateSelect('customerId', 'customerId', 'validateCustomerId');
         });
 
         function customerClick() {
             $('#customerTableModal').modal('show');
+        }
+
+        function organizerClick() {
+            $('#organizerTableModal').modal('show');
+        }
+
+        function builderClick() {
+            $('#builderTableModal').modal('show');
         }
 
         var customerTable = null;
@@ -485,6 +589,144 @@
             });
         }
 
+        var organizerTable = null;
+        function organizerTableInit() {
+            organizerTable = $('#organizerTable').DataTable({
+                "sScrollX": true,
+                "ajax": {
+                    "url": "findCustomer",
+                    "dataType": 'json',
+                    "type": "POST",
+                    contentType: 'application/json; charset=utf-8',
+
+                    "data": function (d) {
+                        var p = {};
+                        p.draw = d.draw;
+                        p.length = d.length;
+                        p.start = d.start;
+                        p.name = d.search.value;
+                        var a = JSON.stringify(p);
+                        return a;
+                    }
+                },
+
+                "columns": [
+                    {
+                        "data": "id", "width": "50px",
+                        "render": function (data, type, row) {
+                            var u = "";
+                            u =  "<input type=\"radio\" name='organizer' value='" + row.id + "' organizerName='" + row.name + "' />";
+                            return u;
+
+                        },
+                    },
+
+                    {"data": "name", "width": "100px"},
+                    {"data": "industry", "width": "200px"},
+                    {"data": "nature", "width": "130px"},
+                ]
+                , language: {
+                    lengthMenu: '每页显示 <select class="form-control input-sm">'
+                    + '<option value="10">10</option>'
+                    + '<option value="20">20</option>'
+                    + '<option value="500">50</option>'
+                    + '</select> 个承办方'
+                    ,
+                    processing: "载入中 ...",//处理页面数据的时候的显示
+                    paginate: {//分页的样式文本内容。
+                        previous: "上一页",
+                        next: "下一页",
+                        first: "第一页",
+                        last: "最后一页"
+                    },
+                    "sSearch": "承办方搜索",
+                    zeroRecords: "没有承办方",//table tbody内容为空时，tbody的内容。
+                    //下面三者构成了总体的左下角的内容。
+                    info: "当前显示第_START_到第_END_个承办方 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    infoEmpty: "0个承办方",//筛选为空时左下角的显示。
+                    infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
+                }
+                , "lengthChange": true
+                , "bFilter": true //搜索栏
+                , "bAutoWidth": true  //自适应宽度
+                , "sPaginationType": "full_numbers" //分页，一共两种样式，full_numbers和two_button(默认)
+                , "bJQueryUI": false //开关，是否启用JQueryUI风格
+                , "bSort": false
+                , "processing": true
+                , "serverSide": true
+                , "iDisplayLength": 10 //默认显示的记录数
+            });
+        }
+
+        var builderTable = null;
+        function builderTableInit() {
+            builderTable = $('#builderTable').DataTable({
+                "sScrollX": true,
+                "ajax": {
+                    "url": "findCustomer",
+                    "dataType": 'json',
+                    "type": "POST",
+                    contentType: 'application/json; charset=utf-8',
+
+                    "data": function (d) {
+                        var p = {};
+                        p.draw = d.draw;
+                        p.length = d.length;
+                        p.start = d.start;
+                        p.name = d.search.value;
+                        var a = JSON.stringify(p);
+                        return a;
+                    }
+                },
+
+                "columns": [
+                    {
+                        "data": "id", "width": "50px",
+                        "render": function (data, type, row) {
+                            var u = "";
+                            u =  "<input type=\"radio\" name='builder' value='" + row.id + "' builderName='" + row.name + "' />";
+                            return u;
+
+                        },
+                    },
+
+                    {"data": "name", "width": "100px"},
+                    {"data": "industry", "width": "200px"},
+                    {"data": "nature", "width": "130px"},
+                ]
+                , language: {
+                    lengthMenu: '每页显示 <select class="form-control input-sm">'
+                    + '<option value="10">10</option>'
+                    + '<option value="20">20</option>'
+                    + '<option value="500">50</option>'
+                    + '</select> 个主场搭建方'
+                    ,
+                    processing: "载入中 ...",//处理页面数据的时候的显示
+                    paginate: {//分页的样式文本内容。
+                        previous: "上一页",
+                        next: "下一页",
+                        first: "第一页",
+                        last: "最后一页"
+                    },
+                    "sSearch": "主场搭建方搜索",
+                    zeroRecords: "没有主场搭建方",//table tbody内容为空时，tbody的内容。
+                    //下面三者构成了总体的左下角的内容。
+                    info: "当前显示第_START_到第_END_个主场搭建方 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    infoEmpty: "0个主场搭建方",//筛选为空时左下角的显示。
+                    infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
+                }
+                , "lengthChange": true
+                , "bFilter": true //搜索栏
+                , "bAutoWidth": true  //自适应宽度
+                , "sPaginationType": "full_numbers" //分页，一共两种样式，full_numbers和two_button(默认)
+                , "bJQueryUI": false //开关，是否启用JQueryUI风格
+                , "bSort": false
+                , "processing": true
+                , "serverSide": true
+                , "iDisplayLength": 10 //默认显示的记录数
+            });
+        }
+
         function chooseCustomer() {
             var customer=document.getElementsByName("customer");
             $.each(customer, function(i,v) {
@@ -496,6 +738,34 @@
             });
             $('#customerTableModal').modal('hide');
             $("#sponsor").change();
+//            $("#code").val("");
+        }
+
+        function chooseOrganizer() {
+            var organizer=document.getElementsByName("organizer");
+            $.each(organizer, function(i,v) {
+                if(v.checked == true){
+                    $("#organizer").val($(this).attr("organizerName")); // 项目编号
+                    $("#organizer").attr("organizer",$(this).val());
+//                    $("#customerId").text($(this).attr("cusId")); // 项目编号 ID
+                }
+            });
+            $('#organizerTableModal').modal('hide');
+            $("#organizer").change();
+//            $("#code").val("");
+        }
+
+        function chooseBuilder() {
+            var builder=document.getElementsByName("builder");
+            $.each(builder, function(i,v) {
+                if(v.checked == true){
+                    $("#builder").val($(this).attr("builderName")); // 项目编号
+                    $("#builder").attr("builder",$(this).val());
+//                    $("#customerId").text($(this).attr("cusId")); // 项目编号 ID
+                }
+            });
+            $('#builderTableModal').modal('hide');
+            $("#builder").change();
 //            $("#code").val("");
         }
 
@@ -623,6 +893,8 @@
                 state: $("input[name='state']:checked").val(),
                 exhibitioHall:$("#exhibitioHall").val(),
                 sponsor:$("#sponsor").attr("sponsorid"),
+                organizer:$("#organizer").attr("organizer"),
+                builder:$("#builder").attr("builder"),
                 photo:photolist.toString()
             };
             var a = JSON.stringify(p);

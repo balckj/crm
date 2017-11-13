@@ -11,6 +11,24 @@ public class ActivityVO extends Activity{
     private Integer start;
     private String search;
     private String sponsorName;
+    private String organizerName;
+    private String builderName;
+
+    public String getOrganizerName() {
+        return organizerName;
+    }
+
+    public void setOrganizerName(String organizerName) {
+        this.organizerName = organizerName;
+    }
+
+    public String getBuilderName() {
+        return builderName;
+    }
+
+    public void setBuilderName(String builderName) {
+        this.builderName = builderName;
+    }
 
     public String getSponsorName() {
         return sponsorName;

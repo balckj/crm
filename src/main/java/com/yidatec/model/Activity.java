@@ -51,6 +51,12 @@ public class Activity extends BaseModel{
     private String sponsor;
     private String customerName;
 
+    @NotBlank(message = "必须选择承办方", groups = { })
+    private String organizer;
+
+    @NotBlank(message = "必须选择主场搭建", groups = { })
+    private String builder;
+
     private String mediaIds;
     private String photo;
 
@@ -191,5 +197,21 @@ public class Activity extends BaseModel{
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(String organizer) {
+        this.organizer = organizer;
+    }
+
+    public String getBuilder() {
+        return builder;
+    }
+
+    public void setBuilder(String builder) {
+        this.builder = builder;
     }
 }

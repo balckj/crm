@@ -356,10 +356,10 @@
                             }
 
                             var dl = '';// 合同下载
-                            if(contractDonwLoad) {
-                                dl =  row.id;
-                                dl = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:ledgerDonwLoad(\'' + dl + '\')" >合同下载</a>';
-                            }
+//                            if(contractDonwLoad) {
+//                                dl =  row.id;
+//                                dl = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:ledgerDonwLoad(\'' + dl + '\')" >合同下载</a>';
+//                            }
 
                             // 以下是台账相关
                             var el = '';// 编辑台账
@@ -691,8 +691,8 @@
         function ledgerDonwLoad(id) {
             $("#contractId").val(id);
             // todo
-            $('#contrctReportForm').attr('action', "/contractDownLoad");
-            $("#contrctReportForm").submit();
+//            $('#contrctReportForm').attr('action', "/contractDownLoad");
+//            $("#contrctReportForm").submit();
         }
 
         var showLedgerbtn;

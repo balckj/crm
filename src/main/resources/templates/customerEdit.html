@@ -193,15 +193,22 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-
                                         <div class="contactStyle">
-                                            <div id="position0Form">
-                                                <label class="control-label">职位</label>
+                                            <div id="tel0Form">
+                                                <label class="control-label">座机</label>
                                                 <div>
-                                                    <select class="form-control input-sm" style="height: 34px"  name="position" id="position0" >
-                                                        <option value="" selected="selected">未选择</option>
-                                                        <option th:value="${position.id}" th:text="${position.value}" th:each="position : ${position}"></option>
-                                                    </select>
+                                                    <!--<input type="text" class="form-control" data-mask="(999) 999-9999" placeholder="">-->
+                                                    <input type="text" name="tel" id="tel0" class="form-control input-sm contactHeight" maxlength="50"  placeholder="" />
+                                                    <!--<span class="help-block">(999) 999-9999</span>-->
+                                                </div>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="contactStyle">
+                                            <div id="qq0Form">
+                                                <label class="control-label">QQ</label>
+                                                <div>
+                                                    <input type="text" name="qq" id="qq0" class="form-control input-sm contactHeight" maxlength="50" style="min-width:100px"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -215,24 +222,14 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-
                                         <div class="contactStyle">
-                                            <div id="qq0Form">
-                                                <label class="control-label">QQ</label>
+                                            <div id="position0Form">
+                                                <label class="control-label">职位</label>
                                                 <div>
-                                                    <input type="text" name="qq" id="qq0" class="form-control input-sm contactHeight" maxlength="50" style="min-width:100px"/>
-                                                </div>
-                                                <label class=" control-label" style="text-align: left"></label>
-                                            </div>
-                                        </div>
-
-                                        <div class="contactStyle">
-                                            <div id="tel0Form">
-                                                <label class="control-label">座机</label>
-                                                <div>
-                                                    <!--<input type="text" class="form-control" data-mask="(999) 999-9999" placeholder="">-->
-                                                    <input type="text" name="tel" id="tel0" class="form-control input-sm contactHeight" maxlength="50" style="min-width:120px" placeholder="" />
-                                                    <!--<span class="help-block">(999) 999-9999</span>-->
+                                                    <select class="form-control input-sm" style="height: 34px"  name="position" id="position0" >
+                                                        <option value="" selected="selected">未选择</option>
+                                                        <option th:value="${position.id}" th:text="${position.value}" th:each="position : ${position}"></option>
+                                                    </select>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -266,24 +263,11 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-
                                         <div class="contactStyle">
-                                            <div th:attr="id='position'+${terStat.index}+'Form'">
-                                                <label class="control-label" th:if="${terStat.first}">职位</label>
+                                            <div th:attr="id='tel'+${terStat.index}+'Form'">
+                                                <label class="control-label" th:if="${terStat.first}">座机</label>
                                                 <div>
-                                                    <select class="form-control location" th:attr="id='position'+${terStat.index}, name='position'" >
-                                                        <option value="" selected="selected">未选择</option>
-                                                        <option th:value="${position.id}" th:text="${position.value}" th:each="position : ${position}" th:selected="${position.id==contact.position?'selected':'false'}"></option>
-                                                    </select>
-                                                </div>
-                                                <label class=" control-label" style="text-align: left"></label>
-                                            </div>
-                                        </div>
-                                        <div class="contactStyle">
-                                            <div th:attr="id='email'+${terStat.index}+'Form'">
-                                                <label class="control-label" th:if="${terStat.first}">邮箱</label>
-                                                <div>
-                                                    <input type="text" th:attr="id='email'+${terStat.index}, name='email'" class="form-control input-sm contactHeight" maxlength="50" th:value="${contact.email}"/>
+                                                    <input type="text" th:attr="id='tel'+${terStat.index}, name='tel'" class="form-control contactHeight" maxlength="50"  th:value="${contact.tel}" />
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -298,10 +282,22 @@
                                             </div>
                                         </div>
                                         <div class="contactStyle">
-                                            <div th:attr="id='tel'+${terStat.index}+'Form'">
-                                                <label class="control-label" th:if="${terStat.first}">座机</label>
+                                            <div th:attr="id='email'+${terStat.index}+'Form'">
+                                                <label class="control-label" th:if="${terStat.first}">邮箱</label>
                                                 <div>
-                                                    <input type="text" th:attr="id='tel'+${terStat.index}, name='tel'" class="form-control contactHeight" maxlength="50" style="min-width: 120px" th:value="${contact.tel}" />
+                                                    <input type="text" th:attr="id='email'+${terStat.index}, name='email'" class="form-control input-sm contactHeight" maxlength="50" th:value="${contact.email}"/>
+                                                </div>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="contactStyle">
+                                            <div th:attr="id='position'+${terStat.index}+'Form'">
+                                                <label class="control-label" th:if="${terStat.first}">职位</label>
+                                                <div>
+                                                    <select class="form-control location" th:attr="id='position'+${terStat.index}, name='position'" >
+                                                        <option value="" selected="selected">未选择</option>
+                                                        <option th:value="${position.id}" th:text="${position.value}" th:each="position : ${position}" th:selected="${position.id==contact.position?'selected':'false'}"></option>
+                                                    </select>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -429,10 +425,17 @@
                 +" </div>"
                 +" </div>"
                 +" <div class='contactStyle'>"
-                +" <div id='position"+total+ "Form'>"
+                +" <div id='tel"+total+ "Form'>"
                 +" <div>"
-                +" <select class='form-control location' name='position' id='position"+total+ "' >"
-                +" </select>"
+                +" <input type='text' name='tel' id='tel"+total+ "' class='form-control input-sm contactHeight' maxlength='50' />"
+                +" </div>"
+                +" <label class=' control-label' style='text-align: left'></label>"
+                +" </div>"
+                +" </div>"
+                +" <div class='contactStyle'>"
+                +" <div id='qq"+total+ "Form'>"
+                +" <div>"
+                +" <input type='text' name='qq' id='qq"+total+ "' class='form-control input-sm contactHeight' maxlength='50'/>"
                 +" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
@@ -445,25 +448,15 @@
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
-
                 +" <div class='contactStyle'>"
-                +" <div id='qq"+total+ "Form'>"
+                +" <div id='position"+total+ "Form'>"
                 +" <div>"
-                +" <input type='text' name='qq' id='qq"+total+ "' class='form-control input-sm contactHeight' maxlength='50'/>"
+                +" <select class='form-control location' name='position' id='position"+total+ "' >"
+                +" </select>"
                 +" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
-
-                +" <div class='contactStyle'>"
-                +" <div id='tel"+total+ "Form'>"
-                +" <div>"
-                +" <input type='text' name='tel' id='tel"+total+ "' class='form-control input-sm contactHeight' maxlength='50' style=\"min-width: 120px\"/>"
-                +" </div>"
-                +" <label class=' control-label' style='text-align: left'></label>"
-                +" </div>"
-                +" </div>"
-
                 +" <div class='contactStyle'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-primary'>删&nbsp;&nbsp;除</button></div></div>";
             $("#contactList").append(row);
             addTagListOption("position"+total);

@@ -46,16 +46,18 @@ public class ValidateController extends BaseController{
     @RequestMapping(value = "/validateMobile")
     public String validateMobilePhone(@RequestParam(value="mobile") String mobile,@RequestParam(value="isEdit")boolean isEdit){
         if(mobile == null || mobile.trim().isEmpty()){
-            return getErrorJson("必须输入手机号码");
-        }
-        mobile = mobile.trim();
-        boolean res = mobile.matches("^1[3|4|5|7|8][0-9]\\d{4,8}$");
-        if(!res)
-            return getErrorJson("手机号码格式不正确");
-        else if(!isEdit){
-            User user = userMapper.findByMobilePhone(mobile);
-            if(user != null)
-                return getErrorJson("手机号码已存在");
+//            return getErrorJson("必须输入手机号码");
+            getSuccessJson(null);
+        }else{
+            mobile = mobile.trim();
+            boolean res = mobile.matches("^1[3|4|5|7|8][0-9]\\d{4,8}$");
+            if(!res)
+                return getErrorJson("手机号码格式不正确");
+            else if(!isEdit){
+                User user = userMapper.findByMobilePhone(mobile);
+                if(user != null)
+                    return getErrorJson("手机号码已存在");
+            }
         }
         return getSuccessJson(null);
     }
@@ -841,6 +843,22 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
+    @RequestMapping(value = "/validateOrganizer")
+    public String validateOrganizer(@RequestParam(value="organizer") String organizer){
+        if(organizer == null || organizer.trim().isEmpty()){
+            return getErrorJson("必须选择承办方");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateBuilder")
+    public String validateBuilder(@RequestParam(value="builder") String builder){
+        if(builder == null || builder.trim().isEmpty()){
+            return getErrorJson("必须选择主场搭建方");
+        }
+        return getSuccessJson(null);
+    }
+
     @RequestMapping(value = "/validateSource")
     public String validateSource(@RequestParam(value="source") String source){
         if(source == null || source.trim().isEmpty()){
@@ -851,9 +869,9 @@ public class ValidateController extends BaseController{
 
     @RequestMapping(value = "/validatePosition")
     public String validatePosition(@RequestParam(value="position") String position){
-        if(position == null || position.trim().isEmpty()){
-            return getErrorJson("必须选择职位");
-        }
+//        if(position == null || position.trim().isEmpty()){
+//            return getErrorJson("必须选择职位");
+//        }
         return getSuccessJson(null);
     }
 
@@ -901,10 +919,19 @@ public class ValidateController extends BaseController{
 
     @RequestMapping(value = "/validateTel")
     public String validateTel(@RequestParam(value = "tel") String tel) {
-        String regexp="^(0[0-9]{2,3}/-)?([2-9][0-9]{6,7})+(/-[0-9]{1,4})?$";
-        boolean res = tel.matches(regexp);
+//        String regexp="^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$";
+        String reg = "/^(\\d{3,4})-(\\d{7,8})/";
+        boolean res = tel.matches(reg);
         if(!res){
             return getErrorJson("座机格式不正确");
+        }
+        return getSuccessJson(null);
+    }
+
+    @RequestMapping(value = "/validateActivityDate")
+    public String validateActivityDate(@RequestParam(value="activityDate") String activityDate){
+        if(activityDate == null || activityDate.trim().isEmpty()){
+            return getErrorJson("必须输入日期");
         }
         return getSuccessJson(null);
     }

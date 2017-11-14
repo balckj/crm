@@ -57,12 +57,12 @@
                         <input type="text"  id="city" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label for="address" class="control-label">活动地址</label>
-                        <input type="text"  id="address" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
-                    </div>
-                </div>
+                <!--<div class="col-sm-2">-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="address" class="control-label">活动地址</label>-->
+                        <!--<input type="text"  id="address" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="state" class="control-label">状态</label>
@@ -111,8 +111,8 @@
                                 <th>国家</th>
                                 <th>省</th>
                                 <th>城市</th>
-                                <th>区域</th>
-                                <th>地址</th>
+                                <!--<th>区域</th>-->
+                                <!--<th>地址</th>-->
                                 <th>展馆</th>
                                 <th>主办方</th>
                                 <th>状态</th>
@@ -220,7 +220,7 @@
 
                 "columns": [
                     {
-                        "data": "id", "width": "80px",
+                        "data": "id", "width": "50px",
                         "render": function (data, type, row) {
                             var u = '';
                             if(hasEdit) {
@@ -233,14 +233,14 @@
                             return u;
                         },
                     },
-                    {"data": "name", "width": "100px"},
-                    {"data": "type", "width": "100px"},
-                    {"data": "startDate", "width": "100px"},
-                    {"data": "endDate", "width": "100px"},
-                    {"data": "country", "width": "100px"},
+                    {"data": "name", "width": "280px"},
+                    {"data": "type", "width": "70px"},
+                    {"data": "startDate", "width": "80px"},
+                    {"data": "endDate", "width": "80px"},
+                    {"data": "country", "width": "70px"},
                     {"data": "province", "width": "50px",
                         "render": function (data, type, full, meta) {
-                            if (data == '未选择') {
+                            if (data == "") {
                                 return '---';
                             }else {
                                 return data;
@@ -249,25 +249,25 @@
                     },
                     {"data": "city", "width": "50px",
                         "render": function (data, type, full, meta) {
-                            if (data == '未选择') {
+                            if (data == "") {
                                 return '---';
                             }else {
                                 return data;
                             }
                         }
                     },
-                    {"data": "region", "width": "100px",
-                        "render": function (data, type, full, meta) {
-                            if (data == '未选择') {
-                                return '---';
-                            }else {
-                                return data;
-                            }
-                        }
-                    },
-                    {"data": "address", "width": "100px"},
-                    {"data": "exhibitioHallName", "width": "100px"},
-                    {"data": "customerName", "width": "100px"},
+//                    {"data": "region", "width": "100px",
+//                        "render": function (data, type, full, meta) {
+//                            if (data == '未选择') {
+//                                return '---';
+//                            }else {
+//                                return data;
+//                            }
+//                        }
+//                    },
+//                    {"data": "address", "width": "100px"},
+                    {"data": "exhibitioHallName", "width": "240px"},
+                    {"data": "customerName", "width": "240px"},
                     {
                         "data": "state", "width": "40px",
                         "render": function (data, type, full, meta) {

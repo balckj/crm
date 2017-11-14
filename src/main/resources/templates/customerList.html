@@ -74,12 +74,12 @@
                         <input type="text"  id="city" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label for="address" class="control-label">地址</label>
-                        <input type="text"  id="address" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
-                    </div>
-                </div>
+                <!--<div class="col-sm-2">-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="address" class="control-label">地址</label>-->
+                        <!--<input type="text"  id="address" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="state" class="control-label">状态</label>
@@ -186,14 +186,14 @@
                         },
                     },
 
-                    {"data": "name", "width": "100px"},
+                    {"data": "name", "width": "280px"},
 //                    {"data": "companyId", "width": "50px"},
                     {"data": "industry", "width": "100px"},
                     {"data": "nature", "width": "80px"},
-                    {"data": "country", "width": "50px"},
+                    {"data": "country", "width": "70px"},
                     {"data": "province", "width": "50px",
                         "render": function (data, type, full, meta) {
-                            if (data == '未选择') {
+                            if (data == '') {
                                 return '---';
                             }else {
                                 return data;
@@ -202,7 +202,7 @@
                     },
                     {"data": "city", "width": "50px",
                         "render": function (data, type, full, meta) {
-                            if (data == '未选择') {
+                            if (data == '') {
                                 return '---';
                             }else {
                                 return data;
@@ -211,14 +211,14 @@
                     },
                     {"data": "region", "width": "100px",
                         "render": function (data, type, full, meta) {
-                            if (data == '未选择') {
+                            if (data == '') {
                                 return '---';
                             }else {
                                 return data;
                             }
                         }
                     },
-                    {"data": "address", "width": "100px"},
+                    {"data": "address", "width": "240px"},
                     {"data": "level", "width": "50px"},
                     {
                         "data": "state", "width": "40px",
@@ -254,7 +254,7 @@
                     "sSearch": "搜索",
                     zeroRecords: "没有客户",//table tbody内容为空时，tbody的内容。
                     //下面三者构成了总体的左下角的内容。
-                    info: "当前显示第_START_到第_END_个客户 ，共_PAGES_ 页 ",//左下角的信息显示，大写的词为关键字。
+                    info: "当前显示第_START_到第_END_个客户 ，共_PAGES_页 ",//左下角的信息显示，大写的词为关键字。
                     infoEmpty: "0个客户",//筛选为空时左下角的显示。
                     infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
                 }

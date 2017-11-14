@@ -1,6 +1,7 @@
 package com.yidatec.service;
 
 import com.yidatec.mapper.ActivityMapper;
+import com.yidatec.mapper.CustomerMapper;
 import com.yidatec.model.Activity;
 import com.yidatec.model.Customer;
 import com.yidatec.vo.ActivityVO;
@@ -22,8 +23,17 @@ public class ActivityService {
     @Autowired
     ActivityMapper activityMapper;
 
+    @Autowired
+    CustomerMapper customerMapper;
+
     public ActivityVO selectActivity(String id){
-        return  activityMapper.selectActivity(id);
+        ActivityVO activity = activityMapper.selectActivity(id);
+        if(activity!=null){
+            activity.setSponsorName("".equals(activity.getSponsor())?"":customerMapper.selectCustomer(activity.getSponsor()).getName());
+            activity.setOrganizerName("".equals(activity.getOrganizer())?"":customerMapper.selectCustomer(activity.getOrganizer()).getName());
+            activity.setBuilderName("".equals(activity.getBuilder())?"":customerMapper.selectCustomer(activity.getBuilder()).getName());
+        }
+        return  activity;
     }
     /**
      * 查询客户数据

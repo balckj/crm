@@ -72,7 +72,7 @@ public class ActivityController extends BaseController{
             activity.setCreatorId(getWebUser().getId());
             activity.setCreateTime(LocalDateTime.now());
             activity.setModifierId(activity.getCreatorId());
-            activity.setModifyTime(activity.getModifyTime());
+            activity.setModifyTime(activity.getCreateTime());
             activityService.createActivity(activity);
         } else {/*编辑*/
             activity.setModifierId(getWebUser().getId());

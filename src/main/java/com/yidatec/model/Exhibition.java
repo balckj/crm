@@ -19,7 +19,7 @@ public class Exhibition extends BaseModel{
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
 //    private LocalDate startTime;
 
-    @NotBlank(message = "必须输入展馆地址", groups = { })
+//    @NotBlank(message = "必须输入展馆地址", groups = { })
     private String address;
     private String country;
     private String province;

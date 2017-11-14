@@ -2,9 +2,7 @@ package com.yidatec.mapper;
 
 
 import com.yidatec.model.Exhibition;
-import com.yidatec.model.Product;
 import com.yidatec.vo.ExhibitionVO;
-import com.yidatec.vo.ProductVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -27,7 +25,7 @@ public interface ExhibitionMapper {
 	 * 查找一个展馆ALL
 	 * @return
 	 */
-	@Select("SELECT id,name,address,start as startTime,country,province,city,region,area,createTime,creatorId,modifyTime,modifierId FROM T_EXHIBITION_HALL")
+	@Select("SELECT id,name,address,start as startTime,country,province,city,region,area,createTime,creatorId,modifyTime,modifierId FROM T_EXHIBITION_HALL order by name")
 	List<ExhibitionVO> selectExhibitionAll();
 
 	@SelectProvider(type=ExhibitionQueryProvider.class,method = "selectExhibitionList")

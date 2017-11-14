@@ -20,6 +20,7 @@
 
     <link th:href="@{99/css/animate.css}" rel="stylesheet"/>
     <link th:href="@{99/css/style.css}" rel="stylesheet"/>
+    <link th:href="@{lightbox/css/lightbox.min.css}" rel="stylesheet"/>
     <style type="text/css">
         .contactHeight{
             height: 34px;
@@ -94,15 +95,13 @@
                             <div class="hr-line-dashed"></div>
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">联系人<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">联系人</label>
                                 <div class="col-sm-10" id="contactList">
                                     <div class="row" th:if="${#lists.isEmpty(factory.contactList)}">
 
                                         <div class="contactStyle">
                                             <div id="contactStyle">
-                                                <label class="control-label">姓名<span
-                                                        style="color:#ed5565;">*</span></label>
+                                                <label class="control-label">姓名</label>
                                                 <div>
                                                     <input type="text" name="name" id="name0" class="form-control input-sm contactHeight" maxlength="20"/>
                                                 </div>
@@ -111,32 +110,18 @@
                                         </div>
                                         <div class="contactStyle">
                                             <div id="mobilePhone0Form">
-                                                <label class="control-label">手机<span
-                                                        style="color:#ed5565;">*</span></label>
+                                                <label class="control-label">手机</label>
                                                 <div>
                                                     <input type="text" oninput="if(value.length>11)value=value.slice(0,11)" name="mobilePhone" id="mobilePhone0" class="form-control input-sm contactHeight" maxlength="20"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-
                                         <div class="contactStyle">
-                                            <div id="position0Form">
-                                                <label class="control-label">职位<span
-                                                        style="color:#ed5565;">*</span></label>
+                                            <div id="telForm">
+                                                <label class="control-label">座机</label>
                                                 <div>
-                                                    <select class="form-control location"  name="position" id="position0" >
-                                                        <option value="" selected="selected">未选择</option>
-                                                        <option th:value="${position.id}" th:text="${position.value}" th:each="position : ${position}"></option>
-                                                    </select></div>
-                                                <label class=" control-label" style="text-align: left"></label>
-                                            </div>
-                                        </div>
-                                        <div class="contactStyle">
-                                            <div id="email0Form">
-                                                <label class="control-label">邮箱</label>
-                                                <div>
-                                                    <input type="text" name="email" id="email0" class="form-control input-sm contactHeight" maxlength="50"/>
+                                                    <input type="text" name="tel" id="tel" class="form-control input-sm contactHeight" maxlength="50" style="min-width:100px"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -150,13 +135,23 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-
                                         <div class="contactStyle">
-                                            <div id="telForm">
-                                                <label class="control-label">座机</label>
+                                            <div id="email0Form">
+                                                <label class="control-label">邮箱</label>
                                                 <div>
-                                                    <input type="text" name="tel" id="tel" class="form-control input-sm contactHeight" maxlength="50" style="min-width:100px"/>
+                                                    <input type="text" name="email" id="email0" class="form-control input-sm contactHeight" maxlength="50"/>
                                                 </div>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="contactStyle">
+                                            <div id="position0Form">
+                                                <label class="control-label">职位</label>
+                                                <div>
+                                                    <select class="form-control location"  name="position" id="position0" >
+                                                        <option value="" selected="selected">未选择</option>
+                                                        <option th:value="${position.id}" th:text="${position.value}" th:each="position : ${position}"></option>
+                                                    </select></div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
@@ -172,8 +167,7 @@
                                     <div class="row" th:unless="${#lists.isEmpty(factory.contactList)}" th:each="contact,terStat : ${factory.contactList}">
                                         <div class="contactStyle">
                                             <div  th:attr="id='name'+${terStat.index}+'Form'">
-                                                <label class="control-label" th:if="${terStat.first}">姓名<span
-                                                        style="color:#ed5565;">*</span></label>
+                                                <label class="control-label" th:if="${terStat.first}">姓名</label>
                                                 <div>
                                                     <input type="text" th:attr="id='name'+${terStat.index}, name='name'" class="form-control input-sm contactHeight" maxlength="20" th:value="${contact.name}"/>
                                                 </div>
@@ -182,33 +176,18 @@
                                         </div>
                                         <div class="contactStyle">
                                             <div th:attr="id='mobilePhone'+${terStat.index}+'Form'">
-                                                <label class="control-label" th:if="${terStat.first}">电话<span
-                                                        style="color:#ed5565;">*</span></label>
+                                                <label class="control-label" th:if="${terStat.first}">手机</label>
                                                 <div>
                                                     <input type="text" oninput="if(value.length>11)value=value.slice(0,11)"  th:attr="id='mobilePhone'+${terStat.index}, name='mobilePhone'" class="form-control input-sm contactHeight" maxlength="20" th:value="${contact.mobilePhone}"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-
                                         <div class="contactStyle">
-                                            <div th:attr="id='position'+${terStat.index}+'Form'">
-                                                <label class="control-label" th:if="${terStat.first}">职位<span
-                                                        style="color:#ed5565;">*</span></label>
+                                            <div th:attr="id='tel'+${terStat.index}+'Form'">
+                                                <label class="control-label" th:if="${terStat.first}">座机</label>
                                                 <div>
-                                                    <select class="form-control location"  th:attr="id='position'+${terStat.index}, name='position'" >
-                                                        <option value="" selected="selected">未选择</option>
-                                                        <option th:value="${position.id}" th:text="${position.value}" th:each="position : ${position}" th:selected="${position.id==contact.position?'selected':'false'}"></option>
-                                                    </select>
-                                                </div>
-                                                <label class=" control-label" style="text-align: left"></label>
-                                            </div>
-                                        </div>
-                                        <div class="contactStyle">
-                                            <div th:attr="id='email'+${terStat.index}+'Form'">
-                                                <label class="control-label" th:if="${terStat.first}">邮箱</label>
-                                                <div>
-                                                    <input type="text" th:attr="id='email'+${terStat.index}, name='email'" class="form-control input-sm contactHeight" maxlength="50" th:value="${contact.email}"/>
+                                                    <input type="text" th:attr="id='tel'+${terStat.index}, name='tel'" class="form-control input-sm contactHeight" maxlength="50" th:value="${contact.tel}"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -223,10 +202,22 @@
                                             </div>
                                         </div>
                                         <div class="contactStyle">
-                                            <div th:attr="id='tel'+${terStat.index}+'Form'">
-                                                <label class="control-label" th:if="${terStat.first}">座机</label>
+                                            <div th:attr="id='email'+${terStat.index}+'Form'">
+                                                <label class="control-label" th:if="${terStat.first}">邮箱</label>
                                                 <div>
-                                                    <input type="text" th:attr="id='tel'+${terStat.index}, name='tel'" class="form-control input-sm contactHeight" maxlength="50" th:value="${contact.tel}"/>
+                                                    <input type="text" th:attr="id='email'+${terStat.index}, name='email'" class="form-control input-sm contactHeight" maxlength="50" th:value="${contact.email}"/>
+                                                </div>
+                                                <label class=" control-label" style="text-align: left"></label>
+                                            </div>
+                                        </div>
+                                        <div class="contactStyle">
+                                            <div th:attr="id='position'+${terStat.index}+'Form'">
+                                                <label class="control-label" th:if="${terStat.first}">职位</label>
+                                                <div>
+                                                    <select class="form-control location"  th:attr="id='position'+${terStat.index}, name='position'" >
+                                                        <option value="" selected="selected">未选择</option>
+                                                        <option th:value="${position.id}" th:text="${position.value}" th:each="position : ${position}" th:selected="${position.id==contact.position?'selected':'false'}"></option>
+                                                    </select>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -272,8 +263,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="provinceForm">
-                                <label class="col-sm-2 control-label">省<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">省</label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="province" id="province">
                                         <option value="" selected="selected">未选择</option>
@@ -283,8 +273,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="cityForm">
-                                <label class="col-sm-2 control-label">城市<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">城市</label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="city" id="city">
                                         <option value="" selected="selected">未选择</option>
@@ -294,8 +283,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="regionForm">
-                                <label class="col-sm-2 control-label">区域<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">区域</label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="region" id="region">
                                         <option value="" selected="selected">未选择</option>
@@ -305,10 +293,9 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="addressForm">
-                                <label class="col-sm-2 control-label">地址<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">地址</label>
                                 <div class="col-sm-4"><input id="address" name="address" type="text"
-                                                             class="form-control" maxlength="15" th:value="${factory}?${factory.address}" /></div>
+                                                             class="form-control" maxlength="100" th:value="${factory}?${factory.address}" /></div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -323,8 +310,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="photoForm">
-                                <label class="col-sm-2 control-label">厂房照片<span
-                                        style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">厂房照片</label>
                                 <div class="col-sm-6 dropzone" id="photo">
                                     <div class="am-text-success dz-message row" >
                                         点击此处添加图片
@@ -417,21 +403,19 @@
                             <div id="caseList"  style="background-color: #f8f7f6;border-radius: 4px;padding-top: 15px;padding-bottom: 15px;" >
                                 <div  th:if="${#lists.isEmpty(factory.caseList)}">
                                     <div class="form-group " id="caseName0Form"><label
-                                            class="col-sm-2 control-label">案例名称<span
-                                            style="color:#ed5565;">*</span></label>
+                                            class="col-sm-2 control-label">案例名称</label>
                                         <div class="col-sm-4">
                                             <input id="caseName0" name="caseName" type="text"
                                                                      class="form-control" maxlength="10"/>
                                         </div>
-                                        <label class="col-sm-4 control-label" style="text-align: left"></label>
+                                        <label class="col-sm-4 control-label" style="text-align: left;color:red; ">*【案例名称】和【案例图片】同时输入才会被保存</label>
                                         <div class="col-sm-1">
                                             <button onclick="addCase()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>
                                         </div>
                                     </div>
                                     <div class="form-group " id="casePhoto0Form">
                                         <input th:attr="id='hiddenPhoto0', name='hiddenPhoto'" type='hidden' />
-                                        <label class="col-sm-2 control-label">案例照片<span
-                                                style="color:#ed5565;">*</span></label>
+                                        <label class="col-sm-2 control-label">案例照片</label>
                                         <div class="col-sm-6 dropzone" id="casePhoto0" name="casePhoto">
                                             <div class="am-text-success dz-message" >
                                                 点击此处添加图片
@@ -443,11 +427,10 @@
                                 <div  th:unless="${#lists.isEmpty(factory.caseList)}" th:each="case,terStat : ${factory.caseList}" >
                                     <div class="form-group " th:attr="id='caseName'+${terStat.index}+'Form'">
                                         <input th:attr="id='caseId'+${terStat.index}, name='caseId'" th:value="${case.id}" type="hidden"/>
-                                        <label class="col-sm-2 control-label">案例名称<span
-                                                style="color:#ed5565;">*</span></label>
+                                        <label class="col-sm-2 control-label">案例名称</label>
                                         <div class="col-sm-4"><input th:attr="id='caseName'+${terStat.index}, name='caseName'" type="text"
                                                                      class="form-control" maxlength="10" th:value="${case.name}"/></div>
-                                        <label class="col-sm-4 control-label" style="text-align: left"></label>
+                                        <label class="col-sm-4 control-label" style="text-align: left;color:red; ">*【案例名称】和【案例图片】同时输入才会被保存</label>
                                         <!--<div class="col-sm-1">-->
                                             <!--<button onclick="addCase()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>-->
                                         <!--</div>-->
@@ -460,8 +443,7 @@
                                     </div>
                                     <div class="form-group " th:attr="id='casePhoto'+${terStat.index}+'Form'">
                                         <input th:attr="id='hiddenPhoto'+${terStat.index}, name='hiddenPhoto'" type='hidden' th:value="${case.photo}" />
-                                        <label class="col-sm-2 control-label">案例照片<span
-                                                style="color:#ed5565;">*</span></label>
+                                        <label class="col-sm-2 control-label">案例照片</label>
                                         <div class="col-sm-6 dropzone" th:attr="id='casePhoto'+${terStat.index}">
                                             <div class="am-text-success dz-message" >
                                                 点击此处添加图片
@@ -524,6 +506,7 @@
     <script th:src="@{99/js/plugins/select2/select2.full.min.js}"></script>
     <script th:src="@{99/js/plugins/area/area_chs.js}"></script>
     <script th:src="@{99/js/plugins/area/area.js}"></script>
+    <script th:src="@{lightbox/js/lightbox.min.js}"></script>
     <script th:src="@{me.js}" type="text/javascript"></script>
 
     <script type="text/javascript">
@@ -572,10 +555,18 @@
                 +" </div>"
                 +" </div>"
                 +" <div class='contactStyle'>"
-                +" <div id='position"+total+ "Form'>"
+                +" <div id='tel"+total+ "Form'>"
                 +" <div>"
-                +" <select class='form-control location'  name='position' id='position"+total+ "' >"
-                +" </select>"+" </div>"
+                +" <input type='text' name='tel' id='tel"+total+ "' class='form-control input-sm contactHeight' maxlength='50'/>"
+                +" </div>"
+                +" <label class=' control-label' style='text-align: left'></label>"
+                +" </div>"
+                +" </div>"
+                +" <div class='contactStyle'>"
+                +" <div id='qq"+total+ "Form'>"
+                +" <div>"
+                +" <input type='text' name='qq' id='qq"+total+ "' class='form-control input-sm contactHeight' maxlength='50'/>"
+                +" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
@@ -587,25 +578,14 @@
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
-
-                +" <div class='contactStyle'>"
-                +" <div id='qq"+total+ "Form'>"
+                 +" <div class='contactStyle'>"
+                +" <div id='position"+total+ "Form'>"
                 +" <div>"
-                +" <input type='text' name='qq' id='qq"+total+ "' class='form-control input-sm contactHeight' maxlength='50'/>"
-                +" </div>"
+                +" <select class='form-control location'  name='position' id='position"+total+ "' >"
+                +" </select>"+" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
-
-                +" <div class='contactStyle'>"
-                +" <div id='tel"+total+ "Form'>"
-                +" <div>"
-                +" <input type='text' name='tel' id='tel"+total+ "' class='form-control input-sm contactHeight' maxlength='50'/>"
-                +" </div>"
-                +" <label class=' control-label' style='text-align: left'></label>"
-                +" </div>"
-                +" </div>"
-
                 +" <div class='contactStyle'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-primary'>删&nbsp;&nbsp;除</button></div></div>";
             $("#contactList").append(row);
             addTagListOption("position"+total);
@@ -615,7 +595,7 @@
             validateSelect('position'+total,'position','validatePosition');
             validate('email'+total, 'email', 'validateEmail');
             validate('qq'+total, 'qq', 'validateQq');
-            validate('tel'+total, 'tel', 'validateTel');
+//            validate('tel'+total, 'tel', 'validateTel');
         }
 
         function addTagListOption(id){
@@ -631,11 +611,11 @@
         var delCasephotoList=[];
         var delPhotoList=[];
         //js
-        var previewTemplate = "<div class=\"dz-preview dz-file-preview\" onclick='showPicture(this)'>\n  " +
+        var previewTemplate = "<div class=\"dz-preview dz-file-preview\" >\n  " +
             "  <div class=\"dz-details\">\n" +
-//            "  <img data-dz-thumbnail name='picture' style='width: 300px;height: 300px;display: none'/>\n" +
+//            "  <img data-dz-thumbnail name='picture' class='img-responsive'/>\n" +
             "  </div>\n" +
-            "<div class=\"dz-image\"><img data-dz-thumbnail style='width: 120px;height: 120px;'/></div>\n  " +
+            "<div class=\"dz-image,preview\"><a  data-lightbox='test'><img data-dz-thumbnail style='width: 120px;height: 120px;'/></a></div>\n  " +
             "<div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  " +
             "<div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  " +
             "<div class=\"dz-success-mark\">\n    " +
@@ -643,7 +623,7 @@
             "</div>\n</div>";
 
         function showPicture(obj) {
-            $(obj).find("img[name='picture']").css("display","block");
+            console.log(obj.serverUrl)
         }
 
         Dropzone.autoDiscover = false;
@@ -653,14 +633,14 @@
                 " <div>"
                         +"<div id='line"+total+ "' class='hr-line-dashed'></div>"
                         +"<div class='form-group ' id='caseName"+total+ "Form'>"
-                            +"<label class='col-sm-2 control-label'>案例名称<span style='color:#ed5565;'>*</span></label> "
+                            +"<label class='col-sm-2 control-label'>案例名称</label> "
                             +"<div class='col-sm-4'><input id='caseName"+total+ "' name='caseName' type='text' "
                             +"class='form-control' maxlength='10'/></div> "
-                            +" <label class='col-sm-4 control-label' style='text-align: left'></label> "
+                            +" <label class='col-sm-4 control-label' style='text-align: left;color: red;'>*【案例名称】和【案例图片】同时输入才会被保存</label>"
                             +" <div class='col-sm-1'><button onclick='delCase(this)' id='casedel"+total+ "'  type='button' class='btn ladda-button btn-w-m btn-primary'>删&nbsp;&nbsp;除</button></div>"
                         +"</div>"
                         +"<div class='form-group ' id='casePhoto"+total+"Form'>"
-                            +"<label class='col-sm-2 control-label'>案例照片<span style='color:#ed5565;'>*</span></label>"
+                            +"<label class='col-sm-2 control-label'>案例照片</label>"
 //                            +"<input id='casePhoto"+total+ "' name='casePhoto' type='hidden' "
                             +"<div class='col-sm-6 dropzone' id='casePhoto"+total+ "' name='casePhoto'>"
                             +"<div class='am-text-success dz-message' >"
@@ -691,12 +671,16 @@
                 previewTemplate:previewTemplate ,
                 acceptedFiles: ".jpg,.gif,.png", //上传的类
                 init:function(){
+                    $('a[data-lightbox="test"] > img').each(function(){
+                        this.parentNode.href = this.src
+                    })
                     this.on("addedfile", function(file) {
                         //上传文件时触发的事件
                     });
                     this.on("success",function(file,response) {
                         //单个上传完成后触发的方法
                         file.serverName = response.url;
+                        file.previewElement.getElementsByTagName("a")[0].href = "upload/" + response.url;
                         if(casephoto[total] == undefined){
                             var tempArray = [];
                             casephoto[total] = tempArray;
@@ -705,8 +689,9 @@
                         casephoto[total].push(file.serverName );
 
                     });
-                    this.on("thumbnail",function (file,dataUrl) {
-                    })
+                    this.on("thumbnail",function(file,response) {
+                        //单个上传完成后触发的方法
+                    });
                     this.on("queuecomplete",function(file) {
                         //上传完成后触发的方法
                         $("#caseCount").val(total+1);
@@ -945,27 +930,27 @@
                 validateSelect('position'+i, 'position', 'validatePosition');
                 validate('email'+i, 'email', 'validateEmail');
                 validate('qq'+i,'qq','validateQq');
-                validate('tel'+i,'tel','validateTel');
+//                validate('tel'+i,'tel','validateTel');
             }
 
             validateSelect('referrer', 'referrer', 'validateReferrer');
             validate('name', 'name', 'validateCompanyName');
             validate('director', 'director', 'validateDirector');
             validateSelect('country', 'country', 'validateCountry');
-            validateSelect('province', 'province', 'validateProvince');
-            validateSelect('city', 'city', 'validateCity');
-            validateSelect('region', 'region', 'validateRegion');
-            validate('address', 'address', 'validateAddress');
+//            validateSelect('province', 'province', 'validateProvince');
+//            validateSelect('city', 'city', 'validateCity');
+//            validateSelect('region', 'region', 'validateRegion');
+//            validate('address', 'address', 'validateAddress');
             validate('factoryArea', 'area', 'validateArea');
             validateSelect('taxpayerType', 'taxpayerType', 'validateTaxpayerType');
             validateMultipleSelect('goodAtIndustry', 'goodAtIndustry', 'validateGoodAtIndustry');
             validateSelect('goodAtArea', 'goodAtArea', 'validateGoodAtArea');
             validateMultipleSelect('goodAtMaterial', 'goodAtMaterial', 'validateGoodAtMaterial');
             validateSelect('platformLevel', 'platformLevel', 'validatePlatformLevel');
-            validate('caseName0', 'caseName', 'validateCaseName');
+//            validate('caseName0', 'caseName', 'validateCaseName');
 
-            validateDiv('photo','photo','validatePhoto');
-            validateDiv('casePhoto0','casePhoto','validateCasePhoto');
+//            validateDiv('photo','photo','validatePhoto');
+//            validateDiv('casePhoto0','casePhoto','validateCasePhoto');
         });
 
 
@@ -1001,8 +986,17 @@
                             this.emit("complete", mockFile);
                         }
                     }
+                    $('a[data-lightbox="test"] > img').each(function(){
+                        this.parentNode.href = this.src
+                    })
+                    this.on("thumbnail",function(file,response) {
+                        //单个上传完成后触发的方法
+
+                    });
+
                     this.on("addedfile", function(file) {
                         //上传文件时触发的事件
+
                     });
                     this.on("thumbnail",function (file,dataUrl) {
                         file.thumbnail = dataUrl;
@@ -1010,6 +1004,7 @@
                     this.on("success",function(file,response) {
                         //单个上传完成后触发的方法
                         file.serverName = response.url;
+                        file.previewElement.getElementsByTagName("a")[0].href = "upload/" + response.url;
 //                        file._viewLink.href = response.url;
 //                        file._viewLink.name = response.url;
 
@@ -1058,6 +1053,8 @@
 
 
         $("#photo").dropzone({
+            createImageThumbnails:true,
+            addViewLinks: true,
             url: "fileupload",
             paramName: "files",
             addRemoveLinks: true,
@@ -1084,11 +1081,20 @@
                     this.emit("complete", mockFile);
                 }
 
+                $('a[data-lightbox="test"] > img').each(function(){
+                    this.parentNode.href = this.src
+                })
+
+                this.on("thumbnail",function(file,response) {
+                    //单个上传完成后触发的方法
+                });
+
                 this.on("addedfile", function(file) {
                     //上传文件时触发的事件
                 });
                 this.on("success",function(file,response) {
                     //单个上传完成后触发的方法
+                    file.previewElement.getElementsByTagName("a")[0].href = "upload/" + response.url;
                     file.serverName = response.url;
                     photolist.push(file.serverName);
                 });
@@ -1179,14 +1185,17 @@
                 userEmail = $(this).find("input[name='email']").val();
                 userQQ = $(this).find("input[name='qq']").val();
                 userTel =  $(this).find("input[name='tel']").val();
-                userList.push({
-                    "name":userName,
-                    "position":userPosition,
-                    "mobilePhone":userPhone,
-                    "email":userEmail,
-                    "qq":userQQ,
-                    "tel":userTel
-                })
+                if(userName!=""&&userPhone!=""){
+                    userList.push({
+                        "name":userName,
+                        "position":userPosition,
+                        "mobilePhone":userPhone,
+                        "email":userEmail,
+                        "qq":userQQ,
+                        "tel":userTel
+                    })
+                }
+
             })
 
             $("#caseList").children().each(function(index){
@@ -1195,11 +1204,14 @@
                     casephoto[index]='';
                 }
                 casePhoto = casephoto[index].toString();
-                caseList.push({
-                    "name":caseName,
-                    "photo":casePhoto
-                })
+                if(caseName!=""&&casePhoto!=""){
+                    caseList.push({
+                        "name":caseName,
+                        "photo":casePhoto
+                    })
+                }
             })
+            debugger;
             var p = {
                 id: $("#id").val(),
                 referrer: $("#referrer").val().trim(),
@@ -1216,7 +1228,7 @@
                 photo:photolist.toString(),
                 registeredCapital: $("#registeredCapital").val(),
                 taxpayerType: $("#taxpayerType").val(),
-                fixedEmployeeCount: $("#fixedEmployeeCount").val(),
+                fixedEmployeeCount: $("#fixedEmployeeCount").val()==""?0:$("#fixedEmployeeCount").val(),
                 goodAtIndustry: $("#goodAtIndustry").val().toString().trim(),
                 goodAtMaterial: $("#goodAtMaterial").val().toString().trim(),
                 goodAtArea: $("#goodAtArea").val().trim(),
@@ -1230,31 +1242,31 @@
 //                email: $("#email").val().trim(),
             };
             console.info(p);
-            if($("#country").val()=="中国"){
-                if($("#province").val()==""){
-                    $("#provinceForm").addClass("has-error");
-                    $("#province" ).parent().next().html("必须选择所在省份");
-                    $("#province").focus();
-                    if ($("#city").val()==""){
-                        $("#cityForm").addClass("has-error");
-                        $("#city" ).parent().next().html("必须选择所在城市");
-                    }
+//            if($("#country").val()=="中国"){
+//                if($("#province").val()==""){
+//                    $("#provinceForm").addClass("has-error");
+//                    $("#province" ).parent().next().html("必须选择所在省份");
+//                    $("#province").focus();
+//                    if ($("#city").val()==""){
+//                        $("#cityForm").addClass("has-error");
+//                        $("#city" ).parent().next().html("必须选择所在城市");
+//                    }
 //                    if($("#region").val()==""){
 //                        $("#regionForm").addClass("has-error");
 //                        $("#region" ).parent().next().html("必须选择所在区域");
 //                    }
-                    return;
-                }else if ($("#city").val()==""){
-                    $("#cityForm").addClass("has-error");
-                    $("#city" ).parent().next().html("必须选择所在城市");
-                    $("#city").focus();
+//                    return;
+//                }else if ($("#city").val()==""){
+//                    $("#cityForm").addClass("has-error");
+//                    $("#city" ).parent().next().html("必须选择所在城市");
+//                    $("#city").focus();
 //                    if($("#region").val()==""){
 //                        $("#regionForm").addClass("has-error");
 //                        $("#region" ).parent().next().html("必须选择所在区域");
 //                    }
-                    return;
-                }
-            }
+//                    return;
+//                }
+//            }
             var a = JSON.stringify(p);
             $.ajax({
                 url: 'saveFactory',
@@ -1324,6 +1336,8 @@
             });
 
         }
+
+
 
         /*]]>*/
     </script>

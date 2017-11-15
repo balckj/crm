@@ -22,7 +22,7 @@ public interface CustomerMapper {
     @Select("SELECT * FROM T_CUSTOMER WHERE name = #{name}")
     Customer getCustomer(String name);
 
-    @Select("SELECT * FROM T_CUSTOMER")
+    @Select("SELECT * FROM T_CUSTOMER order by convert(name using gbk) asc")
     List<Customer> selectCustomerAll();
 
 

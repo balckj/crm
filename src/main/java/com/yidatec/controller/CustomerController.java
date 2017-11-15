@@ -58,6 +58,8 @@ public class CustomerController extends BaseController{
     @RequestMapping(value = "/findCustomer")
     @ResponseBody
     public Object findCustomer(@RequestBody CustomerVO customerVO)throws Exception{
+        customerVO.setCreatorId(getWebUser().getId());
+        customerVO.setAdmin(isAdmin());
         List<Customer> CustomerEntityList = customerService.selectCustomerList(customerVO);
         if (CustomerEntityList!=null){
             for (Customer customer:CustomerEntityList){

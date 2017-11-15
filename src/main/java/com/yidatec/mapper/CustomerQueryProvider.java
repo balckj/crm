@@ -30,12 +30,17 @@ public class CustomerQueryProvider {
         if(!StringUtils.isEmpty(customerVO.getIndustry())){
             sb.append(" AND D.industry = #{industry}");
         }
-        if(!StringUtils.isEmpty(customerVO.getCreatorId())){
-            sb.append(" AND D.creatorId = #{creatorId}");
-        }
+
         if(!StringUtils.isEmpty(customerVO.getState())){
             sb.append(" AND D.state = #{state}");
         }
+
+        if(!customerVO.isAdmin()){
+            if(!StringUtils.isEmpty(customerVO.getCreatorId())){
+                sb.append(" AND D.creatorId = #{creatorId}");
+            }
+        }
+
         sb.append(" ORDER BY D.modifyTime DESC LIMIT #{start},#{length}");
         return sb.toString();
     }
@@ -62,11 +67,13 @@ public class CustomerQueryProvider {
         if(!StringUtils.isEmpty(customerVO.getIndustry())){
             sb.append(" AND D.industry = #{industry}");
         }
-        if(!StringUtils.isEmpty(customerVO.getCreatorId())){
-            sb.append(" AND D.creatorId = #{creatorId}");
-        }
         if(!StringUtils.isEmpty(customerVO.getState())){
             sb.append(" AND D.state = #{state}");
+        }
+        if(!customerVO.isAdmin()){
+            if(!StringUtils.isEmpty(customerVO.getCreatorId())){
+                sb.append(" AND D.creatorId = #{creatorId}");
+            }
         }
         return sb.toString();
     }

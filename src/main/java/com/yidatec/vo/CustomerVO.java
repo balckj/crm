@@ -13,7 +13,7 @@ public class CustomerVO extends Customer{
     private Integer length;
     private Integer start;
 
-
+    private boolean isAdmin;
 
     public Integer getDraw() {
         return draw;
@@ -37,5 +37,13 @@ public class CustomerVO extends Customer{
 
     public void setStart(Integer start) {
         this.start = start;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }

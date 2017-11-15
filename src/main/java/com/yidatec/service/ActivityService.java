@@ -29,9 +29,9 @@ public class ActivityService {
     public ActivityVO selectActivity(String id){
         ActivityVO activity = activityMapper.selectActivity(id);
         if(activity!=null){
-            activity.setSponsorName("".equals(activity.getSponsor())?"":customerMapper.selectCustomer(activity.getSponsor()).getName());
-            activity.setOrganizerName("".equals(activity.getOrganizer())?"":customerMapper.selectCustomer(activity.getOrganizer()).getName());
-            activity.setBuilderName("".equals(activity.getBuilder())?"":customerMapper.selectCustomer(activity.getBuilder()).getName());
+            activity.setSponsorName("".equals(activity.getSponsor())?"":activity.getSponsor()==null? "":customerMapper.selectCustomer(activity.getSponsor()).getName());
+            activity.setOrganizerName("".equals(activity.getOrganizer())?"":activity.getOrganizer()==null?"":customerMapper.selectCustomer(activity.getOrganizer()).getName());
+            activity.setBuilderName("".equals(activity.getBuilder())?"":activity.getBuilder()==null?"":customerMapper.selectCustomer(activity.getBuilder()).getName());
         }
         return  activity;
     }

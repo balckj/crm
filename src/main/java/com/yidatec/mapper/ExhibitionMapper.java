@@ -25,7 +25,7 @@ public interface ExhibitionMapper {
 	 * 查找一个展馆ALL
 	 * @return
 	 */
-	@Select("SELECT id,name,address,start as startTime,country,province,city,region,area,createTime,creatorId,modifyTime,modifierId FROM T_EXHIBITION_HALL order by name")
+	@Select("SELECT id,name,address,start as startTime,country,province,city,region,area,createTime,creatorId,modifyTime,modifierId FROM T_EXHIBITION_HALL order by convert(name using gbk) asc")
 	List<ExhibitionVO> selectExhibitionAll();
 
 	@SelectProvider(type=ExhibitionQueryProvider.class,method = "selectExhibitionList")

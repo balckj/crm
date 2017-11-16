@@ -64,10 +64,40 @@ public class AvailableSuppliersListController extends BaseController{
     @RequestMapping(value = "/findAvailableSuppliers")
     @ResponseBody
     public Object findAvailableSuppliers(@RequestBody AvailableSupplierVO availableSupplierVO)throws Exception{
-        Param param = paramMapper.findParamById(Constants.VENDORAPPOINTMENT_PARAM_ID);
+        Param param = new Param();
         List<Param> paramList = new ArrayList<>();
-        paramList.add(param);
-        List<AvailableSupplierVO> availableSupplierVOList = availableSupplierService.selectAvailableSupplierList(availableSupplierVO,paramList);
+
+        List<AvailableSupplierVO> availableSupplierVOList = new ArrayList<AvailableSupplierVO>();
+        int count = 0;
+        if(StringUtils.isEmpty(availableSupplierVO.getAvailableSupplierType())){
+            param = paramMapper.findParamById(Constants.VENDORAPPOINTMENT_PARAM_ID);
+            paramList.add(param);
+            availableSupplierVOList = availableSupplierService.selectAvailableSupplierList(availableSupplierVO,paramList);
+            count = availableSupplierService.countSelectAvailableSupplierList(availableSupplierVO,paramList);
+        }else if("F".equalsIgnoreCase(availableSupplierVO.getAvailableSupplierType())){
+            availableSupplierVOList = availableSupplierService.selectAvailableSupplierListF(availableSupplierVO,paramList);
+            count = availableSupplierService.countSelectAvailableSupplierListF(availableSupplierVO,paramList);
+        }else if("D".equalsIgnoreCase(availableSupplierVO.getAvailableSupplierType())){
+            param = paramMapper.findParamById(Constants.DESIGNER_PARAM_ID);
+            paramList.add(param);
+            availableSupplierVOList = availableSupplierService.selectAvailableSupplierListD(availableSupplierVO,paramList);
+            count = availableSupplierService.countSelectAvailableSupplierListD(availableSupplierVO,paramList);
+        }else if("P".equalsIgnoreCase(availableSupplierVO.getAvailableSupplierType())){
+            param = paramMapper.findParamById(Constants.PM_PARAM_ID);
+            paramList.add(param);
+            availableSupplierVOList = availableSupplierService.selectAvailableSupplierListP(availableSupplierVO,paramList);
+            count = availableSupplierService.countSelectAvailableSupplierListP(availableSupplierVO,paramList);
+        }else if("DS".equalsIgnoreCase(availableSupplierVO.getAvailableSupplierType())){
+            param = paramMapper.findParamById(Constants.SALE_PARAM_ID);
+            paramList.add(param);
+            availableSupplierVOList = availableSupplierService.selectAvailableSupplierListDS(availableSupplierVO,paramList);
+            count = availableSupplierService.countSelectAvailableSupplierListDS(availableSupplierVO,paramList);
+        }else if("FS".equalsIgnoreCase(availableSupplierVO.getAvailableSupplierType())){
+            param = paramMapper.findParamById(Constants.SALE_PARAM_ID);
+            paramList.add(param);
+            availableSupplierVOList = availableSupplierService.selectAvailableSupplierListFS(availableSupplierVO,paramList);
+            count = availableSupplierService.countSelectAvailableSupplierListFS(availableSupplierVO,paramList);
+        }
 
         if (availableSupplierVOList != null) {
            for (AvailableSupplierVO a:  availableSupplierVOList){
@@ -77,7 +107,7 @@ public class AvailableSuppliersListController extends BaseController{
                }
            }
         }
-        int count = availableSupplierService.countSelectAvailableSupplierList(availableSupplierVO,paramList);
+
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("draw", availableSupplierVO.getDraw());
         map.put("recordsTotal", count);

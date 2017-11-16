@@ -19,6 +19,8 @@ public class AvailableSupplierVO extends AvailableSupplier {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endTime;
 
+    private String availableSupplierType;
+
     public Integer getDraw() {
         return draw;
     }
@@ -57,5 +59,13 @@ public class AvailableSupplierVO extends AvailableSupplier {
 
     public void setEndTime(LocalDate endTime) {
         this.endTime = endTime;
+    }
+
+    public String getAvailableSupplierType() {
+        return availableSupplierType;
+    }
+
+    public void setAvailableSupplierType(String availableSupplierType) {
+        this.availableSupplierType = availableSupplierType;
     }
 }

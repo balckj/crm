@@ -42,7 +42,19 @@
                         <input type="text"  id="endTime" readonly="readonly" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
-
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label  for="availableSupplierType" class="control-label">供应商类型</label>
+                        <select class="form-control input-sm" name="availableSupplierType" id="availableSupplierType" onchange="query();">
+                            <option value="" selected="selected">未选择</option>
+                            <option value="F" >工厂</option>
+                            <option value="D" >设计师</option>
+                            <option value="P" >项目经理</option>
+                            <option value="DS" >开发销售</option>
+                            <option value="FS" >跟进销售</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="name" class="control-label">供应商名称</label>
@@ -64,6 +76,7 @@
                         </select>
                     </div>
                 </div>
+
                 <!--<div class="col-sm-2">-->
                     <!--<div class="form-group">-->
                         <!--<label for="level" class="control-label">供应商级别</label>-->
@@ -177,6 +190,7 @@
                         p.platformLevel = $('#platformLevel').val();
                         p.startTime = $('#startTime').val();
                         p.endTime = $('#endTime').val();
+                        p.availableSupplierType = $('#availableSupplierType').val();
                         var a = JSON.stringify(p);
                         return a;
                     }

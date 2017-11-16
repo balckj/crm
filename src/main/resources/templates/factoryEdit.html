@@ -385,7 +385,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-control " name="platformLevel" id="platformLevel">
                                         <option value="" selected="selected">未选择</option>
-                                        <option th:value="${levelList.value}" th:text="${levelList.value}" th:each="levelList:${levelList}"></option>
+                                        <option th:value="${levelList.id}" th:text="${levelList.value}" th:each="levelList:${levelList}"></option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>

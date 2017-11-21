@@ -28,6 +28,7 @@
 
     <div class="wrapper wrapper-content  ecommerce">
         <div class="ibox-content m-b-sm border-bottom">
+            <input type="hidden" name="isAdmin" id="isAdmin" th:value="${isAdmin}"/>
             <div class="row">
 
                 <div class="col-sm-2">
@@ -74,7 +75,8 @@
                         <input type="text"  id="city" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
-                <div class="col-sm-2">
+
+                <div class="col-sm-2" th:if="${isAdmin}">
                     <div class="form-group">
                         <label for="creator" class="control-label">创建人</label>
                         <input type="text"  id="creator" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
@@ -209,6 +211,7 @@
         /*<![CDATA[*/
         var hasEdit = [[${#authorization.url('/customerEidt')}]];
         var hasCreate = [[${#authorization.url('/customerCreate')}]];
+        var isAdmin = $("#isAdmin").val();
         var format = "yyyy-mm-dd";
         var customertable;
         function customertableLoad() {

@@ -127,7 +127,7 @@
     <!--ABTableModal-->
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="ABTableModal">
         <input type="hidden" id="typeValue" value="C"/>
-        <div class="modal-dialog " role="document">
+        <div class="modal-dialog " style="width: 60%;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>请选择一个分类</h3>
@@ -240,7 +240,7 @@
 
                 "columns": [
                     {
-                        "data": "id", "width": "250px",
+                        "data": "id", "width": "50px",
                         "render": function (data, type, row) {
                             var u = "";
                             u =  "<input type=\"radio\" style=\"cursor:pointer;\" name='ABTable' value='" + row.id + "' ABName='" + row.name + "'/>";
@@ -249,7 +249,7 @@
                         },
                     },
 
-                    {"data": "name", "width": "270px"},
+                    {"data": "name", "width": "500px"},
                 ]
                 , language: {
                     lengthMenu: '每页显示 <select class="form-control input-sm">'

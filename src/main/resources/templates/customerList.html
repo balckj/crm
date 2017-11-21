@@ -209,6 +209,7 @@
         /*<![CDATA[*/
         var hasEdit = [[${#authorization.url('/customerEidt')}]];
         var hasCreate = [[${#authorization.url('/customerCreate')}]];
+        var hasHistory = [[${#authorization.url('/customerHistory')}]];
         var format = "yyyy-mm-dd";
         var customertable;
         function customertableLoad() {
@@ -246,11 +247,16 @@
                             if(hasEdit) {
                                 u = "customerEdit?id=" + row.id;
                                 u = '<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
-                                el =  row.id;
-                                el = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + el + '\' ,\'historyEdit\',this)" >跟进历史</a>';
+
+
                             }
                             if(u == ''){
                                 return '--'
+                            }
+                            var el = ''
+                            if (hasHistory){
+                                el =  row.id;
+                                el = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + el + '\' ,\'historyEdit\',this)" >跟进历史</a>';
                             }
                             return u+el;
                         },

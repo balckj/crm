@@ -99,8 +99,10 @@ public class FactoryController extends BaseController{
                 if(dictionaryArea != null){
                     factory.setGoodAtArea(dictionaryArea.getValue());// 擅长面积
                 }
-
-
+                Dictionary dictionaryPLeve = dictionaryService.selectDictionary(factory.getPlatformLevel());
+                if(dictionaryPLeve != null){
+                    factory.setPlatformLevel(dictionaryPLeve.getValue());// 平台级别
+                }
                 String params = factory.getGoodAtIndustry();
                 if (!StringUtils.isEmpty(params)){
                     String[] paramsList = params.split(",");

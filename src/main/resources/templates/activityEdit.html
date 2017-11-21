@@ -138,8 +138,7 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"/>
-                            <div class="form-group" id="sponsorForm"><label class="col-sm-2 control-label">主办方<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="sponsorForm"><label class="col-sm-2 control-label">主办方</label>
                                 <div class="col-sm-4">
                                     <input id="sponsor" name="sponsor" placeholder="请选择主办方" readonly="readonly"  type="text" th:value="${activity}?${activity.sponsorName}" th:attr="sponsorid=${activity}?${activity.sponsor}"
                                            class="form-control" maxlength="200" onclick="customerClick();" style="cursor:pointer;"/>
@@ -147,8 +146,7 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"/>
-                            <div class="form-group" id="organizerForm"><label class="col-sm-2 control-label">承办方<span
-                                style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="organizerForm"><label class="col-sm-2 control-label">承办方</label>
                             <div class="col-sm-4">
                                 <input id="organizer" name="organizer" placeholder="请选择承办方" readonly="readonly"  type="text" th:value="${activity}?${activity.organizerName}" th:attr="organizer=${activity}?${activity.organizer}"
                                        class="form-control" maxlength="200" onclick="organizerClick();" style="cursor:pointer;"/>
@@ -156,8 +154,7 @@
                             <label class="col-sm-4 control-label" style="text-align: left"></label>
                         </div>
                             <div class="hr-line-dashed"/>
-                            <div class="form-group" id="builderForm"><label class="col-sm-2 control-label">主场搭建<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="builderForm"><label class="col-sm-2 control-label">主场搭建</label>
                                 <div class="col-sm-4">
                                     <input id="builder" name="builder" placeholder="请选择主场搭建" readonly="readonly"  type="text" th:value="${activity}?${activity.builderName}" th:attr="builder=${activity}?${activity.builder}"
                                            class="form-control" maxlength="200" onclick="builderClick();" style="cursor:pointer;"/>

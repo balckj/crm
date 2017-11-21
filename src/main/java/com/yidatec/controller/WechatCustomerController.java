@@ -2,7 +2,6 @@ package com.yidatec.controller;
 
 import com.yidatec.exception.BusinessException;
 import com.yidatec.exception.ExceptionID;
-import com.yidatec.model.Activity;
 import com.yidatec.model.Customer;
 import com.yidatec.model.Dictionary;
 import com.yidatec.service.AccessTokenService;
@@ -17,7 +16,6 @@ import com.yidatec.vo.CustomerVO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -94,9 +92,9 @@ public class WechatCustomerController extends BaseController{
 
     @RequestMapping(value = "/customers",method=RequestMethod.POST)
     public Object findCustomer(@RequestBody CustomerVO customerVO)throws Exception{
-        List<Customer> CustomerEntityList = customerService.selectCustomerList(customerVO);
+        List<CustomerVO> CustomerEntityList = customerService.selectCustomerList(customerVO);
         if (CustomerEntityList!=null){
-            for (Customer customer:CustomerEntityList){
+            for (CustomerVO customer:CustomerEntityList){
                 Dictionary dictionaryIndustry = dictionaryService.selectDictionary(customer.getIndustry());
                 if(dictionaryIndustry != null){
                     customer.setIndustry(dictionaryIndustry.getValue());// 所属行业

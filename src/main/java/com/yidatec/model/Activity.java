@@ -47,14 +47,14 @@ public class Activity extends BaseModel{
     private String exhibitioHall;
     private String exhibitioHallName;
     //主办方
-    @NotBlank(message = "必须选择主办方", groups = { })
+//    @NotBlank(message = "必须选择主办方", groups = { })
     private String sponsor;
     private String customerName;
 
-    @NotBlank(message = "必须选择承办方", groups = { })
+//    @NotBlank(message = "必须选择承办方", groups = { })
     private String organizer;
 
-    @NotBlank(message = "必须选择主场搭建", groups = { })
+//    @NotBlank(message = "必须选择主场搭建", groups = { })
     private String builder;
 
     private String mediaIds;

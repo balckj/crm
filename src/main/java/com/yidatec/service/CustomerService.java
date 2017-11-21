@@ -4,10 +4,10 @@ import com.yidatec.mapper.ContactMapper;
 import com.yidatec.mapper.CustomerMapper;
 import com.yidatec.model.Contact;
 import com.yidatec.model.Customer;
-import com.yidatec.util.CNNumberFormat;
+import com.yidatec.model.FollowHistory;
+import com.yidatec.model.FollowHistoryVO;
 import com.yidatec.vo.CustomerVO;
 import com.yidatec.vo.ProjectVO;
-import com.yidatec.vo.QuotationVO;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
@@ -49,7 +49,7 @@ public class CustomerService {
      *
      * @return
      */
-    public List<Customer> selectCustomerList(CustomerVO customerVO) {
+    public List<CustomerVO> selectCustomerList(CustomerVO customerVO) {
         return customerMapper.selectCustomerList(customerVO);
     }
     public List<Customer> selectCustomerAll(){
@@ -90,10 +90,36 @@ public class CustomerService {
         }
     }
 
+    /**
+     * 创建台账
+     *
+     * @param
+     * @return
+     */
+    @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
+    public void createHistory(FollowHistoryVO history) {
+        customerMapper.deleteHistory(history.getId());// 删除跟进历史表
+        customerMapper.deleteCustomerHistory(history.getId());// 删除关系表
+//        customerMapper.createHistory(history);
+        for (int i=0;i<history.getHistoryList().size();i++){
+            history.getHistoryList().get(i).setId(UUID.randomUUID().toString().toLowerCase());
+            history.getHistoryList().get(i).setCreatorId(history.getCreatorId());
+            history.getHistoryList().get(i).setCreateTime(history.getCreateTime());
+            history.getHistoryList().get(i).setModifierId(history.getModifierId());
+            history.getHistoryList().get(i).setModifyTime(history.getModifyTime());
+            customerMapper.createHistory(history.getHistoryList().get(i));
+            customerMapper.createCustomerHistory(history.getId(),history.getHistoryList().get(i).getId());
+        }
+//        ledgerC(ledgerVO);
+    }
+
     public List<Contact> getContact(String id){
         return contactMapper.getContact(id);
     }
 
+    public List<FollowHistory> getHistoryList(String id){
+        return customerMapper.getHistoryList(id);
+    }
 
     public void customerDownLoad(XSSFWorkbook wb,
                                  String startTime,String endTime) throws Exception {

@@ -1,9 +1,6 @@
 package com.yidatec.vo;
 
-import com.yidatec.model.Contact;
 import com.yidatec.model.Customer;
-
-import java.util.List;
 
 /**
  * @author xf
@@ -12,6 +9,15 @@ public class CustomerVO extends Customer{
     private Integer draw;
     private Integer length;
     private Integer start;
+    private String creator;
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
 
     private boolean isAdmin;
 

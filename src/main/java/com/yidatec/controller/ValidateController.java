@@ -6,7 +6,6 @@ import com.yidatec.mapper.UserMapper;
 import com.yidatec.model.Customer;
 import com.yidatec.model.Role;
 import com.yidatec.model.User;
-import com.yidatec.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -664,6 +663,14 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
+    @RequestMapping(value = "/validatfollowDetail")
+    public String validatfollowDetail(@RequestParam(value="followDetail") String followDetail){
+        if(followDetail == null || followDetail.trim().isEmpty()){
+            return getErrorJson("必须输入跟进描述");
+        }
+        return getSuccessJson(null);
+    }
+
     @RequestMapping(value = "/validatPerator")
     public String validatPerator(@RequestParam(value="operator") String operator){
         if(operator == null || operator.trim().isEmpty()){
@@ -780,9 +787,9 @@ public class ValidateController extends BaseController{
     }
 
     @RequestMapping(value = "/validateDevelopSaleId")
-    public String validateDevelopSaleId(@RequestParam(value = "developSaleId") String developSaleId) {
-        if (developSaleId == null || developSaleId.trim().isEmpty()) {
-            return getErrorJson("必须选择开发销售");
+    public String validateDevelopSaleId(@RequestParam(value = "traceSaleId") String traceSaleId) {
+        if (traceSaleId == null || traceSaleId.trim().isEmpty()) {
+            return getErrorJson("必须选择跟进销售");
         }
         return getSuccessJson(null);
     }

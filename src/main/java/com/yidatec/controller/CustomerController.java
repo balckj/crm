@@ -2,6 +2,7 @@ package com.yidatec.controller;
 
 import com.yidatec.model.Customer;
 import com.yidatec.model.Dictionary;
+import com.yidatec.model.FollowHistoryVO;
 import com.yidatec.service.CustomerService;
 import com.yidatec.service.DictionaryService;
 import com.yidatec.util.Constants;
@@ -60,7 +61,7 @@ public class CustomerController extends BaseController{
     public Object findCustomer(@RequestBody CustomerVO customerVO)throws Exception{
         customerVO.setCreatorId(getWebUser().getId());
         customerVO.setAdmin(isAdmin());
-        List<Customer> CustomerEntityList = customerService.selectCustomerList(customerVO);
+        List<CustomerVO> CustomerEntityList = customerService.selectCustomerList(customerVO);
         if (CustomerEntityList!=null){
             for (Customer customer:CustomerEntityList){
                 Dictionary dictionaryIndustry = dictionaryService.selectDictionary(customer.getIndustry());
@@ -118,7 +119,46 @@ public class CustomerController extends BaseController{
         return getSuccessJson(null);
     }
 
+    /**
+     * 跟进历史
+     * @param model
+     * @param id
+     * @return
+     */
+    @RequestMapping("/historyEdit")
+    public String historyEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
+//        model.put("contract",contractMapper.selectContract(id));
+        model.put("historyList",customerService.getHistoryList(id));
+        model.put("historyListSize",
+                customerService.getHistoryList(id) != null && customerService.getHistoryList(id).size() > 0
+                        ? customerService.getHistoryList(id).size(): 0);
+        model.put("historyListFlg",customerService.getHistoryList(id) != null && customerService.getHistoryList(id).size() > 0 ? true :false);
+        return "customerHistoryList";// 返回跟进历史html
+    }
 
+    /**
+     * 跟进历史
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/saveHistory")
+    @ResponseBody
+    public Object checkLedgerInfo(@Validated @RequestBody FollowHistoryVO history,
+                                  BindingResult result)throws Exception{
+        List<FieldError> errors = result.getFieldErrors();
+        if(errors  != null && errors.size() > 0){
+            return errors;
+        }
 
+        //新建 更新。此id实际上是合同的id，台账依托于合同，所以这里一定个更新没有新建
+        if(history.getId() != null || history.getId().trim().length() >= 0) {
+            history.setCreatorId(getWebUser().getId());
+            history.setCreateTime(LocalDateTime.now());
+            history.setModifierId(getWebUser().getCreatorId());
+            history.setModifyTime(history.getCreateTime());
+            customerService.createHistory(history);
+        }
+        return getSuccessJson(null);
+    }
 
 }

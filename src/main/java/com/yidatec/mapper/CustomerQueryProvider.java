@@ -10,7 +10,7 @@ public class CustomerQueryProvider {
     public String selectCustomer(final CustomerVO customerVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM T_CUSTOMER  as D WHERE 1=1");
+        sb.append("SELECT a.name as creator,D.* FROM T_CUSTOMER  as D LEFT JOIN T_USER a on D.creatorId=a.id WHERE 1=1");
 
         if(!StringUtils.isEmpty(customerVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
@@ -33,6 +33,9 @@ public class CustomerQueryProvider {
 
         if(!StringUtils.isEmpty(customerVO.getState())){
             sb.append(" AND D.state = #{state}");
+        }
+        if(!StringUtils.isEmpty(customerVO.getCreator())){
+            sb.append(" AND a.name LIKE CONCAT('%',#{creator},'%')");
         }
 
         if(!customerVO.isAdmin()){

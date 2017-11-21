@@ -182,8 +182,7 @@
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="pmIdForm"><label class="col-sm-2 control-label">项目经理<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="pmIdForm"><label class="col-sm-2 control-label">项目经理</label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="pmId" id="pmId">
                                         <option value="" selected="selected">未选择</option>
@@ -205,8 +204,7 @@
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="factoryIdForm"><label class="col-sm-2 control-label">工厂<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="factoryIdForm"><label class="col-sm-2 control-label">工厂</label>
                                 <div class="col-sm-4">
                                     <select class="form-control  " name="factoryId" id="factoryId" multiple="multiple">
                                         <option th:value="${factories.id}" th:text="${factories.name}" th:each="factories:${factories}"></option>
@@ -250,8 +248,7 @@
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="developSaleIdForm"><label class="col-sm-2 control-label">开发销售<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="developSaleIdForm"><label class="col-sm-2 control-label">开发销售</label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="developSaleId" id="developSaleId">
                                         <option value="" selected="selected">未选择</option>
@@ -261,18 +258,19 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="traceSaleIdForm" ><label class="col-sm-2 control-label">跟进销售</label>
+                            <div class="form-group" id="traceSaleIdForm" ><label class="col-sm-2 control-label">跟进销售<span
+                                    style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
                                     <select class="form-control " name="traceSaleId" id="traceSaleId">
                                         <option value="" selected="selected">未选择</option>
                                         <option th:value="${traceSale.id}" th:text="${traceSale.name}" th:each="traceSale:${traceSale}"></option>
                                     </select>
                                 </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="photoForm">
-                                <label class="col-sm-2 control-label">项目图片<span
-                                    style="color:#ed5565;">*</span></label>
+                                <label class="col-sm-2 control-label">项目图片</label>
                                 <div class="col-sm-6 dropzone" id="photo">
                                     <div class="am-text-success dz-message row" >
                                         点击此处添加图片
@@ -630,10 +628,10 @@
             validateSelect('potential', 'potential', 'validatePotential');
 
             validateMultipleSelect('designerId', 'designerId', 'validateDesignerId');
-            validateSelect('pmId', 'pmId', 'validatemId');
-            validateMultipleSelect('factoryId', 'factoryId', 'validateFactoryId');
-            validateSelect('developSaleId', 'developSaleId', 'validateDevelopSaleId');
-            validateDiv('photo', 'photo', 'validatePhoto');
+//            validateSelect('pmId', 'pmId', 'validatemId');
+//            validateMultipleSelect('factoryId', 'factoryId', 'validateFactoryId');
+            validateSelect('traceSaleId', 'traceSaleId', 'validateDevelopSaleId');
+//            validateDiv('photo', 'photo', 'validatePhoto');
 
         });
 
@@ -895,23 +893,28 @@
         var saveBtnda;
         function saveProject(btn) {
             saveBtnda = Ladda.create( btn );
-            debugger;
             if($("#name").val()!=""&&$("#type").val()!=""&&$("#customerId").attr("customerid")!=""&&$("#campaignId").attr("campaignid")!=""
                 &&$("#exhibitionNumber").val()!=""&&$("#budget").val()!=""&&$("#area").val()!=""
                 &&$("#setupTime").val()!=""&&$("#tearDownTime").val()!=""&& $("#degreeOfImportance").val()!=""
                 &&$("#potential").val()!=""){
                 if(hasDesignerOption||hasPmOption||hasFactoryOption||hasDevelopSale||hasProjectPhoto){
-                    if($("#designerId").val()==""||$("#pmId").val()==""||$("#factoryId").val()==""||$("#developSaleId").val()==""||photolist.toString()==""){
-                        $("#designerIdForm").addClass("has-error")
-                        $("#designerId").parent().next().html("必须选择设计师");
-                        $("#pmIdForm").addClass("has-error")
-                        $("#pmId").parent().next().html("必须选择项目经理");
-                        $("#factoryIdForm").addClass("has-error")
-                        $("#factoryId").parent().next().html("必须选择工厂");
-                        $("#developSaleIdForm").addClass("has-error")
-                        $("#developSaleId").parent().next().html("必须选择开发销售");
-                        $("#photoForm").addClass("has-error")
-                        $("#photo").next().html("必须上传项目图片");
+                    if($("#designerId").val()==""||$("#traceSaleId").val()==""){
+                        if($("#designerId").val()==""){
+                            $("#designerIdForm").addClass("has-error")
+                            $("#designerId").parent().next().html("必须选择设计师");
+                        }
+                        if($("#traceSaleId").val()==""){
+                            $("#traceSaleIdForm").addClass("has-error")
+                            $("#traceSaleId").parent().next().html("必须选择跟进销售");
+                        }
+//                        $("#pmIdForm").addClass("has-error")
+//                        $("#pmId").parent().next().html("必须选择项目经理");
+//                        $("#factoryIdForm").addClass("has-error")
+//                        $("#factoryId").parent().next().html("必须选择工厂");
+//                        $("#developSaleIdForm").addClass("has-error")
+//                        $("#developSaleId").parent().next().html("必须选择开发销售");
+//                        $("#photoForm").addClass("has-error")
+//                        $("#photo").next().html("必须上传项目图片");
                         return;
                     }
                 }
@@ -1002,17 +1005,29 @@
                             }
                         }
                         if(hasDesignerOption||hasPmOption||hasFactoryOption||hasDevelopSale||hasProjectPhoto){
-                            $("#designerIdForm").addClass("has-error")
-                            $("#designerId").parent().next().html("必须选择设计师");
-                            $("#pmIdForm").addClass("has-error")
-                            $("#pmId").parent().next().html("必须选择项目经理");
-                            $("#factoryIdForm").addClass("has-error")
-                            $("#factoryId").parent().next().html("必须选择工厂");
-                            $("#developSaleIdForm").addClass("has-error")
-                            $("#developSaleId").parent().next().html("必须选择开发销售");
-                            $("#photoForm").addClass("has-error")
-                            $("#photo").next().html("必须上传项目图片");
-                            return;
+                            if($("#designerId").val()==""||$("#traceSaleId").val()=="") {
+                                if ($("#designerId").val() == "") {
+                                    $("#designerIdForm").addClass("has-error")
+                                    $("#designerId").parent().next().html("必须选择设计师");
+                                }
+                                if ($("#traceSaleId").val() == "") {
+                                    $("#traceSaleIdForm").addClass("has-error")
+                                    $("#traceSaleId").parent().next().html("必须选择跟进销售");
+                                }
+//                            $("#designerIdForm").addClass("has-error")
+//                            $("#designerId").parent().next().html("必须选择设计师");
+//                            $("#traceSaleIdForm").addClass("has-error")
+//                            $("#traceSaleId").parent().next().html("必须选择跟进销售");
+//                            $("#pmIdForm").addClass("has-error")
+//                            $("#pmId").parent().next().html("必须选择项目经理");
+//                            $("#factoryIdForm").addClass("has-error")
+//                            $("#factoryId").parent().next().html("必须选择工厂");
+//                            $("#developSaleIdForm").addClass("has-error")
+//                            $("#developSaleId").parent().next().html("必须选择开发销售");
+//                            $("#photoForm").addClass("has-error")
+//                            $("#photo").next().html("必须上传项目图片");
+                                return;
+                            }
                         }
                     }else if(data.res == 0){
                         saveBtnda.stop();

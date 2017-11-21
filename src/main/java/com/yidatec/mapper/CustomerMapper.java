@@ -1,6 +1,7 @@
 package com.yidatec.mapper;
 
 import com.yidatec.model.Customer;
+import com.yidatec.model.FollowHistory;
 import com.yidatec.vo.CustomerVO;
 import com.yidatec.vo.ProjectVO;
 import org.apache.ibatis.annotations.*;
@@ -27,7 +28,7 @@ public interface CustomerMapper {
 
 
     @SelectProvider(type=com.yidatec.mapper.CustomerQueryProvider.class,method = "selectCustomer")
-    List<Customer> selectCustomerList(CustomerVO customerVO);
+    List<CustomerVO> selectCustomerList(CustomerVO customerVO);
 
     @SelectProvider(type=com.yidatec.mapper.CustomerQueryProvider.class,method = "countCustomer")
     int countCustomerList(CustomerVO customerVO);
@@ -67,5 +68,26 @@ public interface CustomerMapper {
             " where a.createTime BETWEEN DATE(#{startTime}) AND DATE(#{endTime})"+
             " ORDER BY a.createTime ")
     List<ProjectVO> customerDownLoad(@Param(value = "startTime") String startTime, @Param(value = "endTime")String endTime);
+
+    @Select("SELECT * " +
+            " FROM T_FOLLOW_HISTORY" +
+            " WHERE id" +
+            " IN (SELECT historyId FROM T_CUSTOMER_HISTORY" +
+            " WHERE customerId = #{id}) order by modifyTime asc")
+    List<FollowHistory> getHistoryList(String id);
+
+    @Delete("DELETE FROM T_FOLLOW_HISTORY  WHERE id in (SELECT historyId FROM T_CUSTOMER_HISTORY WHERE customerId=#{id})")
+    int deleteHistory(String id);
+
+    @Delete("DELETE FROM T_CUSTOMER_HISTORY WHERE customerId=#{id}")
+    int deleteCustomerHistory(String id);
+
+    @Insert("INSERT INTO T_FOLLOW_HISTORY (id,followDetail,followTime,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{followDetail},#{followTime}," +
+            "#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
+    int createHistory(FollowHistory history);
+
+    @Insert("INSERT INTO T_CUSTOMER_HISTORY (customerId,historyId) VALUES (#{customerid},#{historyId})")
+    int createCustomerHistory(@Param(value="customerid") String customerid,@Param(value="historyId") String historyId);
+
 
 }

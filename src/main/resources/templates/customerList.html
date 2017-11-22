@@ -84,6 +84,12 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
+                        <label for="followTime" class="control-label">跟进日期</label>
+                        <input type="text"  id="followTime" readonly="readonly" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
                         <label for="state" class="control-label">状态</label>
                         <select name="state" id="state" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
                             <option value="" selected="selected">不限</option>
@@ -113,6 +119,7 @@
                             <tr>
                                 <th>操作</th>
                                 <th>创建人</th>
+                                <th>最后跟进时间</th>
                                 <th>企业名称</th>
                                 <th>所属行业</th>
                                 <th>企业性质</th>
@@ -237,6 +244,7 @@
                         p.city = $("#city").val();
                         p.industry = $("#industry").val();
                         p.creator = $("#creator").val();
+                        p.followTime = $("#followTime").val();
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -265,6 +273,7 @@
                         },
                     },
                     {"data": "creator", "width": "100px"},
+                    {"data": "followTime", "width": "100px"},
                     {"data": "name", "width": "280px"},
 //                    {"data": "companyId", "width": "50px"},
                     {"data": "industry", "width": "280px"},
@@ -532,6 +541,7 @@
                         swal("操作失败", data.txt, "error");
                     }else{
                         saveBtnda.stop();
+                        customertable.ajax.reload();
                         $('#historyModal').modal('hide');
                     }
                 }
@@ -566,6 +576,7 @@
         var saveBtnda;
         $(document).ready(function () {
             // 提示栏初始化
+            datepickerInit("followTime",format);
             customertableLoad();
             var v = '';
             if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"customerEdit\");'>新&nbsp;&nbsp;建</button>"

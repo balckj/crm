@@ -43,6 +43,9 @@ public interface CustomerMapper {
             "modifyTime=#{modifyTime} WHERE id=#{id}")
     int update(Customer customer);
 
+    @Update("UPDATE T_CUSTOMER SET modifyTime=#{modifyTime} WHERE id=#{id}")
+    int updateModifyTime(Customer customer);
+
     @Insert("INSERT INTO T_CUSTOMER_CONTACT (customerId,contactId) VALUES (#{customerid},#{contactid})")
     int createRelation(@Param(value="customerid") String customerid,@Param(value="contactid") String contactid);
 
@@ -73,7 +76,7 @@ public interface CustomerMapper {
             " FROM T_FOLLOW_HISTORY" +
             " WHERE id" +
             " IN (SELECT historyId FROM T_CUSTOMER_HISTORY" +
-            " WHERE customerId = #{id}) order by modifyTime asc")
+            " WHERE customerId = #{id}) order by followTime desc")
     List<FollowHistory> getHistoryList(String id);
 
     @Delete("DELETE FROM T_FOLLOW_HISTORY  WHERE id in (SELECT historyId FROM T_CUSTOMER_HISTORY WHERE customerId=#{id})")

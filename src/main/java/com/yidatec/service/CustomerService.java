@@ -110,6 +110,10 @@ public class CustomerService {
             customerMapper.createHistory(history.getHistoryList().get(i));
             customerMapper.createCustomerHistory(history.getId(),history.getHistoryList().get(i).getId());
         }
+        Customer customer = new Customer();
+        customer.setId(history.getId());
+        customer.setModifyTime(history.getModifyTime());
+        customerMapper.updateModifyTime(customer);
 //        ledgerC(ledgerVO);
     }
 

@@ -541,6 +541,7 @@
                         swal("操作失败", data.txt, "error");
                     }else{
                         saveBtnda.stop();
+                        customertable.ajax.reload();
                         $('#historyModal').modal('hide');
                     }
                 }

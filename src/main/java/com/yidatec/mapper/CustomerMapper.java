@@ -43,6 +43,9 @@ public interface CustomerMapper {
             "modifyTime=#{modifyTime} WHERE id=#{id}")
     int update(Customer customer);
 
+    @Update("UPDATE T_CUSTOMER SET modifyTime=#{modifyTime} WHERE id=#{id}")
+    int updateModifyTime(Customer customer);
+
     @Insert("INSERT INTO T_CUSTOMER_CONTACT (customerId,contactId) VALUES (#{customerid},#{contactid})")
     int createRelation(@Param(value="customerid") String customerid,@Param(value="contactid") String contactid);
 

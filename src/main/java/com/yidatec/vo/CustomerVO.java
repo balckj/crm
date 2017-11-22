@@ -10,6 +10,15 @@ public class CustomerVO extends Customer{
     private Integer length;
     private Integer start;
     private String creator;
+    private String followTime;
+
+    public String getFollowTime() {
+        return followTime;
+    }
+
+    public void setFollowTime(String followTime) {
+        this.followTime = followTime;
+    }
 
     public String getCreator() {
         return creator;

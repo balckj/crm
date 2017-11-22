@@ -73,7 +73,7 @@ public interface CustomerMapper {
             " FROM T_FOLLOW_HISTORY" +
             " WHERE id" +
             " IN (SELECT historyId FROM T_CUSTOMER_HISTORY" +
-            " WHERE customerId = #{id}) order by followTime asc")
+            " WHERE customerId = #{id}) order by followTime desc")
     List<FollowHistory> getHistoryList(String id);
 
     @Delete("DELETE FROM T_FOLLOW_HISTORY  WHERE id in (SELECT historyId FROM T_CUSTOMER_HISTORY WHERE customerId=#{id})")

@@ -43,14 +43,14 @@
                 <!--</div>-->
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="code" class="control-label">合同编码</label>
-                        <input type="text"  id="code" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="signDay" class="control-label">合同签署日期</label>
+                        <input type="text"  id="signDay" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}' />
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="exhibitionNumber" class="control-label">展位号</label>
-                        <input type="text"  id="exhibitionNumber" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="campaignName" class="control-label">市场活动名称</label>
+                        <input type="text"  id="campaignName" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -210,6 +210,8 @@
         var hasLedgerEdit = [[${#authorization.url('/ledgerEdit')}]];// 台账编辑权限
         var hasLedgerView = [[${#authorization.url('/ledgerView')}]];// 台账查看权限
 
+        var format = "yyyy-mm-dd";
+        datepickerInit("signDay",format);
         /***
          *
          * 检索相关
@@ -284,6 +286,18 @@
             });
         }
 
+        function datepickerInit(id,format) {
+            $('#'+id).datepicker({
+                startView: 1,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: format,
+                language: 'cn',
+            });
+        }
+
         function ABonClick(obj) {
             $('#ABTableModal').modal('show');
             $("#ABConfrim").attr("ABFLG",$(obj).attr("id"));
@@ -329,8 +343,8 @@
                         p.length = d.length;
                         p.start = d.start;
 //                        p.name = $('#name').val();
-                        p.code = $('#code').val();
-                        p.exhibitionNumber = $('#exhibitionNumber').val();
+                        p.signDay = $('#signDay').val();
+                        p.campaignName = $('#campaignName').val();
                         p.category = $('#category').val();
                         p.firstParty = $('#firstParty').attr("value");
                         p.secondParty = $('#secondParty').attr("value");

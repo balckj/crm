@@ -44,7 +44,7 @@ public class ProjectQueryProvider {
             sb.append(" D.pmId = #{id}");
             sb.append(" or D.developSaleId = #{id}");
             sb.append(" or D.traceSaleId = #{id}");
-            sb.append(" or find_in_set(#{id},D.designProgress)");
+            sb.append(" OR #{id} in (SELECT pd.designerId FROM T_PROJECT p LEFT JOIN T_PROJECT_DESIGNER pd on p.id = pd.projectid where D.id = p.id)");
             sb.append(" )");
         }
         sb.append(" ORDER BY D.modifyTime DESC LIMIT #{start},#{length}");
@@ -78,7 +78,7 @@ public class ProjectQueryProvider {
             sb.append(" D.pmId = #{id}");
             sb.append(" or D.developSaleId = #{id}");
             sb.append(" or D.traceSaleId = #{id}");
-            sb.append(" or find_in_set(#{id},D.designProgress)");
+            sb.append(" OR #{id} in (SELECT pd.designerId FROM T_PROJECT p LEFT JOIN T_PROJECT_DESIGNER pd on p.id = pd.projectid where D.id = p.id)");
             sb.append(" )");
         }
         if(!StringUtils.isEmpty(projectVO.getState())){

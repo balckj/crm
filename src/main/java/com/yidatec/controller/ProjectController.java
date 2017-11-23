@@ -110,7 +110,7 @@ public class ProjectController extends BaseController {
     public Object findProject(@RequestBody ProjectVO project)throws Exception{
         project.setId(getWebUser().getId());
         project.setAdmin(isAdmin());
-        List<ProjectEntity> ProjectEntityList = projectService.selectProjectList(project);
+        List<ProjectVO> ProjectEntityList = projectService.selectProjectList(project);
         if (ProjectEntityList != null){
             for(ProjectEntity project1 : ProjectEntityList){
                 String importantparams = project1.getDegreeOfImportance();

@@ -38,7 +38,7 @@ public interface ProjectMapper {
     int deleteFactoryRelation(String projectId);
 
     @SelectProvider(type=com.yidatec.mapper.ProjectQueryProvider.class,method = "selectProject")
-    List<ProjectEntity> selectProjectList(ProjectVO projectVO);
+    List<ProjectVO> selectProjectList(ProjectVO projectVO);
 
     @SelectProvider(type=com.yidatec.mapper.ProjectQueryProvider.class,method = "countProject")
     int countCustomerList(ProjectVO projectVO);

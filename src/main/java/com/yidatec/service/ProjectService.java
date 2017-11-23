@@ -45,7 +45,7 @@ public class ProjectService {
         }
     }
 
-    public List<ProjectEntity> selectProjectList(ProjectVO project) {
+    public List<ProjectVO> selectProjectList(ProjectVO project) {
         return projectMapper.selectProjectList(project);
     }
 

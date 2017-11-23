@@ -1,7 +1,12 @@
 package com.yidatec.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yidatec.model.Contact;
 import com.yidatec.model.ProjectEntity;
+import com.yidatec.util.CustomLocalDateSerializer;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 /**
  * Created by Administrator on 2017/8/17.
@@ -13,6 +18,15 @@ public class ProjectVO extends ProjectEntity{
     private Integer start;
     private String search;
 
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate activityTime;
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate endDate;
     private String saleName;
     private String industry;
     private String Country;
@@ -25,6 +39,14 @@ public class ProjectVO extends ProjectEntity{
     private String mobilePhone;
 
     private boolean isAdmin;
+
+    public LocalDate getActivityTime() {
+        return activityTime;
+    }
+
+    public void setActivityTime(LocalDate activityTime) {
+        this.activityTime = activityTime;
+    }
 
     public String getUserName() {
         return userName;
@@ -152,5 +174,21 @@ public class ProjectVO extends ProjectEntity{
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 }

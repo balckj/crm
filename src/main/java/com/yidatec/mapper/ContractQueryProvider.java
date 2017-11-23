@@ -75,11 +75,11 @@ public class ContractQueryProvider {
         if(!StringUtils.isEmpty(contractVO.getName())){
             sb.append(" AND A.name LIKE CONCAT('%',#{name},'%')");
         }
-        if(!StringUtils.isEmpty(contractVO.getCode())){
-            sb.append(" AND A.code LIKE CONCAT('%',#{code},'%')");
+        if(!StringUtils.isEmpty(contractVO.getSignDay())){
+            sb.append(" AND A.signDay = #{signDay}");
         }
-        if(!StringUtils.isEmpty(contractVO.getExhibitionNumber())){
-            sb.append(" AND A.exhibitionNumber = #{exhibitionNumber}");
+        if(!StringUtils.isEmpty(contractVO.getCampaignName())){
+            sb.append(" AND A.campaignName LIKE CONCAT('%',#{campaignName},'%')");
         }
         if(!StringUtils.isEmpty(contractVO.getCategory())){
             sb.append(" AND A.category = #{category}");
@@ -126,11 +126,11 @@ public class ContractQueryProvider {
         if(!StringUtils.isEmpty(contractVO.getName())){
             sb.append(" AND A.name LIKE CONCAT('%',#{name},'%')");
         }
-        if(!StringUtils.isEmpty(contractVO.getCode())){
-            sb.append(" AND A.code LIKE CONCAT('%',#{code},'%')");
+        if(!StringUtils.isEmpty(contractVO.getSignDay())){
+            sb.append(" AND A.signDay = #{signDay}");
         }
-        if(!StringUtils.isEmpty(contractVO.getExhibitionNumber())){
-            sb.append(" AND A.exhibitionNumber = #{exhibitionNumber}");
+        if(!StringUtils.isEmpty(contractVO.getCampaignName())){
+            sb.append(" AND A.campaignName LIKE CONCAT('%',#{campaignName},'%')");
         }
         if(!StringUtils.isEmpty(contractVO.getCategory())){
             sb.append(" AND A.category = #{category}");

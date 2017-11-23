@@ -11,9 +11,9 @@ public class ProjectQueryProvider {
     public String selectProject(final ProjectVO projectVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT b.name as customerName,c.name as campaignName,D.* FROM T_PROJECT  as D LEFT JOIN T_CUSTOMER b\n" +
-                "on D.customerId=b.id\n" +
-                "LEFT JOIN T_CAMPAIGN c\n" +
+        sb.append("SELECT b.name as customerName,c.name as campaignName,c.startDate,c.endDate,D.* FROM T_PROJECT  as D LEFT JOIN T_CUSTOMER b " +
+                "on D.customerId=b.id " +
+                "LEFT JOIN T_CAMPAIGN c " +
                 "on D.campaignId = c.id WHERE 1=1");
 
         if(!StringUtils.isEmpty(projectVO.getName())){
@@ -21,6 +21,9 @@ public class ProjectQueryProvider {
         }
         if(!StringUtils.isEmpty(projectVO.getCampaignId())){
             sb.append(" AND c.name LIKE CONCAT('%',#{campaignId},'%')");
+        }
+        if(!StringUtils.isEmpty(projectVO.getActivityTime())){
+            sb.append(" AND (Date(#{activityTime}) between Date(c.startDate) and  Date(c.endDate))");
         }
         if(!StringUtils.isEmpty(projectVO.getCode())){
             sb.append(" AND D.code LIKE CONCAT('%',#{code},'%')");

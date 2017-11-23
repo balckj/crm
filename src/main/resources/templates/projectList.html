@@ -43,8 +43,8 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="code" class="control-label">项目编号</label>
-                        <input type="text"  id="code" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="activityTime" class="control-label">活动时间</label>
+                        <input type="text"  id="activityTime" readonly="readonly" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -99,6 +99,8 @@
                                     <th>类型</th>
                                     <th>客户</th>
                                     <th>市场活动</th>
+                                    <th>活动开始时间</th>
+                                    <th>活动结束时间</th>
                                     <th>项目编号</th>
                                     <th>预算</th>
                                     <!--<th>展位号</th>-->
@@ -134,6 +136,7 @@
 
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
     <script th:src="@{99/js/plugins/ladda/ladda.min.js}"></script>
+    <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
         var hasEdit = [[${#authorization.url('/projectEdit')}]];
@@ -161,7 +164,7 @@
                     p.start = d.start;
                     p.name = $('#name').val();
                     p.campaignId = $('#campaignId').val();
-                    p.code = $('#code').val();
+                    p.activityTime = $('#activityTime').val();
                     p.degreeOfImportance = $('#degreeOfImportance').val();
                     p.pmId = $('#pmId').val();
                     p.state = $('#state').val();
@@ -191,6 +194,8 @@
                 {"data": "type", "width": "100px"},
                 {"data": "customerName", "width": "280px"},
                 {"data": "campaignName", "width": "280px"},
+                {"data": "startDate", "width": "100px"},
+                {"data": "endDate", "width": "100px"},
                 {"data": "code", "width": "100px"},
                 {"data": "budget", "width": "60px"},
 //                {"data": "exhibitionNumber", "width": "50px"},
@@ -292,6 +297,17 @@
     var saveBtnda;
     $(document).ready(function () {
         // 提示栏初始化
+        $('#activityTime').datepicker({
+            startView: 2,
+            todayBtn: "linked",
+            todayHighlight:true,
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: 'yyyy-mm-dd',
+            language: 'cn',
+        });
+
         projecttableLoad();
         var v = '';
         if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"projectEdit\");'>新&nbsp;&nbsp;建</button>"

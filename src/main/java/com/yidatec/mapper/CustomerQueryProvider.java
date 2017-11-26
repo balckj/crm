@@ -40,7 +40,7 @@ public class CustomerQueryProvider {
             sb.append(" AND D.state = #{state}");
         }
         if(!StringUtils.isEmpty(customerVO.getCreator())){
-            sb.append(" AND a.name LIKE CONCAT('%',#{creator},'%')");
+            sb.append(" AND C.name LIKE CONCAT('%',#{creator},'%')");
         }
 
         if(!customerVO.isAdmin()){
@@ -83,6 +83,9 @@ public class CustomerQueryProvider {
         }
         if(!StringUtils.isEmpty(customerVO.getState())){
             sb.append(" AND D.state = #{state}");
+        }
+        if(!StringUtils.isEmpty(customerVO.getCreator())){
+            sb.append(" AND C.name LIKE CONCAT('%',#{creator},'%')");
         }
         if(!customerVO.isAdmin()){
             if(!StringUtils.isEmpty(customerVO.getCreatorId())){

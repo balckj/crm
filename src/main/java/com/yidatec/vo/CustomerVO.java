@@ -11,6 +11,8 @@ public class CustomerVO extends Customer{
     private Integer start;
     private String creator;
     private String followTime;
+    private String followStartTime;
+    private String followEndTime;
 
     public String getFollowTime() {
         return followTime;
@@ -18,6 +20,22 @@ public class CustomerVO extends Customer{
 
     public void setFollowTime(String followTime) {
         this.followTime = followTime;
+    }
+
+    public String getFollowStartTime() {
+        return followStartTime;
+    }
+
+    public void setFollowStartTime(String followStartTime) {
+        this.followStartTime = followStartTime;
+    }
+
+    public String getFollowEndTime() {
+        return followEndTime;
+    }
+
+    public void setFollowEndTime(String followEndTime) {
+        this.followEndTime = followEndTime;
     }
 
     public String getCreator() {

@@ -33,8 +33,10 @@ public class CustomerQueryProvider {
         if(!StringUtils.isEmpty(customerVO.getIndustry())){
             sb.append(" AND D.industry = #{industry}");
         }
-        if(!StringUtils.isEmpty(customerVO.getFollowTime())){
-            sb.append(" AND followTime = #{followTime}");
+        if(!StringUtils.isEmpty(customerVO.getFollowStartTime())&&!StringUtils.isEmpty(customerVO.getFollowEndTime())){
+//            sb.append(" AND followTime = #{followTime}");
+            sb.append(" AND (Date(followTime) between Date(#{followStartTime}) and  Date(#{followEndTime}))");
+
         }
         if(!StringUtils.isEmpty(customerVO.getState())){
             sb.append(" AND D.state = #{state}");
@@ -66,8 +68,8 @@ public class CustomerQueryProvider {
         if(!StringUtils.isEmpty(customerVO.getNature())){
             sb.append(" AND D.nature = #{nature}");
         }
-        if(!StringUtils.isEmpty(customerVO.getFollowTime())){
-            sb.append(" AND followTime = #{followTime}");
+        if(!StringUtils.isEmpty(customerVO.getFollowStartTime())&&!StringUtils.isEmpty(customerVO.getFollowEndTime())){
+            sb.append(" AND (Date(followTime) between Date(#{followStartTime}) and  Date(#{followEndTime}))");
         }
         if(!StringUtils.isEmpty(customerVO.getAddress())){
             sb.append(" AND D.address LIKE CONCAT('%',#{address},'%')");

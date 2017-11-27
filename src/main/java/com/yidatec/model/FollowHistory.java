@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class FollowHistory extends BaseModel{
     @NotBlank(message = "必须输入跟进描述", groups = { })
     private String followDetail;
-    @NotBlank(message = "必须输入付款时间", groups = { })
+    @NotBlank(message = "必须输入跟进时间", groups = { })
     private String followTime;
 
 

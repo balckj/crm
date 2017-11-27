@@ -84,8 +84,14 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="followTime" class="control-label">跟进日期</label>
+                        <label for="followTime" class="control-label">跟进开始日期</label>
                         <input type="text"  id="followTime" readonly="readonly" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="followTime1" class="control-label">跟进结束日期</label>
+                        <input type="text"  id="followTime1" readonly="readonly" class="form-control input-sm" />
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -244,7 +250,8 @@
                         p.city = $("#city").val();
                         p.industry = $("#industry").val();
                         p.creator = $("#creator").val();
-                        p.followTime = $("#followTime").val();
+                        p.followStartTime = $("#followTime").val();
+                        p.followEndTime = $("#followTime1").val();
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -577,6 +584,7 @@
         $(document).ready(function () {
             // 提示栏初始化
             datepickerInit("followTime",format);
+            datepickerInit("followTime1",format);
             customertableLoad();
             var v = '';
             if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"customerEdit\");'>新&nbsp;&nbsp;建</button>"

@@ -41,8 +41,8 @@ public class ExhibitionQueryProvider {
         if(!StringUtils.isEmpty(exhibitionVO.getRegion())){
             sb.append(" AND C.region LIKE CONCAT('%',#{region},'%')");
         }
-        sb.append(" ORDER BY C.modifyTime DESC");
-        sb.append(" LIMIT #{start},#{length}");
+//        sb.append(" ORDER BY C.modifyTime DESC");
+//        sb.append(" LIMIT #{start},#{length}");
         return sb.toString();
     }
 

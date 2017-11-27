@@ -1,5 +1,5 @@
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="historyModal" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog " style="width:95%;"  role="document">
+    <div class="modal-dialog " style="width:800px;"  role="document">
         <input type="hidden" name="updateFlg" id="updateFlg" th:value="${historyListFlg}"/>
         <input type="hidden" name="historyListSize" id="historyListSize" th:value="${historyListSize}"/>
         <div class="modal-content">
@@ -17,7 +17,7 @@
                                         <!--创建-->
                                         <table th:unless="${historyListFlg}" class="table table-condensed" id="historyList">
                                             <tr>
-                                                <td>
+                                                <td style="width:400px;">
                                                     <div id="followDetail0Form">
                                                         <label class="control-label">跟进描述<span
                                                                 style="color:#ed5565;">*</span></label>
@@ -27,7 +27,7 @@
                                                         <label class="control-label" style="text-align: left"></label>
                                                     </div>
                                                 </td>
-                                                <td>
+                                                <td style="width:140px;">
                                                     <div id="followTime0Form">
                                                         <label class="control-label">跟进时间<span
                                                                 style="color:#ed5565;">*</span></label>
@@ -37,7 +37,7 @@
                                                         <label class="control-label" style="text-align: left"></label>
                                                     </div>
                                                 </td>
-                                                <td>
+                                                <td style="width:140px;">
                                                     <div id="nextTime0Form">
                                                         <label class="control-label">下次跟进时间<span
                                                                 style="color:#ed5565;">*</span></label>
@@ -56,7 +56,7 @@
                                         <!--编辑-->
                                         <table th:if="${historyListFlg}" class="table table-condensed" id="historyList">
                                             <tr th:each="history,historyListStat : ${historyList}">
-                                                <td>
+                                                <td style="width:400px;">
                                                     <div th:attr="id='followDetail'+${historyListStat.index}+'Form'">
                                                         <label class="control-label" th:if="${historyListStat.index == 0}">跟进描述<span
                                                                 style="color:#ed5565;">*</span></label>
@@ -67,7 +67,7 @@
                                                         <label class="control-label" style="text-align: left"></label>
                                                     </div>
                                                 </td>
-                                                <td>
+                                                <td style="width:140px;">
                                                     <div th:attr="id='followTime'+${historyListStat.index}+'Form'">
                                                         <label class="control-label" th:if="${historyListStat.index == 0}">跟进时间<span
                                                                 style="color:#ed5565;">*</span></label>
@@ -78,7 +78,7 @@
                                                         <label class="control-label" style="text-align: left"></label>
                                                     </div>
                                                 </td>
-                                                <td>
+                                                <td style="width:140px;">
                                                     <div th:attr="id='nextTime'+${historyListStat.index}+'Form'">
                                                         <label class="control-label" th:if="${historyListStat.index == 0}">下次跟进时间<span
                                                                 style="color:#ed5565;">*</span></label>

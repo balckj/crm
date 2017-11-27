@@ -10,6 +10,8 @@ public class FollowHistory extends BaseModel{
     private String followDetail;
     @NotBlank(message = "必须输入跟进时间", groups = { })
     private String followTime;
+    @NotBlank(message = "必须输入下次跟进时间", groups = { })
+    private String nextTime;
 
 
     public String getFollowDetail() {
@@ -26,5 +28,13 @@ public class FollowHistory extends BaseModel{
 
     public void setFollowTime(String followTime) {
         this.followTime = followTime;
+    }
+
+    public String getNextTime() {
+        return nextTime;
+    }
+
+    public void setNextTime(String nextTime) {
+        this.nextTime = nextTime;
     }
 }

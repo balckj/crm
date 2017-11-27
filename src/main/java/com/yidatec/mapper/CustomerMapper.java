@@ -85,7 +85,7 @@ public interface CustomerMapper {
     @Delete("DELETE FROM T_CUSTOMER_HISTORY WHERE customerId=#{id}")
     int deleteCustomerHistory(String id);
 
-    @Insert("INSERT INTO T_FOLLOW_HISTORY (id,followDetail,followTime,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{followDetail},#{followTime}," +
+    @Insert("INSERT INTO T_FOLLOW_HISTORY (id,followDetail,followTime,nextTime,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{followDetail},#{followTime},#{nextTime}," +
             "#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
     int createHistory(FollowHistory history);
 

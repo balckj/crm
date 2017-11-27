@@ -90,8 +90,20 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="followTime1" class="control-label">跟进结束日期</label>
-                        <input type="text"  id="followTime1" readonly="readonly" class="form-control input-sm" />
+                        <label for="followEndTime" class="control-label">跟进结束日期</label>
+                        <input type="text"  id="followEndTime" readonly="readonly" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="nextTime" class="control-label">下次跟进开始日期</label>
+                        <input type="text"  id="nextTime" readonly="readonly" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="nextEndTime" class="control-label">下次跟进结束日期</label>
+                        <input type="text"  id="nextEndTime" readonly="readonly" class="form-control input-sm" />
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -126,6 +138,7 @@
                                 <th>操作</th>
                                 <th>创建人</th>
                                 <th>最后跟进时间</th>
+                                <th>下次跟进时间</th>
                                 <th>企业名称</th>
                                 <th>所属行业</th>
                                 <th>企业性质</th>
@@ -251,7 +264,9 @@
                         p.industry = $("#industry").val();
                         p.creator = $("#creator").val();
                         p.followStartTime = $("#followTime").val();
-                        p.followEndTime = $("#followTime1").val();
+                        p.followEndTime = $("#followEndTime").val();
+                        p.nextStartTime = $("#nextTime").val();
+                        p.nextEndTime = $("#nextEndTime").val();
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -281,6 +296,7 @@
                     },
                     {"data": "creator", "width": "100px"},
                     {"data": "followTime", "width": "100px"},
+                    {"data": "nextTime", "width": "100px"},
                     {"data": "name", "width": "280px"},
 //                    {"data": "companyId", "width": "50px"},
                     {"data": "industry", "width": "280px"},
@@ -414,8 +430,6 @@
                     updateFlg = $("#updateFlg").val();
                     // 编辑时添加每行验证
                     historyCheck($("#historyListSize").val());
-//                    datepickerInit('followTime0', format);
-//                    validate('followDetail0', 'followDetail', 'validatfollowDetail');
                     showLedgerbtn.stop();
                 }
             });
@@ -424,14 +438,18 @@
 
         function historyCheck(ledgerListSize) {
             if(ledgerListSize == 0) {
-                validateSelect('followTime0', 'paymentTime', 'validatPaymentTime');
+                validateSelect('followTime0', 'followTime', 'validatFollowTime');
                 validate('followDetail0', 'followDetail', 'validatfollowDetail');
+                validateSelect('nextTime0', 'followTime', 'validatFollowTime');
                 datepickerInit('followTime0', format);
+                datepickerInit('nextTime0', format);
             }else{
                 for (var i = 0; i < ledgerListSize; i++) {
-                    validateSelect('followTime' + i, 'paymentTime', 'validatPaymentTime');
+                    validateSelect('followTime' + i, 'followTime', 'validatFollowTime');
+                    validateSelect('nextTime' + i, 'followTime', 'validatFollowTime');
                     validate('followDetail' + i, 'followDetail', 'validatfollowDetail');
-//                    datepickerInit('followTime' + i, format);
+                    datepickerInit('followTime' + i, format);
+                    datepickerInit('nextTime' + i, format);
                 }
             }
         }
@@ -443,34 +461,40 @@
         function add() {
             var number = $("#historyList tr").length;
             var row ="<tr>\n" +
-                "      <td>\n" +
-                "          <div id=\"followDetail"+number+"Form\">\n" +
-                "              <div>\n" +
-                "                  <input type=\"text\"  name=\"followDetail\" id=\"followDetail"+number+"\" class=\"form-control input-sm\"  oninput=\"if(value.length>18)value=value.slice(0,18)\"/>\n" +
-                "              </div>\n" +
-                "              <label class=\"control-label\" style=\"text-align: left\"></label>\n" +
-                "          </div>\n" +
-                "      </td>\n" +
-                "      <td>\n" +
-                "          <div id=\"followTime"+number+"Form\">\n" +
-                "              <div>\n" +
-                "                  <input type=\"text\" name=\"followTime\" id=\"followTime"+number+"\" class=\"form-control input-sm\" maxlength=\"50\" readonly=\"readonly\"/>\n" +
-                "              </div>\n" +
-                "              <label class=\"control-label\" style=\"text-align: left\"></label>\n" +
-                "          </div>\n" +
-                "      </td>\n" +
-                "      <td >\n" +
-                "          <button class=\"btn btn-primary btn-sm\" onclick=\"delBtnData(this)\" type=\"button\" style=\"width: 100%;\" >删&nbsp;&nbsp;除</button>\n" +
-                "      </td>\n" +
-                "  </tr>";
+                    "      <td>\n" +
+                    "          <div id=\"followDetail"+number+"Form\">\n" +
+                    "              <div>\n" +
+                    "                  <input type=\"text\"  name=\"followDetail\" id=\"followDetail"+number+"\" class=\"form-control input-sm\"  oninput=\"if(value.length>18)value=value.slice(0,18)\"/>\n" +
+                    "              </div>\n" +
+                    "              <label class=\"control-label\" style=\"text-align: left\"></label>\n" +
+                    "          </div>\n" +
+                    "      </td>\n" +
+                    "      <td>\n" +
+                    "          <div id=\"followTime"+number+"Form\">\n" +
+                    "              <div>\n" +
+                    "                  <input type=\"text\" name=\"followTime\" id=\"followTime"+number+"\" class=\"form-control input-sm\" maxlength=\"50\" readonly=\"readonly\"/>\n" +
+                    "              </div>\n" +
+                    "              <label class=\"control-label\" style=\"text-align: left\"></label>\n" +
+                    "          </div>\n" +
+                    "      </td>\n" +
+                    "      <td>\n" +
+                    "          <div id=\"nextTime"+number+"Form\">\n" +
+                    "              <div>\n" +
+                    "                  <input type=\"text\" name=\"nextTime\" id=\"nextTime"+number+"\" class=\"form-control input-sm\" maxlength=\"50\" readonly=\"readonly\"/>\n" +
+                    "              </div>\n" +
+                    "              <label class=\"control-label\" style=\"text-align: left\"></label>\n" +
+                    "          </div>\n" +
+                    "      </td>\n" +
+                    "      <td >\n" +
+                    "          <button class=\"btn btn-primary btn-sm\" onclick=\"delBtnData(this)\" type=\"button\" style=\"width: 100%;\" >删&nbsp;&nbsp;除</button>\n" +
+                    "      </td>\n" +
+                    "  </tr>";
             $("#historyList").append(row);
-
             datepickerInit('followTime'+number,format);
+            datepickerInit('nextTime'+number,format);
             validate('followDetail'+number, 'followDetail', 'validatfollowDetail');
-//
-//            if(updateFlg == "true") validateSelect('reasonForChange'+number, 'reasonForChange', 'validatReasonForChange');
-//            number++;
-
+            validateSelect('followTime' + number, 'followTime', 'validatFollowTime');
+            validateSelect('nextTime' + number, 'followTime', 'validatFollowTime');
         }
 
         // 删除添加行
@@ -485,6 +509,9 @@
                 $(this).find($("input[id^='followTime']")).attr("id","followTime"+index);
                 $(this).find($("div[id^='followDetail']")).attr("id","followDetail"+index+"Form");
                 $(this).find($("input[id^='followDetail']")).attr("id","followDetail"+index);
+
+                $(this).find($("div[id^='nextTime']")).attr("id","nextTime"+index+"Form");
+                $(this).find($("input[id^='nextTime']")).attr("id","nextTime"+index);
             })
         }
 
@@ -496,9 +523,11 @@
             $("#historyList tr").each(function(index){
                 followTime = $(this).find("input[name=followTime]").val();
                 followDetail = $(this).find("input[name=followDetail]").val();
+                nextTime = $(this).find("input[name=nextTime]").val();
                 historyList.push({
                     "followTime":followTime,
                     "followDetail":followDetail,
+                    "nextTime":nextTime,
                 })
             })
             var p = {
@@ -524,11 +553,11 @@
                     saveBtnda.stop();
                 },
                 success: function (data) {
-                    debugger;
                     if (data.res == undefined) {
                         saveBtnda.stop();
                         for (var p in data) {
                             for (var p in data) {
+                                debugger;
                                 var tempField = data[p].field;
                                 if(tempField.startsWith("historyList[")){
                                     data[p].field= tempField.split(".")[1]+tempField.substring(tempField.indexOf("[")+1,tempField.indexOf("]"));
@@ -584,7 +613,9 @@
         $(document).ready(function () {
             // 提示栏初始化
             datepickerInit("followTime",format);
-            datepickerInit("followTime1",format);
+            datepickerInit("followEndTime",format);
+            datepickerInit("nextTime",format);
+            datepickerInit("nextEndTime",format);
             customertableLoad();
             var v = '';
             if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"customerEdit\");'>新&nbsp;&nbsp;建</button>"

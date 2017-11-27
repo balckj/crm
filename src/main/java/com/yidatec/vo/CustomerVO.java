@@ -11,8 +11,35 @@ public class CustomerVO extends Customer{
     private Integer start;
     private String creator;
     private String followTime;
+    private String nextTime;
     private String followStartTime;
     private String followEndTime;
+    private String nextStartTime;
+    private String nextEndTime;
+
+    public String getNextStartTime() {
+        return nextStartTime;
+    }
+
+    public void setNextStartTime(String nextStartTime) {
+        this.nextStartTime = nextStartTime;
+    }
+
+    public String getNextEndTime() {
+        return nextEndTime;
+    }
+
+    public void setNextEndTime(String nextEndTime) {
+        this.nextEndTime = nextEndTime;
+    }
+
+    public String getNextTime() {
+        return nextTime;
+    }
+
+    public void setNextTime(String nextTime) {
+        this.nextTime = nextTime;
+    }
 
     public String getFollowTime() {
         return followTime;

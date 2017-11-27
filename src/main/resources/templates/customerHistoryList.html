@@ -38,6 +38,16 @@
                                                     </div>
                                                 </td>
                                                 <td>
+                                                    <div id="nextTime0Form">
+                                                        <label class="control-label">下次跟进时间<span
+                                                                style="color:#ed5565;">*</span></label>
+                                                        <div>
+                                                            <input type="text" name="nextTime" id="nextTime0" class="form-control input-sm" maxlength="50" readonly="readonly"/>
+                                                        </div>
+                                                        <label class="control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
                                                     <button class="btn btn-primary btn-sm" type="button" style="width: 100%;margin-top: 23px;" onclick="add();">增&nbsp;&nbsp;加</button>
                                                 </td>
                                             </tr>
@@ -63,6 +73,17 @@
                                                                 style="color:#ed5565;">*</span></label>
                                                         <div>
                                                             <input type="text" name="followTime" th:attr="id='followTime'+${historyListStat.index}" th:value="${history}?${history.followTime}"
+                                                                   class="form-control input-sm"  maxlength="50" readonly="readonly"/>
+                                                        </div>
+                                                        <label class="control-label" style="text-align: left"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div th:attr="id='nextTime'+${historyListStat.index}+'Form'">
+                                                        <label class="control-label" th:if="${historyListStat.index == 0}">下次跟进时间<span
+                                                                style="color:#ed5565;">*</span></label>
+                                                        <div>
+                                                            <input type="text" name="nextTime" th:attr="id='nextTime'+${historyListStat.index}" th:value="${history}?${history.nextTime}"
                                                                    class="form-control input-sm"  maxlength="50" readonly="readonly"/>
                                                         </div>
                                                         <label class="control-label" style="text-align: left"></label>

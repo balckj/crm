@@ -671,6 +671,14 @@ public class ValidateController extends BaseController{
         return getSuccessJson(null);
     }
 
+    @RequestMapping(value = "/validatFollowTime")
+    public String validatFollowTime(@RequestParam(value="followTime") String followTime){
+        if(followTime == null || followTime.trim().isEmpty()){
+            return getErrorJson("必须输入跟进时间");
+        }
+        return getSuccessJson(null);
+    }
+
     @RequestMapping(value = "/validatPerator")
     public String validatPerator(@RequestParam(value="operator") String operator){
         if(operator == null || operator.trim().isEmpty()){

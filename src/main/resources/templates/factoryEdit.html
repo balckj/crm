@@ -25,7 +25,16 @@
             height: 34px;
         }
         .contactStyle{
-            width:14%;float: left;position: relative;padding-left: 15px;padding-right: 15px;
+            width:14%;float: left;position: relative;padding-left: 5px;padding-right: 5px;
+        }
+        .maxWidthStyle{
+            width:20%;
+        }
+        .minWidthStyle{
+            width:12%;
+        }
+        .btnWidth{
+            width:60px;
         }
     </style>
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -107,7 +116,7 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="contactStyle">
+                                        <div class="contactStyle maxWidthStyle">
                                             <div id="mobilePhone0Form">
                                                 <label class="control-label">手机</label>
                                                 <div>
@@ -116,7 +125,7 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="contactStyle">
+                                        <div class="contactStyle maxWidthStyle">
                                             <div id="telForm">
                                                 <label class="control-label">座机</label>
                                                 <div>
@@ -125,7 +134,7 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="contactStyle">
+                                        <div class="contactStyle minWidthStyle">
                                             <div id="qqForm">
                                                 <label class="control-label">QQ</label>
                                                 <div>
@@ -143,7 +152,7 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="contactStyle">
+                                        <div class="contactStyle minWidthStyle">
                                             <div id="position0Form">
                                                 <label class="control-label">职位</label>
                                                 <div>
@@ -154,7 +163,7 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="contactStyle" >
+                                        <div class="contactStyle btnWidth" >
                                             <div>
                                                 <label class="control-label" style="color: white">增加</label>
                                                 <div>
@@ -173,7 +182,7 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="contactStyle">
+                                        <div class="contactStyle maxWidthStyle">
                                             <div th:attr="id='mobilePhone'+${terStat.index}+'Form'">
                                                 <label class="control-label" th:if="${terStat.first}">手机</label>
                                                 <div>
@@ -182,7 +191,7 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="contactStyle">
+                                        <div class="contactStyle maxWidthStyle">
                                             <div th:attr="id='tel'+${terStat.index}+'Form'">
                                                 <label class="control-label" th:if="${terStat.first}">座机</label>
                                                 <div>
@@ -191,7 +200,7 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="contactStyle">
+                                        <div class="contactStyle minWidthStyle">
                                             <div th:attr="id='qq'+${terStat.index}+'Form'">
                                                 <label class="control-label" th:if="${terStat.first}">QQ</label>
                                                 <div>
@@ -209,7 +218,7 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="contactStyle">
+                                        <div class="contactStyle minWidthStyle">
                                             <div th:attr="id='position'+${terStat.index}+'Form'">
                                                 <label class="control-label" th:if="${terStat.first}">职位</label>
                                                 <div>
@@ -221,7 +230,7 @@
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
                                         </div>
-                                        <div class="contactStyle" th:if="${terStat.first}">
+                                        <div class="contactStyle btnWidth" th:if="${terStat.first}">
                                             <div>
                                                 <label class="control-label" style="color: white">增加</label>
                                                 <div>
@@ -229,7 +238,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="contactStyle" th:unless="${terStat.first}">
+                                        <div class="contactStyle btnWidth" th:unless="${terStat.first}">
                                             <button onclick="delBtnData(this)" type="button" th:attr="id='addordel'+${terStat.index}" class="btn ladda-button  btn-primary">删&nbsp;&nbsp;除</button>
                                         </div>
                                     </div>
@@ -544,7 +553,7 @@
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
-                +" <div class='contactStyle'>"
+                +" <div class='contactStyle maxWidthStyle'>"
                 +" <div id='mobilePhone"+total+ "Form'>"
                 +" <div>"
                 +" <input type='text' name='mobilePhone' id='mobilePhone"+total+ "' class='form-control input-sm contactHeight' maxlength='20'/>"
@@ -552,7 +561,7 @@
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
-                +" <div class='contactStyle'>"
+                +" <div class='contactStyle maxWidthStyle'>"
                 +" <div id='tel"+total+ "Form'>"
                 +" <div>"
                 +" <input type='text' name='tel' id='tel"+total+ "' class='form-control input-sm contactHeight' maxlength='50'/>"
@@ -560,7 +569,7 @@
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
-                +" <div class='contactStyle'>"
+                +" <div class='contactStyle minWidthStyle'>"
                 +" <div id='qq"+total+ "Form'>"
                 +" <div>"
                 +" <input type='text' name='qq' id='qq"+total+ "' class='form-control input-sm contactHeight' maxlength='50'/>"
@@ -576,7 +585,7 @@
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
-                 +" <div class='contactStyle'>"
+                 +" <div class='contactStyle minWidthStyle'>"
                 +" <div id='position"+total+ "Form'>"
                 +" <div>"
                 +" <select class='form-control location'  name='position' id='position"+total+ "' >"
@@ -584,7 +593,7 @@
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"
                 +" </div>"
-                +" <div class='contactStyle'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-primary'>删&nbsp;&nbsp;除</button></div></div>";
+                +" <div class='contactStyle btnWidth'><button onclick='delBtnData(this)' id='addordel"+total+ "'  type='button' class='btn ladda-button btn-primary'>删&nbsp;&nbsp;除</button></div></div>";
             $("#contactList").append(row);
             addTagListOption("position"+total);
 

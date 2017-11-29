@@ -53,7 +53,7 @@ public class ProjectController extends BaseController {
     SaleService saleService;
 
 
-    @RequestMapping(value={"/projectEdit","/projectEditAll"})
+    @RequestMapping(value={"/projectEdit","/projectCreate","/projectEditAll","/projectCreateAll"})
     public String projectEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建客户":"编辑客户");
         model.put("project",projectService.selectProject(id));

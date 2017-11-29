@@ -182,7 +182,12 @@
                     "render": function (data, type, row) {
                         var u ='';
                         if(hasEdit) {
-                            u = "projectEdit?id=" + row.id;
+                            if(isAll == 0){
+                                u = "projectEdit?id="
+                            }else{
+                                u = "projectEditAll?id="
+                            }
+                            u = u + row.id;
                             u = '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
                         }
                         if(u == ''){
@@ -313,7 +318,7 @@
 
         projecttableLoad();
         var v = '';
-        if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"projectCreate\");'>新&nbsp;&nbsp;建</button>"
+        if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(isAll==0?\"projectCreate\":\"projectCreateAll\");'>新&nbsp;&nbsp;建</button>"
         $("#projecttable_wrapper div").children().eq(0).append(v);
 
     });

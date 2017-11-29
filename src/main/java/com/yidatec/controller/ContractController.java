@@ -84,7 +84,7 @@ public class ContractController extends BaseController{
         return "contractList";
     }
 
-    @RequestMapping("/contractEdit")
+    @RequestMapping(value={"/contractEdit","/contractEditAll","/contractCreate","/contractCreateAll"})
     public String contractEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建合同":"编辑合同");
         model.put("contract",contractMapper.selectContract(id));
@@ -184,7 +184,7 @@ public class ContractController extends BaseController{
      * @param id
      * @return
      */
-    @RequestMapping("/contractView")
+    @RequestMapping(value={"/contractView","/contractViewAll"})
     public String contractView(ModelMap model, @RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建合同":"查看合同");
         model.put("contract",contractMapper.selectContract(id));
@@ -197,7 +197,7 @@ public class ContractController extends BaseController{
      * @param id
      * @return
      */
-    @RequestMapping("/ledgerView")
+    @RequestMapping(value={"/ledgerView","/ledgerViewAll"})
     public String ledgerView(ModelMap model, @RequestParam(value="id",required = false) String id){
         model.put("contract",contractMapper.selectContract(id));
         model.put("moneyTypeList",dictionaryService.selectDictionaryListByCodeCommon(Constants.MONEY_TYPE)); // 款项类型
@@ -215,7 +215,7 @@ public class ContractController extends BaseController{
      * @param id
      * @return
      */
-    @RequestMapping("/ledgerEdit")
+    @RequestMapping(value={"/ledgerEdit","/ledgerEditAll"})
     public String ledgerEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
         model.put("contract",contractMapper.selectContract(id));
         model.put("moneyTypeList",dictionaryService.selectDictionaryListByCodeCommon(Constants.MONEY_TYPE)); // 款项类型

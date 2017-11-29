@@ -208,9 +208,9 @@
 //        var hasEdit = [[${#authorization.url('/contractEdit')}]];
         var hasEdit = (isAll == 0 && [[${#authorization.url('/contractEdit')}]]) || (isAll == 1 && [[${#authorization.url('/contractEditAll')}]]);// 合同编辑权限
 //        var hasContractView = [[${#authorization.url('/contractContractView')}]];
-        var hasContractView = (isAll == 0 && [[${#authorization.url('/contractContractView')}]]) ||  (isAll == 1 && [[${#authorization.url('/contractContractViewAll')}]]);//// 合同查看权限
+        var hasContractView = (isAll == 0 && [[${#authorization.url('/contractView')}]]) ||  (isAll == 1 && [[${#authorization.url('/contractViewAll')}]]);//// 合同查看权限
 
-        var contractDonwLoad = [[${#authorization.url('/contractDonwLoad')}]]; // 合同下载
+        var contractDownLoad = [[${#authorization.url('/contractDownLoad')}]]; // 合同下载
 
 //        var hasLedgerEdit = [[${#authorization.url('/ledgerEdit')}]];// 台账编辑权限
         var hasLedgerEdit = (isAll == 0 && [[${#authorization.url('/ledgerEdit')}]]) || (isAll == 1 && [[${#authorization.url('/ledgerEditAll')}]]);// 台账编辑权限
@@ -369,19 +369,27 @@
                             // 以下是合同相关
                             var e = '';// 编辑（高级经理）
                             if(hasEdit) {
-                                e = "contractEdit?id=" + row.id;
+                                if(isAll == 0) {
+                                    e = "contractEdit?id=" + row.id;
+                                }else{
+                                    e = "contractEditAll?id=" + row.id;
+                                }
                                 e = '<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + e + '\')" >编辑</a>';
                             }
                             var v = '';// 查看合同
                             if(hasContractView) {
-                                v = "contractView?id=" + row.id;
+                                if(isAll == 0) {
+                                    v = "contractView?id=" + row.id;
+                                }else{
+                                    v = "contractViewAll?id=" + row.id;
+                                }
                                 v = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + v + '\')" >查看合同</a>';
                             }
 
                             var dl = '';// 合同下载
 //                            if(contractDonwLoad) {
 //                                dl =  row.id;
-//                                dl = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:ledgerDonwLoad(\'' + dl + '\')" >合同下载</a>';
+//                                dl = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:ledgerDownLoad(\'' + dl + '\')" >合同下载</a>';
 //                            }
 
                             // 以下是台账相关
@@ -389,18 +397,25 @@
                             if(hasLedgerEdit) {
                                 var ledgerCount = row.ledgerCount;
                                 el =  row.id;
-                                if(ledgerCount == 0){
-                                    el = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + el + '\' ,\'ledgerEdit\',this)" >新建台账</a>';
-                                }else {
-                                    el = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + el + '\' ,\'ledgerEdit\',this)" >编辑台账</a>';
+                                if(isAll == 0) {
+                                    el = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + el + '\' ,\'ledgerEdit\',this)" >'+(ledgerCount == 0?'新建台账':'编辑台账')+'</a>';
+
+                                }else{
+                                    el = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + el + '\' ,\'ledgerEditAll\',this)" >'+(ledgerCount == 0?'新建台账':'编辑台账')+'</a>';
+
                                 }
+
 
                             }
 
                             var vl = '';// 查看台账
                             if(hasLedgerView) {
                                 vl =  row.id;
-                                vl = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + vl + '\' ,\'ledgerView\',this)" >查看台账</a>';
+                                if(isAll == 0){
+                                    vl = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + vl + '\' ,\'ledgerView\',this)" >查看台账</a>';
+                                }else{
+                                    vl = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + vl + '\' ,\'ledgerViewAll\',this)" >查看台账</a>';
+                                }
                             }
 
 
@@ -500,7 +515,14 @@
             // 提示栏初始化
             contracttableLoad();
             var v =''
-            if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"contractEdit\");'>新&nbsp;&nbsp;建</button>"
+            if(hasCreate){
+                if(isAll == 0){
+                    v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"contractCreate\");'>新&nbsp;&nbsp;建</button>"
+                }else{
+                    v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"contractCreateAll\");'>新&nbsp;&nbsp;建</button>"
+                }
+            }
+
             $("#contracttable_wrapper div").children().eq(0).append(v);
 
             $('#ABTableModal').on('shown.bs.modal',function(){
@@ -711,7 +733,7 @@
             })
         }
 
-        function ledgerDonwLoad(id) {
+        function ledgerDownLoad(id) {
             $("#contractId").val(id);
             // todo
 //            $('#contrctReportForm').attr('action', "/contractDownLoad");

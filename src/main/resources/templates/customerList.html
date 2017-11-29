@@ -28,7 +28,6 @@
 
     <div class="wrapper wrapper-content  ecommerce">
         <div class="ibox-content m-b-sm border-bottom">
-            <input type="hidden" name="isAdmin" id="isAdmin" th:value="${isAdmin}"/>
             <div class="row">
 
                 <div class="col-sm-2">
@@ -235,10 +234,11 @@
 
     <script th:inline="javascript">
         /*<![CDATA[*/
-        var hasEdit = [[${#authorization.url('/customerEidt')}]];
-        var hasCreate = [[${#authorization.url('/customerCreate')}]];
-        var isAdmin = $("#isAdmin").val();
-        var hasHistory = [[${#authorization.url('/customerHistory')}]];
+        var isAll = [[${isAll}]];
+        var hasEdit = (isAll == 0 && [[${#authorization.url('/customerEidt')}]]) || (isAll == 1 && [[${#authorization.url('/customerEidtAll')}]]);
+        var hasCreate = (isAll == 0 && [[${#authorization.url('/customerCreate')}]]) ||  (isAll == 1 && [[${#authorization.url('/customerCreateAll')}]]);
+        var hasHistory = (isAll == 0 && [[${#authorization.url('/historyEdit')}]]) ||  (isAll == 1 && [[${#authorization.url('/historyEditAll')}]]);
+
         var format = "yyyy-mm-dd";
         var customertable;
         function customertableLoad() {
@@ -278,18 +278,28 @@
                         "render": function (data, type, row) {
                             var u = '';
                             if(hasEdit) {
-                                u = "customerEdit?id=" + row.id;
+                                if(isAll == 0) {
+                                    u = "customerEdit?id=";
+                                }else{
+                                    u = "customerEditAll?id="
+                                }
+                                u = u + row.id;
                                 u = '<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
 
 
                             }
-                            if(u == ''){
-                                return '--'
-                            }
+
                             var el = ''
                             if (hasHistory){
                                 el =  row.id;
-                                el = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + el + '\' ,\'historyEdit\',this)" >跟进历史</a>';
+                                if(isAll == 0) {
+                                    el = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + el + '\' ,\'historyEdit\',this)" >跟进历史</a>';
+                                }else{
+                                    el = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + el + '\' ,\'historyEditAll\',this)" >跟进历史</a>';
+                                }
+                            }
+                            if( u+el == ''){
+                                return '--'
                             }
                             return u+el;
                         },
@@ -618,7 +628,13 @@
             datepickerInit("nextEndTime",format);
             customertableLoad();
             var v = '';
-            if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"customerEdit\");'>新&nbsp;&nbsp;建</button>"
+            if(hasCreate){
+                if(isAll == 0){
+                    v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"customerCreate\");'>新&nbsp;&nbsp;建</button>"
+                }else{
+                    v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"customerCreateAll\");'>新&nbsp;&nbsp;建</button>"
+                }
+            }
             $("#customertable_wrapper div").children().eq(0).append(v);
 
         });

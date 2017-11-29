@@ -38,14 +38,22 @@ public class CustomerController extends BaseController{
 
     @RequestMapping("/customerList")
     public String customerList(ModelMap model){
-        model.put("isAdmin",isAdmin());
         model.put("industryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 所属行业
         model.put("nature",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));
+        model.put("isAll",0);
+        return "customerList";
+    }
+
+    @RequestMapping("/customerListAll")
+    public String customerListAll(ModelMap model){
+        model.put("industryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 所属行业
+        model.put("nature",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));
+        model.put("isAll",1);
         return "customerList";
     }
 
 
-    @RequestMapping("/customerEdit")
+    @RequestMapping(value={"/customerEdit","/customerCreate","/customerEditAll","/customerCreateAll"})
     public String customerEdit(ModelMap model,@RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建客户":"编辑客户");
         model.put("customer",customerService.selectCustomer(id));
@@ -61,7 +69,7 @@ public class CustomerController extends BaseController{
     @ResponseBody
     public Object findCustomer(@RequestBody CustomerVO customerVO)throws Exception{
         customerVO.setCreatorId(getWebUser().getId());
-        customerVO.setAdmin(isAdmin());
+//        customerVO.setAdmin(isAdmin());
         List<CustomerVO> CustomerEntityList = customerService.selectCustomerList(customerVO);
         if (CustomerEntityList!=null){
             for (Customer customer:CustomerEntityList){
@@ -126,7 +134,7 @@ public class CustomerController extends BaseController{
      * @param id
      * @return
      */
-    @RequestMapping("/historyEdit")
+    @RequestMapping(value={"/historyEdit","/historyEditAll"})
     public String historyEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
 //        model.put("contract",contractMapper.selectContract(id));
         model.put("historyList",customerService.getHistoryList(id));

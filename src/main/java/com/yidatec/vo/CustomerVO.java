@@ -73,8 +73,6 @@ public class CustomerVO extends Customer{
         this.creator = creator;
     }
 
-    private boolean isAdmin;
-
     public Integer getDraw() {
         return draw;
     }
@@ -99,11 +97,13 @@ public class CustomerVO extends Customer{
         this.start = start;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    private int isAll = 0;
+
+    public int getIsAll() {
+        return isAll;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setIsAll(int isAll) {
+        this.isAll = isAll;
     }
 }

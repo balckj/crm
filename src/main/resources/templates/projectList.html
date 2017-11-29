@@ -139,8 +139,10 @@
     <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
-        var hasEdit = [[${#authorization.url('/projectEdit')}]];
-        var hasCreate = [[${#authorization.url('/projectCreate')}]];
+        var isAll = [[${isAll}]];
+        var hasEdit = (isAll == 0 && [[${#authorization.url('/projectEdit')}]]) || (isAll == 1 && [[${#authorization.url('/projectEditAll')}]]);
+        var hasCreate = (isAll == 0 && [[${#authorization.url('/projectCreate')}]]) ||  (isAll == 1 && [[${#authorization.url('/projectCreateAll')}]]);
+
 
     var projecttable;
     function projecttableLoad() {
@@ -168,6 +170,7 @@
                     p.degreeOfImportance = $('#degreeOfImportance').val();
                     p.pmId = $('#pmId').val();
                     p.state = $('#state').val();
+                    p.isAll = isAll;
                     var a = JSON.stringify(p);
                     return a;
                 }
@@ -310,7 +313,7 @@
 
         projecttableLoad();
         var v = '';
-        if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"projectEdit\");'>新&nbsp;&nbsp;建</button>"
+        if(hasCreate) v = "<button style='margin-left:20px;' class='btn btn-primary btn-sm btn-w-m' type='button' onclick='loadPage(\"projectCreate\");'>新&nbsp;&nbsp;建</button>"
         $("#projecttable_wrapper div").children().eq(0).append(v);
 
     });

@@ -200,15 +200,23 @@
 
     <script th:inline="javascript">
         /*<![CDATA[*/
-        var hasCreate = [[${#authorization.url('/contractCreate')}]]; // 合同新建
+        var isAll = [[${isAll}]];
 
-        var hasEdit = [[${#authorization.url('/contractEdit')}]];// 合同编辑权限
-        var hasContractView = [[${#authorization.url('/contractContractView')}]];// 合同查看权限
+//        var hasCreate = [[${#authorization.url('/contractCreate')}]]; // 合同新建
+        var hasCreate = (isAll == 0 && [[${#authorization.url('/contractCreate')}]]) ||  (isAll == 1 && [[${#authorization.url('/contractCreateAll')}]]);// 合同新建
+
+//        var hasEdit = [[${#authorization.url('/contractEdit')}]];
+        var hasEdit = (isAll == 0 && [[${#authorization.url('/contractEdit')}]]) || (isAll == 1 && [[${#authorization.url('/contractEditAll')}]]);// 合同编辑权限
+//        var hasContractView = [[${#authorization.url('/contractContractView')}]];
+        var hasContractView = (isAll == 0 && [[${#authorization.url('/contractContractView')}]]) ||  (isAll == 1 && [[${#authorization.url('/contractContractViewAll')}]]);//// 合同查看权限
 
         var contractDonwLoad = [[${#authorization.url('/contractDonwLoad')}]]; // 合同下载
 
-        var hasLedgerEdit = [[${#authorization.url('/ledgerEdit')}]];// 台账编辑权限
-        var hasLedgerView = [[${#authorization.url('/ledgerView')}]];// 台账查看权限
+//        var hasLedgerEdit = [[${#authorization.url('/ledgerEdit')}]];// 台账编辑权限
+        var hasLedgerEdit = (isAll == 0 && [[${#authorization.url('/ledgerEdit')}]]) || (isAll == 1 && [[${#authorization.url('/ledgerEditAll')}]]);// 台账编辑权限
+
+//        var hasLedgerView = [[${#authorization.url('/ledgerView')}]];// 台账查看权限
+        var hasLedgerView = (isAll == 0 && [[${#authorization.url('/ledgerView')}]]) || (isAll == 1 && [[${#authorization.url('/ledgerViewAll')}]]);// 台账查看权限
 
         var format = "yyyy-mm-dd";
         datepickerInit("signDay",format);
@@ -348,6 +356,7 @@
                         p.category = $('#category').val();
                         p.firstParty = $('#firstParty').attr("value");
                         p.secondParty = $('#secondParty').attr("value");
+                        p.isAll = isAll;
                         var a = JSON.stringify(p);
                         return a;
                     }

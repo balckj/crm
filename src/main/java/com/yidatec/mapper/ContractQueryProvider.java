@@ -91,12 +91,13 @@ public class ContractQueryProvider {
             sb.append(" AND A.secondParty = #{secondParty}");
         }
 
-        if(!contractVO.isAdmin()){
+        if(contractVO.getIsAll() == 0){
             sb.append(" AND (");
             sb.append(" A.pmId = #{id}");
             sb.append(" or A.developSaleId = #{id}");
             sb.append(" or A.traceSaleId = #{id}");
-            sb.append(" or find_in_set(#{id},A.designProgress)");
+            sb.append(" or A.creatorId = #{id}");
+            sb.append(" OR #{id} in (SELECT pd.designerId FROM T_PROJECT p LEFT JOIN T_PROJECT_DESIGNER pd on p.id = pd.projectid where A.id = p.id)");
             sb.append(" )");
         }
 
@@ -142,12 +143,14 @@ public class ContractQueryProvider {
             sb.append(" AND A.secondParty = #{secondParty}");
         }
 
-        if(!contractVO.isAdmin()){
+        if(contractVO.getIsAll() == 0){
             sb.append(" AND (");
             sb.append(" A.pmId = #{id}");
             sb.append(" or A.developSaleId = #{id}");
             sb.append(" or A.traceSaleId = #{id}");
-            sb.append(" or find_in_set(#{id},A.designProgress)");
+            sb.append(" or A.creatorId = #{id}");
+            sb.append(" OR #{id} in (SELECT pd.designerId FROM T_PROJECT p LEFT JOIN T_PROJECT_DESIGNER pd on p.id = pd.projectid where A.id = p.id)");
+
             sb.append(" )");
         }
         return sb.toString();

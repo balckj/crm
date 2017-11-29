@@ -15,7 +15,11 @@ public class ContractVO extends Contract{
 
     private int ledgerCount;
 
-    private boolean isAdmin;
+    /**
+     * 0,表示我的；1，表示所有的
+     *
+     */
+    private int isAll;
 
     public Integer getDraw() {
         return draw;
@@ -65,11 +69,11 @@ public class ContractVO extends Contract{
         this.ledgerCount = ledgerCount;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public int getIsAll() {
+        return isAll;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setIsAll(int isAll) {
+        this.isAll = isAll;
     }
 }

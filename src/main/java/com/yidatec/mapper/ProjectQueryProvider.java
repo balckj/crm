@@ -42,11 +42,12 @@ public class ProjectQueryProvider {
         if(!StringUtils.isEmpty(projectVO.getSearch())){
             sb.append(" AND D.name LIKE CONCAT('%',#{search},'%') OR D.code LIKE CONCAT('%',#{search},'%') OR c.name LIKE CONCAT('%',#{search},'%')");
         }
-        if(!projectVO.isAdmin()){
+        if(projectVO.getIsAll() == 0){//是我的
             sb.append(" AND (");
             sb.append(" D.pmId = #{id}");
             sb.append(" or D.developSaleId = #{id}");
             sb.append(" or D.traceSaleId = #{id}");
+            sb.append(" or D.creatorId = #{id}");
             sb.append(" OR #{id} in (SELECT pd.designerId FROM T_PROJECT p LEFT JOIN T_PROJECT_DESIGNER pd on p.id = pd.projectid where D.id = p.id)");
             sb.append(" )");
         }
@@ -76,11 +77,12 @@ public class ProjectQueryProvider {
         if(!StringUtils.isEmpty(projectVO.getPmId())){
             sb.append(" AND D.pmId = #{pmId}");
         }
-        if(!projectVO.isAdmin()){
+        if(projectVO.getIsAll() == 0){//是我的
             sb.append(" AND (");
             sb.append(" D.pmId = #{id}");
             sb.append(" or D.developSaleId = #{id}");
             sb.append(" or D.traceSaleId = #{id}");
+            sb.append(" or D.creatorId = #{id}");
             sb.append(" OR #{id} in (SELECT pd.designerId FROM T_PROJECT p LEFT JOIN T_PROJECT_DESIGNER pd on p.id = pd.projectid where D.id = p.id)");
             sb.append(" )");
         }

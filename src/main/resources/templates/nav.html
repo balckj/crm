@@ -57,8 +57,10 @@
             <li sec:authorize-url="/businessDataManagement">
                 <a href="#"><i class="fa fa-align-justify"></i> <span class="nav-label">业务数据管理</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li id="projectList" sec:authorize-url="/projectList"><a href="javascript:loadPage('projectList')"><i class="fa fa-product-hunt"></i>项目</a></li>
-                    <li id="contractList" sec:authorize-url="/contractList"><a href="javascript:loadPage('contractList')"><i class="fa fa-clone"></i>合同</a></li>
+                    <li id="projectList" sec:authorize-url="/projectList"><a href="javascript:loadPage('projectList')"><i class="fa fa-product-hunt"></i>我的项目</a></li>
+                    <li id="projectListAll" sec:authorize-url="/projectListAll"><a href="javascript:loadPage('projectListAll')"><i class="fa fa-product-hunt"></i>所有项目</a></li>
+                    <li id="contractList" sec:authorize-url="/contractList"><a href="javascript:loadPage('contractList')"><i class="fa fa-clone"></i>我的合同</a></li>
+                    <li id="contractListAll" sec:authorize-url="/contractListAll"><a href="javascript:loadPage('contractListAll')"><i class="fa fa-clone"></i>所有合同</a></li>
                     <li id="quotationList" sec:authorize-url="/quotationList"><a href="javascript:loadPage('quotationList')"><i class="fa fa-pencil-square-o "></i>报价单</a></li>
                 </ul>
             </li>

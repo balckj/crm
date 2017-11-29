@@ -38,7 +38,11 @@ public class ProjectVO extends ProjectEntity{
     private String email;
     private String mobilePhone;
 
-    private boolean isAdmin;
+    /**
+     * 0,表示我的；1，表示所有的
+     *
+     */
+    private int isAll;
 
     public LocalDate getActivityTime() {
         return activityTime;
@@ -168,12 +172,13 @@ public class ProjectVO extends ProjectEntity{
         Country = country;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+
+    public int getIsAll() {
+        return isAll;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setIsAll(int isAll) {
+        this.isAll = isAll;
     }
 
     public LocalDate getStartDate() {

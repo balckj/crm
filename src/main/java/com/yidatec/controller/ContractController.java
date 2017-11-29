@@ -70,6 +70,17 @@ public class ContractController extends BaseController{
         model.put("paymentMethodList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PAYMENT_METHOD)); // 支付方式
         model.put("costCenterList",dictionaryService.selectDictionaryListByCodeCommon(Constants.COST_CENTER)); // 成本中心
         model.put("reasonForChangeList",dictionaryService.selectDictionaryListByCodeCommon(Constants.REASON_FORCHANGE)); // 变更原因
+        model.put("isAll",0);
+        return "contractList";
+    }
+
+    @RequestMapping("/contractListAll")
+    public String contractListAll(ModelMap model){
+        model.put("moneyTypeList",dictionaryService.selectDictionaryListByCodeCommon(Constants.MONEY_TYPE)); // 款项类型
+        model.put("paymentMethodList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PAYMENT_METHOD)); // 支付方式
+        model.put("costCenterList",dictionaryService.selectDictionaryListByCodeCommon(Constants.COST_CENTER)); // 成本中心
+        model.put("reasonForChangeList",dictionaryService.selectDictionaryListByCodeCommon(Constants.REASON_FORCHANGE)); // 变更原因
+        model.put("isAll",1);
         return "contractList";
     }
 
@@ -113,7 +124,7 @@ public class ContractController extends BaseController{
     @ResponseBody
     public Object findContract(@RequestBody ContractVO contractVO)throws Exception{
         contractVO.setId(getWebUser().getId());
-        contractVO.setAdmin(isAdmin());
+//        contractVO.setAdmin(isAdmin());
         List<ContractVO> saleEntityList = contractService.selectContractList(contractVO);
         int count = contractService.countContractList(contractVO);
         Map<String, Object> map = new HashMap<String, Object>();

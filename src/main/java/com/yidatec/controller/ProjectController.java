@@ -72,6 +72,24 @@ public class ProjectController extends BaseController {
         return "projectEdit";
     }
 
+    @RequestMapping(value={"/projectEditView","/projectEditViewAll"})
+    public String projectEditView(ModelMap model, @RequestParam(value="id",required = false) String id){
+        model.put("title",(id == null || id.isEmpty())?"新建客户":"编辑客户");
+        model.put("project",projectService.selectProject(id));
+        model.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.PROJECT_TYPE));
+        model.put("code",sequenceService.generateProjectSequence());
+        model.put("designer",designerService.selectDesignerforProject(new UserVO()));
+        model.put("pm",pmService.selectPMforProject(new UserVO()));
+        model.put("factories",factoryService.selectFactoryListForProject());
+        model.put("degreeOfImportance",dictionaryService.selectDictionaryListByCodeCommon(Constants.DEGREEOFIMPORTANCE));
+        model.put("potential",dictionaryService.selectDictionaryListByCodeCommon(Constants.POTENTIAL));
+        model.put("designerProgress",dictionaryService.selectDictionaryListByCodeCommon(Constants.DESIGN_PROGRESS));
+        model.put("projectProgress",dictionaryService.selectDictionaryListByCodeCommon(Constants.PROJECT_PROGRESS));
+        model.put("factoryProgress",dictionaryService.selectDictionaryListByCodeCommon(Constants.FACTORY_PROGRESS));
+        model.put("developSale",saleService.selectSaleListforProject(new UserVO()));
+        model.put("traceSale",saleService.selectSaleListforProject(new UserVO()));
+        return "projectEditView";
+    }
     @RequestMapping("/projectList")
     public String projectList(ModelMap model){
         model.put("pm",pmService.selectPMforProject(new UserVO()));

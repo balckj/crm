@@ -142,7 +142,7 @@
         var isAll = [[${isAll}]];
         var hasEdit = (isAll == 0 && [[${#authorization.url('/projectEdit')}]]) || (isAll == 1 && [[${#authorization.url('/projectEditAll')}]]);
         var hasCreate = (isAll == 0 && [[${#authorization.url('/projectCreate')}]]) ||  (isAll == 1 && [[${#authorization.url('/projectCreateAll')}]]);
-
+        var hasView =  (isAll == 0 && [[${#authorization.url('/projectEditView')}]]) ||  (isAll == 1 && [[${#authorization.url('/projectEditAllView')}]]);
 
     var projecttable;
     function projecttableLoad() {
@@ -178,7 +178,7 @@
 
             "columns": [
                 {
-                    "data": "id", "width": "80px",
+                    "data": "id", "width": "100px",
                     "render": function (data, type, row) {
                         var u ='';
                         if(hasEdit) {
@@ -190,10 +190,21 @@
                             u = u + row.id;
                             u = '<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + u + '\')" >编辑</a>';
                         }
+                        var v ='';
+                        if(hasView) {
+                            if(isAll == 0){
+                                v = "projectEditView?id="
+                            }else{
+                                v = "projectEditViewAll?id="
+                            }
+                            v = v + row.id;
+                            v = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + v + '\')" >查看</a>';
+                        }
+
                         if(u == ''){
                             return '--'
                         }
-                        return u;
+                        return u + v;
 
                     },
                 },

@@ -75,7 +75,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-2" th:if="${isAdmin}">
+                <div class="col-sm-2" th:if="${isAll == 1}">
                     <div class="form-group">
                         <label for="creator" class="control-label">创建人</label>
                         <input type="text"  id="creator" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>

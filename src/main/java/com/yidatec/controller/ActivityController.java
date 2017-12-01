@@ -55,6 +55,7 @@ public class ActivityController extends BaseController{
         model.put("activity",activityService.selectActivity(id));
         model.put("exhibitioHallList",exhibitionService.selectExhibitionAll());/*展馆列表*/
 //        model.put("customerList",customerService.selectCustomerAll());/*主办方列表*/
+        model.put("isAll",isAdmin()?1:0);
         return "activityEdit";
     }
 

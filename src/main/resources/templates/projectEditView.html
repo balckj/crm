@@ -891,27 +891,17 @@
                 &&$("#exhibitionNumber").val()!=""&&$("#budget").val()!=""&&$("#area").val()!=""
                 &&$("#setupTime").val()!=""&&$("#tearDownTime").val()!=""&& $("#degreeOfImportance").val()!=""
                 &&$("#potential").val()!=""){
-                if(hasDesignerOption||hasPmOption||hasFactoryOption||hasDevelopSale||hasProjectPhoto){
-                    if($("#designerId").val()==""||$("#traceSaleId").val()==""){
-                        if($("#designerId").val()==""){
-                            $("#designerIdForm").addClass("has-error")
-                            $("#designerId").parent().next().html("必须选择设计师");
-                        }
-                        if($("#traceSaleId").val()==""){
-                            $("#traceSaleIdForm").addClass("has-error")
-                            $("#traceSaleId").parent().next().html("必须选择跟进销售");
-                        }
-//                        $("#pmIdForm").addClass("has-error")
-//                        $("#pmId").parent().next().html("必须选择项目经理");
-//                        $("#factoryIdForm").addClass("has-error")
-//                        $("#factoryId").parent().next().html("必须选择工厂");
-//                        $("#developSaleIdForm").addClass("has-error")
-//                        $("#developSaleId").parent().next().html("必须选择开发销售");
-//                        $("#photoForm").addClass("has-error")
-//                        $("#photo").next().html("必须上传项目图片");
-                        return;
-                    }
+                if(hasDesignerOption && $("#designerId").val()==""){
+                    $("#designerIdForm").addClass("has-error")
+                    $("#designerId").parent().next().html("必须选择设计师");
+                    flag = true;
                 }
+                if(hasTraceSale && $("#traceSaleId").val()==""){
+                    $("#traceSaleIdForm").addClass("has-error")
+                    $("#traceSaleId").parent().next().html("必须选择跟进销售");
+                    flag = true;
+                }
+                if(flag)return;
             }
 
             var designProgress="";
@@ -998,30 +988,15 @@
                                 tmp.html(data[p].defaultMessage);
                             }
                         }
-                        if(hasDesignerOption||hasPmOption||hasFactoryOption||hasDevelopSale||hasProjectPhoto){
-                            if($("#designerId").val()==""||$("#traceSaleId").val()=="") {
-                                if ($("#designerId").val() == "") {
-                                    $("#designerIdForm").addClass("has-error")
-                                    $("#designerId").parent().next().html("必须选择设计师");
-                                }
-                                if ($("#traceSaleId").val() == "") {
-                                    $("#traceSaleIdForm").addClass("has-error")
-                                    $("#traceSaleId").parent().next().html("必须选择跟进销售");
-                                }
-//                            $("#designerIdForm").addClass("has-error")
-//                            $("#designerId").parent().next().html("必须选择设计师");
-//                            $("#traceSaleIdForm").addClass("has-error")
-//                            $("#traceSaleId").parent().next().html("必须选择跟进销售");
-//                            $("#pmIdForm").addClass("has-error")
-//                            $("#pmId").parent().next().html("必须选择项目经理");
-//                            $("#factoryIdForm").addClass("has-error")
-//                            $("#factoryId").parent().next().html("必须选择工厂");
-//                            $("#developSaleIdForm").addClass("has-error")
-//                            $("#developSaleId").parent().next().html("必须选择开发销售");
-//                            $("#photoForm").addClass("has-error")
-//                            $("#photo").next().html("必须上传项目图片");
-                                return;
-                            }
+                        if(hasDesignerOption && $("#designerId").val()==""){
+                            $("#designerIdForm").addClass("has-error")
+                            $("#designerId").parent().next().html("必须选择设计师");
+                            flag = true;
+                        }
+                        if(hasTraceSale && $("#traceSaleId").val()==""){
+                            $("#traceSaleIdForm").addClass("has-error")
+                            $("#traceSaleId").parent().next().html("必须选择跟进销售");
+                            flag = true;
                         }
                     }else if(data.res == 0){
                         saveBtnda.stop();

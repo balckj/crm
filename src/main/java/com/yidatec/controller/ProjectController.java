@@ -53,8 +53,7 @@ public class ProjectController extends BaseController {
     SaleService saleService;
 
 
-    @RequestMapping(value={"/projectEdit","/projectCreate","/projectEditAll","/projectCreateAll"})
-    public String projectEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
+    private void projectCommon(ModelMap model, String id){
         model.put("title",(id == null || id.isEmpty())?"新建客户":"编辑客户");
         model.put("project",projectService.selectProject(id));
         model.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.PROJECT_TYPE));
@@ -69,6 +68,18 @@ public class ProjectController extends BaseController {
         model.put("factoryProgress",dictionaryService.selectDictionaryListByCodeCommon(Constants.FACTORY_PROGRESS));
         model.put("developSale",saleService.selectSaleListforProject(new UserVO()));
         model.put("traceSale",saleService.selectSaleListforProject(new UserVO()));
+    }
+    @RequestMapping(value={"/projectEdit","/projectCreate"})
+    public String projectEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
+        projectCommon(model,id);
+        model.put("isAll",0);
+        return "projectEdit";
+    }
+
+    @RequestMapping(value={"/projectEditAll","/projectCreateAll"})
+    public String projectEditAll(ModelMap model, @RequestParam(value="id",required = false) String id){
+        projectCommon(model,id);
+        model.put("isAll",1);
         return "projectEdit";
     }
 

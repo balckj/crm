@@ -334,9 +334,9 @@
     </script>
     <script th:src="@{99/js/plugins/area/location_chs.js}"></script>
 
-    <script type="text/javascript">
+    <script th:inline="javascript">
         /*<![CDATA[*/
-
+        var isAll = [[${isAll}]];
         var country = '<option value="" selected="selected">未选择</option>';
         for (var a=0;a<=_areaList.length-1;a++) {
             var objContry = _areaList[a];
@@ -378,7 +378,7 @@
             })
 
             $("#country").change(function(){
-//                if($("#country").val()=="中国"){
+//                if($("#c+ountry").val()=="中国"){
 //                    validateSelect('province', 'province', 'validateProvince');
 //                    validateSelect('city', 'city', 'validateCity');
 //                    validateSelect('region', 'region', 'validateRegion');
@@ -538,6 +538,7 @@
                         p.length = d.length;
                         p.start = d.start;
                         p.name = d.search.value;
+                        p.isAll = isAll;
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -607,6 +608,7 @@
                         p.length = d.length;
                         p.start = d.start;
                         p.name = d.search.value;
+                        p.isAll = isAll;
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -676,6 +678,7 @@
                         p.length = d.length;
                         p.start = d.start;
                         p.name = d.search.value;
+                        p.isAll = isAll;
                         var a = JSON.stringify(p);
                         return a;
                     }

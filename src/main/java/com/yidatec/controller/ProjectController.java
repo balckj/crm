@@ -104,6 +104,7 @@ public class ProjectController extends BaseController {
     @RequestMapping("/projectList")
     public String projectList(ModelMap model){
         model.put("pm",pmService.selectPMforProject(new UserVO()));
+        model.put("designer",designerService.selectDesignerforProject(new UserVO()));
         model.put("degreeOfImportance",dictionaryService.selectDictionaryListByCodeCommon(Constants.DEGREEOFIMPORTANCE));
         model.put("isAll",0);
         return "projectList";
@@ -112,6 +113,7 @@ public class ProjectController extends BaseController {
     @RequestMapping("/projectListAll")
     public String projectListAll(ModelMap model){
         model.put("pm",pmService.selectPMforProject(new UserVO()));
+        model.put("designer",designerService.selectDesignerforProject(new UserVO()));
         model.put("degreeOfImportance",dictionaryService.selectDictionaryListByCodeCommon(Constants.DEGREEOFIMPORTANCE));
         model.put("isAll",1);
         return "projectList";

@@ -37,6 +37,7 @@ public class ProjectVO extends ProjectEntity{
     private String position;
     private String email;
     private String mobilePhone;
+    private String designerIdVO;
 
     /**
      * 0,表示我的；1，表示所有的
@@ -195,5 +196,13 @@ public class ProjectVO extends ProjectEntity{
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public String getDesignerIdVO() {
+        return designerIdVO;
+    }
+
+    public void setDesignerIdVO(String designerIdVO) {
+        this.designerIdVO = designerIdVO;
     }
 }

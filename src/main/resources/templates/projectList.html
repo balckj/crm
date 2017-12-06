@@ -57,7 +57,7 @@
                         <!--<input type="text" placeholder="包含您的输入值的项目编号" id="degreeOfImportance" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>-->
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-2" id="pmIdDiv">
                     <div class="form-group">
                         <label for="pmId" class="control-label">项目经理</label>
                         <select class="form-control m-b" name="pmId" id="pmId" onchange="query();">
@@ -65,6 +65,15 @@
                             <option th:value="${pm.id}" th:text="${pm.name}" th:each="pm:${pm}"></option>
                         </select>
                         <!--<input type="text" placeholder="包含您的输入值的项目经理" id="pmId" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>-->
+                    </div>
+                </div>
+                <div class="col-sm-2" id="designerIdDiv">
+                    <div class="form-group">
+                        <label for="designerId" class="control-label">设计师</label>
+                        <select class="form-control m-b" name="designerId" id="designerId" onchange="query();">
+                            <option value="" selected="selected">未选择</option>
+                            <option th:value="${designer.id}" th:text="${designer.name}" th:each="designer:${designer}"></option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -144,6 +153,15 @@
         var hasCreate = (isAll == 0 && [[${#authorization.url('/projectCreate')}]]) ||  (isAll == 1 && [[${#authorization.url('/projectCreateAll')}]]);
         var hasView =  (isAll == 0 && [[${#authorization.url('/projectEditView')}]]) ||  (isAll == 1 && [[${#authorization.url('/projectEditAllView')}]]);
 
+        if(isAll == 1){
+            $("#pmIdDiv").show();
+            $("#designerIdDiv").show();
+        }else{
+            $("#pmIdDiv").hide();
+            $("#designerIdDiv").hide();
+        }
+
+
     var projecttable;
     function projecttableLoad() {
         projecttable = $('#projecttable').DataTable({
@@ -169,6 +187,7 @@
                     p.activityTime = $('#activityTime').val();
                     p.degreeOfImportance = $('#degreeOfImportance').val();
                     p.pmId = $('#pmId').val();
+                    p.designerIdVO = $('#designerId').val();
                     p.state = $('#state').val();
                     p.isAll = isAll;
                     var a = JSON.stringify(p);

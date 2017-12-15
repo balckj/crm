@@ -17,6 +17,7 @@ public class ProjectVO extends ProjectEntity{
     private Integer length;
     private Integer start;
     private String search;
+    private String designerName;
 
     @JsonSerialize(using = CustomLocalDateSerializer.class)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -204,5 +205,13 @@ public class ProjectVO extends ProjectEntity{
 
     public void setDesignerIdVO(String designerIdVO) {
         this.designerIdVO = designerIdVO;
+    }
+
+    public String getDesignerName() {
+        return designerName;
+    }
+
+    public void setDesignerName(String designerName) {
+        this.designerName = designerName;
     }
 }

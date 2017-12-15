@@ -11,8 +11,12 @@ public class ProjectQueryProvider {
     public String selectProject(final ProjectVO projectVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT b.name as customerName,c.name as campaignName,c.startDate,c.endDate,D.* FROM T_PROJECT  as D LEFT JOIN T_CUSTOMER b " +
+        sb.append("SELECT GROUP_CONCAT(f.name) as designerName,b.name as customerName,c.name as campaignName,c.startDate,c.endDate,D.* FROM T_PROJECT  as D LEFT JOIN T_CUSTOMER b " +
                 "on D.customerId=b.id " +
+                "LEFT JOIN T_PROJECT_DESIGNER a "+
+                "on D.id =a.projectId "+
+                "LEFT JOIN T_USER f "+
+                "on a.designerId = f.id "+
                 "LEFT JOIN T_CAMPAIGN c " +
                 "on D.campaignId = c.id WHERE 1=1");
 
@@ -55,7 +59,7 @@ public class ProjectQueryProvider {
             sb.append(" OR #{id} in (SELECT pd.designerId FROM T_PROJECT p LEFT JOIN T_PROJECT_DESIGNER pd on p.id = pd.projectid where D.id = p.id)");
             sb.append(" )");
         }
-        sb.append(" ORDER BY D.modifyTime DESC LIMIT #{start},#{length}");
+        sb.append("  GROUP BY D.id ORDER BY D.modifyTime DESC LIMIT #{start},#{length} ");
         return sb.toString();
     }
     public String countProject(final ProjectVO projectVO)

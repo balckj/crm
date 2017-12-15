@@ -92,6 +92,7 @@ public class WechatCustomerController extends BaseController{
 
     @RequestMapping(value = "/customers",method=RequestMethod.POST)
     public Object findCustomer(@RequestBody CustomerVO customerVO)throws Exception{
+        customerVO.setIsAll(isAdmin()?1:0);
         List<CustomerVO> CustomerEntityList = customerService.selectCustomerList(customerVO);
         if (CustomerEntityList!=null){
             for (CustomerVO customer:CustomerEntityList){
@@ -112,6 +113,11 @@ public class WechatCustomerController extends BaseController{
         map.put("recordsTotal", count);
         map.put("recordsFiltered", count);
         map.put("data", CustomerEntityList);
+        map.put("industryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 所属行业
+        map.put("natureList",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));// 企业性质
+        map.put("levelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL));// 平台等级
+        map.put("position",dictionaryService.selectDictionaryListByCodeCommon(Constants.POSITION));// 职位
+        map.put("source",dictionaryService.selectDictionaryListByCodeCommon(Constants.SOURCE));// 客户来源
         return map;
     }
 

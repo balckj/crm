@@ -1,8 +1,10 @@
 package com.yidatec.controller;
 
 
+import com.yidatec.mapper.UserMapper;
 import com.yidatec.model.Role;
 import com.yidatec.model.User;
+import com.yidatec.service.UserService;
 import com.yidatec.util.ConfProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +21,9 @@ public abstract class BaseController {
 
 	@Autowired
 	ConfProperties confProperties;
+
+	@Autowired
+	UserMapper userMapper;
 
 	public static final String WEB_USER = "web_user";
 
@@ -147,6 +152,9 @@ public abstract class BaseController {
 
 	public boolean isAdmin(){
 		User u = getWebUser();
+		return isAdmin(u);
+	}
+	public boolean isAdmin(User u){
 		if(u != null) {
 			List<Role> roleList = u.getRoleList();
 			if (roleList != null) {
@@ -158,5 +166,10 @@ public abstract class BaseController {
 			}
 		}
 		return false;
+	}
+
+	public boolean isAdmin(String userId){
+		User u = userMapper.findById(userId);
+		return isAdmin(u);
 	}
 }

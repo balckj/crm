@@ -202,7 +202,7 @@ public class WechatService {
 //		return outMsg;
 //	}
 	
-	public Map<String,String> generateJSAPISignature(String url){
+	public Map<String,Object> generateJSAPISignature(String url){
 		return WxSignatureUtil.generateJSAPISignature(getJSAPIToken(), url);
 	}
 

@@ -90,7 +90,7 @@ public class WechatCampaignController extends BaseController{
                 res.put("type",dictionaryService.selectDictionaryListByCodeCommon(Constants.ACTIVITY_TYPE));
             }
         }
-        Map<String,String> signure = wechatService.generateJSAPISignature(confProperties.getWeChatHost()+confProperties.getWeChatContextPath()+url);
+        Map<String,Object> signure = wechatService.generateJSAPISignature(confProperties.getWeChatHost()+confProperties.getWeChatContextPath()+url);
         res.putAll(signure);
         return res;
     }

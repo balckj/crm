@@ -85,14 +85,14 @@ public class WechatCustomerController extends BaseController{
                 res.put("source",dictionaryService.selectDictionaryListByCodeCommon(Constants.SOURCE));// 客户来源
             }
         }
-        Map<String,String> signure = wechatService.generateJSAPISignature(confProperties.getWeChatHost()+confProperties.getWeChatContextPath()+url);
+        Map<String,Object> signure = wechatService.generateJSAPISignature(confProperties.getWeChatHost()+confProperties.getWeChatContextPath()+url);
         res.putAll(signure);
         return res;
     }
 
     @RequestMapping(value = "/customers",method=RequestMethod.POST)
     public Object findCustomer(@RequestBody CustomerVO customerVO)throws Exception{
-        customerVO.setIsAll(isAdmin()?1:0);
+        customerVO.setIsAll(isAdmin(customerVO.getCreatorId())?1:0);
         List<CustomerVO> CustomerEntityList = customerService.selectCustomerList(customerVO);
         if (CustomerEntityList!=null){
             for (CustomerVO customer:CustomerEntityList){

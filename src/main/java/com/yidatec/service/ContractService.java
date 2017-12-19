@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,7 +38,16 @@ public class ContractService {
 
 
 	public List<ABVO> getABList(ProjectEntity projectEntity){
-		return contractMapper.getABList(projectEntity);
+		List<ABVO> res = contractMapper.getABList(projectEntity);
+		List<ABVO> ss = new ArrayList<ABVO>();
+		if(res != null && res.size() > 0){
+			for(ABVO one : res){
+				if(one != null){
+					ss.add(one);
+				}
+			}
+		}
+		return ss;
 	}
 
 	public Contract selectContract(String id){

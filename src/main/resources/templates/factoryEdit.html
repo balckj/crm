@@ -120,7 +120,7 @@
                                             <div id="mobilePhone0Form">
                                                 <label class="control-label">手机</label>
                                                 <div>
-                                                    <input type="text" oninput="if(value.length>11)value=value.slice(0,11)" name="mobilePhone" id="mobilePhone0" class="form-control input-sm contactHeight" maxlength="20"/>
+                                                    <input type="text"  name="mobilePhone" id="mobilePhone0" class="form-control input-sm contactHeight" maxlength="30"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -186,7 +186,7 @@
                                             <div th:attr="id='mobilePhone'+${terStat.index}+'Form'">
                                                 <label class="control-label" th:if="${terStat.first}">手机</label>
                                                 <div>
-                                                    <input type="text" oninput="if(value.length>11)value=value.slice(0,11)"  th:attr="id='mobilePhone'+${terStat.index}, name='mobilePhone'" class="form-control input-sm contactHeight" maxlength="20" th:value="${contact.mobilePhone}"/>
+                                                    <input type="text"   th:attr="id='mobilePhone'+${terStat.index}, name='mobilePhone'" class="form-control input-sm contactHeight" maxlength="30" th:value="${contact.mobilePhone}"/>
                                                 </div>
                                                 <label class=" control-label" style="text-align: left"></label>
                                             </div>
@@ -556,7 +556,7 @@
                 +" <div class='contactStyle maxWidthStyle'>"
                 +" <div id='mobilePhone"+total+ "Form'>"
                 +" <div>"
-                +" <input type='text' name='mobilePhone' id='mobilePhone"+total+ "' class='form-control input-sm contactHeight' maxlength='20'/>"
+                +" <input type='text' name='mobilePhone' id='mobilePhone"+total+ "' class='form-control input-sm contactHeight' maxlength='30'/>"
                 +" </div>"
                 +" <label class=' control-label' style='text-align: left'></label>"
                 +" </div>"

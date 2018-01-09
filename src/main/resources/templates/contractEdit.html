@@ -501,13 +501,21 @@
 
         // 开票
         function taxCheckBoxClick(object) {
-            debugger
             if($(object).is(':checked')){
                 $(object).val("1")
+                var taxCheckBox = $("#taxCheckBox").is(':checked');
+                if(taxCheckBox){
+                    var amoutval = $("#amount").val();
+                    if(amoutval){
+                        var res = Math.round(amoutval * 0.06 *100)/100;
+                        $("#tax").val(res);
+                    }
+                }
                 $("#taxDIV").show();
             }else{
                 $("#taxDIV").hide();
                 $(object).val("0")
+                $("#tax").val("");
             }
 
         }

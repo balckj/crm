@@ -48,28 +48,28 @@ public interface ContractMapper {
 	List<ABVO> getABList(ProjectEntity projectEntity);
 
 	@Insert("INSERT INTO T_CONTRACT (id,`signDay`,`name`,`code`,projectId,campaignId," +
-			"exhibitionNumber,area,amount,category,tax,paymentMethod,initialPaymentTime,middlePaymentTime,finalPaymentTime," +
+			"exhibitionNumber,area,amount,category,billing,tax,paymentMethod,initialPaymentTime,middlePaymentTime,finalPaymentTime," +
 			"company,taxNumber,addressTelephone,bankAccount,firstParty,secondParty,remarks," +
 			"creatorId,createTime,modifierId,modifyTime) VALUES (" +
 			"#{id},#{signDay},#{name},#{code},#{projectId},#{campaignId}," +
-			"#{exhibitionNumber},#{area},#{amount},#{category},#{tax},#{contractPaymentMethod},#{initialPaymentTime},#{middlePaymentTime},#{finalPaymentTime}," +
+			"#{exhibitionNumber},#{area},#{amount},#{category},#{billing},#{tax},#{contractPaymentMethod},#{initialPaymentTime},#{middlePaymentTime},#{finalPaymentTime}," +
 			"#{company},#{taxNumber},#{addressTelephone},#{bankAccount},#{firstParty},#{secondParty},#{remarks}," +
 			"#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
 	int create(Contract contract);
 
 	@Insert("INSERT INTO T_CONTRACT_HISTORY (id,`signDay`,`name`,`code`,projectId,campaignId," +
-			"exhibitionNumber,area,amount,category,tax,paymentMethod,initialPaymentTime,middlePaymentTime,finalPaymentTime," +
+			"exhibitionNumber,area,amount,category,billing,tax,paymentMethod,initialPaymentTime,middlePaymentTime,finalPaymentTime," +
 			"company,taxNumber,addressTelephone,bankAccount,firstParty,secondParty,remarks," +
 			"creatorId,createTime,modifierId,modifyTime) VALUES (" +
 			"#{id},#{signDay},#{name},#{code},#{projectId},#{campaignId}," +
-			"#{exhibitionNumber},#{area},#{amount},#{category},#{tax},#{contractPaymentMethod},#{initialPaymentTime},#{middlePaymentTime},#{finalPaymentTime}," +
+			"#{exhibitionNumber},#{area},#{amount},#{category},#{billing},#{tax},#{contractPaymentMethod},#{initialPaymentTime},#{middlePaymentTime},#{finalPaymentTime}," +
 			"#{company},#{taxNumber},#{addressTelephone},#{bankAccount},#{firstParty},#{secondParty},#{remarks}," +
 			"#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
 	int createHistory(Contract contract);
 
 	@Update("UPDATE T_CONTRACT SET " +
 			"`signDay`=#{signDay},`name`=#{name},`code`=#{code},projectId=#{projectId},campaignId=#{campaignId},exhibitionNumber=#{exhibitionNumber}," +
-			"area=#{area},amount=#{amount},category=#{category},tax=#{tax},paymentMethod=#{contractPaymentMethod}," +
+			"area=#{area},amount=#{amount},category=#{category},billing=#{billing},tax=#{tax},paymentMethod=#{contractPaymentMethod}," +
 			"initialPaymentTime=#{initialPaymentTime},middlePaymentTime=#{middlePaymentTime},finalPaymentTime=#{finalPaymentTime}," +
 			"company=#{company},taxNumber=#{taxNumber},addressTelephone=#{addressTelephone},bankAccount=#{bankAccount},firstParty=#{firstParty},secondParty=#{secondParty},remarks=#{remarks}," +
 			"modifierId=#{modifierId}," +

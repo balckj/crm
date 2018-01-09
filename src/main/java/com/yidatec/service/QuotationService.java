@@ -6,18 +6,22 @@ import com.yidatec.mapper.QuotationMapper;
 import com.yidatec.model.Product;
 import com.yidatec.util.CNNumberFormat;
 import com.yidatec.vo.QuotationVO;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.RegionUtil;
+import org.apache.poi.util.IOUtils;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,13 +79,97 @@ public class QuotationService {
 		XSSFRow row = null;
 		// 设定标题行号，生成标题
 		int rowNum = 0;
-		row = sheet.createRow(rowNum);
+//		row = sheet.createRow(rowNum);
 
-		row.createCell(0).setCellValue("总标题");
-		setColspanTitle(sheet,row , mapStyle, wb,
-				quotationVOList!=null && quotationVOList.size() > 0   ? quotationVOList.get(0).getProjectName()+"报价单":"报价单", "header_6",
-				0, 0, 0, 0, 7);
-		sheet.setColumnWidth(0, 32 * 50);
+//		row.createCell(0).setCellValue("总标题");
+//		setColspanTitle(sheet,row , mapStyle, wb,
+//				quotationVOList!=null && quotationVOList.size() > 0   ? quotationVOList.get(0).getProjectName()+"报价单":"报价单", "header_6",
+//				0, 0, 0, 0, 7);
+//		sheet.setColumnWidth(0, 32 * 50);
+
+
+		for (int r = 0; r < 4; r++) {
+			row = sheet.createRow(r);
+			for (int i = 0; i < 8; i++) {
+				row.createCell(i).setCellValue("");
+				row.getCell(i).setCellStyle(mapStyle.get("header_7"));
+				// 1行
+				if(r == 0 && i == 5) {
+					// 参数：起始行号，终止行号， 起始列号，终止列号
+					CellRangeAddress region = new CellRangeAddress(0,0,0,5);
+					sheet.addMergedRegion(region);
+					row.getCell(0).setCellValue("项目报价单");
+				}else if(r == 0 && i == 7){
+					row.getCell(7).setCellValue("上海鼎世展览展示有限公司");
+				}
+
+				// 2行
+				if(r== 1 && i == 0){
+					row.getCell(i).setCellValue("项目名称：");
+				}
+				else if(r== 1 && i == 4) {
+					// 参数：起始行号，终止行号， 起始列号，终止列号
+					CellRangeAddress region = new CellRangeAddress(1,1,1,4);
+					sheet.addMergedRegion(region);
+					row.getCell(1).setCellValue(quotationVOList!=null && quotationVOList.size() > 0   ? quotationVOList.get(0).getProjectName():"");
+					row.getCell(1).setCellStyle(mapStyle.get("header_8"));
+				}
+
+				// 3行
+				if(r== 2 && i == 0){
+					row.getCell(i).setCellValue("项目面积：");
+				}else if(r == 2 && i == 7){
+					row.getCell(7).setCellValue("Shanghai Deosin Exbition Co.Ltd");
+				}
+				else if(r== 2 && i == 4) {
+					// 参数：起始行号，终止行号， 起始列号，终止列号
+					CellRangeAddress region = new CellRangeAddress(2,2,1,4);
+					sheet.addMergedRegion(region);
+					row.getCell(1).setCellValue(quotationVOList!=null && quotationVOList.size() > 0   ? quotationVOList.get(0).getArea() +"m²":"");
+					row.getCell(1).setCellStyle(mapStyle.get("header_8"));
+				}
+				// 4行
+				if(r== 3 && i == 0){
+					row.getCell(i).setCellValue("项目时间：");
+				}
+				else if(r== 3 && i == 4) {
+
+					CellRangeAddress region = new CellRangeAddress(3,3,1,4);
+					sheet.addMergedRegion(region);
+					row.getCell(1).setCellValue(quotationVOList!=null && quotationVOList.size() > 0   ? quotationVOList.get(0).getStartDate().substring(0,10):"");
+					row.getCell(1).setCellStyle(mapStyle.get("header_8"));
+				}
+
+//				// 第7列
+				if(r == 3 && i == 6){
+					CellRangeAddress region = new CellRangeAddress(0,3,6,6);
+					sheet.addMergedRegion(region);
+//					// logo
+					String path =  "classpath:\\static\\img\\logo.png";
+//                    col1：起始单元格列序号，从0开始计算；
+//                    row1：起始单元格行序号，从0开始计算，如例子中col1=0,row1=0就表示起始单元格为A1；
+//                    col2：终止单元格列序号，从0开始计算；
+//                    row2：终止单元格行序号，从0开始计算，如例子中col2=2,row2=2就表示起始单元格为C3；
+					drawingImage(sheet,path,(short)6,0,(short)(6+1),4);
+				}
+
+				// 第8列
+				if( r == 1 && i == 7){
+
+					CellRangeAddress region = new CellRangeAddress(0,1,7,7);
+					sheet.addMergedRegion(region);
+				}
+				if(r==3 && i == 7){
+					CellRangeAddress region = new CellRangeAddress(2,3,7,7);
+					sheet.addMergedRegion(region);
+				}
+			}
+			rowNum = r;
+
+
+		}
+
+
 
 		rowNum++;// 从第二行起
 		row = sheet.createRow(rowNum);
@@ -98,12 +186,12 @@ public class QuotationService {
 		row.createCell(5).setCellValue("单价(元)");
 		sheet.setColumnWidth(5, 32 * 80);
 		row.createCell(6).setCellValue("合价(元)");
-		sheet.setColumnWidth(6, 32 * 150);
+		sheet.setColumnWidth(6, 32 * 90);
 		row.createCell(7).setCellValue("工作内容");
 		sheet.setColumnWidth(7, 32 * 500);
 
 		// 第2行以上冻结
-		sheet.createFreezePane(0, 2, 0, 2);
+//		sheet.createFreezePane(0, 2, 0, 2);
 
 		row.getCell(0).setCellStyle(mapStyle.get("header_7"));
 		row.getCell(1).setCellStyle(mapStyle.get("header_7"));
@@ -348,9 +436,23 @@ public class QuotationService {
 		style.setAlignment(CellStyle.ALIGN_CENTER);
 		style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);//垂直
 		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND );
-		style.setFillForegroundColor(IndexedColors.BLACK.getIndex());
+		style.setFillForegroundColor(new XSSFColor(new java.awt.Color(54,54,54)));
 		style.setFont(headerFont6);
 		styles.put("header_7", style);
+
+
+		//白色背景标题 9号粗体黑字 剧中黑色背景
+		Font headerFontV7 = wb.createFont();
+		headerFontV7.setBoldweight(Font.BOLDWEIGHT_BOLD);
+		headerFontV7.setFontHeightInPoints((short) 9);
+		headerFontV7.setColor(IndexedColors.WHITE.getIndex());
+		style = createBorderedStyle(wb);
+		style.setAlignment(CellStyle.ALIGN_LEFT);
+		style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);//垂直
+		style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND );
+		style.setFillForegroundColor(new XSSFColor(new java.awt.Color(54,54,54)));
+		style.setFont(headerFontV7);
+		styles.put("header_8", style);
 
 		// 白色背景标题 9号黑字
 		Font dataFont1 = wb.createFont();
@@ -501,6 +603,39 @@ public class QuotationService {
 
 		return styles;
 	}
+
+    private void drawingImage(Sheet newSheet, String filePath , short col1, int row1,
+                              short col2, int row2)
+            throws IOException {
+
+        // 文件存放路径
+//        String filePath = request.getSession().getServletContext().getRealPath(File.separator);
+        File cfgFile =  ResourceUtils.getFile(filePath);
+        // 画图
+        Drawing patriarch = newSheet.createDrawingPatriarch();
+
+        // 画图
+        XSSFClientAnchor anchor = new XSSFClientAnchor(0, 0, 1023, 150, col1, row1, col2, row2);
+        anchor.setAnchorType(2);
+        // 画图
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(cfgFile);
+            if (fis != null) {
+                patriarch.createPicture(anchor,
+                        newSheet.getWorkbook().addPicture(IOUtils.toByteArray(fis), SXSSFWorkbook.PICTURE_TYPE_JPEG));
+            }
+        } catch (Exception ex) {
+            try {
+                if (fis != null) {
+                    fis.close();
+                }
+            } catch (Exception ee) {
+
+            }
+            newSheet.getRow(row1).getCell(col1).setCellValue("失败");
+        }
+    }
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void createQuotation(QuotationVO quotation) {

@@ -24,6 +24,8 @@ public class QuotationVO extends Quotation {
     private String unitName;// 单位
     private String countPrice;// 合价
 
+    private String area;
+    private String startDate;
 
     private Integer draw;
     private Integer length;
@@ -155,5 +157,21 @@ public class QuotationVO extends Quotation {
 
     public void setUnitPrice(String unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 }

@@ -437,7 +437,7 @@
                                         <input th:attr="id='caseId'+${terStat.index}, name='caseId'" th:value="${case.id}" type="hidden"/>
                                         <label class="col-sm-2 control-label">案例名称</label>
                                         <div class="col-sm-4"><input th:attr="id='caseName'+${terStat.index}, name='caseName'" type="text"
-                                                                     class="form-control" maxlength="10" th:value="${case.name}"/></div>
+                                                                     class="form-control" maxlength="50" th:value="${case.name}"/></div>
                                         <label class="col-sm-4 control-label" style="text-align: left;color:red; ">*【案例名称】和【案例图片】同时输入才会被保存</label>
                                         <!--<div class="col-sm-1">-->
                                             <!--<button onclick="addCase()" type="button" id="addordel0"  class="btn ladda-button btn-w-m btn-primary">增&nbsp;&nbsp;加</button>-->

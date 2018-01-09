@@ -50,9 +50,10 @@ public class Contract extends BaseModel {
     @NotBlank(message = "必须输合同分类", groups = { })
     @Length(max = 36, message = "合同分类最大不能超过36个字符", groups = { })
     private String category;
-    @NotNull(message = "必须输入税", groups = { })
-    @Digits(integer = 18 ,message = "税整数位不能超过18位,小数位必须是两位", fraction = 2 )
+//    @NotNull(message = "必须输入税", groups = { })
+//    @Digits(integer = 18 ,message = "税整数位不能超过18位,小数位必须是两位", fraction = 2 )
     private Float tax;
+    private Integer billing; // 开票状态 1:开票0:未开票
     @NotBlank(message = "必须输入付款方式", groups = { })
     @Length(max = 36, message = "付款方式最大不能超过36个字符", groups = { })
     private String contractPaymentMethod;
@@ -274,5 +275,13 @@ public class Contract extends BaseModel {
 
     public void setBankAccount(String bankAccount) {
         this.bankAccount = bankAccount;
+    }
+
+    public Integer getBilling() {
+        return billing;
+    }
+
+    public void setBilling(Integer billing) {
+        this.billing = billing;
     }
 }

@@ -21,13 +21,17 @@ public class QuotationQueryProvider {
         sb.append(" pr.count ,");
         sb.append(" pr.unitPrice ,");
         sb.append(" pr.count *  pr.unitPrice as countPrice,");
-        sb.append(" pr.workContent ");
+        sb.append(" pr.workContent, ");
+        sb.append(" p.area, ");
+        sb.append(" cc.startDate ");
+
         sb.append(" FROM T_QUOTATION a");
         sb.append(" LEFT JOIN T_QUOTATION_PRODUCTION AS pr ON pr.qoutationId = a.id");
         sb.append(" LEFT JOIN T_PRODUCTION AS b ON b.id = pr.productionId");
         sb.append(" LEFT JOIN T_DICTIONARY AS c ON b.unit = c.id");
         sb.append(" LEFT JOIN T_DICTIONARY AS d ON b.category = d.id");
         sb.append(" LEFT JOIN T_PROJECT as p ON  p.id = a.projectId");
+        sb.append(" LEFT JOIN T_CAMPAIGN as cc ON  p.campaignId = cc.id");
         sb.append(" where 1=1 and a.id = #{id}");
         sb.append(" ORDER BY d.value");
         return sb.toString();

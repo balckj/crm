@@ -12,6 +12,7 @@ public class ContractVO extends Contract{
 
     private String projectCode;
     private String campaignName;
+    private String pjcreatorName;// 创建者
 
     private int ledgerCount;
 
@@ -75,5 +76,13 @@ public class ContractVO extends Contract{
 
     public void setIsAll(int isAll) {
         this.isAll = isAll;
+    }
+
+    public String getPjcreatorName() {
+        return pjcreatorName;
+    }
+
+    public void setPjcreatorName(String pjcreatorName) {
+        this.pjcreatorName = pjcreatorName;
     }
 }

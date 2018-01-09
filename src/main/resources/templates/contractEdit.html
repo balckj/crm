@@ -4,6 +4,7 @@
 <div  th:fragment="contractEdit">
     
     <link th:href="@{99/css/plugins/ladda/ladda-themeless.min.css}" rel="stylesheet"/>
+    <link th:href="@{99/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css}" rel="stylesheet"/>
     <script th:src="@{jquery.koala.js}" type="text/javascript"></script>
     <style>
         input::-webkit-inner-spin-button {
@@ -189,18 +190,32 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
-                            
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="taxForm">
-                                <label class="col-sm-2 control-label">税<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="taxCheckBoxForm">
+                                <label class="col-sm-2 control-label">开票</label>
+
                                 <div class="col-sm-4">
-                                    <input id="tax" name="tax" type="text" th:value="${contract}?${contract.tax}"
-                                                             class="form-control" maxlength="200" readonly="readonly" />
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" style="margin-top: -2px;" value="0" id="taxCheckBox" name="taxCheckBox" th:checked="${contract}?${contract.billing eq 1}:'false'"
+                                               onclick="taxCheckBoxClick(this);"/>
+                                    </label>
                                 </div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            
+
+
+                            <div id ='taxDIV' hidden="hidden">
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group" id="taxForm">
+                                    <label class="col-sm-2 control-label">税</label>
+                                    <div class="col-sm-4">
+                                        <input id="tax" name="tax" type="text" th:value="${contract}?${contract.tax}"
+                                               class="form-control" maxlength="200" readonly="readonly" />
+                                    </div>
+                                    <label class="col-sm-4 control-label" style="text-align: left"></label>
+                                </div>
+                            </div>
+
+
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="contractPaymentMethodForm">
                                 <label class="col-sm-2 control-label">付款方式
@@ -370,6 +385,14 @@
         var BListStr = "<option value=\"\" selected=\"selected\">未选择</option>";
         var projectTable = null;
         $(function () {
+
+            if($("#taxCheckBox").is(':checked')){
+                $("#taxDIV").show();
+            } else {
+                $("#taxDIV").hide();
+            }
+
+
             datepickerInit("signDay",format);
             datepickerInit("initialPaymentTime",format);
             datepickerInit("middlePaymentTime",format);
@@ -392,7 +415,7 @@
             validate('area', 'area', 'validateArea');
 //            validate('amount', 'amount', 'validatAemount');
             validateSelect('category', 'category', 'validatCategory');
-            validate('tax', 'tax', 'validatTax');
+//            validate('tax', 'tax', 'validatTax');
             validateSelect('contractPaymentMethod', 'contractPaymentMethod', 'validatContractPaymentMethod');
             validateSelect('initialPaymentTime', 'initialPaymentTime', 'validatInitialPaymentTime');
             validateSelect('middlePaymentTime', 'middlePaymentTime', 'validatMiddlePaymentTime');
@@ -424,13 +447,18 @@
                 }
             });
 
+
+
             // 根据合同总价计算税
             $("#amount").koala( {
                 delay: 300,
                 keyup: function(event){
+                    debugger
                     var param = {};
                     param["amount"] = $("#amount").val();
-                    vAmount("amount",param,"validatAemount");
+                    var taxCheckBox = $("#taxCheckBox").is(':checked');
+
+                    if(taxCheckBox)vAmount("amount",param,"validatAemount");
                 }
             });
             function vAmount(id,param,url){
@@ -461,8 +489,8 @@
                             var amoutval = $("#"+id).val();
                             var res = Math.round(amoutval * 0.06 *100)/100;
                             $("#tax").val(res);
-                            $("#taxForm").removeClass("has-error")
-                            $("#tax").parent().next().html("<i class='fa fa-check' style='color:#21b384;'/>");
+//                            $("#taxForm").removeClass("has-error")
+//                            $("#tax").parent().next().html("<i class='fa fa-check' style='color:#21b384;'/>");
                         }
                     }
                 });
@@ -470,6 +498,19 @@
 
             billinfoCheck();
         })
+
+        // 开票
+        function taxCheckBoxClick(object) {
+            debugger
+            if($(object).is(':checked')){
+                $(object).val("1")
+                $("#taxDIV").show();
+            }else{
+                $("#taxDIV").hide();
+                $(object).val("0")
+            }
+
+        }
 
         function datepickerInit(id,format) {
             $('#'+id).datepicker({
@@ -734,7 +775,8 @@
                 area: $("#area").val().trim(),
                 amount: $("#amount").val().trim(),
                 category: $("#category").val().trim(),
-                tax: $("#tax").val().trim(),
+                tax: $("#taxCheckBox").is(':checked')?$("#tax").val().trim():0,
+                billing:$('#taxCheckBox').val(),
                 contractPaymentMethod: $("#contractPaymentMethod").val().trim(),
                 initialPaymentTime: $("#initialPaymentTime").val().trim(),
                 middlePaymentTime: $("#middlePaymentTime").val().trim(),

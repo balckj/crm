@@ -11,14 +11,14 @@ public class ProjectQueryProvider {
     public String selectProject(final ProjectVO projectVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT GROUP_CONCAT(f.name) as designerName,b.name as customerName,c.name as campaignName,c.startDate,c.endDate,D.* FROM T_PROJECT  as D LEFT JOIN T_CUSTOMER b " +
+        sb.append("SELECT GROUP_CONCAT(f.name) as designerName,b.name as customerName,c.name as campaignName,c.startDate,c.endDate,D.*,DU.`name` as  developSaleName FROM T_PROJECT  as D LEFT JOIN T_CUSTOMER b " +
                 "on D.customerId=b.id " +
                 "LEFT JOIN T_PROJECT_DESIGNER a "+
                 "on D.id =a.projectId "+
                 "LEFT JOIN T_USER f "+
                 "on a.designerId = f.id "+
                 "LEFT JOIN T_CAMPAIGN c " +
-                "on D.campaignId = c.id WHERE 1=1");
+                "on D.campaignId = c.id  left join T_USER DU on DU.id = D.developSaleId WHERE 1=1");
 
         if(!StringUtils.isEmpty(projectVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
@@ -39,6 +39,13 @@ public class ProjectQueryProvider {
             sb.append(" AND D.pmId = #{pmId}");
         }
 
+        if(!StringUtils.isEmpty(projectVO.getPotential())){
+            sb.append(" AND D.potential = #{potential}");
+        }
+
+        if(!StringUtils.isEmpty(projectVO.getDevelopSaleId())){
+            sb.append(" AND D.developSaleId = #{developSaleId}");
+        }
         if(!StringUtils.isEmpty(projectVO.getState())){
             sb.append(" AND D.state = #{state}");
         }
@@ -68,7 +75,7 @@ public class ProjectQueryProvider {
         sb.append("SELECT count(*) FROM T_PROJECT  as D LEFT JOIN T_CUSTOMER b\n" +
                 "on D.customerId=b.id\n" +
                 "LEFT JOIN T_CAMPAIGN c\n" +
-                "on D.campaignId = c.id WHERE 1=1");
+                "on D.campaignId = c.id left join T_USER DU on DU.id = D.developSaleId WHERE 1=1");
 
         if(!StringUtils.isEmpty(projectVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
@@ -84,6 +91,14 @@ public class ProjectQueryProvider {
         }
         if(!StringUtils.isEmpty(projectVO.getPmId())){
             sb.append(" AND D.pmId = #{pmId}");
+        }
+
+        if(!StringUtils.isEmpty(projectVO.getPotential())){
+            sb.append(" AND D.potential = #{potential}");
+        }
+
+        if(!StringUtils.isEmpty(projectVO.getDevelopSaleId())){
+            sb.append(" AND D.developSaleId = #{developSaleId}");
         }
 
         if(!StringUtils.isEmpty(projectVO.getDesignerIdVO())){

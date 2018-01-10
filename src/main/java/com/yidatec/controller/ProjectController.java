@@ -106,6 +106,8 @@ public class ProjectController extends BaseController {
 //        model.put("pm",pmService.selectPMforProject(new UserVO()));
 //        model.put("designer",designerService.selectDesignerforProject(new UserVO()));
         model.put("degreeOfImportance",dictionaryService.selectDictionaryListByCodeCommon(Constants.DEGREEOFIMPORTANCE));
+        model.put("potential",dictionaryService.selectDictionaryListByCodeCommon(Constants.POTENTIAL));
+        model.put("developSale",saleService.selectSaleListforProject(new UserVO()));
         model.put("isAll",0);
         return "projectList";
     }
@@ -115,6 +117,8 @@ public class ProjectController extends BaseController {
         model.put("pm",pmService.selectPMforProject(new UserVO()));
         model.put("designer",designerService.selectDesignerforProject(new UserVO()));
         model.put("degreeOfImportance",dictionaryService.selectDictionaryListByCodeCommon(Constants.DEGREEOFIMPORTANCE));
+        model.put("potential",dictionaryService.selectDictionaryListByCodeCommon(Constants.POTENTIAL));
+        model.put("developSale",saleService.selectSaleListforProject(new UserVO()));
         model.put("isAll",1);
         return "projectList";
     }

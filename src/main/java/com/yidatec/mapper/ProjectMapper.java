@@ -12,15 +12,15 @@ import java.util.List;
 @Mapper
 public interface ProjectMapper {
 
-    @Insert("INSERT INTO T_PROJECT (id,name,type,customerId,campaignId,code,budget,exhibitionNumber,area,setupTime,tearDownTime," +
+    @Insert("INSERT INTO T_PROJECT (id,name,type,customerId,campaignId,code,budget,exhibitionNumber,area,setupTime,tearDownTime,closingTime," +
             "cost,degreeOfImportance,potential,designProgress,pmId,projectProgress,factoryProgress,projectScore,designScore,pmScore,developSaleId,traceSaleId,photo,remark,state," +
             "creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{name},#{type},#{customerId},#{campaignId},#{code},#{budget},#{exhibitionNumber}," +
-            "#{area},#{setupTime},#{tearDownTime},#{cost},#{degreeOfImportance},#{potential},#{designProgress},#{pmId},#{projectProgress},#{factoryProgress},#{projectScore},#{designScore},#{pmScore},#{developSaleId},#{traceSaleId},#{photo},#{remark},#{state}," +
+            "#{area},#{setupTime},#{tearDownTime},#{closingTime},#{cost},#{degreeOfImportance},#{potential},#{designProgress},#{pmId},#{projectProgress},#{factoryProgress},#{projectScore},#{designScore},#{pmScore},#{developSaleId},#{traceSaleId},#{photo},#{remark},#{state}," +
             "#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
     int create(ProjectEntity project);
 
     @Update("UPDATE T_PROJECT SET `name`=#{name},type=#{type},customerId=#{customerId},campaignId=#{campaignId},code=#{code},budget=#{budget},exhibitionNumber=#{exhibitionNumber}," +
-            "area=#{area},setupTime=#{setupTime},tearDownTime=#{tearDownTime},cost=#{cost},degreeOfImportance=#{degreeOfImportance},potential=#{potential},designProgress=#{designProgress},pmId=#{pmId},projectProgress=#{projectProgress},factoryProgress=#{factoryProgress}," +
+            "area=#{area},setupTime=#{setupTime},closingTime=#{closingTime},tearDownTime=#{tearDownTime},cost=#{cost},degreeOfImportance=#{degreeOfImportance},potential=#{potential},designProgress=#{designProgress},pmId=#{pmId},projectProgress=#{projectProgress},factoryProgress=#{factoryProgress}," +
             "projectScore=#{projectScore},designScore=#{designScore},pmScore=#{pmScore},developSaleId=#{developSaleId},traceSaleId=#{traceSaleId},photo=#{photo},remark=#{remark},state=#{state},modifierId=#{modifierId}," +
             "modifyTime=#{modifyTime} WHERE id=#{id}")
     int update(ProjectEntity project);

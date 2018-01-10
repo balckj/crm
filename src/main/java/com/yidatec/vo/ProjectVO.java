@@ -39,7 +39,7 @@ public class ProjectVO extends ProjectEntity{
     private String email;
     private String mobilePhone;
     private String designerIdVO;
-
+    private String developSaleName;
     /**
      * 0,表示我的；1，表示所有的
      *
@@ -213,5 +213,13 @@ public class ProjectVO extends ProjectEntity{
 
     public void setDesignerName(String designerName) {
         this.designerName = designerName;
+    }
+
+    public String getDevelopSaleName() {
+        return developSaleName;
+    }
+
+    public void setDevelopSaleName(String developSaleName) {
+        this.developSaleName = developSaleName;
     }
 }

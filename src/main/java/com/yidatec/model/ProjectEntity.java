@@ -53,6 +53,8 @@ public class ProjectEntity extends BaseModel {
     @JsonSerialize(using = CustomLocalDateSerializer.class)
     private LocalDate tearDownTime;
 
+    private LocalDate closingTime;// 截稿时间
+
 //    @NotNull(message = "必须输入项目成本", groups = { })
     @Digits(integer = 18 ,message = "成本整数位不能超过18位,小数位必须是两位", fraction = 2 )
     private Float cost;
@@ -321,5 +323,13 @@ public class ProjectEntity extends BaseModel {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public LocalDate getClosingTime() {
+        return closingTime;
+    }
+
+    public void setClosingTime(LocalDate closingTime) {
+        this.closingTime = closingTime;
     }
 }

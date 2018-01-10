@@ -15,9 +15,10 @@ public class QuotationQueryProvider {
         sb.append(" SELECT");
         sb.append(" a.id,");
         sb.append(" d.id dicId,");
-        sb.append(" d.value AS categoryName,");
+        sb.append(" d.`value` AS categoryName,");
         sb.append(" p.name AS projectName  ,");
-        sb.append(" c.value AS unitName,");
+        sb.append(" b.`name` as productName, ");
+        sb.append(" c.`value` AS unitName,");
         sb.append(" pr.count ,");
         sb.append(" pr.unitPrice ,");
         sb.append(" pr.count *  pr.unitPrice as countPrice,");

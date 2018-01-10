@@ -338,7 +338,7 @@
                     },
                     {name : 'unitPrice',index : 'unitPrice',width :150,align : "center",editable : false},
                     {name : 'workContent',index : 'workContent',width : 80,align : "center",editable : true,
-                        editrules: {edithidden:true,required:true}
+                        editrules: {edithidden:true,required:false}
                     }
                 ],
                 multiselect : false,
@@ -532,6 +532,7 @@
                 if(v.checked == true){
                     var price;
                     price=$(this).attr("low")+"/"+$(this).attr("middle")+"/"+$(this).attr("high");
+
                     temp={
                         produceId: $(this).val(),
                         name:$(this).attr("productname"),
@@ -561,42 +562,54 @@
 
         var saveBtnda;
         function saveQuotation(btn) {
+            debugger
             saveBtnda = Ladda.create( btn );
             if($("#table").jqGrid('getDataIDs').length==0){
                 addRow();
             }
             var rowIds=$("#table").jqGrid('getDataIDs');
             var paraArr = [];
+            var prIDs = [];
             for(var i=0,j = rowIds.length - i;i < j; i++){
-                var aaa = $("#table").jqGrid('saveRow',rowIds[i]);
-                if (aaa==true){
-                    var rowData = $("#table").jqGrid('getRowData',rowIds[i]);
+                $("#table").jqGrid('saveRow',rowIds[i]);
+                var rowData = $("#table").jqGrid('getRowData',rowIds[i]);
 
-                    if(rowData.category==''||rowData.count==''||rowData.workContent==''){
-                        $("#"+rowIds[i]+ " td").css("background-color","red");
-                        return;
-                    }else{
-                        $("#"+rowIds[i]+ " td").css("background-color","white");
-                    }
-                    var price = rowData.unitPrice.split("/");
-                    if($("#priceLevel").val()==1){
-                        price=price[0];
-                    }else if($("#priceLevel").val()==2){
-                        price=price[1]
-                    }else if($("#priceLevel").val()==3){
-                        price=price[2]
-                    }
-                    var param = {
-                        id: rowData.produceId,
-                        unitPrice:price,
-                        count:rowData.count,
-                        workContent:rowData.workContent
-                    };
-                    paraArr.push(param);
-                }else {
+                if(rowData.category==''||rowData.count==''){
+                    $("#"+rowIds[i]+ " td").css("background-color","red");
                     return;
+                }else{
+                    $("#"+rowIds[i]+ " td").css("background-color","white");
                 }
 
+                var price = rowData.unitPrice.split("/");
+                if($("#priceLevel").val()==1){
+                    price=price[0];
+                }else if($("#priceLevel").val()==2){
+                    price=price[1]
+                }else if($("#priceLevel").val()==3){
+                    price=price[2]
+                }
+                prIDs[i] = rowData.produceId;
+                var param = {
+                    id: rowData.produceId,
+                    unitPrice:price,
+                    count:rowData.count,
+                    workContent:(rowData.workContent?rowData.workContent:null)
+                };
+                paraArr.push(param);
+
+            }
+
+            if(prIDs && prIDs.length > 0){
+                var nary = prIDs.sort()
+                for(var i=0;i<prIDs.length;i++) {
+                    if (nary[i] == nary[i + 1]) {
+                        var rowIds=$("#table").jqGrid('getDataIDs');
+                        $("#"+rowIds[i+1]+ " td").css("background-color","red");
+                        toastr["error"]('产品有重复!');
+                        return;
+                    }
+                }
             }
             var p = {
                 id: $("#id").val(),
@@ -646,6 +659,7 @@
                 }
             });
         }
+
         /*]]>*/
     </script>
 </div>

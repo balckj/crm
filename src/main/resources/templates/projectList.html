@@ -76,6 +76,24 @@
                         </select>
                     </div>
                 </div>
+                <div class="col-sm-2" id="potentialDiv">
+                    <div class="form-group">
+                        <label for="potential" class="control-label">项目潜力</label>
+                        <select class="form-control m-b" name="potential" id="potential" onchange="query();">
+                            <option value="" selected="selected">未选择</option>
+                            <option th:value="${potential.id}" th:text="${potential.value}" th:each="potential : ${potential}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2" id="developSaleIdDiv">
+                    <div class="form-group">
+                        <label for="developSaleId" class="control-label">开发销售</label>
+                        <select class="form-control m-b" name="designerId" id="developSaleId" onchange="query();">
+                            <option value="" selected="selected">未选择</option>
+                            <option th:value="${developSale.id}" th:text="${developSale.name}" th:each="developSale:${developSale}"></option>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="state" class="control-label">状态</label>
@@ -121,7 +139,7 @@
                                     <!--<th>项目成本</th>-->
                                     <th>重要程度</th>
                                     <th>项目潜力</th>
-                                    <!--<th>设计进度</th>-->
+                                    <th>开发销售</th>
 
                                     <!--<th>项目进度</th>-->
                                     <!--<th>工厂进度</th>-->
@@ -191,6 +209,8 @@
                     p.pmId = $('#pmId').val();
                     p.designerIdVO = $('#designerId').val();
                     p.state = $('#state').val();
+                    p.potential = $('#potential').val();
+                    p.developSaleId = $('#developSaleId').val();
                     p.isAll = isAll;
                     var a = JSON.stringify(p);
                     return a;
@@ -247,7 +267,7 @@
 //                {"data": "cost", "width": "80px"},
                 {"data": "degreeOfImportance", "width": "70px"},
                 {"data": "potential", "width": "60px"},
-//                {"data": "designProgress", "width": "140px"},
+                {"data": "developSaleName", "width": "80px"},
 
 //                {"data": "projectProgress", "width": "140px"},
 //                {"data": "factoryProgress", "width": "140px"},

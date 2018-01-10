@@ -145,7 +145,7 @@ public class QuotationService {
 					CellRangeAddress region = new CellRangeAddress(0,3,6,6);
 					sheet.addMergedRegion(region);
 //					// logo
-					String path =  "classpath:\\static\\img\\logo.png";
+					String path =  "classpath:\\static\\template\\logo.png";
 //                    col1：起始单元格列序号，从0开始计算；
 //                    row1：起始单元格行序号，从0开始计算，如例子中col1=0,row1=0就表示起始单元格为A1；
 //                    col2：终止单元格列序号，从0开始计算；

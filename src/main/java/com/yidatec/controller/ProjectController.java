@@ -108,6 +108,8 @@ public class ProjectController extends BaseController {
         model.put("degreeOfImportance",dictionaryService.selectDictionaryListByCodeCommon(Constants.DEGREEOFIMPORTANCE));
         model.put("potential",dictionaryService.selectDictionaryListByCodeCommon(Constants.POTENTIAL));
         model.put("developSale",saleService.selectSaleListforProject(new UserVO()));
+        model.put("designerProgress",dictionaryService.selectDictionaryListByCodeCommon(Constants.DESIGN_PROGRESS));
+        model.put("activityType",dictionaryService.selectDictionaryListByCodeCommon(Constants.ACTIVITY_TYPE));
         model.put("isAll",0);
         return "projectList";
     }
@@ -119,6 +121,8 @@ public class ProjectController extends BaseController {
         model.put("degreeOfImportance",dictionaryService.selectDictionaryListByCodeCommon(Constants.DEGREEOFIMPORTANCE));
         model.put("potential",dictionaryService.selectDictionaryListByCodeCommon(Constants.POTENTIAL));
         model.put("developSale",saleService.selectSaleListforProject(new UserVO()));
+        model.put("designerProgress",dictionaryService.selectDictionaryListByCodeCommon(Constants.DESIGN_PROGRESS));
+        model.put("activityType",dictionaryService.selectDictionaryListByCodeCommon(Constants.ACTIVITY_TYPE));
         model.put("isAll",1);
         return "projectList";
     }
@@ -216,6 +220,26 @@ public class ProjectController extends BaseController {
                         }
                     }
                     project1.setType(temp);
+                }
+                String designProgress = project1.getDesignProgress();
+                if (!StringUtils.isEmpty(designProgress)){
+                    String[] paramsList = designProgress.split(",");
+                    String temp = "";
+                    for(int i = 0 ; i < paramsList.length; i++){
+                        Dictionary dictionary = dictionaryService.selectDictionary(paramsList[i]);
+                        if(i != paramsList.length -1){
+                            temp = temp + dictionary.getValue()  +",";
+                        }else{
+                            temp = temp + dictionary.getValue();
+                        }
+                    }
+                    project1.setDesignProgress(temp);
+                }
+
+                String campaignType = project1.getCampaignType();
+                if(!StringUtils.isEmpty(campaignType)){
+                    Dictionary dictionary = dictionaryService.selectDictionary(campaignType);
+                    project1.setCampaignType(dictionary.getValue());
                 }
             }
         }

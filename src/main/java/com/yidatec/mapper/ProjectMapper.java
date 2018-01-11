@@ -55,5 +55,9 @@ public interface ProjectMapper {
     @Select("SELECT name FROM T_PROJECT WHERE id = #{id}")
     String getProjectName(String id);
 
+    @Update("UPDATE T_PROJECT SET " +
+            " potential=#{potential}" +
+            " WHERE id=#{id}")
+    int updateFroPjectProgress(ProjectEntity project);
 
 }

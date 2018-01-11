@@ -92,7 +92,15 @@ public class ProjectEntity extends BaseModel {
     private String photo;
     private String remark;
     private Integer state;
+    private String campaignType;
 
+    public String getCampaignType() {
+        return campaignType;
+    }
+
+    public void setCampaignType(String campaignType) {
+        this.campaignType = campaignType;
+    }
     public String getName() {
         return name;
     }

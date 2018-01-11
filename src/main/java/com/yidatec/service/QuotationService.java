@@ -22,6 +22,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,10 @@ public class QuotationService {
 	@Autowired
 	ProductMapper productMapper;
 
+	/**
+	 * 消息资源定义文件
+	 */
+	private String LOGO_IMG = "logo.png";
 
 	public void quotationDownLoad(XSSFWorkbook wb,
 								  String id) throws Exception {
@@ -145,12 +150,12 @@ public class QuotationService {
 					CellRangeAddress region = new CellRangeAddress(0,3,6,6);
 					sheet.addMergedRegion(region);
 //					// logo
-					String path =  "classpath:\\static\\template\\logo.png";
+//					String path =  "classpath:\\static\\template\\logo.png";
 //                    col1：起始单元格列序号，从0开始计算；
 //                    row1：起始单元格行序号，从0开始计算，如例子中col1=0,row1=0就表示起始单元格为A1；
 //                    col2：终止单元格列序号，从0开始计算；
 //                    row2：终止单元格行序号，从0开始计算，如例子中col2=2,row2=2就表示起始单元格为C3；
-					drawingImage(sheet,path,(short)6,0,(short)(6+1),4);
+					drawingImage(sheet,(short)6,0,(short)(6+1),4);
 				}
 
 				// 第8列
@@ -604,13 +609,15 @@ public class QuotationService {
 		return styles;
 	}
 
-    private void drawingImage(Sheet newSheet, String filePath , short col1, int row1,
+    private void drawingImage(Sheet newSheet, short col1, int row1,
                               short col2, int row2)
             throws IOException {
 
         // 文件存放路径
 //        String filePath = request.getSession().getServletContext().getRealPath(File.separator);
-        File cfgFile =  ResourceUtils.getFile(filePath);
+		InputStream isLogo = getClass().getClassLoader().getResourceAsStream(LOGO_IMG);
+//        File cfgFile = new InputStream(isLogo);
+
         // 画图
         Drawing patriarch = newSheet.createDrawingPatriarch();
 
@@ -618,17 +625,17 @@ public class QuotationService {
         XSSFClientAnchor anchor = new XSSFClientAnchor(0, 0, 1023, 150, col1, row1, col2, row2);
         anchor.setAnchorType(2);
         // 画图
-        FileInputStream fis = null;
+//        FileInputStream fis = null;
         try {
-            fis = new FileInputStream(cfgFile);
-            if (fis != null) {
+//            fis = new FileInputStream(cfgFile);
+            if (isLogo != null) {
                 patriarch.createPicture(anchor,
-                        newSheet.getWorkbook().addPicture(IOUtils.toByteArray(fis), SXSSFWorkbook.PICTURE_TYPE_JPEG));
+                        newSheet.getWorkbook().addPicture(IOUtils.toByteArray(isLogo), SXSSFWorkbook.PICTURE_TYPE_JPEG));
             }
         } catch (Exception ex) {
             try {
-                if (fis != null) {
-                    fis.close();
+                if (isLogo != null) {
+					isLogo.close();
                 }
             } catch (Exception ee) {
 

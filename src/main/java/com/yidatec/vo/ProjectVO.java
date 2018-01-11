@@ -40,6 +40,7 @@ public class ProjectVO extends ProjectEntity{
     private String mobilePhone;
     private String designerIdVO;
     private String developSaleName;
+
     /**
      * 0,表示我的；1，表示所有的
      *

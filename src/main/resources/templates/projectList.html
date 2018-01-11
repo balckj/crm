@@ -35,10 +35,13 @@
                         <input type="text"  id="name" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-2" id="activityTypeDIV">
                     <div class="form-group">
-                        <label for="campaignId" class="control-label">市场活动</label>
-                        <input type="text"  id="campaignId" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                        <label for="activityType" class="control-label">活动类型</label>
+                        <select name="activityType" id="activityType" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
+                            <option value="" selected="selected">不限</option>
+                            <option th:value="${activityType.id}" th:text="${activityType.value}" th:each="activityType : ${activityType}"></option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -73,6 +76,15 @@
                         <select class="form-control m-b" name="designerId" id="designerId" onchange="query();">
                             <option value="" selected="selected">未选择</option>
                             <option th:value="${designer.id}" th:text="${designer.name}" th:each="designer:${designer}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2" id="designProgressDiv">
+                    <div class="form-group">
+                        <label for="designerId" class="control-label">设计进度</label>
+                        <select class="form-control m-b" name="designProgress" id="designProgress" onchange="query();">
+                            <option value="" selected="selected">未选择</option>
+                            <option th:value="${designerProgress.id}" th:text="${designerProgress.value}" th:each="designerProgress:${designerProgress}"></option>
                         </select>
                     </div>
                 </div>
@@ -124,10 +136,12 @@
                                     <th>操作</th>
                                     <th>项目名称</th>
                                     <th>设计师</th>
+                                    <th>设计进度</th>
                                     <th>项目经理</th>
                                     <th>类型</th>
                                     <th>客户</th>
                                     <th>市场活动</th>
+                                    <th>活动类型</th>
                                     <th>活动开始时间</th>
                                     <th>活动结束时间</th>
                                     <th>项目编号</th>
@@ -176,9 +190,12 @@
         if(isAll == 1){
             $("#pmIdDiv").show();
             $("#designerIdDiv").show();
+            $("#designProgressDiv").show();
+
         }else{
             $("#pmIdDiv").hide();
             $("#designerIdDiv").hide();
+            $("#designProgressDiv").hide();
         }
 
 
@@ -211,6 +228,8 @@
                     p.state = $('#state').val();
                     p.potential = $('#potential').val();
                     p.developSaleId = $('#developSaleId').val();
+                    p.designProgress = $('#designProgress').val();
+                    p.campaignType = $("#activityType").val();
                     p.isAll = isAll;
                     var a = JSON.stringify(p);
                     return a;
@@ -252,10 +271,12 @@
 
                 {"data": "name", "width": "200px"},
                 {"data": "designerName", "width": "70px"},
+                {"data": "designProgress", "width": "100px"},
                 {"data": "pmId", "width": "70px"},
                 {"data": "type", "width": "40px"},
                 {"data": "customerName", "width": "280px"},
                 {"data": "campaignName", "width": "280px"},
+                {"data": "campaignType", "width": "100px"},
                 {"data": "startDate", "width": "100px"},
                 {"data": "endDate", "width": "100px"},
                 {"data": "code", "width": "100px"},

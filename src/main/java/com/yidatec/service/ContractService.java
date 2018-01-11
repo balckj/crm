@@ -36,6 +36,10 @@ public class ContractService {
 	@Autowired
 	LedgerMapper ledgerMapper;
 
+	@Autowired
+	ProjectMapper projectMapper;
+
+    private static final String  POTENTIAL_100 ="df481a49-8e82-4c4b-b945-2432d8d17686"; // 项目潜力100%
 
 	public List<ABVO> getABList(ProjectEntity projectEntity){
 		List<ABVO> res = contractMapper.getABList(projectEntity);
@@ -90,6 +94,12 @@ public class ContractService {
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
 	public void createContract(Contract contract) {
 		contractMapper.create(contract);
+		// 更新对应项目进度到100%
+		ProjectEntity projectEntity = new ProjectEntity();
+		projectEntity.setId(contract.getProjectId());
+		projectEntity.setPotential(POTENTIAL_100);
+		projectMapper.updateFroPjectProgress(projectEntity);
+
 	}
 
 
@@ -103,6 +113,11 @@ public class ContractService {
 	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
 	public void updateContract(Contract contract) {
 		contractMapper.update(contract);
+		// 更新对应项目进度到100%
+		ProjectEntity projectEntity = new ProjectEntity();
+		projectEntity.setId(contract.getProjectId());
+		projectEntity.setPotential(POTENTIAL_100);
+		projectMapper.updateFroPjectProgress(projectEntity);
 	}
 
 	/**

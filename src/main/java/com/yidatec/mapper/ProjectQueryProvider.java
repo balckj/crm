@@ -11,7 +11,7 @@ public class ProjectQueryProvider {
     public String selectProject(final ProjectVO projectVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT GROUP_CONCAT(f.name) as designerName,b.name as customerName,c.name as campaignName,c.startDate,c.endDate,D.*,DU.`name` as  developSaleName FROM T_PROJECT  as D LEFT JOIN T_CUSTOMER b " +
+        sb.append("SELECT GROUP_CONCAT(f.name) as designerName,b.name as customerName,c.name as campaignName,c.type as campaignType,c.startDate,c.endDate,D.*,DU.`name` as  developSaleName FROM T_PROJECT  as D LEFT JOIN T_CUSTOMER b " +
                 "on D.customerId=b.id " +
                 "LEFT JOIN T_PROJECT_DESIGNER a "+
                 "on D.id =a.projectId "+
@@ -23,8 +23,8 @@ public class ProjectQueryProvider {
         if(!StringUtils.isEmpty(projectVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
         }
-        if(!StringUtils.isEmpty(projectVO.getCampaignId())){
-            sb.append(" AND c.name LIKE CONCAT('%',#{campaignId},'%')");
+        if(!StringUtils.isEmpty(projectVO.getCampaignType())){
+            sb.append(" AND c.type = #{campaignType}");// 活动类型,不是项目类型别弄混了
         }
         if(!StringUtils.isEmpty(projectVO.getActivityTime())){
             sb.append(" AND (Date(#{activityTime}) between Date(c.startDate) and  Date(c.endDate))");
@@ -46,6 +46,11 @@ public class ProjectQueryProvider {
         if(!StringUtils.isEmpty(projectVO.getDevelopSaleId())){
             sb.append(" AND D.developSaleId = #{developSaleId}");
         }
+
+        if (!StringUtils.isEmpty(projectVO.getDesignProgress())){
+            sb.append(" and find_in_set(#{designProgress},D.designProgress)");
+        }
+
         if(!StringUtils.isEmpty(projectVO.getState())){
             sb.append(" AND D.state = #{state}");
         }
@@ -80,8 +85,8 @@ public class ProjectQueryProvider {
         if(!StringUtils.isEmpty(projectVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
         }
-        if(!StringUtils.isEmpty(projectVO.getCampaignId())){
-            sb.append(" AND c.name LIKE CONCAT('%',#{campaignId},'%')");
+        if(!StringUtils.isEmpty(projectVO.getCampaignType())){
+            sb.append(" AND c.type = #{campaignType}");
         }
         if(!StringUtils.isEmpty(projectVO.getCode())){
             sb.append(" AND D.code LIKE CONCAT('%',#{code},'%')");
@@ -99,6 +104,10 @@ public class ProjectQueryProvider {
 
         if(!StringUtils.isEmpty(projectVO.getDevelopSaleId())){
             sb.append(" AND D.developSaleId = #{developSaleId}");
+        }
+
+        if (!StringUtils.isEmpty(projectVO.getDesignProgress())){
+            sb.append(" and find_in_set(#{designProgress},D.designProgress)");
         }
 
         if(!StringUtils.isEmpty(projectVO.getDesignerIdVO())){

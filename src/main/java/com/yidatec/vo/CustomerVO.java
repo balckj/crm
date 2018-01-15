@@ -1,6 +1,12 @@
 package com.yidatec.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yidatec.model.Customer;
+import com.yidatec.util.CustomLocalDateSerializer;
+import com.yidatec.util.CustomLocalDateTimeSerializer;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author xf
@@ -16,6 +22,8 @@ public class CustomerVO extends Customer{
     private String followEndTime;
     private String nextStartTime;
     private String nextEndTime;
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
+    private LocalDate createTime1;
 
     public String getNextStartTime() {
         return nextStartTime;
@@ -105,5 +113,13 @@ public class CustomerVO extends Customer{
 
     public void setIsAll(int isAll) {
         this.isAll = isAll;
+    }
+
+    public LocalDate getCreateTime1() {
+        return createTime1;
+    }
+
+    public void setCreateTime1(LocalDate createTime1) {
+        this.createTime1 = createTime1;
     }
 }

@@ -10,7 +10,7 @@ public class CustomerQueryProvider {
     public String selectCustomer(final CustomerVO customerVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT MAX(fh.followTime) as followTime,fh.nextTime,C.name as creator,D.* FROM T_CUSTOMER  as D " +
+        sb.append("SELECT MAX(fh.followTime) as followTime,fh.nextTime,C.name as creator,D.createTime AS createTime1,D.*  FROM T_CUSTOMER  as D " +
                 " LEFT JOIN T_CUSTOMER_HISTORY ch on D.id = ch.customerId " +
                 " LEFT JOIN T_FOLLOW_HISTORY fh on fh.id = ch.historyId" +
                 " LEFT JOIN T_USER C on D.creatorId=C.id WHERE 1=1 ");

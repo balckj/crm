@@ -190,12 +190,18 @@ public class AvailableSupplierQueryProvider {
         sb.append(" 2 `type`,");
         sb.append(" F.city,");
         sb.append(" F.`platformLevel`,");
-        sb.append(" count(C.id) AS `count`");
+        sb.append(" count(C.id) AS `count`,");
+        sb.append(" c2.`name` as contactName,");
+        sb.append(" c2.mobilePhone");
         sb.append(" FROM");
         sb.append(" T_FACTORY F");
         sb.append(" LEFT JOIN T_PROJECT_FACTORY PF ON PF.factoryId = F.id");
         sb.append(" LEFT JOIN T_PROJECT P ON P.id = PF.projectId");
         sb.append(" LEFT JOIN T_CONTRACT C ON C.projectId = P.id");
+
+        sb.append(" LEFT JOIN T_FACTORY_CONTACT pc on F.id = pc.factoryId");
+        sb.append(" LEFT JOIN T_CONTACT c2 on pc.contactId = c2.id");
+
         sb.append(" WHERE 1=1 ");
         sb.append(" and F.id NOT IN (");
         sb.append(" SELECT");
@@ -235,12 +241,16 @@ public class AvailableSupplierQueryProvider {
         sb.append(" 2 `type`,");
         sb.append(" F.city,");
         sb.append(" F.`platformLevel`,");
-        sb.append(" count(C.id) AS `count`");
+        sb.append(" count(C.id) AS `count`,");
+        sb.append(" c2.`name` as contactName,");
+        sb.append(" c2.mobilePhone");
         sb.append(" FROM");
         sb.append(" T_FACTORY F");
         sb.append(" LEFT JOIN T_PROJECT_FACTORY PF ON PF.factoryId = F.id");
         sb.append(" LEFT JOIN T_PROJECT P ON P.id = PF.projectId");
         sb.append(" LEFT JOIN T_CONTRACT C ON C.projectId = P.id");
+        sb.append(" LEFT JOIN T_FACTORY_CONTACT pc on F.id = pc.factoryId");
+        sb.append(" LEFT JOIN T_CONTACT c2 on pc.contactId = c2.id");
         sb.append(" WHERE 1=1 ");
         sb.append(" and F.id NOT IN (");
         sb.append(" SELECT");
@@ -281,7 +291,9 @@ public class AvailableSupplierQueryProvider {
         sb.append(" ff.`type`,");
         sb.append(" ff.city,");
         sb.append(" ff.`platformLevel`,");
-        sb.append(" ff.`cidCount` AS `count`");
+        sb.append(" ff.`cidCount` AS `count`,");
+        sb.append(" ff.`name` as contactName,");
+        sb.append(" ff.mobilePhone");
         sb.append(" FROM");
         sb.append(" (");
         sb.append(" SELECT");
@@ -290,7 +302,8 @@ public class AvailableSupplierQueryProvider {
         sb.append(" 1 `type`,");
         sb.append(" gg.`city`,");
         sb.append(" gg.`platformLevel`,");
-        sb.append(" count(C.id) `cidCount`");
+        sb.append(" count(C.id) `cidCount`,");
+        sb.append(" gg.mobilePhone");
         sb.append(" FROM");
         sb.append(" (");
         sb.append(" SELECT");
@@ -438,7 +451,9 @@ public class AvailableSupplierQueryProvider {
         sb.append(" ff.`type`,");
         sb.append(" ff.city,");
         sb.append(" ff.`platformLevel`,");
-        sb.append(" ff.`cidCount` AS `count`");
+        sb.append(" ff.`cidCount` AS `count`,");
+        sb.append(" ff.`name` as contactName,");
+        sb.append(" ff.mobilePhone");
         sb.append(" FROM");
         sb.append(" (");
         sb.append(" SELECT");
@@ -447,7 +462,8 @@ public class AvailableSupplierQueryProvider {
         sb.append(" 1 `type`,");
         sb.append(" gg.`city`,");
         sb.append(" gg.`platformLevel`,");
-        sb.append(" count(C.id) `cidCount`");
+        sb.append(" count(C.id) `cidCount`,");
+        sb.append(" gg.mobilePhone");
         sb.append(" FROM");
         sb.append(" (");
         sb.append(" SELECT");
@@ -598,8 +614,9 @@ public class AvailableSupplierQueryProvider {
         sb.append(" ff.`name`,");
         sb.append(" ff.`type`,");
         sb.append(" ff.city,");
-        sb.append(" ff.`platformLevel`,");
-        sb.append(" ff.`cidCount` AS `count`");
+        sb.append(" ff.`cidCount` AS `count`,");
+        sb.append(" ff.`name` as contactName,");
+        sb.append(" ff.mobilePhone");
         sb.append(" FROM");
         sb.append(" (");
         sb.append(" SELECT");
@@ -608,7 +625,8 @@ public class AvailableSupplierQueryProvider {
         sb.append(" 1 `type`,");
         sb.append(" gg.`city`,");
         sb.append(" gg.`platformLevel`,");
-        sb.append(" count(C.id) `cidCount`");
+        sb.append(" count(C.id) `cidCount`,");
+        sb.append(" gg.mobilePhone");
         sb.append(" FROM");
         sb.append(" (");
         sb.append(" SELECT");
@@ -760,7 +778,9 @@ public class AvailableSupplierQueryProvider {
         sb.append(" ff.`type`,");
         sb.append(" ff.city,");
         sb.append(" ff.`platformLevel`,");
-        sb.append(" ff.`cidCount` AS `count`");
+        sb.append(" ff.`cidCount` AS `count`,");
+        sb.append(" ff.`name` as contactName,");
+        sb.append(" ff.mobilePhone");
         sb.append(" FROM");
         sb.append(" (");
         sb.append(" SELECT");
@@ -769,7 +789,8 @@ public class AvailableSupplierQueryProvider {
         sb.append(" 1 `type`,");
         sb.append(" gg.`city`,");
         sb.append(" gg.`platformLevel`,");
-        sb.append(" count(C.id) `cidCount`");
+        sb.append(" count(C.id) `cidCount`,");
+        sb.append(" gg.mobilePhone");
         sb.append(" FROM");
         sb.append(" (");
         sb.append(" SELECT");

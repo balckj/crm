@@ -62,12 +62,13 @@ public class ContractQueryProvider {
     public String selectContractList(final ContractVO contractVO){
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT * FROM ( ");
-        sb.append(" SELECT A.*,U.name as pjcreatorName,B.code AS projectCode ,B.name AS projectName,C.name AS campaignName,count(cl.contractId) AS ledgerCount,B.developSaleId,B.traceSaleId,B.pmId,B.designProgress")
+        sb.append(" SELECT A.*,U.name as pjcreatorName,B.code AS projectCode ,B.name AS projectName,C.name AS campaignName,count(cl.contractId) AS ledgerCount,B.developSaleId,B.traceSaleId,B.pmId,B.designProgress, c2.`name` as customerName")
         .append(" FROM T_CONTRACT A")
         .append(" LEFT JOIN T_PROJECT B ON A.projectId = B.id")
         .append(" LEFT JOIN T_USER U on B.creatorId = U.id")
         .append(" LEFT JOIN T_CAMPAIGN AS C ON A.campaignId = C.id")
         .append(" LEFT JOIN T_CONTRACT_LEDGER AS cl ON A.id = cl.contractId")
+        .append(" LEFT JOIN T_CUSTOMER c2 ON B.customerId = c2.id")
         .append(" GROUP BY A.id");
 
         sb.append(" ) A ");
@@ -91,7 +92,9 @@ public class ContractQueryProvider {
         if(!StringUtils.isEmpty(contractVO.getSecondParty())){
             sb.append(" AND A.secondParty = #{secondParty}");
         }
-
+        if(!StringUtils.isEmpty(contractVO.getCustomerName())){
+            sb.append(" AND A.`customerName`  LIKE CONCAT('%',#{customerName},'%')");
+        }
         if(contractVO.getIsAll() == 0){
             sb.append(" AND (");
             sb.append(" A.pmId = #{id}");
@@ -114,12 +117,13 @@ public class ContractQueryProvider {
     public String countContractList(final ContractVO contractVO){
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT count(*) FROM (");
-        sb.append(" SELECT A.*,U.name as pjcreatorName,B.code AS projectCode ,B.name AS projectName,C.name AS campaignName,count(cl.contractId) AS ledgerCount,B.developSaleId,B.traceSaleId,B.pmId,B.designProgress")
+        sb.append(" SELECT A.*,U.name as pjcreatorName,B.code AS projectCode ,B.name AS projectName,C.name AS campaignName,count(cl.contractId) AS ledgerCount,B.developSaleId,B.traceSaleId,B.pmId,B.designProgress, c2.`name` as customerName")
                 .append(" FROM T_CONTRACT A")
                 .append(" LEFT JOIN T_PROJECT B ON A.projectId = B.id")
                 .append(" LEFT JOIN T_USER U on B.creatorId = U.id")
                 .append(" LEFT JOIN T_CAMPAIGN AS C ON A.campaignId = C.id")
                 .append(" LEFT JOIN T_CONTRACT_LEDGER AS cl ON A.id = cl.contractId")
+                .append(" LEFT JOIN T_CUSTOMER c2 ON B.customerId = c2.id")
                 .append(" GROUP BY A.id");
 
 
@@ -143,6 +147,9 @@ public class ContractQueryProvider {
         }
         if(!StringUtils.isEmpty(contractVO.getSecondParty())){
             sb.append(" AND A.secondParty = #{secondParty}");
+        }
+        if(!StringUtils.isEmpty(contractVO.getCustomerName())){
+            sb.append(" AND A.`customerName`  LIKE CONCAT('%',#{customerName},'%')");
         }
 
         if(contractVO.getIsAll() == 0){

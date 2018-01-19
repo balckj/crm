@@ -13,7 +13,7 @@ public class ContractVO extends Contract{
     private String projectCode;
     private String campaignName;
     private String pjcreatorName;// 创建者
-
+    private String customerName;// 客户名称
     private int ledgerCount;
 
     /**
@@ -84,5 +84,13 @@ public class ContractVO extends Contract{
 
     public void setPjcreatorName(String pjcreatorName) {
         this.pjcreatorName = pjcreatorName;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 }

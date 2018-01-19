@@ -19,6 +19,9 @@ public class AvailableSupplierVO extends AvailableSupplier {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endTime;
 
+    private String contactName;// 联系人
+    private String mobilePhone;// 电话
+
     private String availableSupplierType;
 
     public Integer getDraw() {
@@ -67,5 +70,21 @@ public class AvailableSupplierVO extends AvailableSupplier {
 
     public void setAvailableSupplierType(String availableSupplierType) {
         this.availableSupplierType = availableSupplierType;
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
     }
 }

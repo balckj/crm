@@ -46,6 +46,9 @@ public class ProjectQueryProvider {
         if(!StringUtils.isEmpty(projectVO.getDevelopSaleId())){
             sb.append(" AND D.developSaleId = #{developSaleId}");
         }
+        if(!StringUtils.isEmpty(projectVO.getClosingTime())){
+            sb.append(" AND D.closingTime = Date(#{closingTime})");
+        }
 
         if (!StringUtils.isEmpty(projectVO.getDesignProgress())){
             sb.append(" and find_in_set(#{designProgress},D.designProgress)");
@@ -104,6 +107,10 @@ public class ProjectQueryProvider {
 
         if(!StringUtils.isEmpty(projectVO.getDevelopSaleId())){
             sb.append(" AND D.developSaleId = #{developSaleId}");
+        }
+
+        if(!StringUtils.isEmpty(projectVO.getClosingTime())){
+            sb.append(" AND D.closingTime = Date(#{closingTime})");
         }
 
         if (!StringUtils.isEmpty(projectVO.getDesignProgress())){

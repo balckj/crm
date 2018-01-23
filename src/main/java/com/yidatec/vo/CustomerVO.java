@@ -22,6 +22,7 @@ public class CustomerVO extends Customer{
     private String followEndTime;
     private String nextStartTime;
     private String nextEndTime;
+    private String ownerName;// 显示所有者的名字
     @JsonSerialize(using = CustomLocalDateSerializer.class)
     private LocalDate createTime1;
 
@@ -121,5 +122,13 @@ public class CustomerVO extends Customer{
 
     public void setCreateTime1(LocalDate createTime1) {
         this.createTime1 = createTime1;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 }

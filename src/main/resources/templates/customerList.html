@@ -83,6 +83,12 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
+                        <label for="ownerName" class="control-label">所有者</label>
+                        <input type="text"  id="ownerName" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
                         <label for="followTime" class="control-label">跟进开始日期</label>
                         <input type="text"  id="followTime"  class="form-control input-sm" />
                     </div>
@@ -136,6 +142,7 @@
                             <tr>
                                 <th>操作</th>
                                 <th>创建人</th>
+                                <th>所有者</th>
                                 <th>创建时间</th>
                                 <th>最后跟进时间</th>
                                 <th>下次跟进时间</th>
@@ -222,6 +229,37 @@
     </div>
 
 
+    <!--所有者Modal-->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="ownerTableModal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 >请选择一个所有者</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="ownerId" class="control-label">所有者</label>
+                                        <select name="ownerId" id="ownerId" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
+                                            <option value="">未选择</option>
+                                            <option th:value="${ownerList.id}" th:text="${ownerList.name}" th:each="ownerList:${ownerList}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn ladda-button btn-primary" onclick="chooseOwner(this);"><span class="ladda-label">确定</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <input type="hidden" name="id" id="id"/>
     <script th:src="@{99/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
@@ -239,6 +277,7 @@
         var hasEdit = (isAll == 0 && [[${#authorization.url('/customerEidt')}]]) || (isAll == 1 && [[${#authorization.url('/customerEidtAll')}]]);
         var hasCreate = (isAll == 0 && [[${#authorization.url('/customerCreate')}]]) ||  (isAll == 1 && [[${#authorization.url('/customerCreateAll')}]]);
         var hasHistory = (isAll == 0 && [[${#authorization.url('/historyEdit')}]]) ||  (isAll == 1 && [[${#authorization.url('/historyEditAll')}]]);
+        var hasOwner = (isAll == 0 && [[${#authorization.url('/customerOwner')}]]) || (isAll == 1 && [[${#authorization.url('/customerOwnerAll')}]]); // 客户要啊,那就加上吧
 
         var format = "yyyy-mm-dd";
         var customertable;
@@ -269,6 +308,7 @@
                         p.nextStartTime = $("#nextTime").val();
                         p.nextEndTime = $("#nextEndTime").val();
                         p.isAll = isAll;
+                        p.ownerName = $("#ownerName").val();
                         var a = JSON.stringify(p);
                         return a;
                     }
@@ -300,13 +340,26 @@
                                     el = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:showLedger(\'' + el + '\' ,\'historyEditAll\',this)" >跟进历史</a>';
                                 }
                             }
-                            if( u+el == ''){
+
+                            var pop = ''
+                            if (hasOwner){
+                                pop =  row.id;
+                                var ownerId = row.ownerId
+                                if(isAll == 0) {
+                                    pop = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:popOwnerShow(\'' + pop + '\' ,  \'' + ownerId + '\' , \'ownerEdit\',this)" >转移</a>';
+                                }else{
+                                    pop = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:popOwnerShow(\'' + pop +'\' , \'' + ownerId +'\' , \'ownerEditAll\',this)" >转移</a>';
+                                }
+                            }
+
+                            if( u+el+pop == ''){
                                 return '--'
                             }
-                            return u+el;
+                            return u+el+pop;
                         },
                     },
                     {"data": "creator", "width": "100px"},
+                    {"data": "ownerName", "width": "100px"},
                     {"data": "createTime1", "width": "100px"},
                     {"data": "followTime", "width": "100px"},
                     {"data": "nextTime", "width": "100px"},
@@ -434,9 +487,9 @@
                 success: function (data) {
                     $('#ABTableModal').after(data)
                     $('#historyModal').on('hidden.bs.modal', function (e) {
-                        var n = $('#historyModal');
-                        n.remove();
-                        $("#id").val("");
+                            var n = $('#historyModal');
+                            n.remove();
+                            $("#id").val("");
                     })
                     $('#historyModal').modal('show');
                     $("#id").val(id);
@@ -528,6 +581,7 @@
             })
         }
 
+
         var saveBtnda;
         // 保存跟进历史
         function saveHistory(btn) {
@@ -598,22 +652,68 @@
             return historyList;
         }
 
-        // 时间格式化
-        function timeStamp2String(time,hasHour) {
-            var datetime = new Date();
-            datetime.setTime(time);
-            var year = datetime.getFullYear();
-            var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-            var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-            if(hasHour) {
-                var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-                var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-//            var milliseconds = datetime.getMilliseconds()< 10 ? "0" + datetime.getMilliseconds() : datetime.getMilliseconds();
-                return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second/*+" "+milliseconds*/;
-            }else{
-                return year + "-" + month + "-" + date;
+        var customerId = "";
+        function popOwnerShow(id,ownerId,url,btn) {
+            customerId = id;
+            $("#ownerId option").each(function(){
+                if(ownerId){
+                    if ($(this).val() == ownerId) {
+                        $(this).attr("selected", true);
+                        return;
+                    }
+                }else{
+                    $("#ownerId").find("option:selected").attr("selected",false);
+                    return;
+                }
+
+            });
+            $('#ownerTableModal').modal('show');
+        }
+
+        var ownerBtn = null;
+        // 选择所有者
+        function chooseOwner(btn) {
+            ownerBtn = Ladda.create( btn );
+            if (!customerId || !$("#ownerId").val()){
+                toastr["error"]('未选择所有者!');
+                return ;
             }
+            var p = {
+                id:customerId,
+                ownerId:$("#ownerId").val()
+            };
+            debugger
+            var a = JSON.stringify(p);
+            $.ajax({
+                url: "saveOwnerId",
+                async: true,
+                type: 'POST',
+                data: a,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                timeout: 300000,
+                beforeSend: function () {
+                    ownerBtn.start();
+                },
+                error: function (result) {
+                    swal("操作失败", "通信错误!", "error");
+                    ownerBtn.stop();
+                },
+                success: function (data) {
+                    if (data.res == undefined) {
+                        ownerBtn.stop();
+                    }else if(data.res == 0){
+                        ownerBtn.stop();
+                        swal("操作失败", data.txt, "error");
+                    }else{
+                        ownerBtn.stop();
+                        customertable.ajax.reload();
+                        $('#ownerTableModal').modal('hide');
+                    }
+                }
+            });
+
+
         }
 
         function query(){
@@ -630,6 +730,7 @@
             datepickerInit("nextTime",format);
             datepickerInit("nextEndTime",format);
             customertableLoad();
+
             var v = '';
             if(hasCreate){
                 if(isAll == 0){

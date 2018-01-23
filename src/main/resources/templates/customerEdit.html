@@ -60,7 +60,7 @@
                             <input type="hidden" name="selectCityValue" id="selectCityValue" th:value="${customer}?${customer.city}"/>
                             <input type="hidden" name="selectRegionValue" id="selectRegionValue" th:value="${customer}?${customer.region}"/>
                             <input type="hidden" name="selectphotoValue" id="selectphotoValue" th:value="${customer}?${customer.photo}"/>
-
+                            <input type="hidden" name="selectOwnerId" id="selectOwnerId" th:value="${customer}?${customer.ownerId}"/>
                             <div class="form-group" id="sourceForm"><label class="col-sm-2 control-label">客户来源<span
                                     style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
@@ -71,6 +71,17 @@
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
+
+                            <div class="form-group" id="ownerIdForm" hidden ="hidden"><label class="col-sm-2 control-label">所有者</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="ownerId" id="ownerId">
+                                        <option value="" selected="selected">未选择</option>
+                                        <option th:value="${ownerList.id}" th:text="${ownerList.name}" th:each="ownerList:${ownerList}"></option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 control-label" style="text-align: left"></label>
+                            </div>
+
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="nameForm"><label class="col-sm-2 control-label">企业名称<span
                                     style="color:#ed5565;">*</span></label>
@@ -407,6 +418,7 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         var position =[[${position }]];
+        var currentId =[[${currentId}]];
         /*]]>*/
     </script>
 
@@ -660,6 +672,21 @@
                 }
             });
 
+            $("#ownerId option").each(function(){
+
+                if($(this).val() == ""){
+                    $(this).attr("selected",false);
+                }
+                if(currentId) { // 新建默认比较当前登陆ID
+                    if ($(this).val() == currentId) {
+                        $(this).attr("selected", true);
+                    }
+                }else{
+                    if ($(this).val() == $("#selectOwnerId").val()) {
+                        $(this).attr("selected", true);
+                    }
+                }
+            });
 
             $("#photo").dropzone({
                 url: "fileupload",
@@ -807,7 +834,8 @@
                 level:$("#level").val(),
                 contactList:userList,
                 photo:photolist.toString(),
-                state: $("input[name='state']:checked").val()
+                state: $("input[name='state']:checked").val(),
+                ownerId :$("#ownerId").val()
             };
             console.info(p);
             var a = JSON.stringify(p);

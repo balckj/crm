@@ -74,6 +74,11 @@ public class CustomerService {
         }
     }
 
+
+    @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
+    public void updateOwnerId(Customer customer) {
+        customerMapper.updateOwnerId(customer);
+    }
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
     public void updateCustomer(Customer customer) {
         contactMapper.deleteCustomerContact(customer.getId());

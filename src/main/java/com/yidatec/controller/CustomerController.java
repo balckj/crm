@@ -1,5 +1,6 @@
 package com.yidatec.controller;
 
+import com.yidatec.mapper.UserMapper;
 import com.yidatec.model.Customer;
 import com.yidatec.model.Dictionary;
 import com.yidatec.model.FollowHistoryVO;
@@ -36,10 +37,14 @@ public class CustomerController extends BaseController{
     @Autowired
     DictionaryService dictionaryService;
 
+    @Autowired
+    UserMapper userMapper;
+
     @RequestMapping("/customerList")
     public String customerList(ModelMap model){
         model.put("industryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 所属行业
         model.put("nature",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));
+        model.put("ownerList",userMapper.findAllUserOfOwner());// 所有者
         model.put("isAll",0);
         return "customerList";
     }
@@ -48,6 +53,7 @@ public class CustomerController extends BaseController{
     public String customerListAll(ModelMap model){
         model.put("industryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 所属行业
         model.put("nature",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));
+        model.put("ownerList",userMapper.findAllUserOfOwner());// 所有者
         model.put("isAll",1);
         return "customerList";
     }
@@ -62,6 +68,8 @@ public class CustomerController extends BaseController{
         model.put("industryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 所属行业
         model.put("natureList",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));// 企业性质
         model.put("levelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL));// 平台等级
+        model.put("ownerList",userMapper.findAllUserOfOwner());// 所有者
+        model.put("currentId",(id == null || id.isEmpty())?getWebUser().getId():"");// 当前登陆者ID
         return "customerEdit";
     }
 
@@ -93,6 +101,17 @@ public class CustomerController extends BaseController{
         return map;
     }
 
+
+    @RequestMapping("/saveOwnerId")
+    @ResponseBody
+    public Object saveOwnerId(@RequestBody Customer customer)throws Exception{
+
+        customer.setModifierId(getWebUser().getId());
+        customer.setModifyTime(LocalDateTime.now());
+        customerService.updateOwnerId(customer);
+
+        return getSuccessJson(null);
+    }
 
     @RequestMapping("/saveCustomer")
     @ResponseBody

@@ -10,10 +10,10 @@ public class CustomerQueryProvider {
     public String selectCustomer(final CustomerVO customerVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT MAX(fh.followTime) as followTime,fh.nextTime,C.name as creator,D.createTime AS createTime1,D.*  FROM T_CUSTOMER  as D " +
+        sb.append("SELECT MAX(fh.followTime) as followTime,fh.nextTime,C.name as creator,D.createTime AS createTime1,D.*,U2.`NAME` AS ownerName  FROM T_CUSTOMER  as D " +
                 " LEFT JOIN T_CUSTOMER_HISTORY ch on D.id = ch.customerId " +
                 " LEFT JOIN T_FOLLOW_HISTORY fh on fh.id = ch.historyId" +
-                " LEFT JOIN T_USER C on D.creatorId=C.id WHERE 1=1 ");
+                " LEFT JOIN T_USER C on D.creatorId=C.id LEFT JOIN T_USER AS U2 ON U2.ID = D.ownerId WHERE 1=1 ");
 
         if(!StringUtils.isEmpty(customerVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
@@ -42,13 +42,17 @@ public class CustomerQueryProvider {
         if(!StringUtils.isEmpty(customerVO.getState())){
             sb.append(" AND D.state = #{state}");
         }
-        if(!StringUtils.isEmpty(customerVO.getCreator())){
+
+        if(!StringUtils.isEmpty(customerVO.getCreator())){// 创建人
             sb.append(" AND C.name LIKE CONCAT('%',#{creator},'%')");
         }
-
-        if(customerVO.getIsAll() == 0){
+        if(!StringUtils.isEmpty(customerVO.getOwnerName())){// 所有者条件
+            sb.append(" AND U2.`name` LIKE CONCAT('%',#{ownerName},'%')");
+        }
+        if(customerVO.getIsAll() == 0){ // 查看我的客户
             if(!StringUtils.isEmpty(customerVO.getCreatorId())){
-                sb.append(" AND D.creatorId = #{creatorId}");
+//                sb.append(" AND D.creatorId = #{creatorId}");
+                sb.append(" AND D.ownerId = #{creatorId}");// 别人分配给你的客户你自己能看到.
             }
         }
 
@@ -58,10 +62,10 @@ public class CustomerQueryProvider {
     public String countCustomer(final CustomerVO customerVO)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT COUNT(a.id) FROM( SELECT MAX(fh.followTime) as followTime,C.name as creator,D.* FROM T_CUSTOMER  as D " +
+        sb.append("SELECT COUNT(a.id) FROM( SELECT MAX(fh.followTime) as followTime,C.name as creator,D.*,U2.`NAME` AS ownerName FROM T_CUSTOMER  as D " +
                 " LEFT JOIN T_CUSTOMER_HISTORY ch on D.id = ch.customerId " +
                 " LEFT JOIN T_FOLLOW_HISTORY fh on fh.id = ch.historyId" +
-                " LEFT JOIN T_USER C on D.creatorId=C.id WHERE 1=1 ");
+                " LEFT JOIN T_USER C on D.creatorId=C.id LEFT JOIN T_USER AS U2 ON U2.ID = D.ownerId WHERE 1=1 ");
 
         if(!StringUtils.isEmpty(customerVO.getName())){
             sb.append(" AND D.name LIKE CONCAT('%',#{name},'%')");
@@ -90,9 +94,13 @@ public class CustomerQueryProvider {
         if(!StringUtils.isEmpty(customerVO.getCreator())){
             sb.append(" AND C.name LIKE CONCAT('%',#{creator},'%')");
         }
+        if(!StringUtils.isEmpty(customerVO.getOwnerName())){// 所有者条件
+            sb.append(" AND U2.`name` LIKE CONCAT('%',#{ownerName},'%')");
+        }
         if(customerVO.getIsAll() == 0){
             if(!StringUtils.isEmpty(customerVO.getCreatorId())){
-                sb.append(" AND D.creatorId = #{creatorId}");
+//                sb.append(" AND D.creatorId = #{creatorId}");
+                sb.append(" AND D.ownerId = #{creatorId}");// 别人分配给你的客户你自己能看到.
             }
         }
 

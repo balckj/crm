@@ -33,11 +33,11 @@ public interface CustomerMapper {
     @SelectProvider(type=com.yidatec.mapper.CustomerQueryProvider.class,method = "countCustomer")
     int countCustomerList(CustomerVO customerVO);
 
-    @Insert("INSERT INTO T_CUSTOMER (id,source,name,industry,nature,country,province,city,region,address,level,state,photo,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{source},#{name}," +
+    @Insert("INSERT INTO T_CUSTOMER (id,ownerId,source,name,industry,nature,country,province,city,region,address,level,state,photo,creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{ownerId},#{source},#{name}," +
             "#{industry},#{nature},#{country},#{province},#{city},#{region},#{address},#{level},#{state},#{photo},#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
     int create(Customer customer);
 
-    @Update("UPDATE T_CUSTOMER SET `name`=#{name},source=#{source},industry=#{industry},nature=#{nature}," +
+    @Update("UPDATE T_CUSTOMER SET `name`=#{name},ownerId=#{ownerId},source=#{source},industry=#{industry},nature=#{nature}," +
             "country=#{country},province=#{province},city=#{city},region=#{region},address=#{address},level=#{level},state=#{state},photo=#{photo}," +
             "modifierId=#{modifierId}," +
             "modifyTime=#{modifyTime} WHERE id=#{id}")
@@ -45,6 +45,9 @@ public interface CustomerMapper {
 
     @Update("UPDATE T_CUSTOMER SET modifyTime=#{modifyTime} WHERE id=#{id}")
     int updateModifyTime(Customer customer);
+
+    @Update("UPDATE T_CUSTOMER SET ownerId=#{ownerId},modifierId=#{modifierId},modifyTime=#{modifyTime} WHERE id=#{id}")
+    int updateOwnerId(Customer customer);
 
     @Insert("INSERT INTO T_CUSTOMER_CONTACT (customerId,contactId) VALUES (#{customerid},#{contactid})")
     int createRelation(@Param(value="customerid") String customerid,@Param(value="contactid") String contactid);

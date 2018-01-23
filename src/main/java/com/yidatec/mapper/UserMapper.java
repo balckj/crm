@@ -15,6 +15,13 @@ public interface UserMapper {
     @Select("SELECT * FROM T_USER;")
     List<User> findAll();
 
+    @Select("SELECT A.id,A.`name` FROM T_USER A LEFT JOIN T_USER_ROLE B ON A.id = B.userId LEFT JOIN T_ROLE_PERMISSION C" +
+            " ON B.roleId = C.roleId" +
+            " WHERE state = 1 AND (" +
+            " C.permissionId = '50b4f9b6-907e-417d-b598-171d458bc564' OR " +
+            " C.permissionId = '92763baa-f06d-4169-b718-beaf4d1424b1') GROUP BY A.id ORDER BY  A.`name`")
+    List<User> findAllUserOfOwner();
+
     @SelectProvider(type=com.yidatec.mapper.UserQueryProvider.class,method = "selectUser")
     List<UserVO> findUsers(UserVO user);
 

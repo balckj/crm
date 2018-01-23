@@ -42,7 +42,7 @@ public class Customer extends BaseModel{
 
     @Valid
     private List<Contact> contactList;
-
+    private String ownerId;// 拥有者
     public String getName() {
         return name;
     }
@@ -153,5 +153,13 @@ public class Customer extends BaseModel{
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 }

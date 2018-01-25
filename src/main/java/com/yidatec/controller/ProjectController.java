@@ -1,5 +1,6 @@
 package com.yidatec.controller;
 
+import com.yidatec.mapper.UserMapper;
 import com.yidatec.model.Dictionary;
 import com.yidatec.model.ProjectEntity;
 import com.yidatec.model.User;
@@ -52,6 +53,8 @@ public class ProjectController extends BaseController {
     @Autowired
     SaleService saleService;
 
+    @Autowired
+    UserMapper userMapper;
 
     private void projectCommon(ModelMap model, String id){
         model.put("title",(id == null || id.isEmpty())?"新建客户":"编辑客户");
@@ -68,7 +71,11 @@ public class ProjectController extends BaseController {
         model.put("factoryProgress",dictionaryService.selectDictionaryListByCodeCommon(Constants.FACTORY_PROGRESS));
         model.put("developSale",saleService.selectSaleListforProject(new UserVO()));
         model.put("traceSale",saleService.selectSaleListforProject(new UserVO()));
+        model.put("ownerList",userMapper.findAllUserOfProjectOwner());// 所有者
+        model.put("currentId",(id == null || id.isEmpty())?getWebUser().getId():"");// 当前登陆者ID
     }
+
+    // 我得编辑,新建
     @RequestMapping(value={"/projectEdit","/projectCreate"})
     public String projectEdit(ModelMap model, @RequestParam(value="id",required = false) String id){
         projectCommon(model,id);
@@ -76,6 +83,7 @@ public class ProjectController extends BaseController {
         return "projectEdit";
     }
 
+    // 所有编辑,新建
     @RequestMapping(value={"/projectEditAll","/projectCreateAll"})
     public String projectEditAll(ModelMap model, @RequestParam(value="id",required = false) String id){
         projectCommon(model,id);
@@ -83,6 +91,7 @@ public class ProjectController extends BaseController {
         return "projectEdit";
     }
 
+    // 所有查看
     @RequestMapping(value={"/projectEditView","/projectEditViewAll"})
     public String projectEditView(ModelMap model, @RequestParam(value="id",required = false) String id){
         model.put("title",(id == null || id.isEmpty())?"新建客户":"编辑客户");
@@ -110,6 +119,7 @@ public class ProjectController extends BaseController {
         model.put("developSale",saleService.selectSaleListforProject(new UserVO()));
         model.put("designerProgress",dictionaryService.selectDictionaryListByCodeCommon(Constants.DESIGN_PROGRESS));
         model.put("activityType",dictionaryService.selectDictionaryListByCodeCommon(Constants.ACTIVITY_TYPE));
+        model.put("ownerList",userMapper.findAllUserOfProjectOwner());// 所有者
         model.put("isAll",0);
         return "projectList";
     }
@@ -123,8 +133,20 @@ public class ProjectController extends BaseController {
         model.put("developSale",saleService.selectSaleListforProject(new UserVO()));
         model.put("designerProgress",dictionaryService.selectDictionaryListByCodeCommon(Constants.DESIGN_PROGRESS));
         model.put("activityType",dictionaryService.selectDictionaryListByCodeCommon(Constants.ACTIVITY_TYPE));
+        model.put("ownerList",userMapper.findAllUserOfProjectOwner());// 所有者
         model.put("isAll",1);
         return "projectList";
+    }
+
+    @RequestMapping("/saveProjectOwnerId")
+    @ResponseBody
+    public Object saveProjectOwnerId(@RequestBody ProjectEntity project)throws Exception{
+
+        project.setModifierId(getWebUser().getId());
+        project.setModifyTime(LocalDateTime.now());
+        projectService.updateOwnerId(project);
+
+        return getSuccessJson(null);
     }
 
     @RequestMapping("/saveProject")

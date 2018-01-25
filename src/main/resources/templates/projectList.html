@@ -114,6 +114,12 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
+                        <label for="ownerName" class="control-label">所有者</label>
+                        <input type="text"  id="ownerName" class="form-control input-sm" onkeydown='if(event.keyCode==13){query();}'/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
                         <label for="state" class="control-label">状态</label>
                         <select name="state" id="state" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
                             <option value="" selected="selected">不限</option>
@@ -142,6 +148,7 @@
                                     <th>操作</th>
                                     <th>项目名称</th>
                                     <th>客户</th>
+                                    <th>所有者</th>
                                     <th>开发销售</th>
                                     <th>设计师</th>
                                     <th>项目经理</th>
@@ -168,7 +175,37 @@
         </div>
     </div>
 
-
+    <!--所有者Modal-->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="ownerTableModal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 >请选择一个所有者</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="ownerId" class="control-label">所有者</label>
+                                        <select name="ownerId" id="ownerId" class="form-control input-sm" style="padding-top: 3px;" onchange="query();">
+                                            <option value="">未选择</option>
+                                            <option th:value="${ownerList.id}" th:text="${ownerList.name}" th:each="ownerList:${ownerList}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn ladda-button btn-primary" onclick="chooseOwner(this);"><span class="ladda-label">确定</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <script th:src="@{99/js/plugins/ladda/spin.min.js}"></script>
@@ -180,6 +217,7 @@
         var hasEdit = (isAll == 0 && [[${#authorization.url('/projectEdit')}]]) || (isAll == 1 && [[${#authorization.url('/projectEditAll')}]]);
         var hasCreate = (isAll == 0 && [[${#authorization.url('/projectCreate')}]]) ||  (isAll == 1 && [[${#authorization.url('/projectCreateAll')}]]);
         var hasView =  (isAll == 0 && [[${#authorization.url('/projectEditView')}]]) ||  (isAll == 1 && [[${#authorization.url('/projectEditAllView')}]]);
+        var hasOwner = (isAll == 0 && [[${#authorization.url('/projectOwner')}]]) || (isAll == 1 && [[${#authorization.url('/projectOwnerAll')}]]); // 客户要啊,那就加上吧
 
         if(isAll == 1){
             $("#pmIdDiv").show();
@@ -236,6 +274,7 @@
                     p.campaignType = $("#activityType").val();
                     p.closingTime = $('#closingTime').val();
                     p.isAll = isAll;
+                    p.ownerName = $("#ownerName").val();
                     var a = JSON.stringify(p);
                     return a;
                 }
@@ -266,16 +305,28 @@
                             v = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4; margin-bottom: 0px;" class="btn btn-primary btn-xs"  href="javascript:loadPage(\'' + v + '\')" >查看</a>';
                         }
 
-                        if(u == ''){
+                        var pop = ''
+                        if (hasOwner){
+                            pop =  row.id;
+                            var ownerId = row.ownerId
+                            if(isAll == 0) {
+                                pop = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:popOwnerShow(\'' + pop + '\' ,  \'' + ownerId + '\' , \'ownerEdit\',this)" >转移</a>';
+                            }else{
+                                pop = '&nbsp;&nbsp;<a type="button"  style="padding:0px 5px;line-height:1.4;margin-bottom: 0px;" class="btn btn-primary btn-xs"  onclick="javascript:popOwnerShow(\'' + pop +'\' , \'' + ownerId +'\' , \'ownerEditAll\',this)" >转移</a>';
+                            }
+                        }
+
+                        if(u+v+pop == ''){
                             return '--'
                         }
-                        return u + v;
+                        return u + v + pop;
 
                     },
                 },
 
                 {"data": "name", "width": "200px"},
                 {"data": "customerName", "width": "280px"},
+                {"data": "ownerName", "width": "80px"},
                 {"data": "developSaleName", "width": "80px"},
                 {"data": "designerName", "width": "70px"},
                 {"data": "pmId", "width": "70px"},
@@ -362,6 +413,69 @@
             return year + "-" + month + "-" + date;
         }
     }
+
+        var projectId = "";
+        function popOwnerShow(id,ownerId,url,btn) {
+            projectId = id;
+            $("#ownerId option").each(function(){
+                if(ownerId){
+                    if ($(this).val() == ownerId) {
+                        $(this).attr("selected", true);
+                        return;
+                    }
+                }else{
+                    $("#ownerId").find("option:selected").attr("selected",false);
+                    return;
+                }
+
+            });
+            $('#ownerTableModal').modal('show');
+        }
+
+        var ownerBtn = null;
+        // 选择所有者
+        function chooseOwner(btn) {
+            ownerBtn = Ladda.create( btn );
+            if (!projectId || !$("#ownerId").val()){
+                toastr["error"]('未选择所有者!');
+                return ;
+            }
+            var p = {
+                id:projectId,
+                ownerId:$("#ownerId").val()
+            };
+            var a = JSON.stringify(p);
+            $.ajax({
+                url: "saveProjectOwnerId",
+                async: true,
+                type: 'POST',
+                data: a,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                timeout: 300000,
+                beforeSend: function () {
+                    ownerBtn.start();
+                },
+                error: function (result) {
+                    swal("操作失败", "通信错误!", "error");
+                    ownerBtn.stop();
+                },
+                success: function (data) {
+                    if (data.res == undefined) {
+                        ownerBtn.stop();
+                    }else if(data.res == 0){
+                        ownerBtn.stop();
+                        swal("操作失败", data.txt, "error");
+                    }else{
+                        ownerBtn.stop();
+                        projecttable.ajax.reload();
+                        $('#ownerTableModal').modal('hide');
+                    }
+                }
+            });
+
+
+        }
 
     function query(){
         projecttable.ajax.reload( null, true ); // project paging is not reset on reload

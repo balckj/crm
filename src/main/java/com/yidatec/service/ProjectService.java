@@ -62,5 +62,9 @@ public class ProjectService {
         return project;
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
+    public void updateOwnerId(ProjectEntity projectEntity) {
+        projectMapper.updateOwnerId(projectEntity);
+    }
 
 }

@@ -12,14 +12,14 @@ import java.util.List;
 @Mapper
 public interface ProjectMapper {
 
-    @Insert("INSERT INTO T_PROJECT (id,name,type,customerId,campaignId,code,budget,exhibitionNumber,area,setupTime,tearDownTime,closingTime," +
+    @Insert("INSERT INTO T_PROJECT (id,ownerId,name,type,customerId,campaignId,code,budget,exhibitionNumber,area,setupTime,tearDownTime,closingTime," +
             "cost,degreeOfImportance,potential,designProgress,pmId,projectProgress,factoryProgress,projectScore,designScore,pmScore,developSaleId,traceSaleId,photo,remark,state," +
-            "creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{name},#{type},#{customerId},#{campaignId},#{code},#{budget},#{exhibitionNumber}," +
+            "creatorId,createTime,modifierId,modifyTime) VALUES (#{id},#{ownerId},#{name},#{type},#{customerId},#{campaignId},#{code},#{budget},#{exhibitionNumber}," +
             "#{area},#{setupTime},#{tearDownTime},#{closingTime},#{cost},#{degreeOfImportance},#{potential},#{designProgress},#{pmId},#{projectProgress},#{factoryProgress},#{projectScore},#{designScore},#{pmScore},#{developSaleId},#{traceSaleId},#{photo},#{remark},#{state}," +
             "#{creatorId},#{createTime},#{modifierId},#{modifyTime})")
     int create(ProjectEntity project);
 
-    @Update("UPDATE T_PROJECT SET `name`=#{name},type=#{type},customerId=#{customerId},campaignId=#{campaignId},code=#{code},budget=#{budget},exhibitionNumber=#{exhibitionNumber}," +
+    @Update("UPDATE T_PROJECT SET `name`=#{name},`ownerId`=#{ownerId},type=#{type},customerId=#{customerId},campaignId=#{campaignId},code=#{code},budget=#{budget},exhibitionNumber=#{exhibitionNumber}," +
             "area=#{area},setupTime=#{setupTime},closingTime=#{closingTime},tearDownTime=#{tearDownTime},cost=#{cost},degreeOfImportance=#{degreeOfImportance},potential=#{potential},designProgress=#{designProgress},pmId=#{pmId},projectProgress=#{projectProgress},factoryProgress=#{factoryProgress}," +
             "projectScore=#{projectScore},designScore=#{designScore},pmScore=#{pmScore},developSaleId=#{developSaleId},traceSaleId=#{traceSaleId},photo=#{photo},remark=#{remark},state=#{state},modifierId=#{modifierId}," +
             "modifyTime=#{modifyTime} WHERE id=#{id}")
@@ -43,7 +43,7 @@ public interface ProjectMapper {
     @SelectProvider(type=com.yidatec.mapper.ProjectQueryProvider.class,method = "countProject")
     int countCustomerList(ProjectVO projectVO);
 
-    @Select("SELECT b.name as customerName,c.name as campaignName,D.* FROM T_PROJECT D LEFT JOIN T_CUSTOMER b on D.customerId=b.id LEFT JOIN T_CAMPAIGN c on D.campaignId = c.id WHERE D.id = #{id}")
+    @Select("SELECT b.name as customerName,c.name as campaignName,D.*,D.ownerId FROM T_PROJECT D LEFT JOIN T_CUSTOMER b on D.customerId=b.id LEFT JOIN T_CAMPAIGN c on D.campaignId = c.id WHERE D.id = #{id}")
     ProjectEntity selectProject(String id);
 
     @Select("SELECT designerId FROM T_PROJECT_DESIGNER WHERE projectId = #{id}")
@@ -59,5 +59,8 @@ public interface ProjectMapper {
             " potential=#{potential}" +
             " WHERE id=#{id}")
     int updateFroPjectProgress(ProjectEntity project);
+
+    @Update("UPDATE T_PROJECT SET ownerId=#{ownerId},modifierId=#{modifierId},modifyTime=#{modifyTime} WHERE id=#{id}")
+    int updateOwnerId(ProjectEntity project);
 
 }

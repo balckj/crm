@@ -93,6 +93,7 @@ public class ProjectEntity extends BaseModel {
     private String remark;
     private Integer state;
     private String campaignType;
+    private String ownerId;
 
     public String getCampaignType() {
         return campaignType;
@@ -339,5 +340,13 @@ public class ProjectEntity extends BaseModel {
 
     public void setClosingTime(LocalDate closingTime) {
         this.closingTime = closingTime;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 }

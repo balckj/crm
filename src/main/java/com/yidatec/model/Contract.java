@@ -57,12 +57,16 @@ public class Contract extends BaseModel {
     @NotBlank(message = "必须输入付款方式", groups = { })
     @Length(max = 36, message = "付款方式最大不能超过36个字符", groups = { })
     private String contractPaymentMethod;
-    @NotNull(message = "必须输入首付时间", groups = { })
+//    @NotNull(message = "必须输入首付时间", groups = { }) // 2018.1.24 根据付款方式联动,显示不同的付款时间
     private LocalDate initialPaymentTime;
-    @NotNull(message = "必须输入中款时间", groups = { })
+//    @NotNull(message = "必须输入中款时间", groups = { })
     private LocalDate middlePaymentTime;
-    @NotNull(message = "必须输入尾款时间", groups = { })
+//    @NotNull(message = "必须输入尾款时间", groups = { })
     private LocalDate finalPaymentTime;
+//    private String initialPaymentTime;
+//    private String middlePaymentTime;
+//    private String finalPaymentTime;
+
     @NotBlank(message = "必须输入合同甲方", groups = { })
     @Length(max = 36, message = "合同甲方最大不能超过36个字符", groups = { })
     private String firstParty;
@@ -203,6 +207,31 @@ public class Contract extends BaseModel {
     public void setFinalPaymentTime(LocalDate finalPaymentTime) {
         this.finalPaymentTime = finalPaymentTime;
     }
+
+
+//    public String getInitialPaymentTime() {
+//        return initialPaymentTime;
+//    }
+//
+//    public void setInitialPaymentTime(String initialPaymentTime) {
+//        this.initialPaymentTime = initialPaymentTime;
+//    }
+//
+//    public String getMiddlePaymentTime() {
+//        return middlePaymentTime;
+//    }
+//
+//    public void setMiddlePaymentTime(String middlePaymentTime) {
+//        this.middlePaymentTime = middlePaymentTime;
+//    }
+//
+//    public String getFinalPaymentTime() {
+//        return finalPaymentTime;
+//    }
+//
+//    public void setFinalPaymentTime(String finalPaymentTime) {
+//        this.finalPaymentTime = finalPaymentTime;
+//    }
 
     public String getFirstParty() {
         return firstParty;

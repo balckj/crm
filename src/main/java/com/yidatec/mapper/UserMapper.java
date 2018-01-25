@@ -15,12 +15,21 @@ public interface UserMapper {
     @Select("SELECT * FROM T_USER;")
     List<User> findAll();
 
+    // 所有能看到客户权限人
     @Select("SELECT A.id,A.`name` FROM T_USER A LEFT JOIN T_USER_ROLE B ON A.id = B.userId LEFT JOIN T_ROLE_PERMISSION C" +
             " ON B.roleId = C.roleId" +
             " WHERE state = 1 AND (" +
             " C.permissionId = '50b4f9b6-907e-417d-b598-171d458bc564' OR " +
             " C.permissionId = '92763baa-f06d-4169-b718-beaf4d1424b1') GROUP BY A.id ORDER BY  A.`name`")
-    List<User> findAllUserOfOwner();
+    List<User> findAllUserOfCustomerOwner();
+
+    // 所有能看到项目权限人
+    @Select("SELECT A.id,A.`name` FROM T_USER A LEFT JOIN T_USER_ROLE B ON A.id = B.userId LEFT JOIN T_ROLE_PERMISSION C" +
+            " ON B.roleId = C.roleId" +
+            " WHERE state = 1 AND (" +
+            " C.permissionId = '1963b4ba-fdf4-493e-8ea4-e6275a8f2970' OR " +
+            " C.permissionId = '0af78f12-4073-43b9-b781-f0d44a512e8c') GROUP BY A.id ORDER BY  A.`name`")
+    List<User> findAllUserOfProjectOwner();
 
     @SelectProvider(type=com.yidatec.mapper.UserQueryProvider.class,method = "selectUser")
     List<UserVO> findUsers(UserVO user);

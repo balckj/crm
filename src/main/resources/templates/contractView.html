@@ -179,18 +179,32 @@
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
-                            
+
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="taxForm">
-                                <label class="col-sm-2 control-label">税<span
-                                    style="color:#ed5565;">*</span></label>
+                            <div class="form-group" id="taxCheckBoxForm">
+                                <label class="col-sm-2 control-label">开票</label>
+
                                 <div class="col-sm-4">
-                                    <input id="tax" name="tax" type="text" th:value="${contract}?${contract.tax}"
-                                                             class="form-control" maxlength="200" disabled="disabled" />
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" style="margin-top: -2px;" value="0" id="taxCheckBox" name="taxCheckBox" th:checked="${contract}?${contract.billing eq 1}:'false'"
+                                               onclick="taxCheckBoxClick(this);" disabled="disabled"/>
+                                    </label>
                                 </div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            
+
+                            <div id ='taxDIV' hidden="hidden">
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group" id="taxForm">
+                                    <label class="col-sm-2 control-label">税<span
+                                        style="color:#ed5565;">*</span></label>
+                                    <div class="col-sm-4">
+                                        <input id="tax" name="tax" type="text" th:value="${contract}?${contract.tax}"
+                                                                 class="form-control" maxlength="200" disabled="disabled" />
+                                    </div>
+                                    <label class="col-sm-4 control-label" style="text-align: left"></label>
+                                </div>
+                            </div>
+
                             <div class="hr-line-dashed"></div>
                             <div class="form-group" id="contractPaymentMethodForm">
                                 <label class="col-sm-2 control-label">付款方式
@@ -201,42 +215,51 @@
                                         <option value="5.5">5.5</option>
                                         <option value="7.3">7.3</option>
                                         <option value="6.4">6.4</option>
+                                        <option value="3.4.3">3.4.3</option>
+                                        <option value="4.4.2">4.4.2</option>
+                                        <option value="8.2">8.2</option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="initialPaymentTimeForm">
-                                <label class="col-sm-2 control-label">首付时间<span
-                                        style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4">
-                                    <input id="initialPaymentTime" name="initialPaymentTime" type="text"  disabled="disabled" th:value="${contract}?${contract.initialPaymentTime}"
-                                                             class="form-control" maxlength="200" />
+
+                            <div id="initialPaymentTimeDiv">
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group" id="initialPaymentTimeForm">
+                                    <label class="col-sm-2 control-label">首付时间<span
+                                            style="color:#ed5565;">*</span></label>
+                                    <div class="col-sm-4">
+                                        <input id="initialPaymentTime" name="initialPaymentTime" type="text"  disabled="disabled" th:value="${contract}?${contract.initialPaymentTime}"
+                                                                 class="form-control" maxlength="200" />
+                                    </div>
+                                    <label class="col-sm-4 control-label" style="text-align: left"></label>
                                 </div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="middlePaymentTimeForm">
-                                <label class="col-sm-2 control-label">中款时间<span
-                                        style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4">
-                                    <input id="middlePaymentTime" name="middlePaymentTime" type="text" disabled="disabled" th:value="${contract}?${contract.middlePaymentTime}"
-                                                             class="form-control" maxlength="200" />
+
+                            <div id="middlePaymentTimeDiv">
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group" id="middlePaymentTimeForm">
+                                    <label class="col-sm-2 control-label">中款时间<span
+                                            style="color:#ed5565;">*</span></label>
+                                    <div class="col-sm-4">
+                                        <input id="middlePaymentTime" name="middlePaymentTime" type="text" disabled="disabled" th:value="${contract}?${contract.middlePaymentTime}"
+                                                                 class="form-control" maxlength="200" />
+                                    </div>
+                                    <label class="col-sm-4 control-label" style="text-align: left"></label>
                                 </div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="finalPaymentTimeForm">
-                                <label class="col-sm-2 control-label">尾款时间<span
-                                        style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4">
-                                    <input id="finalPaymentTime" name="finalPaymentTime" type="text"  disabled="disabled" th:value="${contract}?${contract.finalPaymentTime}"
-                                                             class="form-control" maxlength="200" />
+
+                            <div id="finalPaymentTimeDiv">
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group" id="finalPaymentTimeForm">
+                                    <label class="col-sm-2 control-label">尾款时间<span
+                                            style="color:#ed5565;">*</span></label>
+                                    <div class="col-sm-4">
+                                        <input id="finalPaymentTime" name="finalPaymentTime" type="text"  disabled="disabled" th:value="${contract}?${contract.finalPaymentTime}"
+                                                                 class="form-control" maxlength="200" />
+                                    </div>
+                                    <label class="col-sm-4 control-label" style="text-align: left"></label>
                                 </div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
                             <div id="billingInfo">
@@ -351,6 +374,14 @@
         var BListStr = "<option value=\"\" selected=\"selected\">未选择</option>";
         $(function () {
 
+            if($("#taxCheckBox").is(':checked')){
+                $("#taxDIV").show();
+                $("#taxCheckBox").val("1");
+            } else {
+                $("#taxDIV").hide();
+                $("#taxCheckBox").val("0");
+            }
+
             // 如果是编辑的话加载甲乙合同并选中
             var hiddenProjectIdValue = $("#hiddenProjectIdValue").val();
             if(hiddenProjectIdValue){
@@ -375,8 +406,64 @@
                 }
             });
             billinfoCheck();
-        })
+            payMentMethod($("#contractPaymentMethod").val())
+        });
 
+        function contractPaymentMethodChoose(obj){
+            var contractPaymentMethod = $(obj).val();
+            payMentMethod(contractPaymentMethod);
+        }
+        function payMentMethod(contractPaymentMethod) {
+            debugger
+            // 2018.01.24 微信记录
+            // 付款方式有6种  分收款尾款的有 8/2   7/3  6/4  5/5  分首款、中款、尾款的付款方式有   4/4/2      3/4/3
+            if(contractPaymentMethod == '8.2'
+                || contractPaymentMethod == '7.3'
+                || contractPaymentMethod == '6.4'
+                || contractPaymentMethod == '5.5'){
+
+                $("#initialPaymentTimeDiv").show();
+                $("#finalPaymentTimeDiv").show();
+                $("#middlePaymentTimeDiv").hide();
+                $("#middlePaymentTime").val(null);
+            }else if(contractPaymentMethod == '4.4.2'
+                || contractPaymentMethod == '3.4.3'){
+
+                $("#initialPaymentTimeDiv").show();
+                $("#finalPaymentTimeDiv").show();
+                $("#middlePaymentTimeDiv").show();
+            }else {
+                $("#initialPaymentTimeDiv").hide();
+                $("#finalPaymentTimeDiv").hide();
+                $("#middlePaymentTimeDiv").hide();
+
+                $("#initialPaymentTimeDiv").val(null);
+                $("#finalPaymentTimeDiv").val(null)
+                $("#middlePaymentTimeDiv").val(null)
+            }
+
+        }
+
+        // 开票
+        function taxCheckBoxClick(object) {
+            if($(object).is(':checked')){
+                $(object).val("1")
+                var taxCheckBox = $("#taxCheckBox").is(':checked');
+                if(taxCheckBox){
+                    var amoutval = $("#amount").val();
+                    if(amoutval){
+                        var res = Math.round(amoutval * 0.06 *100)/100;
+                        $("#tax").val(res);
+                    }
+                }
+                $("#taxDIV").show();
+            }else{
+                $("#taxDIV").hide();
+                $(object).val("0")
+                $("#tax").val("");
+            }
+
+        }
 
         // 开票信息check非销售合同的时候隐藏掉
         function billinfoCheck() {

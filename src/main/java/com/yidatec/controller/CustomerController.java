@@ -44,7 +44,7 @@ public class CustomerController extends BaseController{
     public String customerList(ModelMap model){
         model.put("industryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 所属行业
         model.put("nature",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));
-        model.put("ownerList",userMapper.findAllUserOfOwner());// 所有者
+        model.put("ownerList",userMapper.findAllUserOfCustomerOwner());// 所有者
         model.put("isAll",0);
         return "customerList";
     }
@@ -53,7 +53,7 @@ public class CustomerController extends BaseController{
     public String customerListAll(ModelMap model){
         model.put("industryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 所属行业
         model.put("nature",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));
-        model.put("ownerList",userMapper.findAllUserOfOwner());// 所有者
+        model.put("ownerList",userMapper.findAllUserOfCustomerOwner());// 所有者
         model.put("isAll",1);
         return "customerList";
     }
@@ -68,7 +68,7 @@ public class CustomerController extends BaseController{
         model.put("industryList",dictionaryService.selectDictionaryListByCodeCommon(Constants.GOOD_AT_INDUSTRY_CODE));// 所属行业
         model.put("natureList",dictionaryService.selectDictionaryListByCodeCommon(Constants.NATURE_CODE));// 企业性质
         model.put("levelList",dictionaryService.selectDictionaryListByCodeCommon(Constants.PLATFORM_LEVEL));// 平台等级
-        model.put("ownerList",userMapper.findAllUserOfOwner());// 所有者
+        model.put("ownerList",userMapper.findAllUserOfCustomerOwner());// 所有者
         model.put("currentId",(id == null || id.isEmpty())?getWebUser().getId():"");// 当前登陆者ID
         return "customerEdit";
     }

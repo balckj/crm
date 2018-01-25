@@ -221,47 +221,56 @@
                                 <label class="col-sm-2 control-label">付款方式
                                     <span style="color:#ed5565;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control " name="contractPaymentMethod" id="contractPaymentMethod">
+                                    <select class="form-control " name="contractPaymentMethod" id="contractPaymentMethod" onchange="contractPaymentMethodChoose(this);">
                                         <option value="" selected="selected">未选择</option>
                                         <option value="5.5">5.5</option>
                                         <option value="7.3">7.3</option>
                                         <option value="6.4">6.4</option>
+                                        <option value="3.4.3">3.4.3</option>
+                                        <option value="4.4.2">4.4.2</option>
+                                        <option value="8.2">8.2</option>
                                     </select>
                                 </div>
                                 <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="initialPaymentTimeForm">
-                                <label class="col-sm-2 control-label">首付时间<span
-                                        style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4">
-                                    <input id="initialPaymentTime" name="initialPaymentTime" type="text"  readonly="readonly" th:value="${contract}?${contract.initialPaymentTime}"
-                                                             class="form-control" maxlength="200" />
+
+                            <div id="initialPaymentTimeDiv">
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group" id="initialPaymentTimeForm">
+                                    <label class="col-sm-2 control-label">首付时间<span
+                                            style="color:#ed5565;"></span></label>
+                                    <div class="col-sm-4">
+                                        <input id="initialPaymentTime" name="initialPaymentTime" type="text"  readonly="readonly" th:value="${contract}?${contract.initialPaymentTime}"
+                                                                 class="form-control" maxlength="200" />
+                                    </div>
+                                    <label class="col-sm-4 control-label" style="text-align: left"></label>
                                 </div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="middlePaymentTimeForm">
-                                <label class="col-sm-2 control-label">中款时间<span
-                                        style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4">
-                                    <input id="middlePaymentTime" name="middlePaymentTime" type="text" readonly="readonly" th:value="${contract}?${contract.middlePaymentTime}"
-                                                             class="form-control" maxlength="200" />
+
+                            <div id="middlePaymentTimeDiv">
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group" id="middlePaymentTimeForm">
+                                    <label class="col-sm-2 control-label">中款时间<span
+                                            style="color:#ed5565;"></span></label>
+                                    <div class="col-sm-4">
+                                        <input id="middlePaymentTime" name="middlePaymentTime" type="text" readonly="readonly" th:value="${contract}?${contract.middlePaymentTime}"
+                                                                 class="form-control" maxlength="200" />
+                                    </div>
+                                    <label class="col-sm-4 control-label" style="text-align: left"></label>
                                 </div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
-                            
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="finalPaymentTimeForm">
-                                <label class="col-sm-2 control-label">尾款时间<span
-                                        style="color:#ed5565;">*</span></label>
-                                <div class="col-sm-4">
-                                    <input id="finalPaymentTime" name="finalPaymentTime" type="text"  readonly="readonly" th:value="${contract}?${contract.finalPaymentTime}"
-                                                             class="form-control" maxlength="200" />
+
+                            <div id="finalPaymentTimeDiv">
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group" id="finalPaymentTimeForm">
+                                    <label class="col-sm-2 control-label">尾款时间<span
+                                            style="color:#ed5565;"></span></label>
+                                    <div class="col-sm-4">
+                                        <input id="finalPaymentTime" name="finalPaymentTime" type="text"  readonly="readonly" th:value="${contract}?${contract.finalPaymentTime}"
+                                                                 class="form-control" maxlength="200" />
+                                    </div>
+                                    <label class="col-sm-4 control-label" style="text-align: left"></label>
                                 </div>
-                                <label class="col-sm-4 control-label" style="text-align: left"></label>
                             </div>
 
                             <div id="billingInfo">
@@ -388,8 +397,10 @@
 
             if($("#taxCheckBox").is(':checked')){
                 $("#taxDIV").show();
+                $("#taxCheckBox").val("1");
             } else {
                 $("#taxDIV").hide();
+                $("#taxCheckBox").val("0");
             }
 
 
@@ -417,9 +428,9 @@
             validateSelect('category', 'category', 'validatCategory');
 //            validate('tax', 'tax', 'validatTax');
             validateSelect('contractPaymentMethod', 'contractPaymentMethod', 'validatContractPaymentMethod');
-            validateSelect('initialPaymentTime', 'initialPaymentTime', 'validatInitialPaymentTime');
-            validateSelect('middlePaymentTime', 'middlePaymentTime', 'validatMiddlePaymentTime');
-            validateSelect('finalPaymentTime', 'finalPaymentTime', 'validatFinalPaymentTime');
+//            validateSelect('initialPaymentTime', 'initialPaymentTime', 'validatInitialPaymentTime');
+//            validateSelect('middlePaymentTime', 'middlePaymentTime', 'validatMiddlePaymentTime');
+//            validateSelect('finalPaymentTime', 'finalPaymentTime', 'validatFinalPaymentTime');
             validateSelect('firstParty', 'firstParty', 'validatFirstParty');
             validateSelect('secondParty', 'secondParty', 'validatSecondParty');
 
@@ -497,12 +508,48 @@
             }
 
             billinfoCheck();
-        })
 
+            payMentMethod($("#contractPaymentMethod").val())
+
+        });
+        function contractPaymentMethodChoose(obj){
+            var contractPaymentMethod = $(obj).val();
+            payMentMethod(contractPaymentMethod);
+        }
+        function payMentMethod(contractPaymentMethod) {
+
+            // 2018.01.24 微信记录
+            // 付款方式有6种  分收款尾款的有 8/2   7/3  6/4  5/5  分首款、中款、尾款的付款方式有   4/4/2      3/4/3
+            if(contractPaymentMethod == '8.2'
+                || contractPaymentMethod == '7.3'
+                || contractPaymentMethod == '6.4'
+                || contractPaymentMethod == '5.5'){
+
+                $("#initialPaymentTimeDiv").show();
+                $("#finalPaymentTimeDiv").show();
+                $("#middlePaymentTimeDiv").hide();
+                $("#middlePaymentTime").val(null);
+            }else if(contractPaymentMethod == '4.4.2'
+                || contractPaymentMethod == '3.4.3'){
+
+                $("#initialPaymentTimeDiv").show();
+                $("#finalPaymentTimeDiv").show();
+                $("#middlePaymentTimeDiv").show();
+            }else {
+                $("#initialPaymentTimeDiv").hide();
+                $("#finalPaymentTimeDiv").hide();
+                $("#middlePaymentTimeDiv").hide();
+
+                $("#initialPaymentTimeDiv").val(null);
+                $("#finalPaymentTimeDiv").val(null)
+                $("#middlePaymentTimeDiv").val(null)
+            }
+
+        }
         // 开票
         function taxCheckBoxClick(object) {
             if($(object).is(':checked')){
-                $(object).val("1")
+                $(object).val("1");
                 var taxCheckBox = $("#taxCheckBox").is(':checked');
                 if(taxCheckBox){
                     var amoutval = $("#amount").val();
@@ -786,9 +833,9 @@
                 tax: $("#taxCheckBox").is(':checked')?$("#tax").val().trim():null,
                 billing:$('#taxCheckBox').val(),
                 contractPaymentMethod: $("#contractPaymentMethod").val().trim(),
-                initialPaymentTime: $("#initialPaymentTime").val().trim(),
-                middlePaymentTime: $("#middlePaymentTime").val().trim(),
-                finalPaymentTime: $("#finalPaymentTime").val().trim(),
+                initialPaymentTime: $("#initialPaymentTime").val().trim()?$("#initialPaymentTime").val().trim():null,
+                middlePaymentTime: $("#middlePaymentTime").val().trim()?$("#middlePaymentTime").val().trim():null,
+                finalPaymentTime: $("#finalPaymentTime").val().trim()?$("#finalPaymentTime").val().trim():null,
                 company: $("#company").val().trim(),
                 taxNumber: $("#taxNumber").val().trim(),
                 addressTelephone: $("#addressTelephone").val().trim(),

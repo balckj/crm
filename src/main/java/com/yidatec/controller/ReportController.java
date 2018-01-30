@@ -1,6 +1,7 @@
 package com.yidatec.controller;
 
 import com.yidatec.service.CustomerService;
+import com.yidatec.service.CustomerNewFollowService;
 import com.yidatec.service.OderTrackingReportService;
 import com.yidatec.service.ReportService;
 import com.yidatec.util.DownloadHelper;
@@ -29,6 +30,8 @@ public class ReportController extends BaseController{
 
     @Autowired
     CustomerService customerService;
+    @Autowired
+    CustomerNewFollowService customerYearService;
 
     @RequestMapping("/downLoadIndex")
     public  String downLoadIndex(){
@@ -88,6 +91,20 @@ public class ReportController extends BaseController{
 
         customerService.customerDownLoad(wb,beginYear,entYear);
 
+        new DownloadHelper().downLoad(wb, response, fileName);
+    }
+
+    @RequestMapping(value = "/customerNewFollowDownLoad")
+    public void customerNewFollowDownLoad (
+            HttpServletRequest request, HttpServletResponse response,
+            @DateTimeFormat(pattern="yyyy") Date year
+    ) throws Exception{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        String beginYear = sdf.format(year);
+        String date = sdf.format(new Date());
+        String fileName = "客户"+date+".xlsx";
+        XSSFWorkbook wb = new XSSFWorkbook();
+        customerYearService.customerNewFollowDownLoad(wb,beginYear);
         new DownloadHelper().downLoad(wb, response, fileName);
     }
 }

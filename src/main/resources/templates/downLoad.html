@@ -135,6 +135,36 @@
                     </form>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <form method="POST" class="form-horizontal form-inline" id='customerReForm'>
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">新建跟进<span style="color:#ed5565;"></span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="startTime" class="control-label">年份</label>
+                                    <input type="text"  id="year" name="year" readonly="readonly" class="form-control input-sm"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-sm" type="button" style="width: 100%;margin-top: 23px;" onclick="query4();">下&nbsp;&nbsp;载</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -150,21 +180,27 @@
 
 
         $(function () {
-            datepickerInit("startTime");
-            datepickerInit("endTime");
-            datepickerInit("startTime2");
-            datepickerInit("endTime2");
-            datepickerInit("startTime3");
-            datepickerInit("endTime3");
+            datepickerInit("startTime","yyyy-mm-dd");
+            datepickerInit("endTime","yyyy-mm-dd");
+            datepickerInit("startTime2","yyyy-mm-dd");
+            datepickerInit("endTime2","yyyy-mm-dd");
+            datepickerInit("startTime3","yyyy-mm-dd");
+            datepickerInit("endTime3","yyyy-mm-dd");
+
+            $('#year').datepicker({
+                format: 'yyyy',
+                startView: 2,  maxViewMode: 2,minViewMode:2, autoclose: true,
+                language: 'cn'
+            });
         });
-        function datepickerInit(id) {
+        function datepickerInit(id,format) {
             $('#' + id).datepicker({
-                startView: 1,
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
+                weekStart: 1,
                 autoclose: true,
-                format: "yyyy-mm-dd",
+                startView: 3,
+                minView: 3,
+                forceParse: false,
+                format:format ,
                 language: 'cn',
             });
         }
@@ -240,6 +276,17 @@
             $('#customerForm').attr('action', "/customerDownLoad");
             $("#customerForm").submit();
         }
+
+        function query4(){
+            var year = $("#year").val();
+            if(!year){
+                sweetAlert("必须选择年份");
+                return ;
+            }
+            $('#customerReForm').attr('action', "/customerNewFollowDownLoad");
+            $("#customerReForm").submit();
+        }
+
         function checkEndTime(startTime,endTime){
             var startTime=startTime;
             var start=new Date(startTime.replace("-", "/").replace("-", "/"));

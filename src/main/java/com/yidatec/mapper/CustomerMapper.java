@@ -3,6 +3,7 @@ package com.yidatec.mapper;
 import com.yidatec.model.Customer;
 import com.yidatec.model.FollowHistory;
 import com.yidatec.vo.CustomerVO;
+import com.yidatec.vo.CustomerNewFollowVO;
 import com.yidatec.vo.ProjectVO;
 import org.apache.ibatis.annotations.*;
 
@@ -95,5 +96,21 @@ public interface CustomerMapper {
     @Insert("INSERT INTO T_CUSTOMER_HISTORY (customerId,historyId) VALUES (#{customerid},#{historyId})")
     int createCustomerHistory(@Param(value="customerid") String customerid,@Param(value="historyId") String historyId);
 
+    @Select("SELECT B.id,B.`name` ,count(0) count,DATE_FORMAT(A.createTime,'%Y-%m') `ym`\n" +
+            "\tFROM T_CUSTOMER A \n" +
+            "\tLEFT JOIN T_USER B \n" +
+            "\tON A.creatorId = B.id\n" +
+            "\tWHERE\n" +
+            "\tYEAR(A.createTime) =  #{year}\n" +
+            "\tgroup by A.creatorId,DATE_FORMAT(A.createTime,'%Y-%m')")
+    List<CustomerNewFollowVO> customerNewDownLoad(@Param(value = "year") String year);
 
+    @Select(" SELECT C.id,C.`name` ,count(0) followCount, DATE_FORMAT(A.createTime,'%Y-%m') `ym` FROM T_FOLLOW_HISTORY A\n" +
+            "\tLEFT JOIN T_CUSTOMER_HISTORY H ON A.id = H.historyId\n" +
+            "\tLEFT JOIN T_CUSTOMER B ON B.id = H.customerId\n" +
+            "\tLEFT JOIN T_USER C ON A.creatorId = C.id\n" +
+            "\tWHERE\n" +
+            "\tYEAR(A.createTime) = #{year}\n" +
+            "\tGROUP BY A.creatorId ,DATE_FORMAT(A.createTime,'%y-%m')")
+    List<CustomerNewFollowVO> customeFollowDownLoad(@Param(value = "year") String year);
 }

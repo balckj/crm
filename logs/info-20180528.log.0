@@ -1,0 +1,482 @@
+2018-05-28 14:06:56.458 [restartedMain] INFO  com.yidatec.CrmApplication -Starting CrmApplication on DESKTOP-UUDR3F4 with PID 12264 (E:\WorkSpace\crm\target\classes started by neotd in E:\WorkSpace\crm)
+2018-05-28 14:06:56.464 [restartedMain] INFO  com.yidatec.CrmApplication -No active profile set, falling back to default profiles: default
+2018-05-28 14:06:56.810 [restartedMain] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext -Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@16f6883: startup date [Mon May 28 14:06:56 CST 2018]; root of context hierarchy
+2018-05-28 14:06:58.722 [restartedMain] INFO  o.s.b.f.s.DefaultListableBeanFactory -Overriding bean definition for bean 'dataSource' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari; factoryMethodName=dataSource; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Tomcat; factoryMethodName=dataSource; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Tomcat.class]]
+2018-05-28 14:07:00.635 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer -Tomcat initialized with port(s): 8080 (http)
+2018-05-28 14:07:00.654 [restartedMain] INFO  o.a.catalina.core.StandardService -Starting service [Tomcat]
+2018-05-28 14:07:00.655 [restartedMain] INFO  o.a.catalina.core.StandardEngine -Starting Servlet Engine: Apache Tomcat/8.5.16
+2018-05-28 14:07:00.829 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] -Initializing Spring embedded WebApplicationContext
+2018-05-28 14:07:00.830 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader -Root WebApplicationContext: initialization completed in 4021 ms
+2018-05-28 14:07:02.106 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean -Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-05-28 14:07:02.108 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean -Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-05-28 14:07:02.108 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean -Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-05-28 14:07:02.109 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean -Mapping filter: 'requestContextFilter' to: [/*]
+2018-05-28 14:07:02.111 [localhost-startStop-1] INFO  o.s.b.w.s.DelegatingFilterProxyRegistrationBean -Mapping filter: 'springSecurityFilterChain' to: [/*]
+2018-05-28 14:07:02.112 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean -Mapping filter: 'usernamePasswordAuthenticationFilter' to: [/*]
+2018-05-28 14:07:02.112 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean -Mapping servlet: 'dispatcherServlet' to [/]
+2018-05-28 14:07:03.538 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory -Using default implementation for ThreadExecutor
+2018-05-28 14:07:03.589 [restartedMain] INFO  o.quartz.core.SchedulerSignalerImpl -Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2018-05-28 14:07:03.590 [restartedMain] INFO  org.quartz.core.QuartzScheduler -Quartz Scheduler v.2.3.0 created.
+2018-05-28 14:07:03.591 [restartedMain] INFO  org.quartz.simpl.RAMJobStore -RAMJobStore initialized.
+2018-05-28 14:07:03.594 [restartedMain] INFO  org.quartz.core.QuartzScheduler -Scheduler meta-data: Quartz Scheduler (v2.3.0) 'schedulerFactory' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2018-05-28 14:07:03.594 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory -Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+2018-05-28 14:07:03.594 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory -Quartz scheduler version: 2.3.0
+2018-05-28 14:07:03.597 [restartedMain] INFO  org.quartz.core.QuartzScheduler -JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@8b943b
+2018-05-28 14:07:03.964 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain -Creating filter chain: Ant [pattern='/99/**'], []
+2018-05-28 14:07:03.965 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain -Creating filter chain: Ant [pattern='/**/*.js'], []
+2018-05-28 14:07:03.965 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain -Creating filter chain: Ant [pattern='/**/favicon.ico'], []
+2018-05-28 14:07:03.965 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain -Creating filter chain: Ant [pattern='/img/**'], []
+2018-05-28 14:07:03.965 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain -Creating filter chain: Ant [pattern='/upload/**'], []
+2018-05-28 14:07:04.271 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain -Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@12f2758, org.springframework.security.web.context.SecurityContextPersistenceFilter@f16fc7, org.springframework.security.web.header.HeaderWriterFilter@f9dbc0, org.springframework.security.web.authentication.logout.LogoutFilter@151e6ef, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@a4459c, org.springframework.security.web.session.ConcurrentSessionFilter@1afcc38, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1d8c7d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@c38036, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@68daeb, org.springframework.security.web.session.SessionManagementFilter@1b2cf5, org.springframework.security.web.access.ExceptionTranslationFilter@f08e1d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1cf18fe]
+2018-05-28 14:07:05.179 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter -Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@16f6883: startup date [Mon May 28 14:06:56 CST 2018]; root of context hierarchy
+2018-05-28 14:07:05.412 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/activityList]}" onto public java.lang.String com.yidatec.controller.ActivityController.activities(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.415 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/activityEdit]}" onto public java.lang.String com.yidatec.controller.ActivityController.activityEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.416 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveActivity]}" onto public java.lang.Object com.yidatec.controller.ActivityController.saveActivity(com.yidatec.model.Activity,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.417 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findActivity]}" onto public java.lang.Object com.yidatec.controller.ActivityController.findActivity(com.yidatec.vo.ActivityVO) throws java.lang.Exception
+2018-05-28 14:07:05.420 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/audienceList]}" onto public java.lang.String com.yidatec.controller.AudienceController.audienceList()
+2018-05-28 14:07:05.421 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/audienceEdit]}" onto public java.lang.String com.yidatec.controller.AudienceController.audienceEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.422 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveAudience]}" onto public java.lang.Object com.yidatec.controller.AudienceController.saveAudience(com.yidatec.model.Audience,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.423 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findAudience]}" onto public java.lang.Object com.yidatec.controller.AudienceController.findAudience(com.yidatec.vo.AudienceVO) throws java.lang.Exception
+2018-05-28 14:07:05.424 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/audienceTempleteDownload]}" onto public void com.yidatec.controller.AudienceController.audienceTempleteDownload(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2018-05-28 14:07:05.425 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/audienceileupload],methods=[POST]}" onto public java.util.Map com.yidatec.controller.AudienceController.audienceileupload(org.springframework.web.multipart.MultipartFile,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2018-05-28 14:07:05.426 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/errorFileDownload]}" onto public void com.yidatec.controller.AudienceController.errorFileDownload(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.lang.Exception
+2018-05-28 14:07:05.431 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/availableSuppliersEdit]}" onto public java.lang.String com.yidatec.controller.AvailableSuppliersListController.availableSuppliersEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.432 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findAvailableSuppliers]}" onto public java.lang.Object com.yidatec.controller.AvailableSuppliersListController.findAvailableSuppliers(com.yidatec.vo.AvailableSupplierVO) throws java.lang.Exception
+2018-05-28 14:07:05.433 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveAvailableSuppliers]}" onto public java.lang.Object com.yidatec.controller.AvailableSuppliersListController.saveAvailableSuppliers(com.yidatec.model.User,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.433 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/availableSuppliersList]}" onto public java.lang.String com.yidatec.controller.AvailableSuppliersListController.availableSuppliersList(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.434 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/availableSuppliersIndex]}" onto public java.lang.String com.yidatec.controller.AvailableSuppliersListController.availableSuppliersIndex()
+2018-05-28 14:07:05.437 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/getContractCode]}" onto public java.lang.Object com.yidatec.controller.ContractController.getContractCode(com.yidatec.vo.ContractCodeVO) throws java.lang.Exception
+2018-05-28 14:07:05.438 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/loadABTable]}" onto public java.lang.Object com.yidatec.controller.ContractController.loadABTable(com.yidatec.vo.ABVO) throws java.lang.Exception
+2018-05-28 14:07:05.439 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/ledgerEdit || /ledgerEditAll]}" onto public java.lang.String com.yidatec.controller.ContractController.ledgerEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.440 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/getABList],methods=[POST]}" onto public java.lang.Object com.yidatec.controller.ContractController.getABList(org.springframework.ui.ModelMap,java.lang.String) throws java.lang.Exception
+2018-05-28 14:07:05.441 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/checkLedgerInfo2]}" onto public java.lang.Object com.yidatec.controller.ContractController.checkLedgerInfo2(com.yidatec.vo.LedgerVO2,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.442 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/contractListAll]}" onto public java.lang.String com.yidatec.controller.ContractController.contractListAll(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.442 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/contractEdit || /contractEditAll || /contractCreate || /contractCreateAll]}" onto public java.lang.String com.yidatec.controller.ContractController.contractEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.443 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findContract]}" onto public java.lang.Object com.yidatec.controller.ContractController.findContract(com.yidatec.vo.ContractVO) throws java.lang.Exception
+2018-05-28 14:07:05.444 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveContract]}" onto public java.lang.Object com.yidatec.controller.ContractController.saveContract(com.yidatec.model.Contract,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.445 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveLedger]}" onto public java.lang.Object com.yidatec.controller.ContractController.checkLedgerInfo(com.yidatec.vo.LedgerVO,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.446 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/contractView || /contractViewAll]}" onto public java.lang.String com.yidatec.controller.ContractController.contractView(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.446 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/contractList]}" onto public java.lang.String com.yidatec.controller.ContractController.contractList(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.447 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/ledgerView || /ledgerViewAll]}" onto public java.lang.String com.yidatec.controller.ContractController.ledgerView(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.448 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/contractDownLoad]}" onto public void com.yidatec.controller.ContractController.orderTrackingDownLoad(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.lang.Exception
+2018-05-28 14:07:05.450 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/getContact]}" onto public java.lang.Object com.yidatec.controller.CustomerController.getContact(java.lang.String)
+2018-05-28 14:07:05.451 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/customerList]}" onto public java.lang.String com.yidatec.controller.CustomerController.customerList(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.452 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findCustomer]}" onto public java.lang.Object com.yidatec.controller.CustomerController.findCustomer(com.yidatec.vo.CustomerVO) throws java.lang.Exception
+2018-05-28 14:07:05.453 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/historyEdit || /historyEditAll]}" onto public java.lang.String com.yidatec.controller.CustomerController.historyEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.453 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveOwnerId]}" onto public java.lang.Object com.yidatec.controller.CustomerController.saveOwnerId(com.yidatec.model.Customer) throws java.lang.Exception
+2018-05-28 14:07:05.454 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/customerEdit || /customerCreate || /customerEditAll || /customerCreateAll]}" onto public java.lang.String com.yidatec.controller.CustomerController.customerEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.455 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveCustomer]}" onto public java.lang.Object com.yidatec.controller.CustomerController.saveCustomer(com.yidatec.model.Customer,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.456 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/customerListAll]}" onto public java.lang.String com.yidatec.controller.CustomerController.customerListAll(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.456 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveHistory]}" onto public java.lang.Object com.yidatec.controller.CustomerController.checkLedgerInfo(com.yidatec.model.FollowHistoryVO,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.458 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/designerList]}" onto public java.lang.String com.yidatec.controller.DesignerController.designerList(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.459 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/designerEdit]}" onto public java.lang.String com.yidatec.controller.DesignerController.designerEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.460 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findDesigner]}" onto public java.lang.Object com.yidatec.controller.DesignerController.findDesigner(com.yidatec.vo.UserVO) throws java.lang.Exception
+2018-05-28 14:07:05.461 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/designerCaseList]}" onto public java.lang.Object com.yidatec.controller.DesignerController.designerCaseList(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.462 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveDesigner]}" onto public java.lang.Object com.yidatec.controller.DesignerController.saveDesigner(com.yidatec.model.User,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.463 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findDictionary]}" onto public java.lang.Object com.yidatec.controller.DictionaryController.findDictionary(com.yidatec.vo.DictionaryVO) throws java.lang.Exception
+2018-05-28 14:07:05.464 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveDictionary]}" onto public java.lang.Object com.yidatec.controller.DictionaryController.saveDictionary(com.yidatec.model.Dictionary,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.465 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/dictionaryEdit]}" onto public java.lang.String com.yidatec.controller.DictionaryController.dictionaryEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.465 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/dictionaryList]}" onto public java.lang.String com.yidatec.controller.DictionaryController.dictionaryList(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.466 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/deleteDictionary]}" onto public java.lang.Object com.yidatec.controller.DictionaryController.deleteDictionary(java.lang.String) throws java.lang.Exception
+2018-05-28 14:07:05.467 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/exhibitionEdit]}" onto public java.lang.String com.yidatec.controller.ExhibitionController.exhibitionEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.468 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/exhibitionList]}" onto public java.lang.String com.yidatec.controller.ExhibitionController.exhibitionList()
+2018-05-28 14:07:05.469 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveExhibition]}" onto public java.lang.Object com.yidatec.controller.ExhibitionController.saveExhibition(com.yidatec.model.Exhibition,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.470 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findExhibition]}" onto public java.lang.Object com.yidatec.controller.ExhibitionController.findExhibition(com.yidatec.vo.ExhibitionVO) throws java.lang.Exception
+2018-05-28 14:07:05.472 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/factoryEdit]}" onto public java.lang.String com.yidatec.controller.FactoryController.factoryEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.472 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/factoryList]}" onto public java.lang.String com.yidatec.controller.FactoryController.factoryList(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.473 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveFactory]}" onto public java.lang.Object com.yidatec.controller.FactoryController.saveFactory(com.yidatec.model.FactoryEntity,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.473 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findFactory]}" onto public java.lang.Object com.yidatec.controller.FactoryController.findFactory(com.yidatec.vo.FactoryVO) throws java.lang.Exception
+2018-05-28 14:07:05.474 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/fileupload],methods=[POST]}" onto public java.util.Map com.yidatec.controller.FileController.handleFileUpload(org.springframework.web.multipart.MultipartFile) throws java.io.IOException
+2018-05-28 14:07:05.475 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/filedelete],methods=[POST]}" onto public java.util.Map com.yidatec.controller.FileController.filedelete(java.lang.String,javax.servlet.http.HttpServletResponse,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-05-28 14:07:05.477 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveParam2]}" onto public java.lang.Object com.yidatec.controller.ParamController.saveParam2(com.yidatec.vo.ParamVO,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.477 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/paramSelectInit]}" onto public java.lang.Object com.yidatec.controller.ParamController.paramSelectInit(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.478 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveParam]}" onto public java.lang.Object com.yidatec.controller.ParamController.saveParam(com.yidatec.model.Param)
+2018-05-28 14:07:05.478 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/paramList]}" onto public java.lang.String com.yidatec.controller.ParamController.paramList(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.480 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/productInfoEdit]}" onto public java.lang.String com.yidatec.controller.ProductInfoController.productInfoEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.481 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/productInfoList]}" onto public java.lang.String com.yidatec.controller.ProductInfoController.productInfoList(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.481 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveProductInfo]}" onto public java.lang.Object com.yidatec.controller.ProductInfoController.saveProductInfo(com.yidatec.model.Product,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.482 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findProductInfo]}" onto public java.lang.Object com.yidatec.controller.ProductInfoController.findProductInfo(com.yidatec.vo.ProductVO) throws java.lang.Exception
+2018-05-28 14:07:05.484 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/projectEdit || /projectCreate]}" onto public java.lang.String com.yidatec.controller.ProjectController.projectEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.485 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findProject]}" onto public java.lang.Object com.yidatec.controller.ProjectController.findProject(com.yidatec.vo.ProjectVO) throws java.lang.Exception
+2018-05-28 14:07:05.486 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/projectListAll]}" onto public java.lang.String com.yidatec.controller.ProjectController.projectListAll(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.487 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/projectList]}" onto public java.lang.String com.yidatec.controller.ProjectController.projectList(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.487 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveProject]}" onto public java.lang.Object com.yidatec.controller.ProjectController.saveProject(com.yidatec.model.ProjectEntity,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.488 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/projectEditView || /projectEditViewAll]}" onto public java.lang.String com.yidatec.controller.ProjectController.projectEditView(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.488 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/projectEditAll || /projectCreateAll]}" onto public java.lang.String com.yidatec.controller.ProjectController.projectEditAll(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.489 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveProjectOwnerId]}" onto public java.lang.Object com.yidatec.controller.ProjectController.saveProjectOwnerId(com.yidatec.model.ProjectEntity) throws java.lang.Exception
+2018-05-28 14:07:05.491 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/projectManagerList]}" onto public java.lang.String com.yidatec.controller.ProjectManagerController.projectManagerList(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.491 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/projectManagerEdit]}" onto public java.lang.String com.yidatec.controller.ProjectManagerController.projectManagerEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.492 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findProjectManager]}" onto public java.lang.Object com.yidatec.controller.ProjectManagerController.findProjectManager(com.yidatec.vo.UserVO) throws java.lang.Exception
+2018-05-28 14:07:05.492 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveProjectManager]}" onto public java.lang.Object com.yidatec.controller.ProjectManagerController.saveProjectManager(com.yidatec.model.User,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.495 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/getProduction]}" onto public java.lang.Object com.yidatec.controller.QuotationController.getProduction(java.lang.String) throws java.lang.Exception
+2018-05-28 14:07:05.496 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/quotationList]}" onto public java.lang.String com.yidatec.controller.QuotationController.quotationList()
+2018-05-28 14:07:05.497 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findProduct]}" onto public java.lang.Object com.yidatec.controller.QuotationController.findProduct(com.yidatec.vo.ProductVO)
+2018-05-28 14:07:05.498 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/quotationEdit]}" onto public java.lang.String com.yidatec.controller.QuotationController.quotationEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.499 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findQuotation]}" onto public java.lang.Object com.yidatec.controller.QuotationController.findQuotation(com.yidatec.vo.QuotationVO) throws java.lang.Exception
+2018-05-28 14:07:05.500 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveQuotation]}" onto public java.lang.Object com.yidatec.controller.QuotationController.saveQuotation(com.yidatec.vo.QuotationVO,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.501 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/quotationDownLoad]}" onto public void com.yidatec.controller.QuotationController.quotationDownLoad(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.lang.Exception
+2018-05-28 14:07:05.501 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/quotationDownLoadIndex]}" onto public java.lang.String com.yidatec.controller.QuotationController.quotationDownLoadIndex()
+2018-05-28 14:07:05.503 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/customerNewFollowDownLoad]}" onto public void com.yidatec.controller.ReportController.customerNewFollowDownLoad(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.util.Date) throws java.lang.Exception
+2018-05-28 14:07:05.503 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/performanceDownLoad]}" onto public void com.yidatec.controller.ReportController.performanceReportDownLoad(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.util.Date,java.util.Date) throws java.lang.Exception
+2018-05-28 14:07:05.504 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/downLoadIndex]}" onto public java.lang.String com.yidatec.controller.ReportController.downLoadIndex()
+2018-05-28 14:07:05.504 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/customerDownLoad]}" onto public void com.yidatec.controller.ReportController.customerDownLoad(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.util.Date,java.util.Date) throws java.lang.Exception
+2018-05-28 14:07:05.505 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/orderTrackingDownLoad]}" onto public void com.yidatec.controller.ReportController.orderTrackingDownLoad(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.util.Date,java.util.Date) throws java.lang.Exception
+2018-05-28 14:07:05.506 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saleList]}" onto public java.lang.String com.yidatec.controller.SalesController.saleList(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.507 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveSale]}" onto public java.lang.Object com.yidatec.controller.SalesController.saveSale(com.yidatec.model.User,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.507 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findSale]}" onto public java.lang.Object com.yidatec.controller.SalesController.findsale(com.yidatec.vo.UserVO) throws java.lang.Exception
+2018-05-28 14:07:05.508 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saleEdit]}" onto public java.lang.String com.yidatec.controller.SalesController.saleEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.512 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/index]}" onto public java.lang.String com.yidatec.controller.SecurityController.index(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.513 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/userList]}" onto public java.lang.String com.yidatec.controller.SecurityController.userList(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.514 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/retriveOpenId]}" onto public java.lang.String com.yidatec.controller.SecurityController.retriveOpenId(javax.servlet.http.HttpServletRequest,org.springframework.ui.ModelMap,java.lang.String,java.lang.String) throws java.lang.Exception
+2018-05-28 14:07:05.514 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findPermissionTreeByRoleId]}" onto public java.lang.Object com.yidatec.controller.SecurityController.loadTreeById(java.lang.String)
+2018-05-28 14:07:05.515 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/registry/{module}]}" onto public java.lang.Object com.yidatec.controller.SecurityController.registryUser(java.lang.String,com.yidatec.model.User,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.517 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/invalidateSession]}" onto public java.lang.String com.yidatec.controller.SecurityController.invalidateSession()
+2018-05-28 14:07:05.518 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/roleList]}" onto public java.lang.String com.yidatec.controller.SecurityController.roleList(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.519 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveRole]}" onto public java.lang.Object com.yidatec.controller.SecurityController.saveRole(com.yidatec.vo.RoleVO,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.519 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/roleEdit]}" onto public java.lang.String com.yidatec.controller.SecurityController.roleEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.520 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/userEdit]}" onto public java.lang.String com.yidatec.controller.SecurityController.userEdit(org.springframework.ui.ModelMap,java.lang.String)
+2018-05-28 14:07:05.521 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findRole]}" onto public java.lang.Object com.yidatec.controller.SecurityController.findRole() throws java.lang.Exception
+2018-05-28 14:07:05.521 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/]}" onto public java.lang.String com.yidatec.controller.SecurityController.login()
+2018-05-28 14:07:05.522 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/login]}" onto public java.lang.String com.yidatec.controller.SecurityController.login(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.522 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findUser]}" onto public java.lang.Object com.yidatec.controller.SecurityController.findUser(com.yidatec.vo.UserVO) throws java.lang.Exception
+2018-05-28 14:07:05.523 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/skin-config]}" onto public java.lang.String com.yidatec.controller.SecurityController.skin(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.523 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveUser]}" onto public java.lang.Object com.yidatec.controller.SecurityController.saveUser(com.yidatec.model.User,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.540 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateUserName]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateName(java.lang.String)
+2018-05-28 14:07:05.541 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateValue]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateValue(java.lang.String)
+2018-05-28 14:07:05.542 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateDesc]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateDesc(java.lang.String)
+2018-05-28 14:07:05.544 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateDegreeOfImportance]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateDegreeOfImportance(java.lang.String)
+2018-05-28 14:07:05.544 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatInitialPaymentTime]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatInitialPaymentTime(java.lang.String)
+2018-05-28 14:07:05.545 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatContractPaymentMethod]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatContractPaymentMethod(java.lang.String)
+2018-05-28 14:07:05.546 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateVendorAppointment]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateVendorAppointment(java.lang.String)
+2018-05-28 14:07:05.547 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateFloat]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateFloat(java.lang.String)
+2018-05-28 14:07:05.548 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateEmail]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateEmail(java.lang.String)
+2018-05-28 14:07:05.549 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateRoleName]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateRoleName(java.lang.String,boolean)
+2018-05-28 14:07:05.550 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatePassword]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatePassword(java.lang.String)
+2018-05-28 14:07:05.551 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateInteger]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateInteger(java.lang.String)
+2018-05-28 14:07:05.552 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateDirector]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateDirector(java.lang.String)
+2018-05-28 14:07:05.553 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateLevel]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateLevel(java.lang.String)
+2018-05-28 14:07:05.554 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateSort]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateSort(java.lang.String)
+2018-05-28 14:07:05.556 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateChannel]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateChannel(java.lang.String)
+2018-05-28 14:07:05.560 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatePrevious]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatePrevious(java.lang.String)
+2018-05-28 14:07:05.561 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateUnit]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateUnit(java.lang.String)
+2018-05-28 14:07:05.562 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateCountry]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateCountry(java.lang.String)
+2018-05-28 14:07:05.563 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateIndustry]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateIndustry(java.lang.String)
+2018-05-28 14:07:05.564 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateCode]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateCode(java.lang.String)
+2018-05-28 14:07:05.564 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateNature]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateNature(java.lang.String)
+2018-05-28 14:07:05.566 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateProvince]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateProvince(java.lang.String)
+2018-05-28 14:07:05.567 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateCity]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateCity(java.lang.String)
+2018-05-28 14:07:05.568 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateRegion]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateRegion(java.lang.String)
+2018-05-28 14:07:05.569 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateReferrer]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateReferrer(java.lang.String)
+2018-05-28 14:07:05.570 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateAddress]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateAddress(java.lang.String)
+2018-05-28 14:07:05.571 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatePDName]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatePDName(java.lang.String)
+2018-05-28 14:07:05.572 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateCategory]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateCategory(java.lang.String)
+2018-05-28 14:07:05.573 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateLow]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateLow(java.lang.String)
+2018-05-28 14:07:05.574 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateMiddle]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateMiddle(java.lang.String)
+2018-05-28 14:07:05.575 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateHobby]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateHobby(java.lang.String)
+2018-05-28 14:07:05.575 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatCategory]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatCategory(java.lang.String)
+2018-05-28 14:07:05.576 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateWay]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateWay(java.lang.String)
+2018-05-28 14:07:05.577 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatMoneyType]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatMoneyType(java.lang.String)
+2018-05-28 14:07:05.577 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateSignDay]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateSignDay(java.lang.String)
+2018-05-28 14:07:05.578 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateUsername]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateUsername(java.lang.String)
+2018-05-28 14:07:05.579 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatAemount]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatAemount(java.lang.String)
+2018-05-28 14:07:05.580 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatTax]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatTax(java.lang.String)
+2018-05-28 14:07:05.580 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateArea]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateArea(java.lang.String)
+2018-05-28 14:07:05.581 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateHigh]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateHigh(java.lang.String)
+2018-05-28 14:07:05.582 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatPerator]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatPerator(java.lang.String)
+2018-05-28 14:07:05.583 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateSponsor]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateSponsor(java.lang.String)
+2018-05-28 14:07:05.583 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatePhoto]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatePhoto(java.lang.String)
+2018-05-28 14:07:05.584 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateCost]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateCost(java.lang.String)
+2018-05-28 14:07:05.585 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateCaseName]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateCaseName(java.lang.String)
+2018-05-28 14:07:05.586 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateType]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateType(java.lang.String)
+2018-05-28 14:07:05.587 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatemId]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatemId(java.lang.String)
+2018-05-28 14:07:05.587 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateBuilder]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateBuilder(java.lang.String)
+2018-05-28 14:07:05.588 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateBudget]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateBudget(java.lang.String)
+2018-05-28 14:07:05.589 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateSource]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateSource(java.lang.String)
+2018-05-28 14:07:05.590 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateDesigner]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateDesigner(java.lang.String)
+2018-05-28 14:07:05.590 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateTel]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateTel(java.lang.String)
+2018-05-28 14:07:05.591 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateQq]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateQq(java.lang.String)
+2018-05-28 14:07:05.592 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateSale]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateSale(java.lang.String)
+2018-05-28 14:07:05.593 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatePm]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatePm(java.lang.String)
+2018-05-28 14:07:05.593 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatePosition]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatePosition(java.lang.String)
+2018-05-28 14:07:05.594 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateGoodAtIndustry]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateGoodAtIndustry(java.lang.String)
+2018-05-28 14:07:05.595 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateEnglishAbility]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateEnglishAbility(java.lang.String)
+2018-05-28 14:07:05.595 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateCompanyName]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateCompanyName(java.lang.String)
+2018-05-28 14:07:05.596 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateDescription]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateDescription(java.lang.String)
+2018-05-28 14:07:05.597 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateExperience]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateExperience(java.lang.String)
+2018-05-28 14:07:05.598 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateGoodAtMaterial]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateGoodAtMaterial(java.lang.String)
+2018-05-28 14:07:05.598 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateGoodAtArea]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateGoodAtArea(java.lang.String)
+2018-05-28 14:07:05.599 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateExhibitionName]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateExhibitionName(java.lang.String)
+2018-05-28 14:07:05.600 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateMobile]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateMobilePhone(java.lang.String,boolean)
+2018-05-28 14:07:05.601 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatFirstParty]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatFirstParty(java.lang.String)
+2018-05-28 14:07:05.602 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatSecondParty]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatSecondParty(java.lang.String)
+2018-05-28 14:07:05.602 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateStartTime]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateStartTime(java.lang.String)
+2018-05-28 14:07:05.603 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateContractCode]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateContractCode(java.lang.String)
+2018-05-28 14:07:05.604 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateProjectName]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateProjectName(java.lang.String)
+2018-05-28 14:07:05.605 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateCampaignId]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateCampaignId(java.lang.String)
+2018-05-28 14:07:05.606 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateCampaignName]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateCampaignName(java.lang.String)
+2018-05-28 14:07:05.607 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateDesignStyle]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateDesignStyle(java.lang.String)
+2018-05-28 14:07:05.608 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateContractName]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateContractName(java.lang.String)
+2018-05-28 14:07:05.608 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatMiddlePaymentTime]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatMiddlePaymentTime(java.lang.String)
+2018-05-28 14:07:05.609 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateExhibitionNumber]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateExhibitionNumber(java.lang.String)
+2018-05-28 14:07:05.610 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatFinalPaymentTime]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatFinalPaymentTime(java.lang.String)
+2018-05-28 14:07:05.611 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatBillingInfo]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatBillingInfo(java.lang.String)
+2018-05-28 14:07:05.612 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatePlatformLevel]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatePlatformLevel(java.lang.String)
+2018-05-28 14:07:05.612 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateProjectId]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateProjectId(java.lang.String)
+2018-05-28 14:07:05.613 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatLedgerInput]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatLedgerInput(java.lang.String)
+2018-05-28 14:07:05.614 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateCustomerId]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateCustomerId(java.lang.String)
+2018-05-28 14:07:05.614 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateSetupTime]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateSetupTime(java.lang.String)
+2018-05-28 14:07:05.615 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatePotential]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatePotential(java.lang.String)
+2018-05-28 14:07:05.616 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatPaymentMethod]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatPaymentMethod(java.lang.String)
+2018-05-28 14:07:05.617 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatCostCenter]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatCostCenter(java.lang.String)
+2018-05-28 14:07:05.617 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateDesignerId]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateDesignerId(java.lang.String)
+2018-05-28 14:07:05.618 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateTearDownTime]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateTearDownTime(java.lang.String)
+2018-05-28 14:07:05.620 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatFollowTime]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatFollowTime(java.lang.String)
+2018-05-28 14:07:05.622 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateFactoryId]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateFactoryId(java.lang.String)
+2018-05-28 14:07:05.622 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateDevelopSaleId]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateDevelopSaleId(java.lang.String)
+2018-05-28 14:07:05.623 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatPaymentAmount]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatPaymentAmount(java.lang.String)
+2018-05-28 14:07:05.624 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatfollowDetail]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatfollowDetail(java.lang.String)
+2018-05-28 14:07:05.625 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatReasonForChange]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatReasonForChange(java.lang.String)
+2018-05-28 14:07:05.625 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validatPaymentTime]}" onto public java.lang.String com.yidatec.controller.ValidateController.validatPaymentTime(java.lang.String)
+2018-05-28 14:07:05.626 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateCasePhoto]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateCasePhoto(java.lang.String)
+2018-05-28 14:07:05.626 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateTaxpayerType]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateTaxpayerType(java.lang.String)
+2018-05-28 14:07:05.627 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateChooseExhibition]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateChooseExhibition(java.lang.String)
+2018-05-28 14:07:05.627 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateActivityDate]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateActivityDate(java.lang.String)
+2018-05-28 14:07:05.628 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateOrganizer]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateOrganizer(java.lang.String)
+2018-05-28 14:07:05.629 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/validateActivityName]}" onto public java.lang.String com.yidatec.controller.ValidateController.validateActivityName(java.lang.String)
+2018-05-28 14:07:05.631 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/getUserByRoleId]}" onto public java.lang.Object com.yidatec.controller.VendorAppointmentController.getUserByRoleId(java.lang.String)
+2018-05-28 14:07:05.631 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/vendorAppointmentList]}" onto public java.lang.String com.yidatec.controller.VendorAppointmentController.vendorAppointmentList(org.springframework.ui.ModelMap)
+2018-05-28 14:07:05.632 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/saveVendorAppointment]}" onto public java.lang.Object com.yidatec.controller.VendorAppointmentController.saveVendorAppointment(com.yidatec.model.VendorAppointment,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.633 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/deleteVendorAppointment]}" onto public java.lang.Object com.yidatec.controller.VendorAppointmentController.deleteVendorAppointment(java.lang.String) throws java.lang.Exception
+2018-05-28 14:07:05.634 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/findVendorAppointment]}" onto public java.util.List<com.yidatec.model.VendorAppointment> com.yidatec.controller.VendorAppointmentController.findVendorAppointment(com.yidatec.vo.VendorAppointmentVO) throws java.lang.Exception
+2018-05-28 14:07:05.636 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/campaign || /campaign/{campaignId}],methods=[GET]}" onto public java.lang.Object com.yidatec.controller.WechatCampaignController.activityEdit(org.springframework.ui.ModelMap,java.lang.String,java.lang.String)
+2018-05-28 14:07:05.637 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/campaigns],methods=[PUT]}" onto public java.lang.Object com.yidatec.controller.WechatCampaignController.saveActivity(com.yidatec.model.Activity,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.637 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/campaigns],methods=[POST]}" onto public java.lang.Object com.yidatec.controller.WechatCampaignController.findActivity(com.yidatec.vo.ActivityVO) throws java.lang.Exception
+2018-05-28 14:07:05.638 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/weixin.wx],methods=[POST]}" onto public java.lang.String com.yidatec.controller.WechatController.index_post(java.lang.String,java.lang.String,java.lang.String,java.lang.String,javax.servlet.http.HttpServletRequest)
+2018-05-28 14:07:05.639 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/weixin.wx],methods=[GET]}" onto public java.lang.String com.yidatec.controller.WechatController.index_get(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+2018-05-28 14:07:05.641 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/getCustomerContact]}" onto public java.lang.Object com.yidatec.controller.WechatCustomerController.getContact(java.lang.String)
+2018-05-28 14:07:05.642 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/customers],methods=[POST]}" onto public java.lang.Object com.yidatec.controller.WechatCustomerController.findCustomer(com.yidatec.vo.CustomerVO) throws java.lang.Exception
+2018-05-28 14:07:05.643 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/customer || /customer/{customerId}],methods=[GET]}" onto public java.lang.Object com.yidatec.controller.WechatCustomerController.customerEdit(org.springframework.ui.ModelMap,java.lang.String,java.lang.String)
+2018-05-28 14:07:05.643 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/customers],methods=[PUT]}" onto public java.lang.Object com.yidatec.controller.WechatCustomerController.saveCustomer(com.yidatec.model.Customer,org.springframework.validation.BindingResult) throws java.lang.Exception
+2018-05-28 14:07:05.649 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-05-28 14:07:05.650 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping -Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-05-28 14:07:05.794 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping -Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-05-28 14:07:05.794 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping -Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-05-28 14:07:05.842 [restartedMain] INFO  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver -Detected @ExceptionHandler methods in globalExceptionHandler
+2018-05-28 14:07:05.915 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping -Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-05-28 14:07:06.850 [restartedMain] INFO  o.s.w.s.v.f.FreeMarkerConfigurer -ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2018-05-28 14:07:07.906 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer -LiveReload server is running on port 35729
+2018-05-28 14:07:08.406 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter -Registering beans for JMX exposure on startup
+2018-05-28 14:07:08.435 [restartedMain] INFO  o.s.c.s.DefaultLifecycleProcessor -Starting beans in phase 2147483647
+2018-05-28 14:07:08.436 [restartedMain] INFO  o.s.s.quartz.SchedulerFactoryBean -Starting Quartz Scheduler now
+2018-05-28 14:07:08.436 [restartedMain] INFO  org.quartz.core.QuartzScheduler -Scheduler schedulerFactory_$_NON_CLUSTERED started.
+2018-05-28 14:07:08.710 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer -Tomcat started on port(s): 8080 (http)
+2018-05-28 14:07:08.723 [restartedMain] INFO  com.yidatec.CrmApplication -Started CrmApplication in 12.797 seconds (JVM running for 13.968)
+2018-05-28 14:07:09.958 [schedulerFactory_Worker-1] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-05-28 14:07:09.972 [schedulerFactory_Worker-1] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-05-28 14:07:09.973 [schedulerFactory_Worker-1] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [ot1E.A06293054]"}
+2018-05-28 14:07:10.016 [schedulerFactory_Worker-1] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-05-28 14:07:10.283 [schedulerFactory_Worker-1] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-05-28 14:07:10.283 [schedulerFactory_Worker-1] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-05-28 14:07:10.283 [schedulerFactory_Worker-1] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [JGqggA06292790]"}
+2018-05-28 14:07:10.284 [schedulerFactory_Worker-1] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-05-28 14:07:13.772 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-05-28 14:07:13.774 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-05-28 14:07:13.775 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [r45AAA06333612]"}
+2018-05-28 14:07:13.777 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:45)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-05-28 14:07:14.031 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-05-28 14:07:14.031 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-05-28 14:07:14.031 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [4XmuOA06331512]"}
+2018-05-28 14:07:14.032 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:45)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-05-28 14:07:14.594 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-05-28 14:07:14.595 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-05-28 14:07:14.595 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [HSIq0a0634sha2]"}
+2018-05-28 14:07:14.597 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:72)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-05-28 14:07:14.996 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-05-28 14:07:14.997 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-05-28 14:07:14.998 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [9GA93a06341512]"}
+2018-05-28 14:07:14.998 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:72)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-05-28 14:07:14.999 [schedulerFactory_Worker-2] ERROR c.yidatec.service.JsApiTicketService -{"errcode":40001,"errmsg":"invalid credential, access_token is invalid or not latest hint: [3a9iaa0633vr49!]"}
+java.lang.NullPointerException: null
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:56)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-05-28 14:07:15.306 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-05-28 14:07:15.306 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-05-28 14:07:15.307 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [go9BRa06343054]"}
+2018-05-28 14:07:15.307 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:45)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-05-28 14:07:15.618 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-05-28 14:07:15.618 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-05-28 14:07:15.619 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [GRxEja06353612]"}
+2018-05-28 14:07:15.620 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:45)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-05-28 14:07:16.197 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-05-28 14:07:16.198 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-05-28 14:07:16.198 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [sl9L906352974]"}
+2018-05-28 14:07:16.201 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:72)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-05-28 14:07:16.507 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-05-28 14:07:16.508 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-05-28 14:07:16.509 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [SCEb_06363055]"}
+2018-05-28 14:07:16.510 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:72)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-05-28 14:07:16.512 [schedulerFactory_Worker-2] ERROR c.yidatec.service.JsApiTicketService -{"errcode":40001,"errmsg":"invalid credential, access_token is invalid or not latest hint: [P0a_Da0635vr63!]"}
+java.lang.NullPointerException: null
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:56)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-05-28 14:07:20.763 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] -Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-05-28 14:07:20.763 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet -FrameworkServlet 'dispatcherServlet': initialization started
+2018-05-28 14:07:20.831 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet -FrameworkServlet 'dispatcherServlet': initialization completed in 68 ms
+2018-05-28 14:07:26.125 [http-nio-8080-exec-1] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /
+2018-05-28 14:14:45.897 [http-nio-8080-exec-2] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /
+2018-05-28 14:15:15.932 [http-nio-8080-exec-3] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /index
+2018-05-28 14:18:17.363 [http-nio-8080-exec-5] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /index
+2018-05-28 14:18:20.162 [http-nio-8080-exec-4] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /index
+2018-05-28 14:18:39.950 [http-nio-8080-exec-4] WARN  o.s.s.a.event.LoggerListener -Authentication event InteractiveAuthenticationSuccessEvent: 13333333333; details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null
+2018-05-28 14:18:39.978 [http-nio-8080-exec-1] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /login
+2018-05-28 14:18:40.036 [http-nio-8080-exec-10] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /index
+2018-05-28 14:18:40.201 [http-nio-8080-exec-3] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /lightbox/css/lightbox.min.css
+2018-05-28 14:18:40.324 [http-nio-8080-exec-6] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /lightbox/images/close.png
+2018-05-28 14:18:40.325 [http-nio-8080-exec-2] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /lightbox/images/prev.png
+2018-05-28 14:18:40.330 [http-nio-8080-exec-9] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /lightbox/images/loading.gif
+2018-05-28 14:18:40.331 [http-nio-8080-exec-1] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /lightbox/images/next.png
+2018-05-28 14:18:40.419 [http-nio-8080-exec-10] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /lightbox/images/close.png
+2018-05-28 14:18:40.420 [http-nio-8080-exec-8] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /lightbox/images/loading.gif
+2018-05-28 14:18:40.420 [http-nio-8080-exec-4] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /lightbox/images/next.png
+2018-05-28 14:18:40.422 [http-nio-8080-exec-3] INFO  o.s.s.access.event.LoggerListener -Security interception not required for public secure object: FilterInvocation: URL: /lightbox/images/prev.png

@@ -1,0 +1,182 @@
+2018-01-17 10:15:14.368 [schedulerFactory_Worker-1] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-01-17 10:15:14.372 [schedulerFactory_Worker-1] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-01-17 10:15:14.372 [schedulerFactory_Worker-1] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [xlw4Ja03101466]"}
+2018-01-17 10:15:14.418 [schedulerFactory_Worker-1] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-01-17 10:15:14.707 [schedulerFactory_Worker-1] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-01-17 10:15:14.708 [schedulerFactory_Worker-1] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-01-17 10:15:14.708 [schedulerFactory_Worker-1] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [.ge1qA0310sha6]"}
+2018-01-17 10:15:14.709 [schedulerFactory_Worker-1] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-01-17 10:15:19.922 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-01-17 10:15:19.923 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-01-17 10:15:19.924 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [L_Yjqa03151466]"}
+2018-01-17 10:15:19.925 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:45)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-01-17 10:15:20.244 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-01-17 10:15:20.244 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-01-17 10:15:20.244 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [eJceeA03153612]"}
+2018-01-17 10:15:20.245 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:45)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-01-17 10:15:20.828 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-01-17 10:15:20.828 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-01-17 10:15:20.828 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [_x_eLa03163612]"}
+2018-01-17 10:15:20.829 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:72)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-01-17 10:15:21.103 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-01-17 10:15:21.104 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-01-17 10:15:21.104 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [W14UMA0316sha8]"}
+2018-01-17 10:15:21.104 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:72)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-01-17 10:15:21.104 [schedulerFactory_Worker-2] ERROR c.yidatec.service.JsApiTicketService -{"errcode":40001,"errmsg":"invalid credential, access_token is invalid or not latest hint: [OreC0a0316vr43!]"}
+java.lang.NullPointerException: null
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:56)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-01-17 10:15:21.399 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-01-17 10:15:21.400 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-01-17 10:15:21.400 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [.i0Bpa03172976]"}
+2018-01-17 10:15:21.400 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:45)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-01-17 10:15:21.694 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-01-17 10:15:21.694 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-01-17 10:15:21.694 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [qVwgZa03171512]"}
+2018-01-17 10:15:21.695 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:45)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-01-17 10:15:22.251 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-01-17 10:15:22.252 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-01-17 10:15:22.252 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [4QQOva03181512]"}
+2018-01-17 10:15:22.252 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:72)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-01-17 10:15:22.583 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request url : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3c266a28dd967695&secret=20afca776d12ce99ef2f3427b74fc4fc
+2018-01-17 10:15:22.583 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -request method : get
+2018-01-17 10:15:22.583 [schedulerFactory_Worker-2] ERROR com.yidatec.util.HttpClientHelper -response body : {"errcode":40164,"errmsg":"invalid ip 123.177.23.124, not in whitelist hint: [znXOpA03181528]"}
+2018-01-17 10:15:22.584 [schedulerFactory_Worker-2] ERROR c.yidatec.service.AccessTokenService -null
+java.lang.NullPointerException: null
+	at com.yidatec.service.AccessTokenService.execute(AccessTokenService.java:54)
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:72)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2018-01-17 10:15:22.585 [schedulerFactory_Worker-2] ERROR c.yidatec.service.JsApiTicketService -{"errcode":40001,"errmsg":"invalid credential, access_token is invalid or not latest hint: [9.mlCa0317vr49!]"}
+java.lang.NullPointerException: null
+	at com.yidatec.service.JsApiTicketService.execute(JsApiTicketService.java:56)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:269)
+	at org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean$MethodInvokingJob.executeInternal(MethodInvokingJobDetailFactoryBean.java:257)
+	at org.springframework.scheduling.quartz.QuartzJobBean.execute(QuartzJobBean.java:75)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
